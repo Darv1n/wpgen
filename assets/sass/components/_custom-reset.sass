@@ -1,0 +1,232 @@
+*
+	box-sizing: border-box
+	&::before, &::after
+		box-sizing: border-box
+
+html
+	height: 100%
+	min-height: 100%
+	font-family: sans-serif
+	line-height: 1.15
+	text-rendering: optimizeLegibility
+	text-decoration-skip: ink
+	-webkit-font-smoothing: antialiased
+	-webkit-text-size-adjust: 100%
+	-ms-text-size-adjust: 100%
+	hyphens: auto
+	word-wrap: break-word
+	overflow-x: hidden
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+	display: block
+
+body
+	margin: 0
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+	font-size: 1rem
+	font-weight: 400
+	text-align: left
+	background-color: #fff
+	line-height: 1.35
+
+[tabindex="-1"]:focus
+	outline: 0 !important
+
+hr
+	box-sizing: content-box
+	height: 0
+	overflow: visible
+
+h1, h2, h3, h4, h5, h6
+	margin: 0 0 0.5rem 0
+
+p, dd, dl, figure, blockquote
+	margin: 0
+
+blockquote, q
+	quotes: none
+
+ul, ol, dl dd
+	padding-left: 1.5rem
+	margin: 0
+
+dl dd
+	margin-bottom: 0.5rem
+
+@media (min-width: 576px)
+	ul, ol, dl dd
+		padding-left: 3rem
+
+table
+	table-layout: fixed
+	width: 100%
+	border-collapse: collapse
+	border-spacing: 0
+
+th
+	font-weight: inherit
+
+audio, video
+	display: block
+
+img
+	display: block
+	border-style: none
+	vertical-align: middle
+
+iframe
+	border: none
+
+pre, code, kbd, samp
+	font-family: Consolas, "Lucida Console", monospace
+	font-size: inherit
+
+pre, code
+	white-space: pre-wrap
+
+abbr
+	border: none
+	text-decoration: none
+
+abbr
+	&[title], &[data-original-title]
+		text-decoration: underline dotted
+		cursor: help
+		border-bottom: 0
+
+dl dt, b, strong
+	font-weight: bold
+
+address, dfn, cite, em, i
+	font-style: italic
+
+mark, .mark
+	color: inherit
+	padding: 0.2em
+	background-color: #fcf8e3
+
+sub, sup
+	position: relative
+	vertical-align: baseline
+	font-size: 75%
+	line-height: 0
+
+sub
+	bottom: -.25em
+
+sup
+	top: -.5em
+
+del
+	opacity: 0.8
+
+button, input, optgroup, select, textarea
+	margin: 0
+	font-family: inherit
+	font-size: inherit
+	line-height: inherit
+
+button, input
+	overflow: visible
+
+button, select
+	text-transform: none
+
+button, [type="button"], [type="reset"], [type="submit"]
+	cursor: pointer
+
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner
+	border: none
+	padding: 0
+
+input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"]
+	-webkit-appearance: listbox
+
+textarea
+	resize: vertical
+	overflow: auto
+
+fieldset
+	min-width: 0
+	padding: 0
+	margin: 0
+	border: 0
+
+legend
+	margin-bottom: .5rem
+	padding: 0 .5rem
+	box-sizing: border-box
+	color: inherit
+	display: table
+	max-width: 100%
+	white-space: normal
+
+progress
+	vertical-align: baseline
+
+[type="number"]
+	&::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+		height: auto
+
+[type="search"]
+	outline-offset: -2px
+	-webkit-appearance: none
+	&::-webkit-search-decoration
+		-webkit-appearance: none
+
+*::-webkit-file-upload-button
+	-webkit-appearance: none
+	font: inherit
+
+*::-webkit-input-placeholder, *::-moz-input-placeholder, *:-moz-placeholder, *:-ms-input-placeholder
+	color: inherit
+	opacity: 1
+	transition: opacity .3s
+
+*:focus
+	&::-webkit-input-placeholder, &::-moz-input-placeholder, &:-moz-placeholder, &:-ms-input-placeholder
+		opacity: 0
+
+optgroup
+	font-weight: bold
+
+output
+	display: inline-block
+
+summary
+	display: list-item
+	cursor: pointer
+
+template
+	display: none
+
+object, embed, video
+	width: 100%
+	max-width: 100%
+
+svg
+	display: block
+	width: 100%
+	height: 100%
+	fill: currentColor
+
+svg:not(:root)
+	overflow: hidden
+
+[hidden]
+	display: none
+
+*:disabled, .disabled
+	cursor: not-allowed
+
+*::-ms-clear
+	display: none
+
+*:-webkit-autofill
+	box-shadow: 0 0 100px #fff inset
+	-webkit-text-fill-color: currentColor
+
+*::-moz-selection, *::selection
+	color: #fff
+	background-color: #0f4c81
+	text-shadow: none

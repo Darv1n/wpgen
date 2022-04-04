@@ -1,0 +1,2 @@
+# wpgen
+ Wpgen (parent theme)

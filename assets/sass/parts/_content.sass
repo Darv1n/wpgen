@@ -1,0 +1,316 @@
+// #Content
+.header, .footer
+	*
+		hyphens: none
+	h1, h2, h3, h4, h5, h6, p
+		margin-bottom: .5rem
+
+.header
+	ul, ol
+		&:last-child
+			margin-bottom: 0
+
+.footer
+	.btn, .button
+		margin-bottom: 1rem
+
+.entry__content
+	p, blockquote	
+		max-width: calc( 960px + 3rem )
+	h1, h2, h3, h4, h5, h6, ul, ol, dl
+		margin-bottom: 1rem
+	h2
+		margin-top: 2rem
+	h3
+		margin-top: 1.5rem
+	h5
+		margin-top: 1rem
+	h4
+		margin-top: .75rem
+	h6
+		margin-top: .5rem
+	*:first-child
+		margin-top: 0 !important
+	ul, ol
+		li
+			max-width: 960px
+		li:not(:last-child)
+			margin-bottom: .5rem
+	ul, ol
+		ul, ol
+			margin-bottom: 0
+	.btn, .button
+		margin-bottom: 1rem
+
+
+@media (min-width: 992px)
+	.entry__content
+		h2
+			margin-top: 3.5rem
+		h3
+			margin-top: 2rem
+		h5
+			margin-top: 1.5rem
+		h4
+			margin-top: 1rem
+		h6
+			margin-top: .75rem
+
+// #Site-branding
+.site-branding
+	margin-right: 1rem
+	.custom-logo-link
+		display: block
+		.custom-logo
+			width: auto
+			max-height: 86px
+	&__item
+		position: relative
+		display: inline-block
+	&__title
+		font-size: 2.5rem
+		line-height: 2.5rem
+	&__description
+		margin-bottom: 0 !important
+		font-size: $small-font-size
+		line-height: 1rem
+		color: $gray-color-dark
+	a.site-branding__item
+		color: inherit
+		text-decoration: none
+		&:hover, &:focus, &:active
+			color: inherit
+
+.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
+	.site-branding
+		&__title, &__description
+			color: $white-color
+
+
+
+
+
+.site
+	position: relative
+	&__content
+		padding: 1rem 0
+		overflow: hidden
+
+.content-area, .widget-area
+	margin-bottom: 2rem
+
+.header__item, .footer__item
+	display: block
+	margin-bottom: .5rem
+	vertical-align: middle
+	ul li
+		display: inline-block
+		margin-right: $margin
+		&:last-child
+			margin-right: 0
+
+
+
+.header
+	&_background-image
+		.header__middle-bar
+			background-size: cover !important
+			min-height: 320px
+	&_logo-center
+		.site-branding
+			text-align: center
+			.custom-logo-link
+				display: inline-block
+	&__top-bar
+		font-size: $small-font-size
+	&__top-bar, &__middle-bar, &__bottom-bar
+		padding: .5rem 0
+	&_top-bar-active
+		.header__middle-bar
+			padding-top: .5rem
+
+
+
+// #Footer
+.footer
+	position: relative
+	.widget, .footer-column, .social-list, .contacts-list, .copyright
+		margin-bottom: 1rem
+	.site-branding
+		margin-right: 0
+	&__top-bar
+		padding-top: 4rem
+		padding-bottom: 2rem
+	&__bottom-bar
+		padding-top: 1.5rem
+		background-color: $gray-color-light
+		.widget
+			margin-bottom: .5rem !important
+	&_bottom-bar-active 
+		.footer__top-bar
+			margin-bottom: 1rem
+
+.header_light, .footer_light
+	background: $bg-color-lighten
+
+.footer_light, .theme_light
+	.footer__bottom-bar
+		background: $bg-color-light
+
+.header_dark, .footer_dark
+	background: $bg-color-darken
+
+.footer_dark, .theme_dark
+	.footer__bottom-bar
+		background: $bg-color-dark
+
+.header_black, .footer_black
+	background: $text-color
+
+.footer_black, .theme_black
+	.footer__bottom-bar
+		background: $bg-color-darken
+
+// #Meta
+.entry__meta
+	margin-bottom: 1rem
+	&_inline
+		.meta
+			.meta__item
+				display: inline-block
+				vertical-align: top
+				&:not(:last-child)
+					margin-right: 1rem
+	&_list
+		.meta
+			.meta__item
+				display: block
+				&:not(:last-child)
+					margin-bottom: $gutter*2
+					margin-right: 0
+	.entry__date
+		&-modified
+			padding-left: $gutter
+			color: $gray-color-dark
+
+.meta
+	list-style-type: none
+	padding-left: 0
+	margin-bottom: 0
+	&__item
+		position: relative
+		padding-left: 19px
+		font-size: $small-font-size
+		vertical-align: middle
+		&.meta__item_autor
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#user) center no-repeat)
+		&.meta__item_date
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#calendar) center no-repeat)
+		&.meta__item_category, &.meta__item_tag
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#folder) center no-repeat)
+		&.meta__item_comments-count
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#comment) center no-repeat)
+		&.meta__item_edit
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#edit) center no-repeat)
+		&.meta__item_views-count
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#eye) center no-repeat)
+		&.meta__item_time
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#time) center no-repeat)
+
+.theme_dark, .theme_black
+	.meta__item
+		&::before
+			filter: invert(100%)
+		
+
+			
+
+
+// #Post #Article #Archives
+.section-title
+	margin-bottom: 2rem
+
+.entry
+	position: relative
+	display: block
+	width: 100%
+	&__part
+		display: block
+		width: 100%
+		&:not(:last-child)
+			margin-bottom: 1rem
+	&__title
+		margin-bottom: 0
+
+.entry.article-single
+	margin-bottom: 2rem
+
+.entry.article-archive
+	height: 100%
+	.meta, .entry__excerpt p, .link-more
+		margin-bottom: 0
+	.entry__title
+		font-size: $h4
+
+.attachment-post-thumbnail
+	max-height: 550px
+	width: auto
+
+.article-footer
+	&__item
+		display: block
+		margin-bottom: 1rem
+
+.post-categories, .post-tags
+	list-style-type: none
+	padding: 0
+	margin: 0
+	li
+		display: inline-block
+		margin-bottom: $gutter
+		&:not(:last-child)
+			margin-right: $gutter
+
+.single
+	.content-area
+		.post
+			margin-bottom: 3rem
+		.similar-posts
+			position: relative
+			margin-bottom: 1rem
+			.post
+				margin-bottom: 1rem
+
+
+.article-column
+	margin-bottom: 2rem
+
+.archive-title
+	margin-bottom: 1rem
+
+.post-thumbnail-bg
+	background-size: cover !important
+	padding-bottom: 66.66%
+
+.article-template_banners
+	.entry__part
+		margin-bottom: 0
+	.entry__meta, .entry__header
+		position: absolute
+		left: $gutter*2
+		padding: $gutter*2
+		background-color: $white-color
+	.entry__meta
+		top: $gutter*2
+	.entry__header
+		bottom: $gutter*2
+	.entry__title
+		font-size: $h5
+

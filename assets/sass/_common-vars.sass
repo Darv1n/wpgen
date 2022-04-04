@@ -1,0 +1,129 @@
+$primary-color-dark: var( --primaryColorDark )
+$primary-color-darken: var( --primaryColorDarken )
+$primary-color: var( --primaryColor )
+$primary-color-lighten: var( --primaryColorLighten )
+$primary-color-light: var( --primaryColorLight )
+
+$secondary-color-dark: var( --secondaryColorDark )
+$secondary-color-darken: var( --secondaryColorDarken )
+$secondary-color: var( --secondaryColor )
+$secondary-color-lighten: var( --secondaryColorLighten )
+$secondary-color-light: var( --secondaryColorLight )
+$secondary-color-text: var( --secondaryColorText )
+
+$text-color: var( --textColor )
+$white-color: var( --whiteColor )
+
+$gray-color-dark: var( --grayColorDark ) // для светлого текста
+$gray-color-darken: var( --grayColorDarken )
+$gray-color: var( --grayColor ) // для сепараторов, бордеров и выделения bg
+$gray-color-lighten: var( --grayColorLighten )
+$gray-color-light: var( --grayColorLight ) // для фона
+
+$bg-color-lighten: var( --bgColorLighten )// для светлого фона
+$bg-color-light: var( --bgColorLight ) // для сепараторов, бордеров и выделения bg (темнее, чем $primary-light)
+$bg-color-darken: var( --bgColorDarken ) // для темного фона
+$bg-color-dark: var( --bgColorDark ) // для сепараторов, бордеров и выделения bg (светлее, чем $dark-light)
+
+$link-color-dark: var( --linkColorDark )
+$link-color: var( --linkColor )
+$link-color-light: var( --linkColorLight )
+
+$allert-color: var( --allertColor )
+$warning-color: var( --warningColor )
+$accept-color: var( --acceptColor )
+
+$elem-bg-color: var( --elemBgColor )
+$elem-text-color: var( --elemTextColor )
+
+$bootstrap-gutter: .75rem //15px
+$gutter: 0.375rem
+
+$margin: $gutter*3
+$margin-top: $margin 0 0 0
+$margin-bottom: 0 0 $margin 0 
+$margin-vertical: $margin 0
+$margin-horizontal: 0 $margin
+
+$margin-section: $margin*4
+
+$padding: $gutter*3
+$padding-top: $padding 0 0 0
+$padding-bottom: 0 0 $padding 0 
+$padding-vertical: $padding 0
+$padding-horizontal: 0 $padding
+
+$primary-font: var( --primaryFont ), Arial, sans-serif
+$text-font: var( --secondaryFont ), Arial, sans-serif
+$primary-font-weight: bold
+
+$small-font-size: 0.75rem
+$medium-font-size: 1rem
+$large-font-size: 1.25rem
+$extra-large-font-size: 1.5rem
+
+$h1: 2.25rem
+$h2: 2rem
+$h3: 1.75rem
+$h4: 1.5rem
+$h5: 1.25rem
+$h6: 1rem
+
+//$border-width: 0.125rem
+$btn-bd-radius: var( --btnBdRadius )
+
+$border-width: var( --elemBdWidth )
+$bold-border-width: calc( var( --elemBdWidth ) * 2 )
+$border-radius: var( --elemBdRadius )
+
+$border-transparent: var( --elemBdWidth ) solid transparent
+$border-primary-color: var( --elemBdWidth ) solid var( --primaryColor )
+$border-light-primary-color: var( --elemBdWidth ) solid var( --primaryColorLighten )
+$border-dark-primary-color: var( --elemBdWidth ) solid var( --primaryColorDarken )
+$border-secondary-color: var( --elemBdWidth ) solid var( --secondaryColor )
+$border-light-secondary-color: var( --elemBdWidth ) solid var( --secondaryColorLighten )
+$border-dark-secondary-color: var( --elemBdWidth ) solid var( --secondaryColorDarken )
+
+$border-white-color: var( --elemBdWidth ) solid var( --whiteColor )
+$border-text-color: var( --elemBdWidth ) solid var( --textColor )
+$border-light-gray-color: var( --elemBdWidth ) solid var( --grayColorLighten )
+$border-middle-gray-color: var( --elemBdWidth ) solid var( --grayColor )
+$border-dark-gray-color: var( --elemBdWidth ) solid var( --grayColorDarken )
+
+$aspect-ratio: 66.6%
+$line-height: 1.4
+$letter-spacing: 0.08em
+$transition: all 0.25s ease-in-out
+
+$box-shadow: var( --elemShadow )
+$box-shadow-hover: var( --elemShadowHover )
+$elem-padding: var( --elemPadding )
+$elem-bd-width: var( --elemBdWidth )
+$elem-bd-color: var( --elemBdColor )
+$elem-bd-color-hover: var( --elemBdColorHover )
+$elem-bd-radius: var( --elemBdRadius )
+
+$input-bd-color: var( --inputBdColor )
+$input-padding: 0.5rem 0.75rem
+$input-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0)
+$input-shadow-focus: 0px 5px 15px -7px rgba(0, 0, 0, 0.2)
+
+$small-button-padding: var( --buttonPaddingTop ) var( --buttonPaddingLeft ) //.5rem 1.75rem
+$button-padding: calc( var( --buttonPaddingTop ) * 1.25 ) calc( var( --buttonPaddingLeft ) * 1.25 ) //.875rem 2.25rem
+$button-text-color: var( --whiteColor )
+$button-text-color-hover: var( --whiteColor )
+$button-shadow: var( --elemShadow )
+$button-shadow-hover: var( --elemShadowHover )
+
+$primary-gradient: linear-gradient( 60deg, var( --primaryColorLighten ) 0%, var( --primaryColor ) 35%, var( --primaryColorDarken ) 100%)
+$primary-gradient-reflect: linear-gradient( 30deg, var( --primaryColorDarken ) 0%, var( --primaryColor ) 70%, var( --primaryColorLighten ) 100%)
+
+$secondary-gradient: linear-gradient( 60deg, var( --secondaryColorLighten ) 0%, var( --secondaryColor ) 35%, var( --secondaryColorDarken ) 100%)
+$secondary-gradient-reflect: linear-gradient( 30deg, var( --secondaryColorDarken ) 0%, var( --secondaryColor ) 70%, var( --secondaryColorLighten ) 100%)
+
+$gray-gradient: linear-gradient( 60deg, var( --grayColorLighten ) 0%, var( --grayColor ) 35%, var( --grayColorDarken ) 100%)
+$gray-gradient-reflect: linear-gradient( 30deg, var( --grayColorDarken ) 0%, var( --grayColor ) 70%, var( --grayColorLighten ) 100%)
+
+$radial-primary-gradient: radial-gradient( var( --primaryColorLighten ) 0%, var( --primaryColor ) 55%, var( --primaryColorDarken ) 100% )
+$radial-secondary-gradient: radial-gradient( var( --secondaryColorLighten ) 0%, var( --secondaryColor ) 55%, var( --secondaryColorDarken ) 100% )
+$radial-gray-gradient: radial-gradient( var( --grayColorLighten ) 0%, var( --grayColor ) 55%, var( --grayColorDarken ) 100% )

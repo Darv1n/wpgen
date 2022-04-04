@@ -1,0 +1,140 @@
+.clearfix
+	&:before
+		display: table
+		line-height: 0
+		content: ""
+	&:after
+		display: table
+		line-height: 0
+		content: ""
+		clear: both
+
+
+.says, .screen-reader-text
+	clip: rect(1px, 1px, 1px, 1px)
+	clip-path: polygon(0 0, 0 0, 0 0, 0 0)
+	position: absolute !important
+	white-space: nowrap
+	height: 1px
+	width: 1px
+	overflow: hidden
+	&:focus
+		clip: auto !important
+		display: block
+		height: auto
+		left: 5px
+		top: 5px
+		width: auto
+		z-index: 100000
+
+@media (min-width: 768px)
+	.text-md-left
+		text-align: left
+	.text-md-right
+		text-align: right
+
+.alignnone
+	margin: 5px 20px 10px 0
+
+.aligncenter
+	display: block
+	margin: 5px auto 10px auto
+	clear: both
+
+.alignright
+	float: right
+	margin: 5px 0 20px 20px
+
+.alignleft
+	float: left
+	margin: 5px 20px 10px 0
+
+a img
+	&.alignright
+		float: right
+		margin: 5px 0 10px 20px
+	&.alignnone
+		margin: 5px 20px 10px 0
+	&.alignleft
+		float: left
+		margin: 5px 20px 10px 0
+	&.aligncenter
+		display: block
+		margin-left: auto
+		margin-right: auto
+
+.gallery
+	margin-bottom: 1rem
+	.gallery-item
+		display: inline-block
+		width: 100%
+		max-width: 33.33%
+		margin-bottom: 0
+		text-align: center
+		vertical-align: top
+		padding: .25rem
+	&.gallery-columns-1 .gallery-item
+		max-width: 100%
+	&.gallery-columns-2 .gallery-item
+		max-width: 50%
+	&.gallery-columns-4 .gallery-item
+		max-width: 25%
+	&.gallery-columns-5 .gallery-item
+		max-width: 20%
+	&.gallery-columns-6 .gallery-item
+		max-width: 16.66%
+	&.gallery-columns-7 .gallery-item
+		max-width: 14.28%
+	&.gallery-columns-8 .gallery-item
+		max-width: 12.5%
+	&.gallery-columns-9 .gallery-item
+		max-width: 11.11%
+	.gallery-icon img
+		margin: 0 auto
+	.gallery-caption
+		margin-top: 1rem	
+		display: block
+		font-size: $small-font-size
+		color: $gray-color-dark
+
+
+// #dropdown
+.dropup, .dropdown
+	position: relative
+
+.dropdown-toggle
+	display: inline-block
+	vertical-align: middle
+	cursor: pointer
+	.dropdown-toggle__icon
+		display: block
+		width: 12px
+		height: 12px
+		background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat
+		transition: $transition
+	&.dropdown-toggled-on
+		.dropdown-toggle__icon
+			transform: rotate(180deg)
+
+
+
+// подсветка атрибута data-title при наведении
+.data-title
+	display: inline-block
+	position: relative
+	&:hover::after
+		content: attr(data-title)
+		position: absolute
+		left: 75%
+		top: 90%
+		width: 100%
+		min-width: 110px
+		z-index: 1
+		padding: $gutter $gutter*2
+		text-align: center
+		font-size: 11px
+		hyphens: none
+		color: $text-color
+		background-color: $gray-color-light
+		border: $border-middle-gray-color
+		border-radius: $border-radius

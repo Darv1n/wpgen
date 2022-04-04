@@ -1,0 +1,70 @@
+a
+	background-color: transparent
+	color: inherit
+
+a
+	text-decoration: none
+	color: $link-color
+	&:hover, &:focus, &:active
+		color: $link-color-dark
+
+a.link
+	color: $text-color
+	border-bottom: $border-width solid $primary-color
+	&:hover, &:focus, &:active
+		color: $primary-color
+		border-bottom: $border-width solid $primary-color-dark
+
+a.link-white
+	color: $white-color 
+	border-bottom: $border-width solid $primary-color
+	&:hover, &:focus, &:active
+		color: $white-color
+		border-bottom: $border-width solid $primary-color-dark
+		opacity: 0.75
+
+.theme_dark, .theme_black, .theme_elems_dark .elem, .theme_elems_black .elem
+	a.link
+		color: $white-color
+		&:hover, &:focus, &:active
+			color: $white-color
+			opacity: 0.75
+
+.theme_elems_light .elem, .theme_elems_white .elem
+	a.link
+		color: $text-color
+		&:hover, &:focus, &:active
+			color: $primary-color
+
+a.link-minor
+	color: $gray-color-dark
+	&:hover, &:focus, &:active
+		color: $link-color
+
+.theme_dark, .theme_black, .theme_elems_dark .elem, .theme_elems_black .elem
+	a.link-minor
+		color: $gray-color-lighten
+		&:hover, &:focus, &:active
+			color: $gray-color-light
+
+.theme_elems_light .elem, .theme_elems_white .elem
+	a.link
+		color: $gray-color-dark
+		&:hover, &:focus, &:active
+			color: $link-color
+
+a.link.link-minor
+	border-bottom: $border-width solid $gray-color-lighten
+	&:hover, &:focus, &:active
+		border-bottom: $border-width solid $link-color
+
+a.inactive
+	color: inherit
+	text-decoration: none
+	&:hover, &:focus, &:active
+		color: inherit
+		
+h1, h2, h3, h4, h5, h6
+	a
+		color: inherit
+		text-decoration: none

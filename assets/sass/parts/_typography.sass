@@ -1,0 +1,324 @@
+\::-moz-selection, ::selection
+	background: $primary-color
+	color: $button-text-color
+	text-shadow: none
+
+body
+	position: relative
+	width: 100%
+	min-width: 320px
+	font-family: $text-font
+	font-size: $medium-font-size
+	line-height: $line-height
+	color: $text-color
+	overflow: hidden
+
+\::-webkit-scrollbar
+	width: 10px
+
+\::-webkit-scrollbar-track
+	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, 0.3 )
+	-webkit-border-radius: 10px
+	border-radius: 10px
+
+\::-webkit-scrollbar-thumb
+	-webkit-border-radius: 10px
+	border-radius: 10px
+	background: rgba( $primary-color, 1 )
+	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, 0.5 )
+	&:window-inactive
+		background: rgba( $primary-color, 0.5 )
+
+.hidden
+	display: none !important
+
+.relative
+	position: relative
+
+.bg-color
+	background: $white-color
+
+.theme_light
+	background: $bg-color-lighten
+	.bg-color
+		background: $bg-color-lighten
+
+.theme_dark
+	background: $bg-color-darken
+	.bg-color
+		background: $bg-color-darken
+
+.theme_black
+	background: $text-color
+	.bg-color
+		background: $text-color
+
+.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
+	color: $white-color
+
+//	#Typography
+small, .small
+	font-size: $small-font-size
+
+big, .big, .large
+	font-size: $large-font-size
+
+.primary-font
+	font-family: $primary-font
+	font-weight: $primary-font-weight
+
+.bold
+	font-weight: bold
+		
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
+	margin-bottom: 1rem
+	font-family: $primary-font
+	font-weight: $primary-font-weight
+	line-height: 1.2
+	hyphens: none
+
+h1, .h1
+	font-size: $h3
+h2, .h2
+	font-size: $h4
+h3, .h3
+	font-size: $h5
+h4, .h4, h5, .h5
+	font-size: $h6
+
+@media (min-width: 576px)
+	h1, .h1
+		font-size: $h2
+	h2, .h2
+		font-size: $h3
+	h3, .h3
+		font-size: $h4
+	h4, .h4
+		font-size: $h5
+
+@media (min-width: 992px)
+	h1, .h1
+		font-size: $h1
+	h2, .h2
+		font-size: $h2
+	h3, .h3
+		font-size: $h3
+	h4, .h4
+		font-size: $h4
+	h5, .h5
+		font-size: $h5
+
+h6, .h6
+	font-size: $h6
+
+ul, ol, dl
+	margin-bottom: 1rem
+
+p
+	margin-bottom: 1rem
+	&:last-child
+		margin-bottom: 0
+
+hr, address, fieldset, figure
+	margin-bottom: 1rem
+
+hr
+	margin-top: 1rem
+	margin-bottom: 1rem
+	border: 0
+	border-top: 1px solid rgba(0, 0, 0, .1)
+
+fieldset
+	padding: .725rem 1.5rem
+	border: $border-middle-gray-color
+	margin-bottom: 1rem
+
+img
+	display: block
+	max-width: 100%
+	height: auto
+
+svg
+	transition: $transition
+
+code, kbd, pre, samp
+	font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+
+code
+	padding: .2rem .4rem
+	font-size: .875rem
+	background-color: #f1f1f1
+	border-radius: .2rem
+	word-break: break-word
+
+a > code
+	color: inherit
+
+pre
+	display: block
+	font-size: .75rem
+
+pre code
+	padding: 0
+	font-size: inherit
+	background-color: transparent
+	border-radius: .25rem
+	word-break: normal
+
+kbd
+	padding: .2rem .4rem
+	font-size: .875rem
+	background-color: #f1f1f1
+	border: $border-middle-gray-color
+	border-radius: .2rem
+
+kbd kbd
+	padding: 0
+	font-size: 100%
+	font-weight: bold
+
+.theme_dark, .theme_black
+	code, kbd
+		color: $text-color
+
+caption
+	padding-top: .75rem
+	padding-bottom: .75rem
+	color: #6c757d
+	text-align: right
+	caption-side: bottom
+
+caption.caption-title
+	padding-top: 0
+	padding-bottom: .5rem
+	caption-side: top
+	text-align: left
+	font-size: $h3
+	color: $text-color
+	font-family: $primary-font
+	font-weight: $primary-font-weight
+
+
+blockquote
+	position: relative
+	display: block
+	margin-left: 2.5rem
+	margin-bottom: 1rem
+	padding: 1.5rem
+	background-color: $gray-color-light
+	border-left: $bold-border-width solid $primary-color
+	cite
+		display: block
+		text-align: right
+		font-style: italic
+		color: $gray-color-dark
+		&::before
+			content: "\2014\00a0"
+	*:last-child
+		margin: 0
+
+.theme_dark, .theme_black
+	blockquote
+		background-color: $gray-color-light
+		color: $text-color
+
+.theme_light
+	blockquote
+		background-color: $white-color
+
+@media (min-width: 576px)
+	blockquote
+		margin-left: 3.5rem
+
+table, .table
+	margin-bottom: 1rem
+	width: 100%
+	max-width: 100%
+	background-color: transparent
+	font-size: .75rem
+	td, th
+		padding: .375rem .75rem
+		vertical-align: middle
+		border-top: 1px solid $gray-color-lighten
+	thead th
+		background: $gray-color-lighten
+		color: $text-color
+		font-weight: bold
+		border-bottom: 2px solid $gray-color-lighten
+		hyphens: none
+	tbody
+		border-top: 2px solid $gray-color-lighten
+
+
+@media (min-width: 576px)
+	table
+		font-size: .825rem
+		td, th
+			padding: .5rem 1rem
+
+.wp-calendar-table
+	td, th
+		padding: .375rem .25rem
+		text-align: center
+
+.wp-block-table
+	overflow-x: auto
+	margin-bottom: 1rem
+	table
+		min-width: 600px
+		margin-bottom: 0
+
+.wp-caption
+  max-width: 100%
+  overflow: hidden
+
+.wp-caption-text
+  padding: $gutter*2
+  text-align: center
+  font-size: $small-font-size
+
+.wp-block-image figcaption
+  text-align: right
+  font-size: $small-font-size
+
+.wp-video
+	margin-bottom: 1rem
+
+.center-text
+  text-align: center
+
+.list-unstyled
+	padding-left: 0
+	list-style: none
+
+.list-inline
+	padding-left: 0
+	list-style: none
+	li
+		display: inline-block
+
+.list-inline-item
+	display: inline-block
+
+.list-inline-item:not(:last-child)
+	margin-right: .5rem
+
+.initialism
+	font-size: 90%
+	text-transform: uppercase
+
+.transition
+	transition: $transition
+
+// #Colors
+.primary-color
+	color: $primary-color
+
+.secondary-color
+	color: $secondary-color
+
+a, button, select
+	cursor: pointer
+
+a, button, input, select, textarea
+	transition: $transition

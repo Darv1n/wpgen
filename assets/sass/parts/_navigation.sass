@@ -1,0 +1,61 @@
+.post-navigation, .posts-navigation
+	margin-bottom: 2rem
+	&__item_previous
+		text-align: left
+	&__item_next
+		text-align: right
+
+.post-navigation
+	&__item
+		a
+			display: block
+			padding: $padding
+			color: $text-color
+			background-color: $gray-color-light
+			&:hover, &:focus, &:active
+				background-color: $primary-color
+	.entry__title, .entry__post-date
+		display: block
+	.entry__post-date
+		color: $gray-color-dark
+		font-size: $small-font-size
+
+.posts-navigation
+	&__item
+		display: inline-block
+		width: 36px
+		height: 36px
+		line-height: 2.1rem
+		text-align: center
+		font-size: $small-font-size
+		text-transform: uppercase
+		color: $white-color
+		background-color: $primary-color
+		border: $border-primary-color
+		border-radius: $border-radius
+		vertical-align: middle
+		&:not(:last-child)
+			margin-right: $gutter*2
+		&_current
+			background-color: $gray-color
+			border: $border-middle-gray-color
+			color: $text-color
+	a.posts-navigation__item
+		text-decoration: none
+		position: relative
+		&:hover, &:focus, &:active
+			color: $white-color
+			background-color: $primary-color-light
+			border: $border-light-primary-color
+			text-decoration: none
+	a.posts-navigation__item
+		&.posts-navigation__item_previous
+			&::before
+				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
+				transform: translate(-50%, -50%) rotate(90deg)
+				filter: invert(100%)
+		&.posts-navigation__item_next
+			&::before
+				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
+				transform: translate(-50%, -50%) rotate(-90deg)
+				filter: invert(100%)

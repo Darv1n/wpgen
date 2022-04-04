@@ -1,0 +1,466 @@
+// #Menu Toggle
+@media (min-width: 992px)
+	.main-menu.main-menu_type-open
+		.menu-toggle
+			display: none
+
+// .menu-toggle
+// 	&_text
+// 		padding: .375rem
+// 		display: block
+// 		transition: none
+// 	&__text, &__icon
+// 		display: inline-block
+// 	&__icon
+// 		position: relative
+// 		width: 17px
+// 		height: 17px
+// 		vertical-align: middle
+// 		&::before
+// 			@include pseudo($width: 100%, $background: url(../img/icons/sets/set-default.svg#menu-open) center no-repeat)
+// 			transition: $transition
+// 			opacity: 1
+// 		&::after
+// 			@include pseudo($width: 100%, $background: url(../img/icons/sets/set-default.svg#menu-close) center no-repeat)
+// 			transition: $transition
+// 			opacity: 0
+// 	&.toggled-on
+// 		.menu-toggle__icon
+// 			&::before
+// 				opacity: 0
+// 			&::after
+// 				opacity: 1
+
+
+.menu-toggle
+	display: block
+	&_button
+		color: $white-color
+		&:hover, &:focus, &:active
+			color: $white-color
+	&_icon
+		position: relative
+		&::before
+			@include pseudo($left: var( --buttonPaddingLeft ), $top: 50%, $width: 1rem, $height: 1rem, $background: url(../img/icons/sets/set-default.svg#menu-open) center no-repeat)
+			transform: translateY(-50%)
+			transition: $transition
+		&.toggled-on
+			&::before
+				background: url(../img/icons/sets/set-default.svg#menu-close) center no-repeat
+		&.menu-toggle_solo-icon
+			padding: 1rem
+			&::before
+				left: 50%
+				transform: translate(-50%, -50%) rotate(180deg)
+		&.menu-toggle_icon-left
+			padding-left: calc( var( --buttonPaddingLeft ) + 1.125rem )
+			&.btn-reset
+				padding-left: 1.25rem
+				&::before
+					left: 0
+		&.menu-toggle_icon-right
+			padding-right: calc( var( --buttonPaddingLeft ) + 1.125rem )
+			&::before
+				left: auto
+				right: 1.25rem
+			&.btn-reset
+				&::before
+					right: 0
+		&.menu-toggle_button
+			&::before
+				filter: invert(100%)
+	&_left
+		text-align: left
+	&_right
+		text-align: right
+		margin-left: auto
+		margin-right: 0
+	&_center
+		text-align: center
+		margin: auto
+
+// если отменить резет кнопки, то эти стили тоже нужно отменять (или нет?)
+.header_dark, .header_black, .theme_dark, .theme_black
+	.menu-toggle:not(.menu-toggle_button)
+		color: $white-color
+		&:hover, &:focus, &:active
+			color: $white-color
+	.menu-toggle_icon:not(.menu-toggle_button)
+		&::before
+			filter: invert(100%)
+
+
+.theme_dark, .theme_black
+	.header_menu_fixed
+		.menu-toggle_text.toggled-on
+			color: $white-color
+
+.header_menu_fixed
+	&.header_white, &.header_light
+		.menu-toggle:not(.menu-toggle_button)
+			color: $text-color
+			&:hover, &:focus, &:active
+				color: $text-color
+	&.header_dark, &.header_black, &.theme_dark, &.theme_black, &.header_menu-dark, &.header_menu-black
+		.menu-toggle:not(.menu-toggle_button)
+			color: $white-color
+		.menu-toggle_icon:not(.menu-toggle_button)
+			&::before
+				filter: invert(100%)
+	&.header_menu-dark, &.header_menu-black
+		.menu-toggle_icon:not(.menu-toggle_button):not(.toggled-on)
+			&::before
+				filter: invert(100%)
+
+
+
+// #Menu
+.main-menu
+	padding: 1rem 0
+	ul.menu
+		padding: 0
+		margin-bottom: 0
+	.menu-item
+		position: relative
+		display: block
+		text-align: right
+		.dropdown-toggle
+			padding: .5rem
+		a
+			display: inline-block
+			padding: $padding/2 0
+			color: $text-color
+			text-decoration: none
+			&:hover, &:focus, &:active
+				text-decoration: none
+				color: $link-color-dark
+		.sub-menu
+			position: relative
+			display: none
+			padding-left: $padding
+			background: $white-color
+			.menu-item:not(:last-child)
+				border-bottom: $border-middle-gray-color
+	.current-menu-item a
+		text-decoration: none
+		color: $link-color-dark
+
+
+
+.header_logo-center
+	.menu-toggle
+		margin: auto
+	.main-menu
+		.menu-item
+			text-align: center
+
+.header_content
+	.main-menu
+		.menu-item
+			text-align: left
+
+.main-menu.main-menu-burgered
+	position: relative
+	width: 100%
+	.menu-toggle_left ~ .main-navigation
+		.menu-item
+			text-align: left
+	.menu-toggle_center ~ .main-navigation
+		.menu-item
+			text-align: center
+	.menu-toggle_right ~ .main-navigation
+		.menu-item
+			text-align: right
+	.menu-item:not(:last-child)
+		border-bottom: $border-middle-gray-color
+	.menu
+		padding: .25rem .5rem
+		overflow-y: auto
+
+
+// выравнивание кнопки
+.header_simple
+	.menu-toggle
+		position: relative
+		//position: absolute
+		//right: 0
+		//z-index: 11
+	&.header_menu_relative
+		.menu-toggle
+			//top: 1rem // костыль, мы не можем посчитать высоту хедера, чтобы выровнить кнопку
+	&.header_menu_fixed
+		//position: relative
+	&.header_menu_absolute, &.header_menu_fixed
+		.menu-toggle
+			//top: 1rem // костыль, мы не можем посчитать высоту хедера, чтобы выровнить кнопку
+			//top: 50%
+			//transform: translateY(-50%)
+
+
+// выравнивание текста
+// .main-menu.main-menu-right
+// 	.menu-toggle
+// 		margin-right: 0
+// 		margin-left: auto
+// 	.menu-item
+// 		text-align: right
+// .main-menu.main-menu-center
+// 	.menu-toggle
+// 		margin: auto
+
+
+
+
+
+.header_menu_absolute, .header_menu_fixed
+	.main-menu.main-menu-burgered
+		.main-navigation
+			position: absolute
+			top: 100%
+			left: 0
+			z-index: 10
+			width: 100%
+			visibility: hidden
+			opacity: 0
+			&.toggled-on
+				visibility: visible
+				opacity: 1
+	&.header_simple
+		.main-menu.main-menu-burgered
+			.main-navigation
+				left: auto
+				right: 0 // в простом меню кнопка всегда справа и меню открывается справа
+	&:not(.header_simple)
+		&.main-menu-center
+			.main-navigation
+				text-align: center
+				left: 50%
+				transform: translateX(-50%)
+		&.main-menu-right
+			.main-navigation
+				text-align: right
+				left: auto
+				right: 0
+
+
+.header_menu_absolute
+	.main-menu.main-menu-burgered
+		.main-navigation
+			max-width: 540px
+
+
+.header_menu_fixed
+	.main-menu-burgered
+		position: absolute
+		left: 0
+		padding: .25rem .5rem
+	&.main-menu-center
+		.main-menu
+			//left: 50%
+			//transform: translateX(-50%)
+	&.main-menu-right
+		.main-menu
+			left: auto
+			right: 0
+	&.header_simple
+		.main-menu
+			left: auto // если хедер простой, то меню фиксируем справа
+			right: 0
+	&.header_expanded
+		position: fixed
+		top: 0
+		z-index: 9999
+		height: 100vh
+		width: 100%
+		background: $white-color
+		&.header_light, &.header_menu-light
+			background: $bg-color-light
+		&.header_dark, &.header_menu-dark
+			background: $bg-color-dark
+		&.header_black, &.header_menu-black
+			background: $text-color
+		&.header_dark, &.header_menu-dark, &.header_black, &.header_menu-black
+			.menu-item a
+				color: $white-color // белые ссылки в темном меню
+				&:hover, &:focus, &:active
+					color: $link-color-dark
+			.current-menu-item a
+				color: $link-color-dark
+
+
+
+
+// цвета (вся эта хуйня сработает только для absolute, потому что для fixed класс с цветом не выводится)
+.header_menu_absolute
+	.main-menu.main-menu-burgered
+		&.main-menu-dark, &.main-menu-black
+			.menu-item a
+				color: $white-color // белые ссылки в темном меню
+				&:hover, &:focus, &:active
+					color: $link-color-dark
+			.current-menu-item a
+				color: $link-color-dark
+	// background меню
+	.main-menu.main-menu-burgered.main-menu-white
+		.main-navigation
+			background: $white-color
+	.main-menu.main-menu-burgered.main-menu-light
+		.main-navigation
+			background: $bg-color-light
+	.main-menu.main-menu-burgered.main-menu-dark
+		.main-navigation
+			background: $bg-color-dark
+	.main-menu.main-menu-burgered.main-menu-black
+		.main-navigation
+			background: $text-color
+	// бордеры
+	.main-menu.main-menu-burgered.main-menu-white
+		.menu-item:not(:last-child)
+			border-bottom: $border-width solid $bg-color-lighten
+	.main-menu.main-menu-burgered.main-menu-light
+		.menu-item:not(:last-child)
+			border-bottom: $border-width solid $bg-color-lighten
+	.main-menu.main-menu-burgered.main-menu-dark
+		.menu-item:not(:last-child)
+			border-bottom: $border-width solid $bg-color-darken
+	.main-menu.main-menu-burgered.main-menu-black
+		.menu-item:not(:last-child)
+			border-bottom: $border-width solid $bg-color-darken
+	// саб меню
+	.main-menu.main-menu-light
+		.sub-menu
+			background: $bg-color-light
+			.menu-item:not(:last-child)
+				border-bottom: $border-width solid $bg-color-lighten
+	.main-menu.main-menu-dark
+		.sub-menu
+			background: $bg-color-dark
+			.menu-item:not(:last-child)
+				border-bottom: $border-width solid $bg-color-darken
+	.main-menu.main-menu-black
+		.sub-menu
+			background: $text-color
+			.menu-item:not(:last-child)
+				border-bottom: $border-width solid $bg-color-darken
+	.main-menu.main-menu-dark, .main-menu.main-menu-black
+		.sub-menu
+			.menu-item a
+				color: $white-color // белые ссылки в темном меню
+				&:hover, &:focus, &:active
+					color: $link-color-dark
+			.current-menu-item a
+				color: $link-color-dark
+		.dropdown-toggle__icon
+			filter: invert(100%) // темный контейнер меню - белая стрелка
+
+
+
+
+.header_menu_fixed
+	&.header_dark, &.header_black
+		.main-menu.main-menu-burgered
+			.menu-item a
+				color: $white-color // белые ссылки в темном меню
+				&:hover, &:focus, &:active
+					color: $link-color-dark
+			.current-menu-item a
+				color: $link-color-dark
+			.menu-item:not(:last-child)
+				border-bottom: $border-width solid $bg-color-dark
+			.sub-menu
+				.menu-item a
+					color: $white-color // белые ссылки в темном меню
+					&:hover, &:focus, &:active
+						color: $link-color-dark
+				.current-menu-item a
+					color: $link-color-dark
+			.dropdown-toggle__icon
+				filter: invert(100%) // темный контейнер меню - белая стрелка
+	&.header_light
+		.main-menu.main-menu-burgered
+			.menu-item:not(:last-child)
+				border-bottom: $border-width solid $bg-color-light
+			.sub-menu
+				background: $bg-color-light
+				.menu-item:not(:last-child)
+					border-bottom: $border-width solid $bg-color-light
+	&.header_dark
+		.main-menu.main-menu-burgered
+			.sub-menu
+				background: $bg-color-dark
+				.menu-item:not(:last-child)
+					border-bottom: $border-width solid $bg-color-dark
+	&.header_black
+		.main-menu.main-menu-burgered
+			.sub-menu
+				background: $text-color
+				.menu-item:not(:last-child)
+					border-bottom: $border-width solid $bg-color-dark
+
+
+
+
+
+
+
+
+@media (min-width: 992px)
+	.main-menu.main-menu_type-open
+		.dropdown-toggle__icon
+			filter: invert(0%)
+		.menu > .menu-item
+			display: inline-block
+			margin: 0 1rem
+		.menu-item
+			position: relative
+			.sub-menu
+				position: absolute
+				left: 0
+				z-index: 11
+				padding: .5rem 1.5rem
+				min-width: 290px
+				border-radius: $border-radius
+				border: $border-width solid $gray-color-light
+				text-align: left
+				.dropdown-toggle__icon
+					filter: invert(100%)
+				.menu-item
+					display: block
+					margin: 0
+					a
+						padding: .5rem 0
+		&.main-menu-right
+			.menu-item
+				.sub-menu
+					left: auto
+					right: 0
+		&.main-menu-light
+			.menu-item
+				.sub-menu
+					border: $border-width solid $bg-color-light
+		&.main-menu-dark
+			.menu-item
+				.sub-menu
+					border: $border-width solid $bg-color-dark
+	.header_dark, .header_black
+		.main-menu.main-menu_type-open
+			.menu > .menu-item a
+				color: $white-color // белые ссылки в инлайновом, темном меню
+				&:hover, &:focus, &:active
+					color: $link-color-dark
+			.menu > .current-menu-item a
+				color: $link-color-dark
+		.main-menu.main-menu_type-open.main-menu-white, .main-menu.main-menu_type-open.main-menu-light
+			.sub-menu
+				.dropdown-toggle__icon
+					filter: invert(0%) // темная тема и открытое светлое меню - темная стрелка у второго+ уровня
+				.menu-item a
+					color: $text-color // темные ссылки в открытом, светлом меню
+					&:hover, &:focus, &:active
+						color: $link-color-dark
+				.current-menu-item a
+					color: $link-color-dark
+		.main-menu.main-menu_type-open
+			.menu > .menu-item
+				.dropdown-toggle__icon
+					filter: invert(100%) // темная тема и открытое меню - белая стрелка у первого уровня

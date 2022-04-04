@@ -1,0 +1,32 @@
+.widget-area
+	.widget
+		position: relative
+		margin-bottom: 2rem
+
+.widget
+	&-title
+		margin-bottom: .5rem
+		font-size: $h4
+	ul, ol, dl
+		list-style-type: none
+		padding-left: 0
+		li:not(:last-child)
+			margin-bottom: .375rem
+	&.widget_recent_entries
+		.entry__post-date, .post-date
+			display: block
+			margin-top: $gutter
+			font-size: $small-font-size
+			color: $gray-color-dark
+	&.widget_rss
+		.rss-date, .rssSummary, cite, img
+			display: block
+			margin-top: $gutter
+		.rss-date, cite
+			font-size: $small-font-size
+			color: $gray-color-dark
+	&.widget_recent_comments
+		span.comment-author-link
+			display: block
+			font-size: $small-font-size
+			color: $gray-color-dark

@@ -1,0 +1,40 @@
+.comments-area
+	margin-bottom: 2rem
+	ol.comment-list, ul.children
+		padding-left: 0
+		list-style-type: none
+	ul.children
+		margin-left: $margin*2
+	.comment-form
+		input.submit, p.form-submit
+			margin-bottom: 0
+	.comment-body
+		padding: $padding
+		background-color: $gray-color-light
+		margin-bottom: 1rem
+		&.comment-body-avatars
+			position: relative
+			padding-left: 90px
+			.comment-author-avatar
+				position: absolute
+				top: $margin
+				left: $margin
+				.avatar
+					border-radius: $border-radius
+		.entry__meta
+			margin-bottom: 0
+		.comment-meta, .comment-content
+			margin-bottom: $gutter*2
+		.comment-content
+			font-size: $small-font-size
+			p:last-child
+				margin-bottom: 0
+		.comment-reply-link
+			text-transform: uppercase
+			font-size: 12px
+			color: $gray-color-dark
+
+.comment-respond
+	.logged-in-as, .comment-form-comment, .comment-form-comment label
+		display: block
+		margin-bottom: 1rem

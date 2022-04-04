@@ -1,0 +1,86 @@
+@import "_common-vars"
+
+.theme_dark, .theme_black
+	.wpgen-popup
+		legend
+			color: $text-color
+
+.wpgen-popup
+	position: fixed
+	top: 0
+	right: 0
+	width: 15vw
+	max-height: 100vh
+	overflow-y: scroll
+	background: $white-color
+	z-index: 999
+
+.elem
+	height: 100%
+	padding: $elem-padding
+	background: $elem-bg-color
+	color: $elem-text-color
+	border: $elem-bd-width solid $elem-bd-color
+	border-radius: $elem-bd-radius
+	box-shadow: $box-shadow
+
+a.elem
+	display: block
+	&:hover
+		border-color: $elem-bd-color-hover
+		box-shadow: $box-shadow-hover
+
+.header_simple .menu-toggle
+	margin-left: auto
+
+.form-option
+	position: relative
+	.selector
+		margin-left: .75rem
+
+.selector
+	margin-bottom: 0
+
+.lock
+	position: absolute
+	top: 50%
+	left: -.75rem
+	transform: translateY(-50%)
+	height: 1rem
+	width: 1rem
+	cursor: pointer
+	&-on
+		background: url(../img/icons/lock-on.png) center/cover no-repeat
+	&-off
+		background: url(../img/icons/lock-off.png) center/cover no-repeat
+
+
+.home
+	.article-column-3:nth-child(n+4)
+		display: none
+	.article-column-4:nth-child(n+5)
+		display: none
+	.article-column-5:nth-child(n+6)
+		display: none
+
+
+.kinopoisk--bgi
+	position: relative
+	padding-top: 140%
+
+.kinopoisk--title
+	position: absolute
+	padding: 0
+	bottom: $elem-padding
+	left: $elem-padding
+
+.kinopoisk--rating
+	position: absolute
+	top: $elem-padding
+	left: -.5rem
+	padding: .25rem .375rem
+	background: $secondary-color
+	color: $white-color
+
+
+
