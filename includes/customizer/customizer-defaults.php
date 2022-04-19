@@ -18,6 +18,7 @@ function wpgen_options( $control = null ) {
 		'general_menu_color_scheme' => 'white',
 		'general_footer_color_scheme' => 'white',
 
+		'general_wpgen_active' => true,
 		'general_container_width' => 'average',
 		'general_content_width' => 'wide',
 		'general_button_type' => 'common',

@@ -36,8 +36,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 			];
 
 
-
-
+			// получаем шрифты по умолчанию
 			$elems = [
 				'primary-font' => [
 					'title' => 'Акцентный шрифт',
@@ -52,7 +51,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 					'style' => get_selected_font(),
 				],
 
-
 				'customizer-general-container-width' => [
 					'title' => 'Контейнер',
 					'type' => 'customizer',
@@ -64,6 +62,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'wide'			=> __( 'Wide', 'wpgen' ),
 						'fluid'			=> __( 'Fluid', 'wpgen' ),
 					],
+					'default' => wpgen_options( 'general_container_width' ),
 				],
 				'customizer-archive-page-columns' => [
 					'title' => 'Кол-во колонок',
@@ -75,7 +74,9 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'five'			=> __( 'Five', 'wpgen' ),
 						'six'			=> __( 'Six', 'wpgen' ),
 					],
+					'default' => wpgen_options( 'archive_page_columns' ),
 				],
+
 				'customizer-general-menu-position' => [
 					'title' => 'Тип меню',
 					'type' => 'customizer',
@@ -84,6 +85,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'absolute'		=> __( 'Absolute', 'wpgen' ),
 						'fixed'			=> __( 'Fixed', 'wpgen' ),
 					],
+					'default' => wpgen_options( 'general_menu_position' ),
 				],
 
 				'customizer-general-menu-button-type' => [
@@ -98,6 +100,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'icon-text'			=> __( 'Icon + Text', 'wpgen' ),
 						'text'				=> __( 'Text', 'wpgen' ),
 					],
+					'default' => wpgen_options( 'general_menu_button_type' ),
 				],
 
 				'customizer-general-button-type' => [
@@ -109,6 +112,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'gradient'		=> __( 'Gradient', 'wpgen' ),
 						'slide'			=> __( 'Slide', 'wpgen' ),
 					],
+					'default' => wpgen_options( 'general_button_type' ),
 				],
 
 				'btn-size' => [
@@ -135,7 +139,11 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'blue' => __( 'blue', 'wpgen' ),
 						'gray' => __( 'gray', 'wpgen' ),
 					],
+					'default' => 'primary',
 				],
+
+
+
 
 				'general-primary-color' => [
 					'title' => 'Основной цвет',
@@ -161,6 +169,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'pink' => __( 'pink', 'wpgen' ),
 						'rose' => __( 'rose', 'wpgen' ),
 					],
+					'default' => get_root_defaults( 'primaryColor' ),
 				],
 				'general-secondary-color' => [
 					'title' => 'Второстепенный цвет',
@@ -186,6 +195,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'pink' => __( 'pink', 'wpgen' ),
 						'rose' => __( 'rose', 'wpgen' ),
 					],
+					'default' => get_root_defaults( 'secondaryColor' ),
 				],
 				'general-bg-color' => [
 					'title' => 'Цветовая схема',
@@ -199,6 +209,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'neutral' => __( 'neutral', 'wpgen' ),
 						'stone' => __( 'stone', 'wpgen' ),
 					],
+					'default' => get_root_defaults( 'grayColor' ),
 				],
 
 				'elem-bg-saturate' => [
@@ -216,7 +227,8 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'700' => __( '700', 'wpgen' ),
 						'800' => __( '800', 'wpgen' ),
 						'900' => __( '900', 'wpgen' ),
-					]
+					],
+					'default' => get_explode_part( get_root_defaults( 'elemBgColor' ), 1, '-' ),
 				],
 
 				'elem-padding' => [
@@ -259,6 +271,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'bg' => __( 'gray', 'wpgen' ),
 					],
 					'help' => 'Чтобы отключить бордер выберите опцию «border-none» в предыдущем пункте',
+					'default' => 'primary',
 				],
 
 				'elem-bd-color-saturate' => [
@@ -277,6 +290,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'800' => __( '800', 'wpgen' ),
 						'900' => __( '900', 'wpgen' ),
 					],
+					'default' => get_explode_part( get_root_defaults( 'elemBdColor' ), 1, '-' ),
 				],
 		
 				'elem-shadow' => [
@@ -346,6 +360,7 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'800' => __( '800 (100 для темной темы)', 'wpgen' ),
 						'900' => __( '900 (50 для темной темы)', 'wpgen' ),
 					],
+					'default' => get_explode_part( get_root_defaults( 'inputBdColor' ), 1, '-' ),
 				],
 
 			];
@@ -353,18 +368,14 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 
 
 
-
-			
-
-
-
-			$out = '<div id="wpgen-popup" class="wpgen-popup">';
-				$out .= '<form id="wpgen-form" class="form" method="post">';
-
-					$out .= '<fieldset>';
-						$out .= '<input id="wpgen-name" type="text" name="name" required>';
-						$out .= '<input id="wpgen-random" type="button" class="btn" value="' . __( 'Random', 'wpgen' ) . '">';
-						$out .= '<input id="wpgen-submit" type="submit" class="btn btn-secondary" value="' . __( 'Save', 'wpgen' ) . '">';
+		$out = '<button id="wpgen-btn" class="btn btn-default btn-wpgen" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
+		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
+				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
+					$out .= '<fieldset class="btn-set">';
+						//$out .= '<input id="wpgen-name" type="text" name="name" required>';
+						$out .= '<input id="wpgen-random" type="button" class="btn" value="Random">';
+						$out .= '<input id="wpgen-submit" type="submit" class="btn wpgen-action btn-secondary" data-action="save" value="Save">';
+						$out .= '<input id="wpgen-submit" type="submit" class="btn wpgen-action btn-default" data-action="reset" value="Default">';
 					$out .= '</fieldset>';
 
 					foreach ( $elems as $keyE => $elem ) {
@@ -375,7 +386,14 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						$out .= '<legend>' . $elem['title'] . '</legend>';
 
 							$out .= '<div class="form-option">';
-								$out .= '<select id="' . $keyE . '" name="' . $keyE . '" class="selector" data-value="' . $first_key . '" data-type="' . $elem['type'] . '" data-root="' . $elem['root'] . '">';
+
+								if ( !isset( $elem['default'] ) ) {
+									$default = get_root_defaults( $elem['root'] );
+								} else {
+									$default = $elem['default'];
+								}
+
+								$out .= '<select id="' . $keyE . '" name="' . $keyE . '" class="selector" data-value="' . $first_key . '" data-type="' . $elem['type'] . '" data-root="' . $elem['root'] . '" data-default="' . $default . '">';
 								
 								foreach ( $elem['style'] as $keyC => $value ) {
 

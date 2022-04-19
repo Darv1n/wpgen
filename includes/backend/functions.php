@@ -23,13 +23,17 @@ if ( !function_exists( 'vardump' ) ) {
 if ( !function_exists( 'is_wpgen_active' ) ) {
 	function is_wpgen_active() {
 
-		if ( is_admin() || is_customize_preview() ) {
-			return false;
-		}
-		
-		if ( is_user_logged_in() ) {
+		if ( preg_replace('/^(http[s]?):\/\//', '', get_home_url()) == 'wpgen.zolin.digital' )
 			return true;
-		}
+
+		if ( is_admin() || is_customize_preview() )
+			return false;
+
+		if ( !is_user_logged_in() && !current_user_can( 'manage_options' ) )
+			return false;
+		
+		if ( wpgen_options( 'general_wpgen_active' ) )
+			return true;
 
 		return false;
 
@@ -43,7 +47,6 @@ if ( !function_exists( 'array_key_last' ) ) {
 		if ( !is_array( $array ) || empty( $array ) ) {
 			return null;
 		}
-		
 		return array_keys( $array )[count( $array ) - 1];
 	}
 }
@@ -57,10 +60,17 @@ if ( !function_exists( 'array_key_first' ) ) {
 	}
 }
 
+// функция очистки поля формы
+if ( !function_exists( 'sanitize_form_field' ) ) {
+	function sanitize_form_field( $string ) {
+		return sanitize_text_field( wp_unslash( $string ) );
+	}
+}
+
 // является ли переданное число четным
 if ( !function_exists( 'is_int_even' ) ) {
 	function is_int_even( $var ) {
-		return !( (int)$var & 1 );
+		return !( (int) $var & 1 );
 	}
 }
 
@@ -136,10 +146,24 @@ if ( !function_exists( 'get_random_date' ) ) {
 }
 
 
+// Получает указанное значение из строки, разделенной указанным сепаратором
+if ( !function_exists( 'get_explode_part' ) ) {
+	function get_explode_part( $string, $num = 0, $separator = ',' ) {
+
+		$num = intval( $num );
+
+		if ( !is_int( $num ) )
+			return false;
+
+		$array = array_map( 'trim', explode( $separator, $string ) );
+		
+		return $array[$num];
+	}
+}
+
 // Получает последнее значение из строки, разделенной указанным сепаратором
 if ( !function_exists( 'get_first_value_from_string' ) ) {
 	function get_first_value_from_string( $string, $separator = ',' ) {
-		
 		$array = array_map( 'trim', explode( $separator, $string ) );
 		
 		$string = $array[0];
@@ -151,7 +175,6 @@ if ( !function_exists( 'get_first_value_from_string' ) ) {
 // Получает последнее значение из строки, разделенной указанным сепаратором
 if ( !function_exists( 'get_last_value_from_string' ) ) {
 	function get_last_value_from_string( $string, $separator = ',' ) {
-		
 		$array = array_map( 'trim', explode( $separator, $string ) );
 		$array = array_reverse( $array );
 		
@@ -315,7 +338,6 @@ if ( !function_exists( 'get_range_number' ) ) {
 
 			$range_step = range(0, 100, 5); // получаем массив [0,5,10,15,20,25,....100]
 			$result_range = get_range_number( 95, $range_step );
-			vardump($result_range);
 
 		*/
 	}

@@ -146,18 +146,18 @@ if ( !function_exists( 'wpgen_setup' ) ) {
 add_action( 'after_setup_theme', 'wpgen_setup' );
 
 
-// Выаодим строку root стилей в wp_head
+// Выводим строку root стилей в wp_head
 if ( !function_exists( 'wpgen_print_root_styles' ) ) {
 	function wpgen_print_root_styles() {
 
-		$root_defaults = get_root_style();
+		$root_defaults = get_root_styles();
 
 		$root_string = '';
 		foreach ( $root_defaults as $key => $root_value ) {
 			$root_string .= '--' . $key . ': ' . $root_value . ';';
 		}
 
-		echo '<style id="wpgen-root-colors">:root {' . $root_string . '}</style>';
+		echo '<style id="wpgen-root">:root {' . $root_string . '}</style>';
 
 	}
 }
@@ -170,21 +170,13 @@ function wpgen_scripts() {
 	//wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
 
 	// Шрифты (пытаемся получить их из опций, которые сгенерил wpgen или берем дефолтные)
-	$root_options = get_option( 'root_options', false );
+	$fonts = get_default_fonts();
 
-	if ( $root_options && isset( $root_options['primary-font'] ) && isset( $root_options['secondary-font'] ) ) {
-		$primary_font = get_selected_font( $root_options['primary-font'] );
-		$secondary_font = get_selected_font( $root_options['secondary-font'] );
+	if ( !is_wpgen_active() && $fonts['primary'] == $fonts['secondary'] ) {
+		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
 	} else {
-		$primary_font = get_selected_font( get_root_style( 'primaryFont' ) );
-		$secondary_font = get_selected_font( get_root_style( 'secondaryFont' ) );
-	}
-
-	if ( !is_wpgen_active() && $primary_font == $secondary_font ) {
-		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $primary_font ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-	} else {
-		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $primary_font ) )  . ':wght@400;700&display=swap', array(), '1.0.0' );
-		wp_enqueue_style( 'secondary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $secondary_font ) )  . ':wght@400;700&display=swap', array(), '1.0.0' );
+		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) )  . ':wght@400;700&display=swap', array(), '1.0.0' );
+		wp_enqueue_style( 'secondary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['secondary'] ) )  . ':wght@400;700&display=swap', array(), '1.0.0' );
 	}
 
 	// Сетка Бутстрап

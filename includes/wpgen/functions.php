@@ -9,6 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+// получаем шрифты (для подключения в setup и для wpgen формы)
+if ( !function_exists( 'get_default_fonts' ) ) {
+	function get_default_fonts() {
+
+		$root_options = get_option( 'root_options', false );
+
+		if ( $root_options && isset( $root_options['primary-font'] ) && isset( $root_options['secondary-font'] ) ) {
+			$fonts['primary'] = get_selected_font( $root_options['primary-font'] );
+			$fonts['secondary'] = get_selected_font( $root_options['secondary-font'] );
+		} else {
+			$fonts['primary'] = get_root_styles( 'primaryFont' );
+			$fonts['secondary'] = get_root_styles( 'secondaryFont' );
+		}
+
+		return $fonts;
+
+	}
+}
+
+// получаем стиль по сатурации
 if ( !function_exists( 'get_style_by_saturate' ) ) {
 	function get_style_by_saturate( $name = null ) {
 
@@ -31,6 +51,7 @@ if ( !function_exists( 'get_style_by_saturate' ) ) {
 	}
 }
 
+// получаем цвет по сатурации
 if ( !function_exists( 'get_color_style_by_saturate' ) ) {
 	function get_color_style_by_saturate( $name = null ) {
 
@@ -49,6 +70,7 @@ if ( !function_exists( 'get_color_style_by_saturate' ) ) {
 	}
 }
 
+// получаем противоположный цвет по сатурации
 if ( !function_exists( 'get_opposite_color_style_by_saturate' ) ) {
 	function get_opposite_color_style_by_saturate( $name = null ) {
 
@@ -67,7 +89,7 @@ if ( !function_exists( 'get_opposite_color_style_by_saturate' ) ) {
 	}
 }
 
-
+// получаем следующую сатурацию
 if ( !function_exists( 'get_next_saturate' ) ) {
 	function get_next_saturate( $saturate = null ) {
 
@@ -88,6 +110,7 @@ if ( !function_exists( 'get_next_saturate' ) ) {
 	}
 }
 
+// получаем предыдущую сатурацию
 if ( !function_exists( 'get_prev_saturate' ) ) {
 	function get_prev_saturate( $saturate = null ) {
 

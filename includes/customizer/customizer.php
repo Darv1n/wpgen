@@ -420,6 +420,7 @@ function wpgen_customize_register( $wp_customize ) {
 	$general_menu_position_description = __( 'Position of the menu container when opened', 'wpgen' );
 	$general_menu_align_description = __( 'Alignment of the menu container', 'wpgen' );
 
+	$general_wpgen_active = __( 'This checkbox activates the WpGen form in the frontend for the site administrator', 'wpgen' );
 	$general_top_bar_description = __( 'This checkbox displays two sidebars at the header of the site. They are adds in the widget section options', 'wpgen' );
 	$general_bottom_bar_description = __( 'This checkbox displays two sidebars at the footer of the site. They are adds in the widget section options', 'wpgen' );
 
@@ -459,6 +460,7 @@ function wpgen_customize_register( $wp_customize ) {
 	// wpgen_select_control( 'general', 'secondary_font', __( 'Secondary font', 'wpgen' ), '', get_selected_font(), 14 );
 
 	wpgen_tab_title( 'general', 'content_title', __( 'Content', 'wpgen' ), '', 20 );
+	wpgen_checkbox_control( 'general', 'wpgen_active', __( 'Top bar display', 'wpgen' ), $general_wpgen_active, 21 );
 	wpgen_select_control( 'general', 'color_scheme', __( 'Content color scheme', 'wpgen' ), '', $general_color_scheme, 22 );
 	wpgen_select_control( 'general', 'container_width', __( 'Select container width', 'wpgen' ), $general_container_width_description, $general_container_width_select, 24 );
 	wpgen_select_control( 'general', 'content_width', __( 'Select content width', 'wpgen' ), $general_content_width_description, $general_content_width_select, 26 );

@@ -1,6 +1,45 @@
 jQuery(document).ready(function ($) {
 
-	 // сохраняем название проекта в localStorage
+	// клик по кнопке открытия/закрытия формы
+	$( '#page' ).on( 'click', '#wpgen-btn', function(e) {
+
+		e.preventDefault();
+
+		var popup = $('#wpgen-popup');
+		var opener = $(this).attr( 'data-opener' );
+		
+		if ( opener == 'off' ) {
+			var newOpener = 'on';
+		} else {
+			var newOpener = 'off';
+		}
+
+		localStorage.setItem( 'wpgenOpener', newOpener );
+		formOpener( newOpener );
+
+	});
+
+	// если есть значение в localStorage
+	var wpgenOpener = localStorage.getItem( 'wpgenOpener' );
+	if ( null !== wpgenOpener ) {
+		formOpener( wpgenOpener );
+	}
+
+	// функция открытия/закрытия формы
+	function formOpener( newOpener ) {
+
+		var newText = $('#wpgen-btn').attr( 'data-text-' + newOpener );
+
+		$('#wpgen-btn').attr( 'data-opener', newOpener ).html( newText );
+		$('#wpgen-popup').attr( 'data-opener', newOpener );
+
+	}
+
+
+
+
+
+	// сохраняем название проекта в localStorage
 	$( '#wpgen-name' ).change(function() {
 		localStorage.setItem( 'wpgenName', $(this).val() );
 	});
@@ -17,10 +56,7 @@ jQuery(document).ready(function ($) {
 	// 	formDataSaver( JSON.parse( wpgenData ) );
 	// }
 
-	// Указываем цвет кнопок в атрибутах (нужно для wpgen)
-
-
-
+	// Указываем цвет кнопок в атрибутах (нужно для корректной работы wpgen)
 	$.each(['.button', '.btn'], function( index, value ) {
 		$( value ).each( function() {
 
@@ -44,6 +80,8 @@ jQuery(document).ready(function ($) {
 
 		});
 	});
+
+
 
 
 	// основная функция
@@ -95,6 +133,9 @@ jQuery(document).ready(function ($) {
 					obj[root + 'ColorLighten'] = wpgen_value[selectedOption.data( 'lighten' )];
 					obj[root + 'ColorLight'] = wpgen_value[selectedOption.data( 'light' )];
 
+					//console.log( root + 'Color' );
+					//console.log( selectedOption.data( 'color' ) );
+
 					// цвет текста)
 					if ( $.inArray( value.name, ['general-primary-color', 'general-secondary-color'] ) !== -1 ) {
 						var elemColorStyle = getOppositeColorStyleBySaturate( selectedOption.data('color-saturate') );
@@ -113,7 +154,7 @@ jQuery(document).ready(function ($) {
 						obj['linkColorLight'] = wpgen_value[colorName + '-300'];
 					}
 
-					console.log( colorName + '-500' );
+					//console.log( colorName + '-500' );
 
 					// фоновые цвета
 					if ( value.name == 'general-bg-color' ) {
@@ -129,7 +170,7 @@ jQuery(document).ready(function ($) {
 						var themeStyle = getStyleBySaturate( colorSaturate );
 
 						// устанавливаем стили для body, header, footer, menu
-						setThemeStyle( themeStyle )
+						setThemeStyle( themeStyle );
 
 						// фоновые цвета элементов
 						var elemBgSaturate = $( '#elem-bg-saturate' ).find(':selected').val();
@@ -161,7 +202,6 @@ jQuery(document).ready(function ($) {
 						} else {
 							obj['elemBdColorHover'] = wpgen_value[elemBdColorName + '-' + getNextSaturate( elemBdColorSaturate )];
 						}
-
 
 						// // цвет бордеров инпута
 						var inputBdColorSaturate = $( '#input-bd-color-saturate' ).find(':selected').val();
@@ -260,7 +300,7 @@ jQuery(document).ready(function ($) {
 
 					}
 
-					// кнопка 	меню
+					// кнопка меню
 					if ( value.name == 'customizer-general-menu-button-type' ) {
 
 						$( '.menu-toggle' ).empty();
@@ -331,6 +371,25 @@ jQuery(document).ready(function ($) {
 		obj['warningColor'] = '#F3EA5D';
 		obj['acceptColor'] = '#79D97C';
 
+		setRootString( obj );
+
+		// var rootString = '';
+
+		// $.each(obj, function( index, value ) {
+		// 	rootString = rootString + '--' + index + ': ' + value + ';';
+		// });
+
+		// rootString = ':root {' + rootString + '}';
+
+		//$( '#wpgen-root' ).empty().text( getRootString( obj ) );
+
+		console.log( obj );
+
+	}
+
+	// Функция принимает массив с рут-стилямы, выводит их строкой в теге style#wpgen-root
+	function setRootString( obj ) {
+
 		var rootString = '';
 
 		$.each(obj, function( index, value ) {
@@ -339,9 +398,9 @@ jQuery(document).ready(function ($) {
 
 		rootString = ':root {' + rootString + '}';
 
-		$( '#wpgen-root-colors' ).empty().text( rootString );
+		console.log( rootString );
 
-		console.log( obj );
+		$( '#wpgen-root' ).empty().text( rootString );
 
 	}
 
@@ -480,91 +539,56 @@ jQuery(document).ready(function ($) {
 
 
 
-
-
-
-
-	$( '#page' ).on( 'click', '#wpgen-random', function(e) {
-
-		e.preventDefault();
-
-		// var select = $( '#general-color' );
-		// var items = $( '#general-color option' );
-		// var index = Math.floor(Math.random() * items.length);
-		// select.selectedIndex = index;
-
-		// console.log( $(this) );
-		// console.log( index );
-
-		$( '.selector' ).each(function () {
-			var options = $(this).children( 'option' );
-			var random = Math.floor(options.length * (Math.random() % 1));
-			var lock = $(this).next().attr( 'data-lock' );
-			//console.log( lock );
-
-			//var value = $(this).val();
-			//var influence = $(this).data( 'influence' );
-			//var currentValue = $(this).attr( 'data-value' );
-
-			//$(this).attr( 'data-value', value );
-			//console.log( influence );
-			//console.log( currentValue );
-
-			//$( '.' + influence ).removeClass( currentValue );
-			//$( '.' + influence ).addClass( value );
-
-			if ( lock == 'off' ) {
-				options.attr( 'selected', false ).eq(random).attr( 'selected', true );
-			}
-			
-		});
-
-		
-		var form = $(e.target).closest( '#wpgen-form' );
-		//console.log( form );
-
-		formDataSaver( form.serializeArray() );
-
-	});
-
-
-
-
+	// смена селектора
 	$( '.selector' ).change( function(e) { 
 
 		var form = $(e.target).closest( '#wpgen-form' );
 
 		formDataSaver( form.serializeArray() );
 
-		//console.log( true );
+	});
 
-/*		var value = $(this).val();
-		var influence = $(this).data( 'influence' );
-		var currentValue = $(this).data( 'value' );
+	// клик рандома
+	$( '#page' ).on( 'click', '#wpgen-random', function(e) {
 
-		console.log( value );
-		console.log( influence );
+		e.preventDefault();
 
-		$( '.' + influence ).removeClass( currentValue );
-		$( '.' + influence ).addClass( value );
+		$( '.selector' ).each(function () {
+			var options = $(this).children( 'option' );
+			var random = Math.floor(options.length * (Math.random() % 1));
+			var lock = $(this).next().attr( 'data-lock' );
 
-		$(this).attr( 'data-value', value );*/
+			if ( lock == 'off' ) {
+				options.attr( 'selected', false ).eq(random).attr( 'selected', true );
+			}
+			
+		});
+		
+		var form = $(e.target).closest( '#wpgen-form' );
+
+		formDataSaver( form.serializeArray() );
+		console.log( form.serializeArray() );
 
 	});
 
 
-	// ajax событие сохранения конфига
-	$( '#page' ).on( 'click', '#wpgen-submit', function(e) {
-	//$( '#wpgen-submit' ).on( 'click', function(e) {
+
+	// клик сохранения и сброса данных
+	$( '#page' ).on( 'click', '.wpgen-action', function(e) {
 
 		e.preventDefault();
 
 		var form = $(e.target).closest( '#wpgen-form' );
+		var type = $(e.target).attr('data-action');
 
-		console.log( e );
-		console.log( e.target );
-		console.log( form.serialize() );
-		console.log( form.hasClass( 'submited' ) );
+
+		if ( type === 'reset' ) {
+			$( '.selector' ).each(function () {
+				var sDefault = $(this).attr( 'data-default' );
+				console.log( sDefault );
+				$(this).val( sDefault );
+			});
+		}
 
 		if ( !form.hasClass( 'submited' ) ) {
 
@@ -576,21 +600,28 @@ jQuery(document).ready(function ($) {
 				data: {
 					'action': 'ajax_wpgen', // Событие к которому будем обращаться
 					'content': form.serialize(), // Передаём значения формы
+					'type': type, // Передаём атрибут формы
 					'security': ajax_wpgen_obj.nonce, // Используем nonce для защиты
 				},
 				beforeSend: function () {
 					form.addClass( 'submited' );
-					console.log( 'beforeSend' );
+					//console.log( 'beforeSend' );
 				},
 				complete: function () {
 					form.removeClass( 'submited' );
-					console.log( 'complete' );
+					//console.log( 'complete' );
 				},
 				success: function (response) {
-					console.log( 'success' );
+					//console.log( 'success' );
 					console.log( response.data );
-					if ( response.success ) {
-						//$( '#wpgen-root-colors' ).empty().text(response.success);
+					if ( response.success && type === 'reset' ) {
+
+						//setRootString( response.data );
+
+						console.log( form.serializeArray() );
+						formDataSaver( form.serializeArray() );
+
+						//$( '#wpgen-root' ).empty().text(response.success);
 						//$( '#skill-common-styles-css' ).attr( 'href', response.data );
 					} else {
 

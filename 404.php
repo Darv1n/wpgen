@@ -15,8 +15,6 @@ if ( wpgen_options( 'sidebar_left_display' ) === true ) {
 	
 	<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
-		<?php vardump( get_home_url() . $_SERVER['REQUEST_URI'] ); ?>
-
 		<header class="entry__header">
 			<h1 class="entry__title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found', 'wpgen' ); ?></h1>
 		</header>

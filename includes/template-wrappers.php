@@ -19,7 +19,7 @@ function wpgen_body_classes( $classes ) {
 
 	// Adds a class of no-sidebar when there is no sidebar present.
 	// Добавляем класс если не активирован ни один сайдбар
-	if ( wpgen_options( 'sidebar_left_display' ) != true && wpgen_options( 'sidebar_right_display' ) != true ) {
+	if ( !wpgen_options( 'sidebar_left_display' ) && !wpgen_options( 'sidebar_right_display' ) ) {
 		$classes[] = 'no-sidebar';
 	}
 
@@ -35,13 +35,12 @@ function wpgen_body_classes( $classes ) {
 	// Adds class with themename
 	// Добавляем класс с названием темы
 	$classes[] = 'theme_' . wp_get_theme()->get( 'Name' );
-
 	$classes[] = 'theme_' . wpgen_options( 'general_color_scheme' );
 	$classes[] = 'theme_' . wpgen_options( 'general_container_width' );
 
 	// цвет беграунда элементов
 	$values = array_flip( get_selected_value() );
-	$elemBgColor = get_root_style( 'elemBgColor' );
+	$elemBgColor = get_root_styles( 'elemBgColor' );
 	$elemBgColorValue = $values[$elemBgColor];
 	$elemBgColorSaturate = preg_replace( '/\D+/', '', $elemBgColorValue );
 	$elemBgColorStyle = get_style_by_saturate( $elemBgColorSaturate );
@@ -67,8 +66,6 @@ add_filter( 'body_class', 'wpgen_body_classes' );
 // Adds custom classes to the array of post classes.
 // Добавляем кастомные классы в тег article
 function wpgen_post_classes( $classes ) {
-
-	//vardump($classes);
 
 	// Добавляем классы entry
 	$classes[] = 'entry';
@@ -118,7 +115,7 @@ function get_wpgen_container_classes( $class = '' ) {
 }
 
 function wpgen_container_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_container_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_container_classes( $class );
@@ -160,10 +157,10 @@ function get_wpgen_content_area_classes( $class = '' ) {
 		$classes[] = 'col-xl-10';
 		$classes[] = 'offset-xl-1';
 	} else {
-		if ( wpgen_options( 'sidebar_left_display' ) == true && wpgen_options( 'sidebar_right_display' ) == true ) {
+		if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 			$classes[] = 'col-lg-6';
 			$classes[] = 'order-lg-2';
-		} elseif ( wpgen_options( 'sidebar_left_display' ) == true || wpgen_options( 'sidebar_right_display' ) == true ) {
+		} elseif ( wpgen_options( 'sidebar_left_display' ) || wpgen_options( 'sidebar_right_display' ) ) {
 			$classes[] = 'col-lg-8';
 			$classes[] = 'order-lg-2';
 			$classes[] = 'col-xl-9';
@@ -188,7 +185,7 @@ function get_wpgen_content_area_classes( $class = '' ) {
 }
 
 function wpgen_content_area_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_content_area_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_content_area_classes( $class );
@@ -206,7 +203,7 @@ function get_wpgen_widget_area_classes( $class = '' ) {
 	$classes[] = 'col-12';
 	$classes[] = 'col-sm-12';
 
-	if ( wpgen_options( 'sidebar_left_display' ) == true && wpgen_options( 'sidebar_right_display' ) == true ) {
+	if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 		$classes[] = 'col-lg-3';
 	} else {
 		$classes[] = 'col-lg-4';
@@ -221,7 +218,7 @@ function get_wpgen_widget_area_classes( $class = '' ) {
 }
 
 function wpgen_widget_area_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_widget_area_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_widget_area_classes( $class );
@@ -241,7 +238,7 @@ function get_wpgen_header_classes( $class = '' ) {
 
 	if ( has_custom_header() ) $classes[] = 'header_background-image';
 
-	if ( wpgen_options( 'general_top_bar_display' ) == true ) $classes[] = 'header_top-bar-active';
+	if ( wpgen_options( 'general_top_bar_display' ) ) $classes[] = 'header_top-bar-active';
 
 	if ( wpgen_options( 'general_header_type' ) == 'header-content' ) $classes[] = 'header_content';
 	if ( wpgen_options( 'general_header_type' ) == 'header-logo-center' ) $classes[] = 'header_logo-center';
@@ -265,7 +262,7 @@ function get_wpgen_header_classes( $class = '' ) {
 }
 
 function wpgen_header_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_header_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_header_classes( $class );
@@ -282,7 +279,7 @@ function get_wpgen_footer_classes( $class = '' ) {
 	$classes[] = 'site__footer';
 	$classes[] = 'footer';
 
-	if ( wpgen_options( 'general_bottom_bar_display' ) == true ) $classes[] = 'footer_bottom-bar-active';
+	if ( wpgen_options( 'general_bottom_bar_display' ) ) $classes[] = 'footer_bottom-bar-active';
 
 	if ( wpgen_options( 'general_footer_type' ) == 'footer-simple' ) $classes[] = 'footer_simple';
 	if ( wpgen_options( 'general_footer_type' ) == 'footer-three-columns' ) $classes[] = 'footer_three-columns';	
@@ -298,7 +295,7 @@ function get_wpgen_footer_classes( $class = '' ) {
 }
 
 function wpgen_footer_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_footer_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_footer_classes( $class );
@@ -332,7 +329,7 @@ function get_wpgen_main_menu_classes( $class = '' ) {
 }
 
 function wpgen_main_menu_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_main_menu_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_main_menu_classes( $class );
@@ -361,7 +358,7 @@ function get_wpgen_meta_display_classes( $class = '' ) {
 }
 
 function wpgen_meta_display_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_meta_display_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_meta_display_classes( $class );
@@ -405,7 +402,7 @@ function get_wpgen_index_page_columns_classes( $class = '' ) {
 }
 
 function wpgen_index_page_columns_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_index_page_columns_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_index_page_columns_classes( $class );
@@ -461,7 +458,7 @@ function get_wpgen_archive_page_columns_classes( $class = '' ) {
 }
 
 function wpgen_archive_page_columns_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_archive_page_columns_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_archive_page_columns_classes( $class );
@@ -485,7 +482,7 @@ function get_wpgen_archive_page_columns_wrapper_classes( $class = '' ) {
 }
 
 function wpgen_archive_page_columns_wrapper_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_archive_page_columns_wrapper_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_archive_page_columns_wrapper_classes( $class );
@@ -495,17 +492,31 @@ function wpgen_archive_page_columns_wrapper_classes( $class = '', $echo = true )
 
 
 // Add classes for meta display single template TWO
-function get_wpgen_link_more_classes( $class = '' ) {
+function get_wpgen_link_more_classes( $class = '', $color = null ) {
 
 	$classes = array();
 
 	if ( wpgen_options( 'archive_page_detail_button' ) == 'button' ) {
-		$classes[] = 'btn';
-		$classes[] = 'btn_primary';
-		$classes[] = 'btn_more';
+		$classes[] = 'button';
+		$classes[] = 'button_more';
 	} else {
 		$classes[] = 'link';
 		$classes[] = 'link_more';
+	}
+
+	if ( wpgen_options( 'archive_page_detail_button' ) == 'button' ) {
+
+		if ( wpgen_options( 'general_button_type' ) === 'common' ) {
+			if ( $color !== null ) {
+				$classes[] = 'button-' . $color;
+			}
+		} else {
+			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
+
+			if ( $color !== null ) {
+				$classes[] = 'button-' . wpgen_options( 'general_button_type' ) . '-' . $color;
+			}
+		}
 	}
 
 	if ( $class ) $classes[] = $class;
@@ -516,7 +527,7 @@ function get_wpgen_link_more_classes( $class = '' ) {
 }
 
 function wpgen_link_more_classes( $class = '', $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_wpgen_link_more_classes( $class ) ) . '"';
 	} else {
 		return get_wpgen_link_more_classes( $class );
@@ -551,7 +562,7 @@ function get_button_classes( $class = '', $color = null ) {
 }
 
 function button_classes( $class = '', $color = null, $echo = true ) {
-	if ( $echo == true ) {
+	if ( $echo ) {
 		echo 'class="' . implode( ' ', get_button_classes( $class, $color ) ) . '"';
 	} else {
 		return get_button_classes( $class, $color );

@@ -47,11 +47,6 @@
 		&.toggled-on
 			&::before
 				background: url(../img/icons/sets/set-default.svg#menu-close) center no-repeat
-		&.menu-toggle_solo-icon
-			padding: 1rem
-			&::before
-				left: 50%
-				transform: translate(-50%, -50%) rotate(180deg)
 		&.menu-toggle_icon-left
 			padding-left: calc( var( --buttonPaddingLeft ) + 1.125rem )
 			&.btn-reset
@@ -66,6 +61,11 @@
 			&.btn-reset
 				&::before
 					right: 0
+		&.menu-toggle_solo-icon
+			padding: 1rem
+			&::before
+				left: 50%
+				transform: translate(-50%, -50%) rotate(180deg)
 		&.menu-toggle_button
 			&::before
 				filter: invert(100%)

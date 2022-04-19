@@ -25,6 +25,7 @@ function wpgen_shortcode_copyright( $atts ) {
 	// белый список параметров и значения по умолчанию для шорткода
 	$atts = shortcode_atts( array(
 		'class'		=> '',
+		'link-class' => '',
 		'title'		=> '',
 		'year'		=> '',
 		'text'		=> $home_url_parts['host'],
@@ -50,9 +51,12 @@ function wpgen_shortcode_copyright( $atts ) {
 		$utm = '?utm_source=' . $network_url_parts['host']  . '&utm_medium=' . $home_url_parts['host'];
 	}
 
+	$links_classes[] = 'link copyright__link initialism';
+	if ( $atts['link-class'] ) $links_classes[] = $atts['link-class'];
+
 	$output .= '<div class="copyright">';
 		if ( $atts['display'] == 'true' || $atts['display'] == 'created' ) {
-			$output .= '<p class="' . implode( ' ', $classes) . '">' . __( 'Created by', 'wpgen' ) . ' <strong><a href="https://zolin.digital/' . $utm . '" class="link copyright__link initialism">Zolin Digital</a></strong></p>';
+			$output .= '<p class="' . implode( ' ', $classes) . '">' . __( 'Created by', 'wpgen' ) . ' <strong><a href="https://zolin.digital/' . $utm . '" class="' . implode( ' ', $links_classes) . '">Zolin Digital</a></strong></p>';
 		}
 		if ( $atts['display'] == 'true' || $atts['display'] == 'rights' ) {
 			$output .= '<p class="' . implode( ' ', $classes) . '">&#9400; ' . $year . ' ' . __( 'All right reserved', 'wpgen' ) . ' ' . $atts['text'] . '</p>';

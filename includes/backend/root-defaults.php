@@ -8,69 +8,65 @@
 if ( !defined( 'ABSPATH' ) )
 	exit;
 
-// функция возвращает массив с root стилями (для тестов и принта в wp_add_inline_style)
-if ( !function_exists( 'get_root_style' ) ) {
-	function get_root_style( $control = null ) {
+// функция возвращает массив с root стилями по умолчанию
+if ( !function_exists( 'get_root_defaults' ) ) {
+	function get_root_defaults( $control = null ) {
 
 		$root_defaults = [
-			'primaryFont' => '\'Montserrat\'',
-			'secondaryFont' => '\'Montserrat\'',
+			'primaryFont' => 'montserrat',
+			'secondaryFont' => 'montserrat',
 
-			'buttonPaddingTop' => '.75rem', // btn
-			'buttonPaddingLeft' => '1.75rem', // btn
-
-			'primaryColorDark' => RGBtoHEX( 'rgb( 3, 105, 161 )' ), // sky-700
-			'primaryColorDarken' => RGBtoHEX( 'rgb( 2, 132, 199 )' ), // sky-600
-			'primaryColor' => RGBtoHEX( 'rgb( 14, 165, 233 )' ), // sky-500
-			'primaryColorLighten' => RGBtoHEX( 'rgb( 56, 189, 248 )' ),  // sky-400
-			'primaryColorLight' => RGBtoHEX( 'rgb( 125, 211, 252 )' ), // sky-300
+			'primaryColorDark' => 'sky-700',
+			'primaryColorDarken' => 'sky-600',
+			'primaryColor' => 'sky-500',
+			'primaryColorLighten' => 'sky-400',
+			'primaryColorLight' => 'sky-300',
 			
-			'secondaryColorDark' => RGBtoHEX( 'rgb( 194, 65, 12 )' ), // orange-700
-			'secondaryColorDarken' => RGBtoHEX( 'rgb( 234, 88, 12 )' ), // orange-600
-			'secondaryColor' => RGBtoHEX( 'rgb( 249, 115, 22 )' ), // orange-500
-			'secondaryColorLighten' => RGBtoHEX( 'rgb( 251, 146, 60 )' ), // orange-400
-			'secondaryColorLight' => RGBtoHEX( 'rgb( 253, 186, 116 )' ), // orange-300
+			'secondaryColorDark' => 'orange-700',
+			'secondaryColorDarken' => 'orange-600',
+			'secondaryColor' => 'orange-500',
+			'secondaryColorLighten' => 'orange-400',
+			'secondaryColorLight' => 'orange-300',
 
-			'grayColorDark' => RGBtoHEX( 'rgb( 51, 65, 85 )' ), // slate-700
-			'grayColorDarken' => RGBtoHEX( 'rgb( 71, 85, 105 )' ), // slate-600
-			'grayColor' => RGBtoHEX( 'rgb( 100, 116, 139 )' ), // slate-500
-			'grayColorLighten' => RGBtoHEX( 'rgb( 148, 163, 184 )' ), // slate-400
-			'grayColorLight' => RGBtoHEX( 'rgb( 203, 213, 225 )' ), // slate-300
+			'grayColorDark' => 'slate-700',
+			'grayColorDarken' => 'slate-600',
+			'grayColor' => 'slate-500',
+			'grayColorLighten' => 'slate-400',
+			'grayColorLight' => 'slate-300',
 
-			'bgColorDark' => RGBtoHEX( 'rgb( 15, 23, 42 )' ), // slate-900
-			'bgColorDarken' => RGBtoHEX( 'rgb( 30, 41, 59 )' ), // slate-800
-			'bgColorLighten' => RGBtoHEX( 'rgb( 203, 213, 225 )' ), // slate-300
-			'bgColorLight' => RGBtoHEX( 'rgb( 226, 232, 240 )' ), // slate-200
+			'bgColorDark' => 'slate-900',
+			'bgColorDarken' => 'slate-800',
+			'bgColorLighten' => 'slate-300',
+			'bgColorLight' => 'slate-200',
 
-			'whiteColor' => RGBtoHEX( 'rgb( 248, 250, 252 )' ), // slate-50
-			'textColor' => RGBtoHEX( 'rgb( 15, 23, 42 )' ), // slate-900
+			'whiteColor' => 'slate-50',
+			'textColor' => 'slate-900',
 
-			'linkColorDark' => RGBtoHEX( 'rgb( 234, 88, 12 )' ), // orange-600
-			'linkColor' => RGBtoHEX( 'rgb( 249, 115, 22 )' ), // orange-500
-			'linkColorLight' => RGBtoHEX( 'rgb( 251, 146, 60 )' ), // orange-400
+			'linkColorDark' => 'orange-600',
+			'linkColor' => 'orange-500',
+			'linkColorLight' => 'orange-400',
 
 			'allertColor' => '#F9423A',
 			'warningColor' => '#F3EA5D',
 			'acceptColor' => '#79D97C',
 
-			'elemBgColor' => RGBtoHEX( 'rgb( 226, 232, 240 )' ), // slate-200
-			'elemTextColor' => RGBtoHEX( 'rgb( 15, 23, 42 )' ), // slate-900
-			'elemPadding' => '.75rem', // p-3
-			'elemShadow' => '0 4px 6px -1px rgba( 0, 0, 0, 0.15 ), 0 2px 4px -2px rgba( 0, 0, 0, 0.15 )', // shadow-md
-			'elemShadowHover' => '0 10px 15px -3px rgba( 0, 0, 0, 0.15 ), 0 4px 6px -4px rgba( 0, 0, 0, 0.15 )', // shadow-lg
-			'elemBdColor' => RGBtoHEX( 'rgb( 125, 211, 252 )' ), // sky-300
-			'elemBdColorHover' => RGBtoHEX( 'rgb( 56, 189, 248 )' ),  // sky-400
-			'elemBdWidth' => '2px', // border-2
-			'elemBdRadius' => '0.375rem', // rounded-md
+			'elemBgColor' => 'slate-200',
+			'elemTextColor' => 'slate-900',
+			'elemPadding' => 'p-3',
+			'elemShadow' => 'shadow-md',
+			'elemShadowHover' => 'shadow-lg',
+			'elemBdColor' => 'sky-300',
+			'elemBdColorHover' => 'sky-400',
+			'elemBdWidth' => 'border-2',
+			'elemBdRadius' => 'rounded-md',
 
-			'inputBdColor' => RGBtoHEX( 'rgb( 203, 213, 225 )' ), // slate-300
+			'btnSize' => 'btn-lg',
+			'btnBdRadius' => 'rounded-md',
+
+			'inputBdColor' => 'slate-300',
 		];
 
-		//	Merge child and parent default options
-		$root_defaults = apply_filters( 'root_filter_options', $root_defaults );
-
-		//	Merge defaults and wpgen options
-		$root_defaults = wp_parse_args( get_wpgen_root_style(), $root_defaults );
+		$root_defaults = apply_filters( 'root_defaults_filter_options', $root_defaults );
 
 		//	Return controls
 		if ( $control == null ) {
@@ -82,15 +78,63 @@ if ( !function_exists( 'get_root_style' ) ) {
 	}
 }
 
+/*add_filter( 'root_defaults_filter_options', 'source_root_defaults_filter_options', 30 );
+function source_root_defaults_filter_options( $root_styles ) {
 
-/*add_filter( 'root_filter_options','source_root_filter_options', 30 );
-function source_root_filter_options( $root_defaults ) {
+	$source_styles = [
+		'primaryFont' => 'jost',
+		'secondaryFont' => 'jost',
+	];
 
-	$source_defaults = [
+	return wp_parse_args( $source_styles, $root_styles );
+
+}*/
+
+// функция возвращает массив с root стилями (для тестов и принта в wp_add_inline_style)
+if ( !function_exists( 'get_root_styles' ) ) {
+	function get_root_styles( $control = null ) {
+
+		$root_styles = array();
+		$root_defaults = get_root_defaults();
+
+		foreach ( $root_defaults as $key => $root_default ) {
+
+			if ( in_array( $key, ['primaryFont', 'secondaryFont'] ) ) {
+				$root_styles[$key] = get_selected_font( $root_default );
+			} elseif( $key === 'btnSize' ) {
+				$root_styles['buttonPaddingTop'] = explode( ' ', get_selected_value( $root_default ) )[0];
+				$root_styles['buttonPaddingLeft'] = explode( ' ', get_selected_value( $root_default ) )[1];
+			} else {
+				$root_styles[$key] = get_selected_value( $root_default );
+			}
+			
+		}
+
+		//	Merge child and parent default options
+		$root_styles = apply_filters( 'root_styles_filter_options', $root_styles );
+
+		//	Merge defaults and wpgen options
+		$root_styles = wp_parse_args( get_wpgen_root_style(), $root_styles );
+
+		//	Return controls
+		if ( $control == null ) {
+			return $root_styles;
+		} else {
+			return $root_styles[$control];
+		}
+
+	}
+}
+
+
+/*add_filter( 'root_styles_filter_options', 'source_root_styles_filter_options', 30 );
+function source_root_styles_filter_options( $root_styles ) {
+
+	$source_styles = [
 		'primaryFont' => '\'Jost\'',
 		'secondaryFont' => '\'Jost\'',
 	];
 
-	return wp_parse_args( $source_defaults, $root_defaults );
+	return wp_parse_args( $source_styles, $root_styles );
 
 }*/

@@ -34,7 +34,7 @@ require_once get_template_directory() . '/includes/wpgen/converter.php';
 require_once get_template_directory() . '/includes/wpgen/wpgen-customizer.php';
 require_once get_template_directory() . '/includes/wpgen/wpgen-root.php';
 require_once get_template_directory() . '/includes/wpgen/wpgen-form.php';
-require_once get_template_directory() . '/includes/wpgen/wpgen-ajax.php';
+require_once get_template_directory() . '/includes/wpgen/wpgen-handler.php';
 
 // Shortcodes
 include_once get_template_directory() . '/includes/shortcodes.php';

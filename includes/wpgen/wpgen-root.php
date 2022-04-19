@@ -19,8 +19,6 @@ if ( !function_exists( 'get_wpgen_root_style' ) ) {
 			return array();
 		}
 
-		//vardump( $data );
-
 		// цвета
 		$gpc = explode( '-', $data['general-primary-color'])[0];
 		$gpcs = explode( '-', $data['general-primary-color'])[1];
@@ -31,7 +29,7 @@ if ( !function_exists( 'get_wpgen_root_style' ) ) {
 
 		$theme_style = get_opposite_color_style_by_saturate( $gbcs );
 
-		if ( $theme_style == 'white' ) {
+/*		if ( $theme_style == 'white' ) {
 			$grayColorDark = $gbc . '-700';
 			$grayColorDarken = $gbc . '-600';
 			$grayColor = $gbc . '-500';
@@ -43,9 +41,14 @@ if ( !function_exists( 'get_wpgen_root_style' ) ) {
 			$grayColor = $gbc . '-400';
 			$grayColorLighten = $gbc . '-300';
 			$grayColorLight = $gbc . '-' . '200';
-		}
+		}*/
 
-		//vardump( $theme_style );
+		$grayColorDark = $gbc . '-700';
+		$grayColorDarken = $gbc . '-600';
+		$grayColor = $gbc . '-500';
+		$grayColorLighten = $gbc . '-400';
+		$grayColorLight = $gbc . '-300';
+
 
 		$root_wpgen = [
 			'primaryColorDark' => get_selected_value( $gpc . '-' . ( (int) $gpcs + 200 ) ),
@@ -152,8 +155,6 @@ if ( !function_exists( 'get_wpgen_root_style' ) ) {
 				$root_wpgen['elemBdColorHover'] = get_selected_value( explode( '-', $data['general-' . $data['elem-bd-color'] . '-color'])[0] . '-' . get_next_saturate( $data['elem-bd-color-saturate'] ) );
 			}
 		}
-
-		//vardump( $root_wpgen );
 
 		//	Return controls
 		if ( $control == null ) {

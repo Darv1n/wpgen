@@ -8,55 +8,109 @@ a
 	&:hover, &:focus, &:active
 		color: $link-color-dark
 
-a.link
+.link
+	color: $link-color
+	&:hover, &:focus, &:active
+		color: $link-color-dark
+.link-border
+	color: $gray-color
+	border-bottom: $border-width solid transparent
+	&:hover, &:focus, &:active
+		color: $gray-color-darken
+		border-bottom: $border-width solid $link-color
+.link-unborder
 	color: $text-color
-	border-bottom: $border-width solid $primary-color
+	border-bottom: $border-width solid $link-color
 	&:hover, &:focus, &:active
-		color: $primary-color
-		border-bottom: $border-width solid $primary-color-dark
+		color: $gray-color-darken
+		border-bottom: $border-width solid $link-color-dark	
 
-a.link-white
-	color: $white-color 
-	border-bottom: $border-width solid $primary-color
-	&:hover, &:focus, &:active
-		color: $white-color
-		border-bottom: $border-width solid $primary-color-dark
-		opacity: 0.75
 
-.theme_dark, .theme_black, .theme_elems_dark .elem, .theme_elems_black .elem
-	a.link
-		color: $white-color
-		&:hover, &:focus, &:active
-			color: $white-color
-			opacity: 0.75
-
-.theme_elems_light .elem, .theme_elems_white .elem
-	a.link
-		color: $text-color
-		&:hover, &:focus, &:active
-			color: $primary-color
-
-a.link-minor
-	color: $gray-color-dark
-	&:hover, &:focus, &:active
+.theme_elems_white .elem, .theme_elems_light .elem
+	.link
 		color: $link-color
+		&:hover, &:focus, &:active
+			color: $link-color-dark
+	.link-border
+		color: $gray-color-darken
+		border-bottom: $border-width solid transparent
+		&:hover, &:focus, &:active
+			color: $gray-color-dark
+			border-bottom: $border-width solid $link-color
+	.link-unborder
+		color: $text-color
+		border-bottom: $border-width solid $link-color
+		&:hover, &:focus, &:active
+			color: $gray-color-darken
+			border-bottom: $border-width solid $link-color-dark	
+
+// .link-primary
+// 	color: $primary-color
+// 	&:hover, &:focus, &:active
+// 		color: $primary-color-darken
+// 	&.link-border
+// 		border-bottom: $border-width solid $primary-color
+// 		&:hover, &:focus, &:active
+// 			border-bottom: $border-width solid $primary-color-darken
+
+// .link-secondary
+// 	color: $secondary-color
+// 	&:hover, &:focus, &:active
+// 		color: $secondary-color-darken
+// 	&.link-border
+// 		border-bottom: $border-width solid $secondary-color
+// 		&:hover, &:focus, &:active
+// 			border-bottom: $border-width solid $secondary-color-darken
+
+// .link-gray
+// 	color: $gray-color
+// 	&:hover, &:focus, &:active
+// 		color: $gray-color-darken
+// 	&.link-border
+// 		border-bottom: $border-width solid $gray-color
+// 		&:hover, &:focus, &:active
+// 			border-bottom: $border-width solid $gray-color-darken
+
+
 
 .theme_dark, .theme_black, .theme_elems_dark .elem, .theme_elems_black .elem
-	a.link-minor
+	.link
+		&:hover, &:focus, &:active
+			color: $link-color-light
+	.link-border
+		color: $gray-color-lighten
+		border-bottom: $border-width solid transparent
+		&:hover, &:focus, &:active
+			color: $gray-color-light
+			border-bottom: $border-width solid $link-color
+	.link-unborder
 		color: $gray-color-lighten
 		&:hover, &:focus, &:active
 			color: $gray-color-light
-
-.theme_elems_light .elem, .theme_elems_white .elem
-	a.link
-		color: $gray-color-dark
-		&:hover, &:focus, &:active
-			color: $link-color
-
-a.link.link-minor
-	border-bottom: $border-width solid $gray-color-lighten
-	&:hover, &:focus, &:active
-		border-bottom: $border-width solid $link-color
+			border-bottom: $border-width solid $link-color-light
+	// .link-primary
+	// 	&:hover, &:focus, &:active
+	// 		color: $primary-color-lighten
+	// 	&.link-border
+	// 		&:hover, &:focus, &:active
+	// 			border-bottom: $border-width solid $primary-color-lighten
+	// .link-secondary
+	// 	&:hover, &:focus, &:active
+	// 		color: $secondary-color-lighten
+	// 	&.link-border
+	// 		&:hover, &:focus, &:active
+	// 			border-bottom: $border-width solid $secondary-color-lighten
+	// .link-gray
+	// 	&:hover, &:focus, &:active
+	// 		color: $gray-color-lighten
+	// 	&.link-border
+	// 		border-bottom: $border-width solid $gray-color
+	// 		&:hover, &:focus, &:active
+	// 			border-bottom: $border-width solid $gray-color-lighten
+	// .link-border
+	// 	color: $white-color
+	// 	&:hover, &:focus, &:active
+	// 		color: $white-color
 
 a.inactive
 	color: inherit

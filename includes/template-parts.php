@@ -52,7 +52,7 @@ if ( !function_exists( 'the_wpgen_site_branding' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -67,35 +67,35 @@ if ( !function_exists( 'the_wpgen_site_branding' ) ) {
 if ( !function_exists( 'get_wpgen_post_meta_list' ) ) {
 	function get_wpgen_post_meta_list( $output = '' ) {
 
-		if ( wpgen_options( 'single_post_meta_author_display' ) == true ) {
+		if ( wpgen_options( 'single_post_meta_author_display' ) ) {
 			$output .= '<li class="meta__item meta__item_autor">';
 				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
-		if ( wpgen_options( 'single_post_meta_date_display' ) == true ) {
+		if ( wpgen_options( 'single_post_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
 				$output .= '<time data-title="' . __( 'Published Date', 'wpgen' ) . '" class="entry__date entry__date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
-				if ( wpgen_options( 'single_post_date_modified_display' ) == true && get_the_modified_date( 'j M, Y' ) != get_the_date( 'j M, Y' ) ) {
+				if ( wpgen_options( 'single_post_date_modified_display' ) && get_the_modified_date( 'j M, Y' ) != get_the_date( 'j M, Y' ) ) {
 					$output .= '<time data-title="' . __( 'Modified Date', 'wpgen' ) . '" class="entry__date entry__date-modified small data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
 				}
 			$output .= '</li>';
 		}
 
 		if ( get_post_type() === 'post' ) {
-			if ( wpgen_options( 'single_post_meta_cats_display' ) == true && has_category() ) {
+			if ( wpgen_options( 'single_post_meta_cats_display' ) && has_category() ) {
 				$output .= '<li class="meta__item meta__item_category">';
 					$output .= get_the_category_list( ', ' );
 				$output .= '</li>';
 			}
-			if ( wpgen_options( 'single_post_meta_tags_display' ) == true && has_tag() ) {
+			if ( wpgen_options( 'single_post_meta_tags_display' ) && has_tag() ) {
 				$output .= '<li class="meta__item meta__item_tag">';
 					$output .= get_the_tag_list( '', ', ' );
 				$output .= '</li>';
 			}
 		}
 
-		if ( wpgen_options( 'single_post_meta_comments_display' ) == true ) {
+		if ( wpgen_options( 'single_post_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
 				$output .= '<a class="meta__link" href="' . get_comments_link() . '" rel="bookmark">' . __( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
@@ -105,19 +105,19 @@ if ( !function_exists( 'get_wpgen_post_meta_list' ) ) {
 			add_post_meta( get_the_ID(), 'read_time', read_time_estimate( get_the_content() ), true );
 		}
 
-		if ( wpgen_options( 'single_post_meta_time_display' ) == true ) {
+		if ( wpgen_options( 'single_post_meta_time_display' ) ) {
 			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . __( 'Reading speed', 'wpgen' ) . '" >';
 				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . __( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
-		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'single_post_meta_views_display' ) == true ) {
+		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'single_post_meta_views_display' ) ) {
 			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . __( 'Views', 'wpgen' ) . '" >';
 				$output .= get_kap_views();
 			$output .= '</li>';
 		}
 
-		if( wpgen_options( 'single_post_meta_edit_display' ) == true && current_user_can( 'edit_posts' ) ) {
+		if( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<li class="meta__item meta__item_edit">';
 				$output .= '<a class="edit-link" href="'. get_edit_post_link() .'">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
@@ -139,7 +139,7 @@ if ( !function_exists( 'the_wpgen_post_meta_list' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -154,44 +154,44 @@ if ( !function_exists( 'the_wpgen_post_meta_list' ) ) {
 if ( !function_exists( 'get_wpgen_archive_meta_list' ) ) {
 	function get_wpgen_archive_meta_list( $output = '' ) {
 
-		if ( wpgen_options( 'archive_page_meta_author_display' ) == true ) {
+		if ( wpgen_options( 'archive_page_meta_author_display' ) ) {
 			$output .= '<li class="meta__item meta__item_autor">';
 				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
-		if ( wpgen_options( 'archive_page_meta_date_display' ) == true ) {
+		if ( wpgen_options( 'archive_page_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
 				$output .= '<time data-title="' . __( 'Published Date', 'wpgen' ) . '" class="entry__date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
 			$output .= '</li>';
 		}
 
 		if ( get_post_type() === 'post' ) {
-			if ( wpgen_options( 'archive_page_meta_cats_display' ) == true && has_category() ) {
+			if ( wpgen_options( 'archive_page_meta_cats_display' ) && has_category() ) {
 				$output .= '<li class="meta__item meta__item_category">';
 					$output .= get_the_category_list( ', ' );
 				$output .= '</li>';
 			}
-			if ( wpgen_options( 'archive_page_meta_tags_display' ) == true && has_tag() ) {
+			if ( wpgen_options( 'archive_page_meta_tags_display' ) && has_tag() ) {
 				$output .= '<li class="meta__item meta__item_tag">';
 					$output .= get_the_tag_list( '', ', ' );
 				$output .= '</li>';
 			}
 		}
 
-		if ( wpgen_options( 'archive_page_meta_comments_display' ) == true ) {
+		if ( wpgen_options( 'archive_page_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
 				$output .= '<a href="' . get_comments_link() . '" class="meta__link" rel="bookmark">' . __( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
 
-		if ( wpgen_options( 'archive_page_meta_time_display' ) == true && get_post_meta( get_the_ID(), 'read_time', true ) ) {
+		if ( wpgen_options( 'archive_page_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
 			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . __( 'Reading speed', 'wpgen' ) . '" >';
 				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . __( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
-		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'archive_page_meta_views_display' ) == true ) {
+		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'archive_page_meta_views_display' ) ) {
 			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . __( 'Views', 'wpgen' ) . '" >';
 				if ( is_home() && is_front_page() ) {
 					$output .= get_kap_views( get_the_ID(), 'post' ); // костыль из-за того, что в плагин не передается 'post'
@@ -201,7 +201,7 @@ if ( !function_exists( 'get_wpgen_archive_meta_list' ) ) {
 			$output .= '</li>';
 		}
 
-		if( wpgen_options( 'archive_page_meta_edit_display' ) == true && current_user_can( 'edit_posts' ) ) {
+		if( wpgen_options( 'archive_page_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<li class="meta__item meta__item_edit">';
 				$output .= '<a class="edit-link" href="'. get_edit_post_link() .'">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
@@ -223,7 +223,7 @@ if ( !function_exists( 'the_wpgen_archive_meta_list' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -330,7 +330,7 @@ if ( !function_exists( 'wpgen_scroll_top' ) ) {
 
 		$output = '';
 
-		if ( wpgen_options( 'general_scroll_top_button_display' ) === true ) {
+		if ( wpgen_options( 'general_scroll_top_button_display' ) ) {
 			$classes[] = 'scroll-top';
 
 			$scroll_top_type = wpgen_options( 'general_scroll_top_button_type' );
@@ -401,7 +401,7 @@ if ( !function_exists( 'wpgen_cookie_accepter' ) ) {
 
 		$output = '';
 
-		if ( !is_user_logged_in() && wpgen_options( 'general_cookie_display' ) === true ) {
+		if ( !is_user_logged_in() && wpgen_options( 'general_cookie_display' ) ) {
 
 			$privacy_policy_url = get_privacy_policy_url();
 
@@ -448,7 +448,7 @@ if ( !function_exists( 'wpgen_breadcrumbs' ) ) {
 
 		if ( !is_front_page() && !is_home() ) {
 
-			if ( wpgen_options( 'general_breadcrumbs_display' ) == true ) {
+			if ( wpgen_options( 'general_breadcrumbs_display' ) ) {
 				$before .= '<section id="breadcrumbs" class="site__breadcrumbs breadcrumbs breadcrumbs_' . wpgen_options( 'general_breadcrumbs' ) . '">';
 					$before .= '<div class="' . join( ' ', get_wpgen_container_classes( ) ) . '">';
 						$before .= '<div class="row">';
@@ -499,7 +499,7 @@ if ( !function_exists( 'wpgen_breadcrumbs' ) ) {
 if ( !function_exists( 'get_wpgen_post_navigation' ) ) {
 	function get_wpgen_post_navigation( $output = '' ) {
 
-		if ( true == wpgen_options( 'single_post_post_nav_display' ) && get_previous_post_link() && get_next_post_link() && is_single() ) {
+		if ( wpgen_options( 'single_post_post_nav_display' ) && get_previous_post_link() && get_next_post_link() && is_single() ) {
 
 			$output .= '<nav class="navigation post-navigation" role="navigation">';
 				$output .= '<div class="row">';
@@ -531,7 +531,7 @@ if ( !function_exists( 'the_wpgen_post_navigation' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -635,7 +635,7 @@ if ( !function_exists( 'the_wpgen_posts_navigation' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -658,7 +658,7 @@ if ( !function_exists( 'get_wpgen_entry_footer' ) ) {
 
 		// Get a list of categories, if the checkbox is set in the customizer settings and the post has category
 		// Получаем список категорий, если установлен чекбокс в настройках customizer и они есть у поста
-		if ( wpgen_options( 'single_post_entry_footer_cats_display' ) == true && has_category() ) {
+		if ( wpgen_options( 'single_post_entry_footer_cats_display' ) && has_category() ) {
 			$categories_list = get_the_category_list();
 			if ( $categories_list ) {
 				$output .= '<div class="article-footer__item cats-list">';
@@ -670,7 +670,7 @@ if ( !function_exists( 'get_wpgen_entry_footer' ) ) {
 
 		// Get a list of tags, if the checkbox is set in the customizer settings and the post has tag
 		// Получаем список тегов, если установлен чекбокс в настройках customizer и они есть у поста
-		if ( wpgen_options( 'single_post_entry_footer_tags_display' ) == true && has_tag() ) {
+		if ( wpgen_options( 'single_post_entry_footer_tags_display' ) && has_tag() ) {
 			$tags_list = get_the_tag_list('<li class="tag-list__item">', ', ', '</li>');
 			if ( $tags_list ) {
 				$output .= '<div class="article-footer__item tags-list">';
@@ -682,7 +682,7 @@ if ( !function_exists( 'get_wpgen_entry_footer' ) ) {
 
 		// Get edit link, if the checkbox is set in the customizer settings and the user has enough rights
 		// Получаем edit link, если установлен чекбокс в настройках customizer и у пользователя достаточно прав
-		if( wpgen_options( 'single_post_meta_edit_display' ) == true && current_user_can( 'edit_posts' ) ) {
+		if( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<div class="article-footer__item">';
 				$output .= '<a class="edit-link" href="'. get_edit_post_link() .'">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</div>';
@@ -703,7 +703,7 @@ if ( !function_exists( 'the_wpgen_entry_footer' ) ) {
 
 		$output = $before . $output . $after;
 
-		if ( $echo == true ) {
+		if ( $echo ) {
 			echo $output;
 		} else {
 			return $output;
@@ -727,7 +727,7 @@ add_action( 'wpgen_after_comment_form', 'the_wpgen_similar_posts', 15 );
 if ( !function_exists( 'the_wpgen_similar_posts' ) ) {
 	function the_wpgen_similar_posts() { ?>
 
-		<?php if ( get_post_type() === 'post' && wpgen_options( 'single_post_similar_posts_display' ) == true  ) { ?>
+		<?php if ( get_post_type() === 'post' && wpgen_options( 'single_post_similar_posts_display' )  ) { ?>
 
 		<section id="similar-posts" class="similar-posts">
 
@@ -758,8 +758,6 @@ if ( !function_exists( 'the_wpgen_similar_posts' ) ) {
 					}
 					$args['tag__in'] = $tags;
 				}
-
-				//vardump($args);
 
 				$my_query = new wp_query($args);
 

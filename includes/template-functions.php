@@ -113,8 +113,6 @@ if ( !function_exists( 'wpgen_open_graph' ) ) {
 			$output['title'] = get_the_title();
 		}
 
-		vardump($output);
-
 		if ( is_paged() ) {
 			# code...
 		}
@@ -129,7 +127,6 @@ if ( !function_exists( 'wpgen_open_graph' ) ) {
 
 add_filter('document_title_parts', 'filter_title_part');
 function filter_title_part($title) {
-	vardump($title);
     return $title;
 }*/
 
