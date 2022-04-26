@@ -15,7 +15,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 
 		if ( is_wpgen_active() ) {
 
-
 			$saturate_array = [
 				'50' => __( '50', 'wpgen' ),
 				'100' => __( '100', 'wpgen' ),
@@ -34,6 +33,41 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 				'500' => __( '500', 'wpgen' ),
 				'600' => __( '600', 'wpgen' ),
 			];
+
+			
+
+			// пишем дефолтные опции и перезаписываем из через настройки
+			$defaults = [
+				'customizer-general-container-width' => wpgen_options( 'general_container_width' ),
+				'customizer-archive-page-columns' => wpgen_options( 'archive_page_columns' ),
+				'customizer-general-menu-position' => wpgen_options( 'general_menu_position' ),
+				'customizer-general-menu-button-type' => wpgen_options( 'general_menu_button_type' ),
+				'customizer-general-button-type' => wpgen_options( 'general_button_type' ),
+				'general-link-color' => 'primary',
+				'general-primary-color' => get_root_defaults( 'primaryColor' ),
+				'general-secondary-color' => get_root_defaults( 'secondaryColor' ),
+				'general-bg-color' => get_root_defaults( 'grayColor' ),
+				'elem-bg-saturate' => get_explode_part( get_root_defaults( 'elemBgColor' ), 1, '-' ),
+				'elem-bd-color-saturate' => get_explode_part( get_root_defaults( 'elemBdColor' ), 1, '-' ),
+				'input-bd-color-saturate' => get_explode_part( get_root_defaults( 'inputBdColor' ), 1, '-' ),
+			];
+
+
+			if ( $root_options = get_option( 'root_options', false ) ) {
+				$defaults = wp_parse_args( $root_options, $defaults );
+			}
+
+			if ( $wpgen_options = get_option( 'wpgen_options', false ) ) {
+				$temp = array();
+				foreach ( $wpgen_options as $key => $value ) {
+					$key_temp = 'customizer-' . str_replace( '_', '-', $key );
+					$temp[$key_temp] = $value;
+				}
+				$defaults = wp_parse_args( $temp, $defaults );
+				unset( $temp );
+			}
+
+
 
 
 			// получаем шрифты по умолчанию
@@ -62,7 +96,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'wide'			=> __( 'Wide', 'wpgen' ),
 						'fluid'			=> __( 'Fluid', 'wpgen' ),
 					],
-					'default' => wpgen_options( 'general_container_width' ),
 				],
 				'customizer-archive-page-columns' => [
 					'title' => 'Кол-во колонок',
@@ -74,7 +107,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'five'			=> __( 'Five', 'wpgen' ),
 						'six'			=> __( 'Six', 'wpgen' ),
 					],
-					'default' => wpgen_options( 'archive_page_columns' ),
 				],
 
 				'customizer-general-menu-position' => [
@@ -85,7 +117,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'absolute'		=> __( 'Absolute', 'wpgen' ),
 						'fixed'			=> __( 'Fixed', 'wpgen' ),
 					],
-					'default' => wpgen_options( 'general_menu_position' ),
 				],
 
 				'customizer-general-menu-button-type' => [
@@ -100,7 +131,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'icon-text'			=> __( 'Icon + Text', 'wpgen' ),
 						'text'				=> __( 'Text', 'wpgen' ),
 					],
-					'default' => wpgen_options( 'general_menu_button_type' ),
 				],
 
 				'customizer-general-button-type' => [
@@ -112,7 +142,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'gradient'		=> __( 'Gradient', 'wpgen' ),
 						'slide'			=> __( 'Slide', 'wpgen' ),
 					],
-					'default' => wpgen_options( 'general_button_type' ),
 				],
 
 				'btn-size' => [
@@ -144,7 +173,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 
 
 
-
 				'general-primary-color' => [
 					'title' => 'Основной цвет',
 					'type' => 'color',
@@ -169,7 +197,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'pink' => __( 'pink', 'wpgen' ),
 						'rose' => __( 'rose', 'wpgen' ),
 					],
-					'default' => get_root_defaults( 'primaryColor' ),
 				],
 				'general-secondary-color' => [
 					'title' => 'Второстепенный цвет',
@@ -195,7 +222,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'pink' => __( 'pink', 'wpgen' ),
 						'rose' => __( 'rose', 'wpgen' ),
 					],
-					'default' => get_root_defaults( 'secondaryColor' ),
 				],
 				'general-bg-color' => [
 					'title' => 'Цветовая схема',
@@ -209,7 +235,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'neutral' => __( 'neutral', 'wpgen' ),
 						'stone' => __( 'stone', 'wpgen' ),
 					],
-					'default' => get_root_defaults( 'grayColor' ),
 				],
 
 				'elem-bg-saturate' => [
@@ -228,7 +253,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'800' => __( '800', 'wpgen' ),
 						'900' => __( '900', 'wpgen' ),
 					],
-					'default' => get_explode_part( get_root_defaults( 'elemBgColor' ), 1, '-' ),
 				],
 
 				'elem-padding' => [
@@ -290,7 +314,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'800' => __( '800', 'wpgen' ),
 						'900' => __( '900', 'wpgen' ),
 					],
-					'default' => get_explode_part( get_root_defaults( 'elemBdColor' ), 1, '-' ),
 				],
 		
 				'elem-shadow' => [
@@ -360,7 +383,6 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 						'800' => __( '800 (100 для темной темы)', 'wpgen' ),
 						'900' => __( '900 (50 для темной темы)', 'wpgen' ),
 					],
-					'default' => get_explode_part( get_root_defaults( 'inputBdColor' ), 1, '-' ),
 				],
 
 			];
@@ -387,11 +409,13 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 
 							$out .= '<div class="form-option">';
 
-								if ( !isset( $elem['default'] ) ) {
-									$default = get_root_defaults( $elem['root'] );
+								if ( !isset( $defaults[$keyE] ) ) {
+									$default = get_root_defaults( $defaults[$keyE] );
 								} else {
-									$default = $elem['default'];
+									$default = $defaults[$keyE];
 								}
+
+								//vardump( $default );
 
 								$out .= '<select id="' . $keyE . '" name="' . $keyE . '" class="selector" data-value="' . $first_key . '" data-type="' . $elem['type'] . '" data-root="' . $elem['root'] . '" data-default="' . $default . '">';
 								
@@ -451,12 +475,21 @@ if ( !function_exists( 'wpgen_frontend_form' ) ) {
 
 											$color_data_string = implode( ' ', $color_data_array );
 
-											$out .= '<option value="' . $color_name . '" ' . $color_data_string . '>' . $color_name . '</option>';
+											if ( $default == $color_name ) {
+												$out .= '<option value="' . $color_name . '" ' . $color_data_string . ' selected>' . $color_name . '</option>';
+											} else {
+												$out .= '<option value="' . $color_name . '" ' . $color_data_string . '>' . $color_name . '</option>';
+											}
 
 										}
 									} else {
 
-										$out .= '<option value="' . $keyC . '">' . $value . '</option>';
+										if ( $default == $keyC ) {
+											$out .= '<option value="' . $keyC . '" selected>' . $value . '</option>';
+										} else {
+											$out .= '<option value="' . $keyC . '">' . $value . '</option>';
+										}
+
 									}
 
 								}

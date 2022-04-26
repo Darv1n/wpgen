@@ -50,11 +50,11 @@ jQuery(document).ready(function ($) {
 		$( '#wpgen-name' ).val(wpgenName);
 	}
 
-	// устанавливам основной массив даты селекторов из localStorage
-	// var wpgenData = localStorage.getItem( 'wpgenData' );
-	// if ( null !== wpgenData ) {
-	// 	formDataSaver( JSON.parse( wpgenData ) );
-	// }
+	//устанавливам основной массив даты селекторов из localStorage
+	var wpgenData = localStorage.getItem( 'wpgenData' );
+	if ( null !== wpgenData ) {
+		formDataSaver( JSON.parse( wpgenData ) );
+	}
 
 	// Указываем цвет кнопок в атрибутах (нужно для корректной работы wpgen)
 	$.each(['.button', '.btn'], function( index, value ) {
@@ -579,7 +579,7 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 
 		var form = $(e.target).closest( '#wpgen-form' );
-		var type = $(e.target).attr('data-action');
+		var type = $(e.target).attr( 'data-action' );
 
 
 		if ( type === 'reset' ) {
