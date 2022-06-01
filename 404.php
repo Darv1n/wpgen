@@ -9,10 +9,10 @@
 
 get_header();
 
-if ( wpgen_options( 'sidebar_left_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
-	
+
 	<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
 		<header class="entry__header">
@@ -22,19 +22,20 @@ if ( wpgen_options( 'sidebar_left_display' ) === true ) {
 		<div class="entry__content">
 			<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'wpgen' ); ?></p>
 
-			<?php get_search_form();
-
-			do_action('404_widgets'); ?>
+			<?php
+				get_search_form();
+				do_action( '404_widgets' );
+			?>
 
 		</div>
-				
+
 	</main>
 
 <?php
 
-if ( wpgen_options( 'sidebar_left_display' ) === true && wpgen_options( 'sidebar_right_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar( 'right' );
-} elseif( wpgen_options( 'sidebar_right_display' ) === true ) {
+} elseif ( wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar();
 }
 

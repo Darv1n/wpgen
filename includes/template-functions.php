@@ -5,41 +5,57 @@
  * @package wpgen
  */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-//	These functions print the page generation time in a comment at the bottom of the source code
-//	Функция печатает время генерации страницы в комментариях внизу исходного кода
 add_action( 'wp_head', 'wpgen_page_speed_start', 1 );
-if ( !function_exists( 'wpgen_page_speed_start' ) ) {
+if ( ! function_exists( 'wpgen_page_speed_start' ) ) {
+
+	/**
+	 * Get start page generation time in a global variable.
+	 */
 	function wpgen_page_speed_start() {
-		$start_time = microtime();
-		$start_array = explode(" ", $start_time);
-		$GLOBALS['start_times'] = $start_array[1] + $start_array[0]; // пишем время в глобальную переменную
+		$start_time             = microtime();
+		$start_array            = explode( ' ', $start_time );
+		$GLOBALS['start_times'] = $start_array[1] + $start_array[0]; // пишем время в глобальную переменную.
 	}
 }
+
 
 
 add_action( 'wp_footer', 'wpgen_page_speed_end', 90 );
-if ( !function_exists( 'wpgen_page_speed_end' ) ) {
-	function wpgen_page_speed_end() {
-		global $start_times; // получаем время из глобальной переменной
+if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
 
-		$end_time = microtime();
-		
-		$end_array = explode(" ", $end_time);
+	/**
+	 * Print page generation time in a comment at the bottom of the source code.
+	 */
+	function wpgen_page_speed_end() {
+		global $start_times; // получаем время из глобальной переменной.
+
+		$end_time  = microtime();
+		$end_array = explode( ' ', $end_time );
 		$end_times = $end_array[1] + $end_array[0];
 
 		$time = $end_times - $start_times;
-		printf( "<!-- Страница сгенерирована за %f секунд -->", $time ); // печатаем комментарий
+		printf( '<!-- Страница сгенерирована за %f секунд -->', esc_html( $time ) ); // печатаем комментарий.
 	}
 }
 
 
-// Заменяяем div контейнера на nav
+
 add_filter( 'wp_nav_menu_args', 'wpgen_nav_menu_args' );
-if ( !function_exists( 'wpgen_nav_menu_args' ) ) {
+if ( ! function_exists( 'wpgen_nav_menu_args' ) ) {
+
+	/**
+	 * Filters the arguments used to display a navigation menu. Replace tag div with nav.
+	 *
+	 * @param array $args Parameter for filter.
+	 *
+	 * @return array
+	 */
 	function wpgen_nav_menu_args( $args = '' ) {
-		if ( $args['container'] == 'div' ) {
+		if ( $args['container'] === 'div' ) {
 			$args['container'] = 'nav';
 		}
 		return $args;
@@ -47,18 +63,25 @@ if ( !function_exists( 'wpgen_nav_menu_args' ) ) {
 }
 
 
-//	The function prints noindex, nofollow tags on archive pages, if there are no posts in this archive page
-//	Функция печатает теги noindex, nofollow на архивных страницах, если постов в этой архивной странице нет
+
 add_filter( 'wp_robots', 'wpgen_robots' );
-if ( !function_exists( 'wpgen_robots' ) ) {
+if ( ! function_exists( 'wpgen_robots' ) ) {
+
+	/**
+	 * Function for hook wp_robots. Prints noindex, nofollow tags on archive pages, if there are no posts in this archive page.
+	 *
+	 * @param array $robots Parameter for filter.
+	 *
+	 * @return array
+	 */
 	function wpgen_robots( $robots ) {
 
-		if ( is_archive() && !have_posts() ) {
-			$robots['noindex'] = true;
+		if ( is_archive() && ! have_posts() ) {
+			$robots['noindex']  = true;
 			$robots['nofollow'] = true;
 		}
 
-		$robots['max-snippet'] = '-1';
+		$robots['max-snippet']       = '-1';
 		$robots['max-image-preview'] = 'large';
 		$robots['max-video-preview'] = '-1';
 
@@ -68,9 +91,17 @@ if ( !function_exists( 'wpgen_robots' ) ) {
 
 
 
-// Добавляем правила для файла robots.txt
 add_filter( 'robots_txt', 'wpgen_robots_txt', 20, 2 );
-if ( !function_exists( 'wpgen_robots_txt' ) ) {
+if ( ! function_exists( 'wpgen_robots_txt' ) ) {
+
+	/**
+	 * Function for hook robots_txt.
+	 *
+	 * @param string $output the robots.txt output.
+	 * @param bool   $public whether the site is considered 'public'.
+	 *
+	 * @return string
+	 */
 	function wpgen_robots_txt( $output, $public ) {
 
 		$output .= "Disallow: /wp-json\n";
@@ -81,98 +112,35 @@ if ( !function_exists( 'wpgen_robots_txt' ) ) {
 
 
 
-//	Add Open Graph Markup in the wp_head()
-//	Добавляем разметку Open Graph в wp_head()
-/*add_action( 'wp_head', 'wpgen_open_graph', 1 );
-if ( !function_exists( 'wpgen_open_graph' ) ) {
-	function wpgen_open_graph() {
-
-		$output = [];
-
-		$output['separator'] = apply_filters( 'wpgen_open_graph_separator', '|' );
-		$output['bloginfo_name'] = apply_filters( 'wpgen_open_graph_bloginfo_name', get_bloginfo( 'name' ) );
-		$bloginfo_description = apply_filters( 'wpgen_open_graph_bloginfo_description', get_bloginfo( 'description' ) );
-
-		$default_description = apply_filters( 'wpgen_open_graph_default_description', '' );
-
-		$output['title'] = '';
-
-		if ( is_front_page() || is_home() ) {
-			$output['title'] = $bloginfo_description;
-		}
-
-		if ( is_archive() ) {
-			$output['title'] = get_queried_object()->name;
-		}
-
-		if ( is_post_type_archive() ) {
-			$output['title'] = get_queried_object()->label;
-		}
-
-		if ( is_single() ) {
-			$output['title'] = get_the_title();
-		}
-
-		if ( is_paged() ) {
-			# code...
-		}
-
-
-		$output = implode( ' ', $output);
-
-		echo apply_filters( 'wpgen_open_graph', $output );
-
-	}
-}
-
-add_filter('document_title_parts', 'filter_title_part');
-function filter_title_part($title) {
-    return $title;
-}*/
-
-
-/*// Изменение заголовка в title
-add_filter( 'document_title_parts', 'filter_function_name_2114' );
-function filter_function_name_2114( $title ){
-	if( is_page('portfolio') )
-		$title['title'] = 'Моя страница портфолио — Декстер Морган';
-
-	return $title;
-}
-*/
-
-/*// пример как изменить сепаратор в разметке
-add_filter( 'wpgen_open_graph_separator','my_open_graph_separator' );
-function my_open_graph_separator( $separator ) {
-	$separator = '—';
-	return $separator;
-}*/
-
-
-
-//	Add verification codes in the wp_head()
-//	Добавляем коды верификаций в wp_head()
 add_action( 'wp_head', 'wpgen_seo_verification', 1 );
-if ( !function_exists( 'wpgen_seo_verification' ) ) {
+if ( ! function_exists( 'wpgen_seo_verification' ) ) {
+
+	/**
+	 * Add verification codes on wp_head hook.
+	 */
 	function wpgen_seo_verification() {
 
 		if ( wpgen_options( 'other_yandex_verification' ) ) {
-			echo '<meta name="yandex-verification" content="' . esc_html( wpgen_options( 'other_yandex_verification' ) ) .'" />' . "\n";
+			echo '<meta name="yandex-verification" content="' . esc_html( wpgen_options( 'other_yandex_verification' ) ) . '" />' . "\n";
 		}
 		if ( wpgen_options( 'other_google_verification' ) ) {
-			echo '<meta name="google-site-verification" content="' . esc_html( wpgen_options( 'other_google_verification' ) ) .'" />' . "\n";
+			echo '<meta name="google-site-verification" content="' . esc_html( wpgen_options( 'other_google_verification' ) ) . '" />' . "\n";
 		}
 		if ( wpgen_options( 'other_mailru_verification' ) ) {
-			echo '<meta name="pmail-verification" content="' . esc_html( wpgen_options( 'other_mailru_verification' ) ) .'">' . "\n";
+			echo '<meta name="pmail-verification" content="' . esc_html( wpgen_options( 'other_mailru_verification' ) ) . '">' . "\n";
 		}
 
 	}
 }
 
 
-// End Footer
+
 add_action( 'wp_footer', 'wpgen_print_counters', 25 );
-if ( !function_exists( 'wpgen_print_counters' ) ) {
+if ( ! function_exists( 'wpgen_print_counters' ) ) {
+
+	/**
+	 * Print counters.
+	 */
 	function wpgen_print_counters() {
 
 		if ( wpgen_options( 'other_yandex_counter' ) ) {

@@ -1,19 +1,27 @@
 <?php
 /**
- * save_post WordPress function
+ * WordPress action hook save_post
  *
  * @package wpgen
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 add_action( 'save_post', 'wpgen_save_post' );
-if ( !function_exists( 'wpgen_save_post' ) ) {
+if ( ! function_exists( 'wpgen_save_post' ) ) {
+
+	/**
+	 * Function for save_post action hook.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return void
+	 */
 	function wpgen_save_post( $post_id ) {
 
-		// пишем в мету скорость чтения
+		// Write in post meta reading speed.
 		update_post_meta( $post_id, 'read_time', read_time_estimate( get_post( $post_id )->post_content ) );
 
 	}

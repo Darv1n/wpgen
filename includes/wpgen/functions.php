@@ -6,127 +6,172 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
-// получаем шрифты (для подключения в setup и для wpgen формы)
-if ( !function_exists( 'get_default_fonts' ) ) {
+
+if ( ! function_exists( 'get_default_fonts' ) ) {
+
+	/**
+	 * Return fonts (for usage in setup.php and for wpgen form)
+	 *
+	 * @return array
+	 */
 	function get_default_fonts() {
 
 		$root_options = get_option( 'root_options', false );
 
 		if ( $root_options && isset( $root_options['primary-font'] ) && isset( $root_options['secondary-font'] ) ) {
-			$fonts['primary'] = get_selected_font( $root_options['primary-font'] );
+			$fonts['primary']   = get_selected_font( $root_options['primary-font'] );
 			$fonts['secondary'] = get_selected_font( $root_options['secondary-font'] );
 		} else {
-			$fonts['primary'] = get_root_styles( 'primaryFont' );
+			$fonts['primary']   = get_root_styles( 'primaryFont' );
 			$fonts['secondary'] = get_root_styles( 'secondaryFont' );
 		}
 
 		return $fonts;
-
 	}
 }
 
-// получаем стиль по сатурации
-if ( !function_exists( 'get_style_by_saturate' ) ) {
-	function get_style_by_saturate( $name = null ) {
 
-		if ( $name === null ) {
+
+if ( ! function_exists( 'get_style_by_saturate' ) ) {
+
+	/**
+	 * Get theme style by saturation.
+	 *
+	 * @param int $saturation color saturation to get theme style.
+	 *
+	 * @return string
+	 */
+	function get_style_by_saturate( $saturation = null ) {
+
+		if ( is_null( $saturation ) ) {
 			return false;
 		}
 
-		if ( in_array( $name, ['800', '900'] ) ) {
+		if ( in_array( (int) $saturation, array( 800, 900 ), true ) ) {
 			$theme_style = 'black';
-		} elseif ( in_array( $name, ['500', '600', '700'] ) ) {
+		} elseif ( in_array( (int) $saturation, array( 500, 600, 700 ), true ) ) {
 			$theme_style = 'dark';
-		} elseif ( in_array( $name, ['200', '300', '400'] ) ) {
+		} elseif ( in_array( (int) $saturation, array( 200, 300, 400 ), true ) ) {
 			$theme_style = 'light';
 		} else {
 			$theme_style = 'white';
 		}
 
 		return $theme_style;
-
 	}
 }
 
-// получаем цвет по сатурации
-if ( !function_exists( 'get_color_style_by_saturate' ) ) {
-	function get_color_style_by_saturate( $name = null ) {
 
-		if ( $name === null ) {
+
+if ( ! function_exists( 'get_color_style_by_saturate' ) ) {
+
+	/**
+	 * Get hard theme style by saturation.
+	 *
+	 * @param int $saturation color saturation to get theme color.
+	 *
+	 * @return string
+	 */
+	function get_color_style_by_saturate( $saturation = null ) {
+
+		if ( is_null( $saturation ) ) {
 			return false;
 		}
 
-		if ( in_array( $name, [500, 600, 700, 800, 900] ) ) {
+		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900 ), true ) ) {
 			$theme_style = 'black';
 		} else {
 			$theme_style = 'white';
 		}
 
 		return $theme_style;
-
 	}
 }
 
-// получаем противоположный цвет по сатурации
-if ( !function_exists( 'get_opposite_color_style_by_saturate' ) ) {
-	function get_opposite_color_style_by_saturate( $name = null ) {
 
-		if ( $name === null ) {
+
+if ( ! function_exists( 'get_opposite_color_style_by_saturate' ) ) {
+
+	/**
+	 * Get opposite theme color by saturation.
+	 *
+	 * @param int $saturation color saturation to get theme color.
+	 *
+	 * @return string
+	 */
+	function get_opposite_color_style_by_saturate( $saturation = null ) {
+
+		if ( is_null( $saturation ) ) {
 			return false;
 		}
 
-		if ( in_array( $name, [500, 600, 700, 800, 900] ) ) {
+		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900 ), true ) ) {
 			$theme_style = 'white';
 		} else {
 			$theme_style = 'black';
 		}
 
 		return $theme_style;
-
 	}
 }
 
-// получаем следующую сатурацию
-if ( !function_exists( 'get_next_saturate' ) ) {
-	function get_next_saturate( $saturate = null ) {
 
-		if ( $saturate === null ) {
+
+if ( ! function_exists( 'get_next_saturate' ) ) {
+
+	/**
+	 * Get next saturate by saturation.
+	 *
+	 * @param int $saturation color saturation to get next.
+	 *
+	 * @return int
+	 */
+	function get_next_saturate( $saturation = null ) {
+
+		if ( is_null( $saturation ) ) {
 			return false;
 		}
 
-		if ( (int) $saturate == 50 ) {
-			$value = (int) $saturate + 50;
-		} elseif ( (int) $saturate == 900 ) {
-			$value = (int) $saturate - 100;
+		if ( (int) $saturation === 50 ) {
+			$value = (int) $saturation + 50;
+		} elseif ( (int) $saturation === 900 ) {
+			$value = (int) $saturation - 100;
 		} else {
-			$value = (int) $saturate + 100;
+			$value = (int) $saturation + 100;
 		}
 
 		return $value;
-
 	}
 }
 
-// получаем предыдущую сатурацию
-if ( !function_exists( 'get_prev_saturate' ) ) {
-	function get_prev_saturate( $saturate = null ) {
 
-		if ( $saturate === null ) {
+
+if ( ! function_exists( 'get_prev_saturate' ) ) {
+
+	/**
+	 * Get prev saturate by saturation.
+	 *
+	 * @param int $saturation color saturation to get prev.
+	 *
+	 * @return int
+	 */
+	function get_prev_saturate( $saturation = null ) {
+
+		if ( is_null( $saturation ) ) {
 			return false;
 		}
 
-		if ( (int) $saturate == 100 ) {
-			$value = (int) $saturate - 50;
-		} elseif ( (int) $saturate == 50 ) {
-			$value = (int) $saturate + 50;
+		if ( (int) $saturation === 100 ) {
+			$value = (int) $saturation - 50;
+		} elseif ( (int) $saturation === 50 ) {
+			$value = (int) $saturation + 50;
 		} else {
-			$value = (int) $saturate - 100;
+			$value = (int) $saturation - 100;
 		}
 
 		return $value;
-
 	}
 }

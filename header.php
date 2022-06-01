@@ -21,50 +21,49 @@
 </head>
 
 <body <?php body_class(); ?>>
+
 <?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wpgen' ); ?></a>
 
-	<header id="masthead" <?php wpgen_header_classes(); ?> role="banner" aria-label="<?php esc_html_e( 'Main Site Header', 'wpgen' ); ?>">
+	<div id="page" class="site">
 
-		<?php do_action( 'wp_header_open' ); ?>
+		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wpgen' ); ?></a>
 
-		<?php if ( wpgen_options( 'general_top_bar_display' ) === true ) { ?>
-		
+		<header id="masthead" <?php wpgen_header_classes(); ?> role="banner" aria-label="<?php esc_html_e( 'Main Site Header', 'wpgen' ); ?>">
+
+			<?php do_action( 'wp_header_open' ); ?>
+
 			<!-- Header Top Bar -->
-			<div id="header__top-bar" class="header__top-bar">
-				<div <?php wpgen_container_classes(); ?>>
-					<div class="row align-items-center">
-						<div class="header__item text-md-left col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-left' ); ?></div>
-						<div class="header__item text-md-right col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-right' ); ?></div>
+			<?php if ( wpgen_options( 'general_top_bar_display' ) ) { ?>
+				<div id="header__top-bar" class="header__top-bar">
+					<div <?php wpgen_container_classes(); ?>>
+						<div class="row align-items-center">
+							<div class="header__item text-md-left col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-left' ); ?></div>
+							<div class="header__item text-md-right col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-right' ); ?></div>
+						</div>
 					</div>
 				</div>
-			</div>
+			<?php } ?>
 
-		<?php } ?>
-	
-		<?php 
+			<?php
 
-			if( wpgen_options( 'general_header_type' ) === 'header-content' ) {
-				get_template_part( 'templates/header/header-content');
-			} elseif( wpgen_options( 'general_header_type' ) === 'header-logo-center' ) {
-				get_template_part( 'templates/header/header-logo-center');
+			if ( wpgen_options( 'general_header_type' ) === 'header-content' ) {
+				get_template_part( 'templates/header/header-content' );
+			} elseif ( wpgen_options( 'general_header_type' ) === 'header-logo-center' ) {
+				get_template_part( 'templates/header/header-logo-center' );
 			} else {
-				get_template_part( 'templates/header/header-simple');
+				get_template_part( 'templates/header/header-simple' );
 			}
 
-		?>
+			?>
 
-		<?php do_action( 'wp_header_close' ); ?>
+			<?php do_action( 'wp_header_close' ); ?>
 
-	</header>
+		</header>
 
-	<?php
+		<!-- @hooked wpgen_breadcrumbs - 10 -->
+		<?php do_action( 'before_site_content' ); ?>
 
-	// hooked wpgen_breadcrumbs - 10
-	do_action( 'before_site_content' ); ?>
+		<div id="content" class="site__content">
 
-	<div id="content" class="site__content">
-
-		<div <?php wpgen_container_classes(); ?>>
-			<div class="row">
+			<div <?php wpgen_container_classes(); ?>>
+				<div class="row">

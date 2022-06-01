@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-03-12 16:17+0400\n"
-"PO-Revision-Date: 2022-03-12 16:18+0400\n"
+"POT-Creation-Date: 2022-05-10 11:24+0400\n"
+"PO-Revision-Date: 2022-05-10 11:25+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: 404.php:21
+#: 404.php:19
 msgid "Oops! That page can&rsquo;t be found"
 msgstr "К сожалению страница не найдена"
 
-#: 404.php:25
+#: 404.php:23
 msgid ""
 "It looks like nothing was found at this location. Maybe try one of the links "
 "below or a search?"
@@ -38,7 +38,7 @@ msgid "%1$s in %2$s"
 msgstr "%1$s в %2$s"
 
 #: comments.php:54 includes/template-parts.php:122
-#: includes/template-parts.php:206 includes/template-parts.php:677
+#: includes/template-parts.php:206 includes/template-parts.php:687
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -114,233 +114,258 @@ msgstr "Темная"
 msgid "Black"
 msgstr "Черная"
 
-#: includes/customizer/customizer.php:289
+#: includes/customizer/customizer.php:288
+#: includes/customizer/customizer.php:296 includes/wpgen/wpgen-form.php:93
+msgid "Narrow"
+msgstr "Узкий"
+
+#: includes/customizer/customizer.php:289 includes/wpgen/wpgen-form.php:94
 msgid "General"
 msgstr "Основной"
 
-#: includes/customizer/customizer.php:290
+#: includes/customizer/customizer.php:290 includes/wpgen/wpgen-form.php:95
 msgid "Average"
 msgstr "Средний"
 
 #: includes/customizer/customizer.php:291
-#: includes/customizer/customizer.php:296
+#: includes/customizer/customizer.php:297 includes/wpgen/wpgen-form.php:96
 msgid "Wide"
 msgstr "Широкий"
 
-#: includes/customizer/customizer.php:295
-msgid "Narrow"
-msgstr "Узкий"
+#: includes/customizer/customizer.php:292 includes/wpgen/wpgen-form.php:97
+msgid "Fluid"
+msgstr ""
 
-#: includes/customizer/customizer.php:300
+#: includes/customizer/customizer.php:301 includes/wpgen/wpgen-form.php:141
+#, fuzzy
+#| msgid "Comments"
+msgid "Common"
+msgstr "Комментарии"
+
+#: includes/customizer/customizer.php:302 includes/wpgen/wpgen-form.php:142
+msgid "Gradient"
+msgstr ""
+
+#: includes/customizer/customizer.php:303 includes/wpgen/wpgen-form.php:143
+msgid "Slide"
+msgstr ""
+
+#: includes/customizer/customizer.php:307
 msgid "Header Simple"
 msgstr "Простой хедер"
 
-#: includes/customizer/customizer.php:301
+#: includes/customizer/customizer.php:308
 msgid "Header Logo Center"
 msgstr "Логотип в центре"
 
-#: includes/customizer/customizer.php:302
+#: includes/customizer/customizer.php:309
 msgid "Header Content"
 msgstr "Хедер с контентом"
 
-#: includes/customizer/customizer.php:308
+#: includes/customizer/customizer.php:315
 msgid "Open"
 msgstr "Открытый"
 
-#: includes/customizer/customizer.php:309
+#: includes/customizer/customizer.php:316
 msgid "Close"
 msgstr "Закрытый"
 
-#: includes/customizer/customizer.php:313
+#: includes/customizer/customizer.php:320
 msgid "Relative"
 msgstr ""
 
-#: includes/customizer/customizer.php:314
+#: includes/customizer/customizer.php:321 includes/wpgen/wpgen-form.php:117
 msgid "Absolute"
 msgstr ""
 
-#: includes/customizer/customizer.php:315
+#: includes/customizer/customizer.php:322 includes/wpgen/wpgen-form.php:118
 msgid "Fixed"
 msgstr ""
 
-#: includes/customizer/customizer.php:319
-#: includes/customizer/customizer.php:325
-#: includes/customizer/customizer.php:356
+#: includes/customizer/customizer.php:326
+#: includes/customizer/customizer.php:332
+#: includes/customizer/customizer.php:363
 msgid "Right"
 msgstr "Справа"
 
-#: includes/customizer/customizer.php:320
-#: includes/customizer/customizer.php:326
-#: includes/customizer/customizer.php:357
+#: includes/customizer/customizer.php:327
+#: includes/customizer/customizer.php:333
+#: includes/customizer/customizer.php:364
 msgid "Left"
 msgstr "Слева"
 
-#: includes/customizer/customizer.php:321
-#: includes/customizer/customizer.php:327
+#: includes/customizer/customizer.php:328
+#: includes/customizer/customizer.php:334
 msgid "Center"
 msgstr "По центру"
 
-#: includes/customizer/customizer.php:331
+#: includes/customizer/customizer.php:338 includes/wpgen/wpgen-form.php:127
 msgid "Button + Icon + Text"
 msgstr "Кнопка + иконка + текст"
 
-#: includes/customizer/customizer.php:332
+#: includes/customizer/customizer.php:339 includes/wpgen/wpgen-form.php:128
 msgid "Button + Icon"
 msgstr "Кнопка + иконка"
 
-#: includes/customizer/customizer.php:333
+#: includes/customizer/customizer.php:340 includes/wpgen/wpgen-form.php:129
 msgid "Button + Text"
 msgstr "Кнопка + текст"
 
-#: includes/customizer/customizer.php:334
+#: includes/customizer/customizer.php:341 includes/wpgen/wpgen-form.php:130
 msgid "Icon"
 msgstr "Иконка"
 
-#: includes/customizer/customizer.php:335
+#: includes/customizer/customizer.php:342 includes/wpgen/wpgen-form.php:131
 msgid "Icon + Text"
 msgstr "Иконка + текст"
 
-#: includes/customizer/customizer.php:336
+#: includes/customizer/customizer.php:343 includes/wpgen/wpgen-form.php:132
 msgid "Text"
 msgstr "Текст"
 
-#: includes/customizer/customizer.php:341
+#: includes/customizer/customizer.php:348
 msgid "WooCommerce (Plugin must be activated)"
 msgstr "WooCommerce (Плагин должен быть активирован)"
 
-#: includes/customizer/customizer.php:342
+#: includes/customizer/customizer.php:349
 msgid "Yoast (Must be enabled in the plugin)"
 msgstr "Yoast (Плагин должен быть активирован)"
 
-#: includes/customizer/customizer.php:343
+#: includes/customizer/customizer.php:350
 msgid "RankMath (Must be enabled in the plugin)"
 msgstr "RankMath (Плагин должен быть активирован)"
 
-#: includes/customizer/customizer.php:344
+#: includes/customizer/customizer.php:351
 msgid "SEOPress (Must be enabled in the plugin)"
 msgstr "SEOPress (Плагин должен быть активирован)"
 
-#: includes/customizer/customizer.php:349
+#: includes/customizer/customizer.php:356
 msgid "Footer Simple"
 msgstr "Футер простой"
 
-#: includes/customizer/customizer.php:350
+#: includes/customizer/customizer.php:357
 msgid "Footer Three Columns"
 msgstr "Футер три колонки"
 
-#: includes/customizer/customizer.php:351
+#: includes/customizer/customizer.php:358
 msgid "Footer Four Columns"
 msgstr "Футер четыре колонки"
 
-#: includes/customizer/customizer.php:361
-#: includes/customizer/customizer.php:371
+#: includes/customizer/customizer.php:368
+#: includes/customizer/customizer.php:378
 msgid "One"
 msgstr "Один"
 
-#: includes/customizer/customizer.php:362
-#: includes/customizer/customizer.php:372
+#: includes/customizer/customizer.php:369
+#: includes/customizer/customizer.php:379
 msgid "Two"
 msgstr "Два"
 
-#: includes/customizer/customizer.php:366
+#: includes/customizer/customizer.php:373
 msgid "Date"
 msgstr "Дата"
 
-#: includes/customizer/customizer.php:367
+#: includes/customizer/customizer.php:374
 msgid "Random"
 msgstr "Случайно"
 
-#: includes/customizer/customizer.php:373
+#: includes/customizer/customizer.php:380 includes/wpgen/wpgen-form.php:105
 msgid "Three"
 msgstr "Три"
 
-#: includes/customizer/customizer.php:374
+#: includes/customizer/customizer.php:381 includes/wpgen/wpgen-form.php:106
 msgid "Four"
 msgstr "Четыре"
 
-#: includes/customizer/customizer.php:375
+#: includes/customizer/customizer.php:382 includes/wpgen/wpgen-form.php:107
 msgid "Five"
 msgstr "Пять"
 
-#: includes/customizer/customizer.php:376
+#: includes/customizer/customizer.php:383 includes/wpgen/wpgen-form.php:108
 msgid "Six"
 msgstr "Шесть"
 
-#: includes/customizer/customizer.php:380
+#: includes/customizer/customizer.php:387
 msgid "List"
 msgstr "Список"
 
-#: includes/customizer/customizer.php:381
+#: includes/customizer/customizer.php:388
 msgid "Tils"
 msgstr "Плитка"
 
-#: includes/customizer/customizer.php:382
+#: includes/customizer/customizer.php:389
 msgid "Banners"
 msgstr ""
 
-#: includes/customizer/customizer.php:383
+#: includes/customizer/customizer.php:390
 msgid "Simple"
 msgstr ""
 
-#: includes/customizer/customizer.php:387
+#: includes/customizer/customizer.php:394
 msgid "Default"
 msgstr "По умолчанию"
 
-#: includes/customizer/customizer.php:388
+#: includes/customizer/customizer.php:395
 msgid "Numeric"
 msgstr "Числовой"
 
-#: includes/customizer/customizer.php:392
-#: includes/customizer/customizer.php:400
+#: includes/customizer/customizer.php:399
+#: includes/customizer/customizer.php:407
 msgid "Nothing"
 msgstr ""
 
-#: includes/customizer/customizer.php:393
+#: includes/customizer/customizer.php:400
 msgid "Excerpt"
 msgstr ""
 
-#: includes/customizer/customizer.php:394
-#: includes/customizer/customizer.php:452
+#: includes/customizer/customizer.php:401
+#: includes/customizer/customizer.php:462
 msgid "Content"
 msgstr "Контент"
 
-#: includes/customizer/customizer.php:398
+#: includes/customizer/customizer.php:405
 msgid "Button"
 msgstr "Кнопка"
 
-#: includes/customizer/customizer.php:399
+#: includes/customizer/customizer.php:406
 msgid "Link"
 msgstr "Ссылка"
 
-#: includes/customizer/customizer.php:404
+#: includes/customizer/customizer.php:411
 msgid "Cover"
 msgstr ""
 
-#: includes/customizer/customizer.php:405
+#: includes/customizer/customizer.php:412
 msgid "Pattern"
 msgstr ""
 
-#: includes/customizer/customizer.php:410
+#: includes/customizer/customizer.php:417
 msgid "Here you can change the width of the site"
 msgstr "Здесь вы можете изменить ширину сайта"
 
-#: includes/customizer/customizer.php:411
+#: includes/customizer/customizer.php:418
 msgid "Note: its work if sidebar dont show"
 msgstr "Примечание: будет работать, только если sidebar отключен"
 
-#: includes/customizer/customizer.php:412
+#: includes/customizer/customizer.php:419
 msgid "Choose which side to display the menu"
 msgstr ""
 
-#: includes/customizer/customizer.php:413
+#: includes/customizer/customizer.php:420
 msgid "Position of the menu container when opened"
 msgstr ""
 
-#: includes/customizer/customizer.php:414
+#: includes/customizer/customizer.php:421
 msgid "Alignment of the menu container"
 msgstr ""
 
-#: includes/customizer/customizer.php:416
+#: includes/customizer/customizer.php:423
+msgid ""
+"This checkbox activates the WpGen form in the frontend for the site "
+"administrator"
+msgstr ""
+
+#: includes/customizer/customizer.php:424
 msgid ""
 "This checkbox displays two sidebars at the header of the site. They are adds "
 "in the widget section options"
@@ -348,7 +373,7 @@ msgstr ""
 "Этот чекбокс включает два сайдбара в хедере сайта. Они редактируются в "
 "разделе Внешний вид-> Виджеты"
 
-#: includes/customizer/customizer.php:417
+#: includes/customizer/customizer.php:425
 msgid ""
 "This checkbox displays two sidebars at the footer of the site. They are adds "
 "in the widget section options"
@@ -356,406 +381,404 @@ msgstr ""
 "Этот чекбокс включает два сайдбара в футере сайта. Они редактируются в "
 "разделе Внешний вид-> Виджеты"
 
-#: includes/customizer/customizer.php:419
+#: includes/customizer/customizer.php:427
 msgid "Displays a notification about the use of cookies on the site"
 msgstr ""
 
-#: includes/customizer/customizer.php:421
+#: includes/customizer/customizer.php:429
 msgid "Display sidebar?"
 msgstr ""
 
-#: includes/customizer/customizer.php:422
+#: includes/customizer/customizer.php:430
 msgid ""
 "This field displays the sidebar to the left or right of the main content; on "
 "mobile devices, the sidebar is displayed after the main content"
 msgstr ""
 
-#: includes/customizer/customizer.php:424
+#: includes/customizer/customizer.php:432
 msgid "This field displays template of the post"
 msgstr ""
 
-#: includes/customizer/customizer.php:428
+#: includes/customizer/customizer.php:436
 msgid "Choose how many columns to display posts"
 msgstr ""
 
-#: includes/customizer/customizer.php:429
+#: includes/customizer/customizer.php:437
 msgid "This field displays template of posts"
 msgstr ""
 
-#: includes/customizer/customizer.php:434
-#: includes/customizer/customizer.php:435
+#: includes/customizer/customizer.php:442
+#: includes/customizer/customizer.php:443
 msgid "Enter data in the format 7999XXXXXXX without \"+\""
 msgstr ""
 
-#: includes/customizer/customizer.php:436
+#: includes/customizer/customizer.php:444
 msgid "Enter you nick in telegram"
 msgstr ""
 
-#: includes/customizer/customizer.php:439
+#: includes/customizer/customizer.php:447
 msgid "Get your yandex verification code in the Yandex Webmaster Tools"
 msgstr ""
 
-#: includes/customizer/customizer.php:440
+#: includes/customizer/customizer.php:448
 msgid "Get your google verification code in the Google Search Console"
 msgstr ""
 
-#: includes/customizer/customizer.php:441
+#: includes/customizer/customizer.php:449
 msgid "Get your mail ru verification code in the Mail ru Pulse"
 msgstr ""
 
-#: includes/customizer/customizer.php:442
+#: includes/customizer/customizer.php:450
 msgid "Get yandex counter ID like a ********"
 msgstr ""
 
-#: includes/customizer/customizer.php:443
+#: includes/customizer/customizer.php:451
 msgid "Get google counter ID like a UA-********-*"
 msgstr ""
 
-#: includes/customizer/customizer.php:444
+#: includes/customizer/customizer.php:452
 msgid "Get mailru counter ID like a *******"
 msgstr ""
 
-#: includes/customizer/customizer.php:453
-msgid "Content color scheme"
-msgstr "Цветовая схема контента"
-
-#: includes/customizer/customizer.php:454
-msgid "Select container width"
-msgstr "Выберите ширину контейнера"
-
-#: includes/customizer/customizer.php:455
-msgid "Select content width"
-msgstr "Выберите ширину контента"
-
-#: includes/customizer/customizer.php:457
-msgid "Header"
-msgstr "Хедер"
-
-#: includes/customizer/customizer.php:458
+#: includes/customizer/customizer.php:463
+#: includes/customizer/customizer.php:470
 msgid "Top bar display"
 msgstr "Отображение топ-бара"
 
-#: includes/customizer/customizer.php:459
-msgid "Header color scheme"
-msgstr "Цветовая схема хедера"
-
-#: includes/customizer/customizer.php:460
-msgid "Select header type"
-msgstr "Выберите тип хедера"
-
-#: includes/customizer/customizer.php:462
-msgid "Menu display"
-msgstr "Отображение меню"
-
-#: includes/customizer/customizer.php:463
-msgid "Select menu type"
-msgstr "Выберите тип меню"
-
 #: includes/customizer/customizer.php:464
-msgid "Menu color scheme"
-msgstr "Выберите цветовую схему меню"
+msgid "Content color scheme"
+msgstr "Цветовая схема контента"
 
 #: includes/customizer/customizer.php:465
-msgid "Select menu position"
-msgstr "Выберите позицию меню"
+msgid "Select container width"
+msgstr "Выберите ширину контейнера"
 
 #: includes/customizer/customizer.php:466
-msgid "Select menu alignment"
-msgstr "Выберите выравнивание меню"
+msgid "Select content width"
+msgstr "Выберите ширину контента"
 
 #: includes/customizer/customizer.php:467
-msgid "Select menu button alignment"
-msgstr "Выберите выравнивание кнопки меню"
-
-#: includes/customizer/customizer.php:468
-msgid "Select menu button type"
-msgstr "Выберите тип кнопки меню"
-
-#: includes/customizer/customizer.php:470
-msgid "Footer"
-msgstr "Футер"
-
-#: includes/customizer/customizer.php:471
-msgid "Bottom bar display"
-msgstr "Отображение боттом-бара"
-
-#: includes/customizer/customizer.php:472
-msgid "Footer color scheme"
-msgstr "Цветовая схема футера"
-
-#: includes/customizer/customizer.php:473
-msgid "Select footer type"
-msgstr "Выберите тип футера"
-
-#: includes/customizer/customizer.php:475
-msgid "Breadcrumbs display"
-msgstr "Отображение хлебных крошек"
-
-#: includes/customizer/customizer.php:476
-msgid "Select position"
-msgstr "Выбрать позицию"
-
-#: includes/customizer/customizer.php:478
-msgid "Scroll to top button display"
-msgstr "Отображение кнопки «Вверх»"
-
-#: includes/customizer/customizer.php:479
-#, fuzzy
-#| msgid "Select menu button alignment"
-msgid "Select scroll top button alignment"
-msgstr "Выберите выравнивание кнопки меню"
-
-#: includes/customizer/customizer.php:480
-#, fuzzy
-#| msgid "Select menu button type"
-msgid "Select scroll top button type"
-msgstr "Выберите тип кнопки меню"
-
-#: includes/customizer/customizer.php:482
-msgid "Cookie"
-msgstr ""
-
-#: includes/customizer/customizer.php:483
-msgid "Cookie display"
-msgstr "Отображение Cookie"
-
-#: includes/customizer/customizer.php:486
-msgid "Sidebar display"
-msgstr ""
-
-#: includes/customizer/customizer.php:487
-msgid "Select Sidebar Position"
-msgstr ""
-
-#: includes/customizer/customizer.php:489
-msgid "Which pages display sidebar"
-msgstr ""
-
-#: includes/customizer/customizer.php:490
-msgid "Home page"
-msgstr ""
-
-#: includes/customizer/customizer.php:491
-msgid "Single post"
-msgstr ""
-
-#: includes/customizer/customizer.php:492
-msgid "Single page"
-msgstr ""
-
-#: includes/customizer/customizer.php:493
-msgid "Archive page"
-msgstr ""
-
-#: includes/customizer/customizer.php:494
-msgid "Search page"
-msgstr ""
-
-#: includes/customizer/customizer.php:495
-msgid "404 page"
-msgstr ""
-
-#: includes/customizer/customizer.php:496
-msgid "Author page"
-msgstr ""
-
-#: includes/customizer/customizer.php:498
-msgid "Left Sidebar Display"
-msgstr ""
-
-#: includes/customizer/customizer.php:499
-msgid "Right Sidebar Display"
-msgstr ""
-
-#: includes/customizer/customizer.php:502
-#: includes/customizer/customizer.php:532
-msgid "Meta display"
-msgstr ""
-
-#: includes/customizer/customizer.php:503
-msgid "Select Template Type"
-msgstr ""
-
-#: includes/customizer/customizer.php:504
-#: includes/customizer/customizer.php:533
-msgid "Meta author display"
-msgstr ""
-
-#: includes/customizer/customizer.php:505
-#: includes/customizer/customizer.php:534
-msgid "Meta publish date display"
-msgstr ""
-
-#: includes/customizer/customizer.php:506
-#: includes/customizer/customizer.php:535
-msgid "Meta categoties display"
-msgstr ""
-
-#: includes/customizer/customizer.php:507
-#: includes/customizer/customizer.php:536
-msgid "Meta tags display"
-msgstr ""
-
-#: includes/customizer/customizer.php:508
-#: includes/customizer/customizer.php:537
-msgid "Meta comments display"
-msgstr ""
-
-#: includes/customizer/customizer.php:509
-#: includes/customizer/customizer.php:538
-msgid "Meta read time display"
-msgstr ""
-
-#: includes/customizer/customizer.php:510
-#: includes/customizer/customizer.php:539
-msgid "Meta views display"
-msgstr ""
-
-#: includes/customizer/customizer.php:511
-#: includes/customizer/customizer.php:540
-msgid "Meta edit display"
-msgstr ""
-
-#: includes/customizer/customizer.php:513
-msgid "Post options"
-msgstr ""
-
-#: includes/customizer/customizer.php:514
-msgid "Date modified display"
-msgstr ""
-
-#: includes/customizer/customizer.php:515
-msgid "Thumbnail display"
-msgstr ""
-
-#: includes/customizer/customizer.php:516
-msgid "Similar posts display"
-msgstr ""
-
-#: includes/customizer/customizer.php:517
-msgid "Select posts orderby"
-msgstr ""
-
-#: includes/customizer/customizer.php:518
-msgid "Select posts count"
-msgstr ""
-
-#: includes/customizer/customizer.php:520
-msgid "Entry Footer display"
-msgstr ""
-
-#: includes/customizer/customizer.php:521
-msgid "Entry Footer cats display"
-msgstr ""
-
-#: includes/customizer/customizer.php:522
-msgid "Entry Footer tags display"
-msgstr ""
-
-#: includes/customizer/customizer.php:523
-msgid "Prev/next post navigation display"
-msgstr ""
-
-#: includes/customizer/customizer.php:528
-msgid "Select columns of posts"
-msgstr ""
-
-#: includes/customizer/customizer.php:529
-msgid "Select template type"
-msgstr ""
-
-#: includes/customizer/customizer.php:530
-msgid "Post Pagination"
-msgstr ""
-
-#: includes/customizer/customizer.php:542
-msgid "Detail settings"
-msgstr ""
-
-#: includes/customizer/customizer.php:543
-msgid "Select description"
-msgstr ""
-
-#: includes/customizer/customizer.php:544
+#: includes/customizer/customizer.php:556
 msgid "Select button type"
 msgstr ""
 
+#: includes/customizer/customizer.php:469
+msgid "Header"
+msgstr "Хедер"
+
+#: includes/customizer/customizer.php:471
+msgid "Header color scheme"
+msgstr "Цветовая схема хедера"
+
+#: includes/customizer/customizer.php:472
+msgid "Select header type"
+msgstr "Выберите тип хедера"
+
+#: includes/customizer/customizer.php:474
+msgid "Menu display"
+msgstr "Отображение меню"
+
+#: includes/customizer/customizer.php:475
+msgid "Select menu type"
+msgstr "Выберите тип меню"
+
+#: includes/customizer/customizer.php:476
+msgid "Menu color scheme"
+msgstr "Выберите цветовую схему меню"
+
+#: includes/customizer/customizer.php:477
+msgid "Select menu position"
+msgstr "Выберите позицию меню"
+
+#: includes/customizer/customizer.php:478
+msgid "Select menu alignment"
+msgstr "Выберите выравнивание меню"
+
+#: includes/customizer/customizer.php:479
+msgid "Select menu button alignment"
+msgstr "Выберите выравнивание кнопки меню"
+
+#: includes/customizer/customizer.php:480
+msgid "Select menu button type"
+msgstr "Выберите тип кнопки меню"
+
+#: includes/customizer/customizer.php:482
+msgid "Footer"
+msgstr "Футер"
+
+#: includes/customizer/customizer.php:483
+msgid "Bottom bar display"
+msgstr "Отображение боттом-бара"
+
+#: includes/customizer/customizer.php:484
+msgid "Footer color scheme"
+msgstr "Цветовая схема футера"
+
+#: includes/customizer/customizer.php:485
+msgid "Select footer type"
+msgstr "Выберите тип футера"
+
+#: includes/customizer/customizer.php:487
+msgid "Breadcrumbs display"
+msgstr "Отображение хлебных крошек"
+
+#: includes/customizer/customizer.php:488
+msgid "Select position"
+msgstr "Выбрать позицию"
+
+#: includes/customizer/customizer.php:490
+msgid "Scroll to top button display"
+msgstr "Отображение кнопки «Вверх»"
+
+#: includes/customizer/customizer.php:491
+msgid "Select scroll top button alignment"
+msgstr "Выберите выравнивание кнопки «наверх»"
+
+#: includes/customizer/customizer.php:492
+msgid "Select scroll top button type"
+msgstr "Выберите тип кнопки «наверх»"
+
+#: includes/customizer/customizer.php:494
+msgid "Cookie"
+msgstr ""
+
+#: includes/customizer/customizer.php:495
+msgid "Cookie display"
+msgstr "Отображение Cookie"
+
+#: includes/customizer/customizer.php:498
+msgid "Sidebar display"
+msgstr ""
+
+#: includes/customizer/customizer.php:499
+msgid "Select Sidebar Position"
+msgstr ""
+
+#: includes/customizer/customizer.php:501
+msgid "Which pages display sidebar"
+msgstr ""
+
+#: includes/customizer/customizer.php:502
+msgid "Home page"
+msgstr ""
+
+#: includes/customizer/customizer.php:503
+msgid "Single post"
+msgstr ""
+
+#: includes/customizer/customizer.php:504
+msgid "Single page"
+msgstr ""
+
+#: includes/customizer/customizer.php:505
+msgid "Archive page"
+msgstr ""
+
+#: includes/customizer/customizer.php:506
+msgid "Search page"
+msgstr ""
+
+#: includes/customizer/customizer.php:507
+msgid "404 page"
+msgstr ""
+
+#: includes/customizer/customizer.php:508
+msgid "Author page"
+msgstr ""
+
+#: includes/customizer/customizer.php:510
+msgid "Left Sidebar Display"
+msgstr ""
+
+#: includes/customizer/customizer.php:511
+msgid "Right Sidebar Display"
+msgstr ""
+
+#: includes/customizer/customizer.php:514
+#: includes/customizer/customizer.php:544
+msgid "Meta display"
+msgstr ""
+
+#: includes/customizer/customizer.php:515
+msgid "Select Template Type"
+msgstr ""
+
+#: includes/customizer/customizer.php:516
+#: includes/customizer/customizer.php:545
+msgid "Meta author display"
+msgstr ""
+
+#: includes/customizer/customizer.php:517
+#: includes/customizer/customizer.php:546
+msgid "Meta publish date display"
+msgstr ""
+
+#: includes/customizer/customizer.php:518
+#: includes/customizer/customizer.php:547
+msgid "Meta categoties display"
+msgstr ""
+
+#: includes/customizer/customizer.php:519
+#: includes/customizer/customizer.php:548
+msgid "Meta tags display"
+msgstr ""
+
+#: includes/customizer/customizer.php:520
+#: includes/customizer/customizer.php:549
+msgid "Meta comments display"
+msgstr ""
+
+#: includes/customizer/customizer.php:521
 #: includes/customizer/customizer.php:550
-msgid "Social List"
-msgstr "Соц.сети"
+msgid "Meta read time display"
+msgstr ""
 
+#: includes/customizer/customizer.php:522
 #: includes/customizer/customizer.php:551
-msgid "Vkontakte link"
-msgstr "Ссылка Вконтакте"
+msgid "Meta views display"
+msgstr ""
 
+#: includes/customizer/customizer.php:523
 #: includes/customizer/customizer.php:552
-msgid "Facebook link"
-msgstr "Ссылка Фуйсбук"
+msgid "Meta edit display"
+msgstr ""
 
-#: includes/customizer/customizer.php:553
-msgid "Instagram link"
-msgstr "Ссылка Инстаграм"
+#: includes/customizer/customizer.php:525
+msgid "Post options"
+msgstr ""
+
+#: includes/customizer/customizer.php:526
+msgid "Date modified display"
+msgstr ""
+
+#: includes/customizer/customizer.php:527
+msgid "Thumbnail display"
+msgstr ""
+
+#: includes/customizer/customizer.php:528
+msgid "Similar posts display"
+msgstr ""
+
+#: includes/customizer/customizer.php:529
+msgid "Select posts orderby"
+msgstr ""
+
+#: includes/customizer/customizer.php:530
+msgid "Select posts count"
+msgstr ""
+
+#: includes/customizer/customizer.php:532
+msgid "Entry Footer display"
+msgstr ""
+
+#: includes/customizer/customizer.php:533
+msgid "Entry Footer cats display"
+msgstr ""
+
+#: includes/customizer/customizer.php:534
+msgid "Entry Footer tags display"
+msgstr ""
+
+#: includes/customizer/customizer.php:535
+msgid "Prev/next post navigation display"
+msgstr ""
+
+#: includes/customizer/customizer.php:540
+msgid "Select columns of posts"
+msgstr ""
+
+#: includes/customizer/customizer.php:541
+msgid "Select template type"
+msgstr ""
+
+#: includes/customizer/customizer.php:542
+msgid "Post Pagination"
+msgstr ""
 
 #: includes/customizer/customizer.php:554
-msgid "Youtube link"
-msgstr "Ссылка Ютуб"
+msgid "Detail settings"
+msgstr ""
 
 #: includes/customizer/customizer.php:555
-msgid "Twitter link"
-msgstr "Ссылка Твиттер"
-
-#: includes/customizer/customizer.php:556
-msgid "Telegram link"
-msgstr "Ссылка Телеграм"
-
-#: includes/customizer/customizer.php:557
-msgid "Linkedin link"
-msgstr "Ссылка LinkedIn"
-
-#: includes/customizer/customizer.php:560
-msgid "Whatsapp phone"
-msgstr "Телефон в Whatsapp"
-
-#: includes/customizer/customizer.php:561
-msgid "Viber"
+msgid "Select description"
 msgstr ""
 
 #: includes/customizer/customizer.php:562
-msgid "Telegram nick"
-msgstr "Ник в Телеграм"
+msgid "Social List"
+msgstr "Соц.сети"
+
+#: includes/customizer/customizer.php:563
+msgid "Vkontakte link"
+msgstr "Ссылка Вконтакте"
+
+#: includes/customizer/customizer.php:564
+msgid "Facebook link"
+msgstr "Ссылка Фуйсбук"
+
+#: includes/customizer/customizer.php:565
+msgid "Instagram link"
+msgstr "Ссылка Инстаграм"
 
 #: includes/customizer/customizer.php:566
-msgid "Contacts List"
-msgstr "Список контактов"
+msgid "Youtube link"
+msgstr "Ссылка Ютуб"
 
 #: includes/customizer/customizer.php:567
-msgid "Address"
-msgstr "Адрес"
+msgid "Twitter link"
+msgstr "Ссылка Твиттер"
 
 #: includes/customizer/customizer.php:568
-msgid "Phone"
-msgstr "Телефон"
+msgid "Telegram link"
+msgstr "Ссылка Телеграм"
 
 #: includes/customizer/customizer.php:569
-msgid "Email"
-msgstr "Почта"
+msgid "Linkedin link"
+msgstr "Ссылка LinkedIn"
+
+#: includes/customizer/customizer.php:572
+msgid "Whatsapp phone"
+msgstr "Телефон в Whatsapp"
 
 #: includes/customizer/customizer.php:573
-msgid "Verifications and counters"
+msgid "Viber"
 msgstr ""
 
 #: includes/customizer/customizer.php:574
+msgid "Telegram nick"
+msgstr "Ник в Телеграм"
+
+#: includes/customizer/customizer.php:578
+msgid "Contacts List"
+msgstr "Список контактов"
+
 #: includes/customizer/customizer.php:579
+msgid "Address"
+msgstr "Адрес"
+
+#: includes/customizer/customizer.php:580
+msgid "Phone"
+msgstr "Телефон"
+
+#: includes/customizer/customizer.php:581
+msgid "Email"
+msgstr "Почта"
+
+#: includes/customizer/customizer.php:585
+msgid "Verifications and counters"
+msgstr ""
+
+#: includes/customizer/customizer.php:586
+#: includes/customizer/customizer.php:591
 msgid "Yandex"
 msgstr ""
 
-#: includes/customizer/customizer.php:575
-#: includes/customizer/customizer.php:580
+#: includes/customizer/customizer.php:587
+#: includes/customizer/customizer.php:592
 msgid "Google"
 msgstr ""
 
-#: includes/customizer/customizer.php:576
-#: includes/customizer/customizer.php:581
+#: includes/customizer/customizer.php:588
+#: includes/customizer/customizer.php:593
 msgid "Mail ru"
 msgstr ""
 
@@ -816,7 +839,7 @@ msgstr ""
 #: includes/plugin-additions/class-tgm-plugin-activation.php:401
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
+msgstr "Все плагины успешно установлены и активированы. %1$s"
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:402
 msgid "Dismiss this notice"
@@ -1023,6 +1046,8 @@ msgid ""
 "The installation and activation process is starting. This process may take a "
 "while on some hosts, so please be patient."
 msgstr ""
+"Начинается процесс установки и активации. На некоторых хостах этот процесс "
+"может занять некоторое время, поэтому наберитесь терпения."
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3602
 #, php-format
@@ -1041,7 +1066,7 @@ msgstr "Скрыть детали"
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3603
 msgid "All installations and activations have been completed."
-msgstr ""
+msgstr "Все установки и активации завершены."
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3605
 #, php-format
@@ -1053,6 +1078,8 @@ msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
 msgstr ""
+"Начинается процесс установки. На некоторых хостах этот процесс может занять "
+"некоторое время, поэтому наберитесь терпения."
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3610
 #, php-format
@@ -1061,7 +1088,7 @@ msgstr ""
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3611
 msgid "All installations have been completed."
-msgstr ""
+msgstr "Все установки завершены."
 
 #: includes/plugin-additions/class-tgm-plugin-activation.php:3613
 #, php-format
@@ -1072,91 +1099,91 @@ msgstr ""
 msgid "Primary"
 msgstr ""
 
-#: includes/setup.php:199
+#: includes/setup.php:230
 msgid "Sidebar"
 msgstr ""
 
-#: includes/setup.php:201
+#: includes/setup.php:232
 msgid "Add widgets in left sidebar"
 msgstr ""
 
-#: includes/setup.php:209
+#: includes/setup.php:240
 msgid "Sidebar Right"
 msgstr ""
 
-#: includes/setup.php:211
+#: includes/setup.php:242
 msgid "Add widgets in right sidebar"
 msgstr ""
 
-#: includes/setup.php:221
+#: includes/setup.php:252
 msgid "Header top bar left"
 msgstr ""
 
-#: includes/setup.php:223
+#: includes/setup.php:254
 msgid "Header top sidebar left"
 msgstr ""
 
-#: includes/setup.php:230
+#: includes/setup.php:261
 msgid "Header top bar right"
 msgstr ""
 
-#: includes/setup.php:232
+#: includes/setup.php:263
 msgid "Header top sidebar right"
 msgstr ""
 
-#: includes/setup.php:242
+#: includes/setup.php:273
 msgid "Footer bottom bar left"
 msgstr ""
 
-#: includes/setup.php:244
+#: includes/setup.php:275
 msgid "Footer bottom sidebar left"
 msgstr ""
 
-#: includes/setup.php:251
+#: includes/setup.php:282
 msgid "Footer bottom bar right"
 msgstr ""
 
-#: includes/setup.php:253
+#: includes/setup.php:284
 msgid "Footer bottom sidebar right"
 msgstr ""
 
-#: includes/setup.php:263 includes/setup.php:265
+#: includes/setup.php:294 includes/setup.php:296
 msgid "First footer sidebar"
 msgstr "Футер первая колонка"
 
-#: includes/setup.php:272 includes/setup.php:274
+#: includes/setup.php:303 includes/setup.php:305
 msgid "Second footer sidebar"
 msgstr "Футер вторая колонка"
 
-#: includes/setup.php:281 includes/setup.php:283
+#: includes/setup.php:312 includes/setup.php:314
 msgid "Third footer sidebar"
 msgstr "Футер третья колонка"
 
-#: includes/setup.php:293 includes/setup.php:295
+#: includes/setup.php:324 includes/setup.php:326
 msgid "Fourth footer sidebar"
 msgstr "Футер четвертая колонка"
 
-#: includes/shortcodes.php:57
+#: includes/shortcodes.php:59
 msgid "Created by"
 msgstr "Разработано в"
 
-#: includes/shortcodes.php:60
-msgid "All right reserved"
+#: includes/shortcodes.php:62
+msgid "All rights reserved"
 msgstr "Все права защищены"
 
-#: includes/shortcodes.php:110
+#: includes/shortcodes.php:112
 msgid "Privacy policy"
 msgstr "Политика конфиденциальности"
 
-#: includes/shortcodes.php:254 includes/shortcodes.php:256
+#: includes/shortcodes.php:256 includes/shortcodes.php:258
 msgid "Write to Telegram"
 msgstr "Написать в Telegram"
 
-#: includes/shortcodes.php:276 includes/shortcodes.php:279
+#: includes/shortcodes.php:278 includes/shortcodes.php:281
 msgid "Write to Whatsapp"
 msgstr "Написать в Whatsapp"
 
-#: includes/shortcodes.php:299 includes/shortcodes.php:302
+#: includes/shortcodes.php:301 includes/shortcodes.php:304
 msgid "Write to Viber"
 msgstr "Написать в Viber"
 
@@ -1184,15 +1211,15 @@ msgstr "мин."
 msgid "Views"
 msgstr "Просмотры"
 
-#: includes/template-parts.php:288
+#: includes/template-parts.php:293
 msgid "Menu"
 msgstr "Меню"
 
-#: includes/template-parts.php:375
+#: includes/template-parts.php:385
 msgid "Scroll up"
 msgstr "Наверх"
 
-#: includes/template-parts.php:410
+#: includes/template-parts.php:420
 msgid ""
 "We use cookies on our website to give you the most relevant experience by "
 "remembering your preferences and repeat visits. <br>By clicking «Accept», "
@@ -1201,42 +1228,454 @@ msgstr ""
 "Мы используем файлы cookie на этом сайте для улучшения работы. <br>Нажимая "
 "кнопку «Принять», вы соглашаетесь с этим."
 
-#: includes/template-parts.php:413
+#: includes/template-parts.php:423
 msgid "Cookie settings"
 msgstr "Настройки куки"
 
-#: includes/template-parts.php:416
+#: includes/template-parts.php:426
 msgid "Accept"
 msgstr "Принять"
 
-#: includes/template-parts.php:553
+#: includes/template-parts.php:563
 msgid "Site post navigation"
 msgstr ""
 
-#: includes/template-parts.php:592
+#: includes/template-parts.php:602
 msgid "Older Posts"
 msgstr "Предыдущие посты"
 
-#: includes/template-parts.php:600
+#: includes/template-parts.php:610
 msgid "Newer Posts"
 msgstr "Новые посты"
 
-#: includes/template-parts.php:644 templates/content-page.php:32
+#: includes/template-parts.php:654 templates/content-page.php:32
 #: templates/content.php:50
 msgid "Pages:"
 msgstr "Страницы:"
 
-#: includes/template-parts.php:655
+#: includes/template-parts.php:665
 msgid "Posted in:"
 msgstr "Рубрики:"
 
-#: includes/template-parts.php:667
+#: includes/template-parts.php:677
 msgid "Tagged in:"
 msgstr "Теги:"
 
-#: includes/template-parts.php:724
+#: includes/template-parts.php:734
 msgid "Similar posts"
 msgstr "Похожие посты"
+
+#: includes/wpgen/converter.php:18
+#, fuzzy
+#| msgid "Open"
+msgid "Open Sans"
+msgstr "Открытый"
+
+#: includes/wpgen/converter.php:19
+msgid "Montserrat"
+msgstr ""
+
+#: includes/wpgen/converter.php:20
+msgid "Oswald"
+msgstr ""
+
+#: includes/wpgen/converter.php:21
+msgid "Raleway"
+msgstr ""
+
+#: includes/wpgen/converter.php:22
+msgid "Roboto Slab"
+msgstr ""
+
+#: includes/wpgen/converter.php:23
+msgid "Playfair Display"
+msgstr ""
+
+#: includes/wpgen/converter.php:24
+msgid "Lora"
+msgstr ""
+
+#: includes/wpgen/converter.php:25
+msgid "Bitter"
+msgstr ""
+
+#: includes/wpgen/converter.php:26
+msgid "Comfortaa"
+msgstr ""
+
+#: includes/wpgen/converter.php:27
+msgid "Jost"
+msgstr ""
+
+#: includes/wpgen/converter.php:28
+msgid "Vollkorn"
+msgstr ""
+
+#: includes/wpgen/converter.php:29
+msgid "Alegreya"
+msgstr ""
+
+#: includes/wpgen/converter.php:30
+msgid "Literata"
+msgstr ""
+
+#: includes/wpgen/converter.php:31
+msgid "Podkova"
+msgstr ""
+
+#: includes/wpgen/converter.php:32
+msgid "Brygada 1918"
+msgstr ""
+
+#: includes/wpgen/converter.php:33
+msgid "Piazzolla"
+msgstr ""
+
+#: includes/wpgen/converter.php:35
+msgid "Merriweather"
+msgstr ""
+
+#: includes/wpgen/converter.php:36
+msgid "PT Serif"
+msgstr ""
+
+#: includes/wpgen/converter.php:37
+msgid "Source Serif Pro"
+msgstr ""
+
+#: includes/wpgen/converter.php:38 includes/wpgen/converter.php:41
+msgid "Cormorant"
+msgstr ""
+
+#: includes/wpgen/converter.php:39
+msgid "Anonymous Pro"
+msgstr ""
+
+#: includes/wpgen/converter.php:40
+msgid "Bona Nova"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:19 includes/wpgen/wpgen-form.php:245
+#: includes/wpgen/wpgen-form.php:306
+msgid "50"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:20 includes/wpgen/wpgen-form.php:246
+#: includes/wpgen/wpgen-form.php:307
+msgid "100"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:21 includes/wpgen/wpgen-form.php:247
+#: includes/wpgen/wpgen-form.php:308
+msgid "200"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:22 includes/wpgen/wpgen-form.php:248
+#: includes/wpgen/wpgen-form.php:309
+msgid "300"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:23 includes/wpgen/wpgen-form.php:32
+#: includes/wpgen/wpgen-form.php:249 includes/wpgen/wpgen-form.php:310
+msgid "400"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:24 includes/wpgen/wpgen-form.php:33
+#: includes/wpgen/wpgen-form.php:250 includes/wpgen/wpgen-form.php:311
+msgid "500"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:25 includes/wpgen/wpgen-form.php:34
+#: includes/wpgen/wpgen-form.php:251 includes/wpgen/wpgen-form.php:312
+msgid "600"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:26 includes/wpgen/wpgen-form.php:252
+#: includes/wpgen/wpgen-form.php:313
+msgid "700"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:27 includes/wpgen/wpgen-form.php:253
+#: includes/wpgen/wpgen-form.php:314
+msgid "800"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:28 includes/wpgen/wpgen-form.php:254
+#: includes/wpgen/wpgen-form.php:315
+msgid "900"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:152
+msgid "btn-xs"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:153
+msgid "btn-sm"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:154
+msgid "btn"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:155
+msgid "btn-md"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:156
+msgid "btn-lg"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:157
+msgid "btn-xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:166 includes/wpgen/wpgen-form.php:293
+msgid "primary"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:167 includes/wpgen/wpgen-form.php:294
+msgid "secondary"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:168 includes/wpgen/wpgen-form.php:192
+#: includes/wpgen/wpgen-form.php:217
+msgid "blue"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:169 includes/wpgen/wpgen-form.php:233
+#: includes/wpgen/wpgen-form.php:295
+msgid "gray"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:182 includes/wpgen/wpgen-form.php:207
+msgid "red"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:183 includes/wpgen/wpgen-form.php:208
+msgid "orange"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:184 includes/wpgen/wpgen-form.php:209
+msgid "amber"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:185 includes/wpgen/wpgen-form.php:210
+msgid "yellow"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:186 includes/wpgen/wpgen-form.php:211
+msgid "lime"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:187 includes/wpgen/wpgen-form.php:212
+msgid "green"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:188 includes/wpgen/wpgen-form.php:213
+#, fuzzy
+#| msgid "General"
+msgid "emerald"
+msgstr "Основной"
+
+#: includes/wpgen/wpgen-form.php:189 includes/wpgen/wpgen-form.php:214
+msgid "teal"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:190 includes/wpgen/wpgen-form.php:215
+msgid "cyan"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:191 includes/wpgen/wpgen-form.php:216
+msgid "sky"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:193 includes/wpgen/wpgen-form.php:218
+msgid "indigo"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:194 includes/wpgen/wpgen-form.php:219
+msgid "violet"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:195 includes/wpgen/wpgen-form.php:220
+msgid "purple"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:196 includes/wpgen/wpgen-form.php:221
+msgid "fuchsia"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:197 includes/wpgen/wpgen-form.php:222
+msgid "pink"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:198 includes/wpgen/wpgen-form.php:223
+msgid "rose"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:232
+msgid "slate"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:234
+msgid "zinc"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:235
+msgid "neutral"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:236
+msgid "stone"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:265
+msgid "p-2"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:266
+msgid "p-3"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:267
+msgid "p-4"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:268
+msgid "p-5"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:269
+msgid "p-6"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:280
+msgid "border-none"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:281
+msgid "border"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:282
+msgid "border-2"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:283
+msgid "border-4"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:284
+msgid "border-8"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:324 includes/wpgen/wpgen-form.php:332
+msgid "shadow-none"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:325
+msgid "shadow-sm"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:326
+msgid "shadow"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:327
+msgid "shadow-md"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:328
+msgid "shadow-lg"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:329
+msgid "shadow-xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:330
+msgid "shadow-2xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:331
+msgid "shadow-inner"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:341 includes/wpgen/wpgen-form.php:358
+msgid "rounded-none"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:342 includes/wpgen/wpgen-form.php:359
+msgid "rounded-sm"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:343 includes/wpgen/wpgen-form.php:360
+msgid "rounded"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:344 includes/wpgen/wpgen-form.php:361
+msgid "rounded-md"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:345 includes/wpgen/wpgen-form.php:362
+msgid "rounded-lg"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:346 includes/wpgen/wpgen-form.php:363
+msgid "rounded-xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:347 includes/wpgen/wpgen-form.php:364
+msgid "rounded-2xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:348 includes/wpgen/wpgen-form.php:365
+msgid "rounded-3xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:349 includes/wpgen/wpgen-form.php:366
+msgid "rounded-4xl"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:375
+msgid "50 (900 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:376
+msgid "100 (800 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:377
+msgid "200 (700 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:378
+msgid "300 (600 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:379
+msgid "400 (500 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:380
+msgid "500 (400 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:381
+msgid "600 (300 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:382
+msgid "700 (200 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:383
+msgid "800 (100 для темной темы)"
+msgstr ""
+
+#: includes/wpgen/wpgen-form.php:384
+msgid "900 (50 для темной темы)"
+msgstr ""
 
 #: search.php:22
 #, php-format
@@ -1295,7 +1734,7 @@ msgstr "Редактировать <span class=\"screen-reader-text\">%s</span>"
 #: templates/single/single-two.php:45
 #, php-format
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr ""
+msgstr "Продолжить чтение<span class=\"screen-reader-text\"> \"%s\"</span>"
 
 #: templates/footer/footer-simple.php:17
 msgid "Main menu of the site"

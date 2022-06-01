@@ -14,7 +14,7 @@
 
 get_header();
 
-if ( true == wpgen_options( 'sidebar_left_display' ) ) {
+if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
@@ -22,26 +22,26 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 
 		<?php do_action( 'wpgen_before_single_page' ); ?>
 
-		<?php while ( have_posts() ) :
-			the_post();
+		<?php while ( have_posts() ) : ?>
+			<?php the_post(); ?>
 
-			do_action( 'wpgen_before_article_page' );
+			<?php do_action( 'wpgen_before_article_page' ); ?>
 
-			get_template_part( 'templates/content', 'page' );
+			<?php get_template_part( 'templates/content', 'page' ); ?>
 
-			do_action( 'wpgen_after_article_page' );
+			<?php do_action( 'wpgen_after_article_page' ); ?>
 
-			//	@hooked the_wpgen_post_navigation 15
-			do_action( 'wpgen_before_comment_form' ); 
+			<!-- @hooked the_wpgen_post_navigation - 15 -->
+			<?php do_action( 'wpgen_before_comment_form' ); ?>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+			<!-- If comments are open or we have at least one comment, load up the comment template. -->
+			<?php if ( comments_open() || get_comments_number() ) : ?>
+				<?php comments_template(); ?>
+			<?php endif; ?>
 
-			do_action( 'wpgen_after_comment_form' );
+			<?php do_action( 'wpgen_after_comment_form' ); ?>
 
-		endwhile; ?>
+		<?php endwhile; ?>
 
 		<?php do_action( 'wpgen_after_single_page' ); ?>
 
@@ -49,9 +49,9 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 
 <?php
 
-if ( wpgen_options( 'sidebar_left_display' ) === true && wpgen_options( 'sidebar_right_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar( 'right' );
-} elseif( wpgen_options( 'sidebar_right_display' ) === true ) {
+} elseif ( wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar();
 }
 

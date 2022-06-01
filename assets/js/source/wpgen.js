@@ -149,9 +149,9 @@ jQuery(document).ready(function ($) {
 					// цвет ссылок
 					var linkColorName = $( '#general-link-color' ).find(':selected').val();
 					if ( linkColorName == root ) {
-						obj['linkColorDark'] = wpgen_value[colorName + '-500'];
-						obj['linkColor'] = wpgen_value[colorName + '-400'];
-						obj['linkColorLight'] = wpgen_value[colorName + '-300'];
+						obj['linkColorDark'] = wpgen_value[colorName + '-600'];
+						obj['linkColor'] = wpgen_value[colorName + '-500'];
+						obj['linkColorLight'] = wpgen_value[colorName + '-400'];
 					}
 
 					//console.log( colorName + '-500' );
@@ -219,9 +219,9 @@ jQuery(document).ready(function ($) {
 					}
 
 					if ( linkColorName == 'blue' ) {
-						obj['linkColorDark'] = wpgen_value['blue-500'];
-						obj['linkColor'] = wpgen_value['blue-400'];
-						obj['linkColorLight'] = wpgen_value['blue-300'];
+						obj['linkColorDark'] = wpgen_value['blue-600'];
+						obj['linkColor'] = wpgen_value['blue-500'];
+						obj['linkColorLight'] = wpgen_value['blue-400'];
 					}
 
 				} else if ( type == 'customizer' ) {

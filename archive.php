@@ -9,7 +9,7 @@
 
 get_header();
 
-if ( true == wpgen_options( 'sidebar_left_display' ) ) {
+if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
@@ -18,7 +18,7 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 		<?php do_action( 'wpgen_before_archive_page' ); ?>
 
 		<header class="entry__header" role="banner" aria-label="<?php esc_html_e( 'Archive Page Header', 'wpgen' ); ?>">
-			<?php 
+			<?php
 				the_archive_title( '<h1 class="archive-title">', '</h1>' );
 				the_archive_description( '<div class="archive-description">', '</div>' );
 			?>
@@ -30,56 +30,56 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 
 				<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 
-					<?php
-					// Start the Loop
-					while ( have_posts() ) :
-						the_post();  ?>
+					<!-- Start the Loop -->
+					<?php while ( have_posts() ) : ?>
+						<?php the_post(); ?>
 
 							<div <?php wpgen_archive_page_columns_classes(); ?>>
 
-								<?php $post_type = get_post_type();
+								<?php
 
-								// подключаем шаблон с пост тайпом, если есть в теме
-								if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . $post_type . '.php' ) ) ) {
-									get_template_part( 'templates/archive/archive-' . $post_type );
-								} else {
-									if ( 'simple' == wpgen_options( 'archive_page_template_type' ) ) {
-										get_template_part( 'templates/archive/archive-simple' );
-									} elseif ( 'banners' == wpgen_options( 'archive_page_template_type' ) ) {
-										get_template_part( 'templates/archive/archive-banners' );
-									} elseif ( 'tils' == wpgen_options( 'archive_page_template_type' ) ) {
-										get_template_part( 'templates/archive/archive-tils' );
+									// Get a template with a post type, if there is one in the theme.
+									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
+										get_template_part( 'templates/archive/archive-' . get_post_type() );
 									} else {
-										get_template_part( 'templates/archive/archive-list' );
-									} 
-								} ?>
+										if ( wpgen_options( 'archive_page_template_type' ) === 'simple' ) {
+											get_template_part( 'templates/archive/archive-simple' );
+										} elseif ( wpgen_options( 'archive_page_template_type' ) === 'banners' ) {
+											get_template_part( 'templates/archive/archive-banners' );
+										} elseif ( wpgen_options( 'archive_page_template_type' ) === 'tils' ) {
+											get_template_part( 'templates/archive/archive-tils' );
+										} else {
+											get_template_part( 'templates/archive/archive-list' );
+										}
+									}
+
+								?>
 
 							</div>
-						
+
 					<?php endwhile; ?>
 
 				</div>
 
 			<?php do_action( 'wpgen_after_archive_page_content' ); ?>
 
-			<?php the_wpgen_posts_navigation();
-				//the_posts_navigation();
+			<?php the_wpgen_posts_navigation(); ?>
 
-		else :
+		<?php else : ?>
 
-			get_template_part( 'templates/content', 'none' );
+			<?php get_template_part( 'templates/content', 'none' ); ?>
 
-		endif; ?>
+		<?php endif; ?>
 
-		<?php do_action( 'wpgen_after_archive_page' );  ?>
+		<?php do_action( 'wpgen_after_archive_page' ); ?>
 
 	</main>
 
 <?php
 
-if ( wpgen_options( 'sidebar_left_display' ) === true && wpgen_options( 'sidebar_right_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar( 'right' );
-} elseif( wpgen_options( 'sidebar_right_display' ) === true ) {
+} elseif ( wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar();
 }
 

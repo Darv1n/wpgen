@@ -12,7 +12,6 @@
 ?>
 			</div><!-- close .row -->
 		</div><!-- close .container -->
-
 	</div><!-- close .site__content -->
 
 	<?php do_action( 'after_site_content' ); ?>
@@ -25,24 +24,23 @@
 		<div class="footer__top-bar">
 			<div <?php wpgen_container_classes(); ?>>
 
-				<?php 
+				<?php
 
-					if( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
-						get_template_part( 'templates/footer/footer-three-columns');
-					} elseif( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
-						get_template_part( 'templates/footer/footer-four-columns');
-					} else {
-						get_template_part( 'templates/footer/footer-simple');
-					}
+				if ( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
+					get_template_part( 'templates/footer/footer-three-columns' );
+				} elseif ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
+					get_template_part( 'templates/footer/footer-four-columns' );
+				} else {
+					get_template_part( 'templates/footer/footer-simple' );
+				}
 
 				?>
 
 			</div>
 		</div>
 
-		<?php if ( wpgen_options( 'general_bottom_bar_display' ) === true ) { ?>
-
-			<!-- Footer Bottom Bar -->
+		<!-- Footer Bottom Bar -->
+		<?php if ( wpgen_options( 'general_bottom_bar_display' ) ) { ?>
 			<div class="footer__bottom-bar">
 				<div <?php wpgen_container_classes(); ?>>
 					<div class="row align-items-center">
@@ -51,7 +49,6 @@
 					</div>
 				</div>
 			</div>
-
 		<?php } ?>
 
 		<?php do_action( 'wp_footer_close' ); ?>

@@ -9,7 +9,7 @@
 
 get_header();
 
-if ( true == wpgen_options( 'sidebar_left_display' ) ) {
+if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
@@ -17,38 +17,36 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 
 		<?php do_action( 'wpgen_before_single_post' ); ?>
 
-		<?php while ( have_posts() ) :
-			the_post();
+		<?php while ( have_posts() ) : ?>
+			<?php the_post(); ?>
 
-			$post_type = get_post_type();
+			<?php do_action( 'wpgen_before_article_post' ); ?>
 
-			do_action( 'wpgen_before_article_post' );
+				<?php
 
-			// подключаем шаблон с пост тайпом, если есть в теме
-			if ( file_exists( get_theme_file_path( 'templates/single/single-' . $post_type . '.php' ) ) ) {
-				get_template_part( 'templates/single/single-' . $post_type );
-			} else {
-				if ( 'two' == wpgen_options( 'single_post_template_type' ) ) {
-					get_template_part( 'templates/single/single', 'two' );
+				// Get a template with a post type, if there is one in the theme.
+				if ( file_exists( get_theme_file_path( 'templates/single/single-' . get_post_type() . '.php' ) ) ) {
+					get_template_part( 'templates/single/single-' . get_post_type() );
 				} else {
-					get_template_part( 'templates/single/single', 'one' );
+					get_template_part( 'templates/single/single', wpgen_options( 'single_post_template_type' ) );
 				}
-			}
 
-			do_action( 'wpgen_after_article_post' );
+				?>
 
-			//	@hooked the_wpgen_post_navigation 15
-			do_action( 'wpgen_before_comment_form' ); 
+			<?php do_action( 'wpgen_after_article_post' ); ?>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+			<!-- @hooked the_wpgen_post_navigation - 15 -->
+			<?php do_action( 'wpgen_before_comment_form' ); ?>
 
-			//	@hooked the_wpgen_similar_posts 15
-			do_action( 'wpgen_after_comment_form' ); 
+			<!-- If comments are open or we have at least one comment, load up the comment template -->
+			<?php if ( comments_open() || get_comments_number() ) : ?>
+				<?php comments_template(); ?>
+			<?php endif; ?>
 
-		endwhile; ?>
+			<!-- @hooked the_wpgen_similar_posts - 15 -->
+			<?php do_action( 'wpgen_after_comment_form' ); ?>
+
+		<?php endwhile; ?>
 
 		<?php do_action( 'wpgen_after_single_post' ); ?>
 
@@ -56,9 +54,9 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 
 <?php
 
-if ( wpgen_options( 'sidebar_left_display' ) === true && wpgen_options( 'sidebar_right_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar( 'right' );
-} elseif( wpgen_options( 'sidebar_right_display' ) === true ) {
+} elseif ( wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar();
 }
 

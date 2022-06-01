@@ -9,7 +9,7 @@
 
 get_header();
 
-if ( true == wpgen_options( 'sidebar_left_display' ) ) {
+if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
@@ -23,30 +23,29 @@ if ( true == wpgen_options( 'sidebar_left_display' ) ) {
 				</h1>
 			</header>
 
-			<?php
-			// Start the Loop
-			while ( have_posts() ) :
-				the_post(); ?>
+			<!-- Start the Loop -->
+			<?php while ( have_posts() ) : ?>
+				<?php the_post(); ?>
 
-					<?php get_template_part( 'templates/archive/archive-simple'); ?>
+				<?php get_template_part( 'templates/archive/archive-simple' ); ?>
 
 			<?php endwhile; ?>
 
-			<?php the_wpgen_posts_navigation();
+			<?php the_wpgen_posts_navigation(); ?>
 
-		else :
+		<?php else : ?>
 
-			get_template_part( 'templates/content', 'none' );
+			<?php get_template_part( 'templates/content', 'none' ); ?>
 
-		endif; ?>
+		<?php endif; ?>
 
 	</main>
 
 <?php
 
-if ( wpgen_options( 'sidebar_left_display' ) === true && wpgen_options( 'sidebar_right_display' ) === true ) {
+if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar( 'right' );
-} elseif( wpgen_options( 'sidebar_right_display' ) === true ) {
+} elseif ( wpgen_options( 'sidebar_right_display' ) ) {
 	get_sidebar();
 }
 

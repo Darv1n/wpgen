@@ -9,17 +9,15 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('article-single article-search'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'article-single article-search' ); ?>>
 	<header class="entry__part entry__header">
 		<?php the_title( sprintf( '<h2 class="entry__title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-		<?php if ( 'post' === get_post_type() ) { ?>
-		<div class="entry__part entry__meta">
-			<?php
-				wpgen_posted_on();
-				wpgen_posted_by();
-			?>
-		</div>
+		<?php if ( get_post_type() === 'post' ) { ?>
+			<div class="entry__part entry__meta">
+				<?php wpgen_posted_on(); ?>
+				<?php wpgen_posted_by(); ?>
+			</div>
 		<?php } ?>
 	</header>
 	<?php wpgen_post_thumbnail(); ?>
