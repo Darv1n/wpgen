@@ -5,8 +5,8 @@
 	border: $border-middle-gray-color
 	border-radius: $border-radius
 
-@mixin pseudo($width: 100%, $height: 100%, $top: 0, $left: 0, $bottom: null, $right: null, $background: null)
-	content: ''
+@mixin pseudo( $content: '', $width: 100%, $height: 100%, $top: 0, $left: 0, $bottom: null, $right: null, $background: null )
+	content: $content
 	position: absolute
 	top: $top
 	left: $left

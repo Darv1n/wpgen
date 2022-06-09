@@ -133,7 +133,6 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		add_filter( 'login_headerurl', function() {
 			return home_url(); // или любой другой адрес.
 		});
-
 	}
 }
 add_action( 'after_setup_theme', 'wpgen_setup' );
@@ -155,297 +154,352 @@ if ( ! function_exists( 'wpgen_print_root_styles' ) ) {
 		}
 
 		echo '<style id="wpgen-root">:root {' . esc_attr( $root_string ) . '}</style>';
-
 	}
 }
 add_action( 'wp_head', 'wpgen_print_root_styles', 1 );
 
 
 
-/**
- * Connecting general styles and scripts.
- */
-function wpgen_scripts() {
-	// Стандартный файл стилей с инфой о теме. Не используется для css из-за не удобной компиляции.
-	// wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
+if ( ! function_exists( 'wpgen_scripts' ) ) {
 
-	// Шрифты (пытаемся получить их из опций, которые сгенерил wpgen или берем дефолтные).
-	$fonts = get_default_fonts();
+	/**
+	 * Connecting general styles and scripts.
+	 */
+	function wpgen_scripts() {
+		// Стандартный файл стилей с инфой о теме. Не используется для css из-за не удобной компиляции.
+		// wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
 
-	if ( ! is_wpgen_active() && $fonts['primary'] === $fonts['secondary'] ) {
-		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-	} else {
-		wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-		wp_enqueue_style( 'secondary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['secondary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
+		// Шрифты (пытаемся получить их из опций, которые сгенерил wpgen или берем дефолтные).
+		$fonts = get_default_fonts();
+
+		if ( ! is_wpgen_active() && $fonts['primary'] === $fonts['secondary'] ) {
+			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
+		} else {
+			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
+			wp_enqueue_style( 'secondary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['secondary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
+		}
+
+		// Сетка Бутстрап.
+		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( 'assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
+
+		// Основные стили. Компиляция галпом. Могут быть переопределены в дочерней.
+		wp_enqueue_style( 'common-styles', get_theme_file_uri( 'assets/css/common.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/common.min.css' ) ) );
+
+		// Основные скрипты. Компиляция галпом. Могут быть переопределены в дочерней.
+		wp_enqueue_script( 'common-scripts', get_theme_file_uri( 'assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
+
+		// Комментарии.
+		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+			wp_enqueue_script( 'comment-reply' );
+		}
+
+		// Отключаем глобальные стили для гутенберга, если пользователь не залогинен.
+		if ( ! is_user_logged_in() ) {
+			wp_dequeue_style( 'global-styles' );
+		}
+
+		// Скрипты и стили для формы wpgen, если она активна.
+		if ( is_wpgen_active() ) {
+
+			wp_enqueue_style( 'wpgen-styles', get_theme_file_uri( 'assets/css/wpgen-style.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/wpgen-style.min.css' ) ) );
+
+			wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( 'assets/js/source/wpgen.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/source/wpgen.js' ) ), true );
+
+			// Используем функцию wp_localize_script для передачи переменных в JS скрипт.
+			wp_localize_script(
+				'ajax-wpgen',
+				'ajax_wpgen_obj',
+				array(
+					'url'   => admin_url( 'admin-ajax.php' ),
+					'value' => get_selected_value(), // Локализуем массив со значениями.
+					'nonce' => wp_create_nonce( 'nonce-wpgen' ), // Создаем nonce.
+				)
+			);
+		}
 	}
-
-	// Сетка Бутстрап.
-	wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( 'assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
-
-	// Основные стили. Компиляция галпом. Могут быть переопределены в дочерней.
-	wp_enqueue_style( 'common-styles', get_theme_file_uri( 'assets/css/common.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/common.min.css' ) ) );
-
-	// Основные скрипты. Компиляция галпом. Могут быть переопределены в дочерней.
-	wp_enqueue_script( 'common-scripts', get_theme_file_uri( 'assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
-
-	// Комментарии.
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-
-	// Отключаем глобальные стили для гутенберга, если пользователь не залогинен.
-	if ( ! is_user_logged_in() ) {
-		wp_dequeue_style( 'global-styles' );
-	}
-
-	// Скрипты и стили для формы wpgen, если она активна.
-	if ( is_wpgen_active() ) {
-
-		wp_enqueue_style( 'wpgen-styles', get_theme_file_uri( 'assets/css/wpgen-style.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/wpgen-style.min.css' ) ) );
-
-		wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( 'assets/js/source/wpgen.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/source/wpgen.js' ) ), true );
-
-		// Используем функцию wp_localize_script для передачи переменных в JS скрипт.
-		wp_localize_script(
-			'ajax-wpgen',
-			'ajax_wpgen_obj',
-			array(
-				'url'   => admin_url( 'admin-ajax.php' ),
-				'value' => get_selected_value(), // Локализуем массив со значениями.
-				'nonce' => wp_create_nonce( 'nonce-wpgen' ), // Создаем nonce.
-			)
-		);
-
-	}
-
 }
 add_action( 'wp_enqueue_scripts', 'wpgen_scripts' );
 
 
 
-/**
- * Register widget area.
- */
-function wpgen_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'wpgen' ),
-		'id'            => 'sidebar',
-		'description'   => esc_html__( 'Add widgets in left sidebar', 'wpgen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
-	if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
+if ( ! function_exists( 'wpgen_widgets_init' ) ) {
+
+	/**
+	 * Register widget area.
+	 */
+	function wpgen_widgets_init() {
 		register_sidebar( array(
-			'name'          => esc_html__( 'Sidebar Right', 'wpgen' ),
-			'id'            => 'sidebar-right',
-			'description'   => esc_html__( 'Add widgets in right sidebar', 'wpgen' ),
+			'name'          => esc_html__( 'Sidebar', 'wpgen' ),
+			'id'            => 'sidebar',
+			'description'   => esc_html__( 'Add widgets in left sidebar', 'wpgen' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
 			'after_title'   => '</h2>',
 		) );
-	}
+		if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'Sidebar Right', 'wpgen' ),
+				'id'            => 'sidebar-right',
+				'description'   => esc_html__( 'Add widgets in right sidebar', 'wpgen' ),
+				'before_widget' => '<section id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</section>',
+				'before_title'  => '<h2 class="widget-title">',
+				'after_title'   => '</h2>',
+			) );
+		}
 
-	if ( wpgen_options( 'general_top_bar_display' ) ) {
-		register_sidebar( array(
-			'name'          => esc_html__( 'Header top bar left', 'wpgen' ),
-			'id'            => 'sidebar-top-left',
-			'description'   => esc_html__( 'Header top sidebar left', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-		register_sidebar( array(
-			'name'          => esc_html__( 'Header top bar right', 'wpgen' ),
-			'id'            => 'sidebar-top-right',
-			'description'   => esc_html__( 'Header top sidebar right', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-	}
+		if ( wpgen_options( 'general_top_bar_display' ) ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'Header top bar left', 'wpgen' ),
+				'id'            => 'sidebar-top-left',
+				'description'   => esc_html__( 'Header top sidebar left', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+			register_sidebar( array(
+				'name'          => esc_html__( 'Header top bar right', 'wpgen' ),
+				'id'            => 'sidebar-top-right',
+				'description'   => esc_html__( 'Header top sidebar right', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+		}
 
-	if ( wpgen_options( 'general_bottom_bar_display' ) ) {
-		register_sidebar( array(
-			'name'          => esc_html__( 'Footer bottom bar left', 'wpgen' ),
-			'id'            => 'sidebar-footer-bottom-left',
-			'description'   => esc_html__( 'Footer bottom sidebar left', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-		register_sidebar( array(
-			'name'          => esc_html__( 'Footer bottom bar right', 'wpgen' ),
-			'id'            => 'sidebar-footer-bottom-right',
-			'description'   => esc_html__( 'Footer bottom sidebar right', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-	}
+		if ( wpgen_options( 'general_bottom_bar_display' ) ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'Footer bottom bar left', 'wpgen' ),
+				'id'            => 'sidebar-footer-bottom-left',
+				'description'   => esc_html__( 'Footer bottom sidebar left', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+			register_sidebar( array(
+				'name'          => esc_html__( 'Footer bottom bar right', 'wpgen' ),
+				'id'            => 'sidebar-footer-bottom-right',
+				'description'   => esc_html__( 'Footer bottom sidebar right', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+		}
 
-	if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-three-columns', 'footer-four-columns' ), true ) ) {
-		register_sidebar( array(
-			'name'          => esc_html__( 'First footer sidebar', 'wpgen' ),
-			'id'            => 'sidebar-footer-one',
-			'description'   => esc_html__( 'First footer sidebar', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-		register_sidebar( array(
-			'name'          => esc_html__( 'Second footer sidebar', 'wpgen' ),
-			'id'            => 'sidebar-footer-two',
-			'description'   => esc_html__( 'Second footer sidebar', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-		register_sidebar( array(
-			'name'          => esc_html__( 'Third footer sidebar', 'wpgen' ),
-			'id'            => 'sidebar-footer-three',
-			'description'   => esc_html__( 'Third footer sidebar', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
-	}
+		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-three-columns', 'footer-four-columns' ), true ) ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'First footer sidebar', 'wpgen' ),
+				'id'            => 'sidebar-footer-one',
+				'description'   => esc_html__( 'First footer sidebar', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+			register_sidebar( array(
+				'name'          => esc_html__( 'Second footer sidebar', 'wpgen' ),
+				'id'            => 'sidebar-footer-two',
+				'description'   => esc_html__( 'Second footer sidebar', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+			register_sidebar( array(
+				'name'          => esc_html__( 'Third footer sidebar', 'wpgen' ),
+				'id'            => 'sidebar-footer-three',
+				'description'   => esc_html__( 'Third footer sidebar', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+		}
 
-	if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
-		register_sidebar( array(
-			'name'          => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
-			'id'            => 'sidebar-footer-four',
-			'description'   => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		) );
+		if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
+				'id'            => 'sidebar-footer-four',
+				'description'   => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+		}
 	}
-
 }
 add_action( 'widgets_init', 'wpgen_widgets_init' );
 
 
 
-/**
- * Unset thumbnails for specified sizes.
- *
- * @param array $sizes is array of thumbnail sizes.
- *
- * @return array
- */
-function unset_intermediate_image_sizes( $sizes ) {
+if ( ! function_exists( 'unset_intermediate_image_sizes' ) ) {
 
-	// Sizes to be removed.
-	$unset_sizes = array(
-		'thumbnail',
-		'medium_large',
-		'1536x1536',
-		'2048x2048',
-	);
+	/**
+	 * Function for `intermediate_image_sizes` filter-hook.
+	 * 
+	 * @param string[] $default_sizes An array of intermediate image size names.
+	 *
+	 * @return string[]
+	 */
+	function unset_intermediate_image_sizes( $sizes ) {
 
-	return array_diff( $sizes, $unset_sizes );
+		// Sizes to be removed.
+		$unset_sizes = array(
+			'thumbnail',
+			'medium_large',
+			'1536x1536',
+			'2048x2048',
+		);
 
+		return array_diff( $sizes, $unset_sizes );
+
+	}
 }
 add_filter( 'intermediate_image_sizes', 'unset_intermediate_image_sizes' );
+
+
+
+if ( ! function_exists( 'remove_nav_menu_item_id' ) ) {
+
+	/**
+	 * Function for `nav_menu_item_id` filter-hook.
+	 * 
+	 * @param string   $menu_id   The ID that is applied to the menu item's `<li>` element.
+	 * @param WP_Post  $menu_item The current menu item.
+	 * @param stdClass $args      An object of wp_nav_menu() arguments.
+	 * @param int      $depth     Depth of menu item. Used for padding.
+	 *
+	 * @return string
+	 */
+	function remove_nav_menu_item_id( $id, $item, $args ) {
+	    return '';
+	}
+}
+add_filter( 'nav_menu_item_id', 'remove_nav_menu_item_id', 10, 3 );
+
+
+
+if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
+
+	/**
+	 * Function for `nav_menu_css_class` filter-hook.
+	 * 
+	 * @param string[] $classes   Array of the CSS classes that are applied to the menu item's `<li>` element.
+	 * @param WP_Post  $menu_item The current menu item object.
+	 * @param stdClass $args      An object of wp_nav_menu() arguments.
+	 * @param int      $depth     Depth of menu item. Used for padding.
+	 *
+	 * @return string[]
+	 */
+	function remove_nav_menu_item_class( $classes, $item, $args ) {
+
+		foreach ( $classes as $key => $class ) {
+			if ( ! in_array( $class, array( 'menu-item', 'current-menu-item' ), true ) ) {
+				unset( $classes[ $key ] ); 
+			}
+		}
+
+		return $classes;
+	}
+}
+add_filter( 'nav_menu_css_class', 'remove_nav_menu_item_class', 10, 3 );
 
 
 // TGM Plugin Activation Class.
 require_once get_parent_theme_file_path( '/includes/plugin-additions/class-tgm-plugin-activation.php' );
 
-/**
- * Register recommended plugins with TGM Plugin Activation
- */
-function wpgen_register_recommended_plugins() {
-	$plugins = array(
-		array(
-			'name'     => 'Query Monitor',
-			'slug'     => 'query-monitor',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Cyr-To-Lat',
-			'slug'     => 'cyr2lat',
-			'required' => false,
-		),
-		array(
-			'name'     => 'WP Super Cache',
-			'slug'     => 'wp-super-cache',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Minify HTML',
-			'slug'     => 'minify-html-markup',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Schema',
-			'slug'     => 'schema',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Stream',
-			'slug'     => 'stream',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Limit Login Attempts Reloaded',
-			'slug'     => 'limit-login-attempts-reloaded',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Yoast',
-			'slug'     => 'wordpress-seo',
-			'required' => false,
-		),
-		array(
-			'name'     => 'Advanced noCaptcha & invisible Captcha (v2 & v3)',
-			'slug'     => 'advanced-nocaptcha-recaptcha',
-			'required' => false,
-		),
-		array(
-			'name'     => 'WebP Express',
-			'slug'     => 'webp-express',
-			'required' => false,
-		),
-		array(
-			'name'         => 'Kama Postviews', // The plugin name.
-			'slug'         => 'kama-postviews', // The plugin slug (typically the folder name).
-			'required'     => false,
-			'source'       => get_template_directory_uri() . '/includes/plugin-additions/tgm/kama-postviews.zip',
-			'external_url' => 'https://wp-kama.ru/id_55/schitaem-kolichestvo-posescheniy-stranits-na-wordpress.html',
-		),
-		array(
-			'name'         => 'Carbon Fields', // The plugin name.
-			'slug'         => 'carbon-fields', // The plugin slug (typically the folder name).
-			'required'     => false,
-			'source'       => get_template_directory_uri() . '/includes/plugin-additions/tgm/carbon-fields.zip',
-			'external_url' => 'https://carbonfields.net/',
-		),
-	);
-	$config = array(
-		'id'           => 'wpgen',                 // ID for hashing notices for multiple instances of TGMPA.
-		'default_path' => '',                      // Default absolute path to bundled plugins.
-		'menu'         => 'tgmpa-install-plugins', // Menu slug.
-		'parent_slug'  => 'plugins.php',           // Parent menu slug.
-		'capability'   => 'manage_options',        // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-		'has_notices'  => true,                    // Show admin notices or not.
-		'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
-		'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
-		'is_automatic' => false,                   // Automatically activate plugins after installation or not.
-		'message'      => '',                      // Message to output right before the plugins table.
-	);
-	tgmpa( $plugins, $config );
+if ( ! function_exists( 'wpgen_register_recommended_plugins' ) ) {
+
+	/**
+	 * Register recommended plugins with TGM Plugin Activation
+	 */
+	function wpgen_register_recommended_plugins() {
+		$plugins = array(
+			array(
+				'name'     => 'Query Monitor',
+				'slug'     => 'query-monitor',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Cyr-To-Lat',
+				'slug'     => 'cyr2lat',
+				'required' => false,
+			),
+			array(
+				'name'     => 'WP Super Cache',
+				'slug'     => 'wp-super-cache',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Minify HTML',
+				'slug'     => 'minify-html-markup',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Schema',
+				'slug'     => 'schema',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Stream',
+				'slug'     => 'stream',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Limit Login Attempts Reloaded',
+				'slug'     => 'limit-login-attempts-reloaded',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Yoast',
+				'slug'     => 'wordpress-seo',
+				'required' => false,
+			),
+			array(
+				'name'     => 'Advanced noCaptcha & invisible Captcha (v2 & v3)',
+				'slug'     => 'advanced-nocaptcha-recaptcha',
+				'required' => false,
+			),
+			array(
+				'name'     => 'WebP Express',
+				'slug'     => 'webp-express',
+				'required' => false,
+			),
+			array(
+				'name'         => 'Kama Postviews', // The plugin name.
+				'slug'         => 'kama-postviews', // The plugin slug (typically the folder name).
+				'required'     => false,
+				'source'       => get_template_directory_uri() . '/includes/plugin-additions/tgm/kama-postviews.zip',
+				'external_url' => 'https://wp-kama.ru/id_55/schitaem-kolichestvo-posescheniy-stranits-na-wordpress.html',
+			),
+			array(
+				'name'         => 'Carbon Fields', // The plugin name.
+				'slug'         => 'carbon-fields', // The plugin slug (typically the folder name).
+				'required'     => false,
+				'source'       => get_template_directory_uri() . '/includes/plugin-additions/tgm/carbon-fields.zip',
+				'external_url' => 'https://carbonfields.net/',
+			),
+		);
+		$config = array(
+			'id'           => 'wpgen',                 // ID for hashing notices for multiple instances of TGMPA.
+			'default_path' => '',                      // Default absolute path to bundled plugins.
+			'menu'         => 'tgmpa-install-plugins', // Menu slug.
+			'parent_slug'  => 'plugins.php',           // Parent menu slug.
+			'capability'   => 'manage_options',        // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+			'has_notices'  => true,                    // Show admin notices or not.
+			'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
+			'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
+			'is_automatic' => false,                   // Automatically activate plugins after installation or not.
+			'message'      => '',                      // Message to output right before the plugins table.
+		);
+		tgmpa( $plugins, $config );
+	}
 }
 add_action( 'tgmpa_register', 'wpgen_register_recommended_plugins' );
 
@@ -491,6 +545,6 @@ if ( ! function_exists( 'wpgen_search_highlight' ) ) {
 
 	}
 }
+add_filter( 'the_title', 'wpgen_search_highlight' );
 add_filter( 'the_content', 'wpgen_search_highlight' );
 add_filter( 'the_excerpt', 'wpgen_search_highlight' );
-add_filter( 'the_title', 'wpgen_search_highlight' );

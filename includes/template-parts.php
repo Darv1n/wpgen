@@ -465,13 +465,13 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 				$output .= '<div class="' . esc_html( implode( ' ', get_wpgen_container_classes() ) ) . '">';
 					$output .= '<div class="row align-items-center">';
 						$output .= '<div class="col-12 col-lg-8 cookie__message">';
-							$output .= '<p class="small">' . esc_html__( 'We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. <br>By clicking «Accept», you consent to the use of ALL the cookies', 'wpgen' ) . '</p>';
+							$output .= '<p class="small">' . __( 'We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. <br>By clicking «Accept», you consent to the use of ALL the cookies', 'wpgen' ) . '</p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__privacy">';
-							$output .= '<p><a href="' . $privacy_policy_url . '" role="button" class="link" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
+							$output .= '<p><a href="' . $privacy_policy_url . '" role="button" class="link link-color-unborder" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__confirm">';
-							$output .= '<button id="cookie_action" class="button" type="button">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
+							$output .= '<button id="cookie_action" class="' . implode( ' ', get_button_classes() ) . '" type="button">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
 						$output .= '</div>';
 					$output .= '</div>';
 				$output .= '</div>';
@@ -626,23 +626,23 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 
 			// Previous page.
 			if ( $paged > 1 ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '" class="posts-navigation__item posts-navigation__item_previous"></a>';
+				$output .= '<a href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_prev">-1</a>';
 			}
 
 			// Основной цикл вывода ссылок.
 			for ( $i = 1; $i <= $pages; $i++ ) {
 				if ( 1 !== $pages && ( ! ( $i >= $paged + $range + 1 || $i <= $paged - $range - 1 ) || $pages <= $showitems ) ) {
 					if ( $paged === $i ) {
-						$output .= '<span class="posts-navigation__item posts-navigation__item_current">' . $i . '</span>';
+						$output .= '<span class="posts-navigation__item posts-navigation__item_current button button-default disabled">' . $i . '</span>';
 					} else {
-						$output .= '<a href="' . esc_url( get_pagenum_link( $i ) ) . '" class="posts-navigation__item">' . $i . '</a>';
+						$output .= '<a href="' . esc_url( get_pagenum_link( $i ) ) . '" class="posts-navigation__item button">' . $i . '</a>';
 					}
 				}
 			}
 
 			// Next Page.
 			if ( $paged < $pages ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '" class="posts-navigation__item posts-navigation__item_next"></a>';
+				$output .= '<a href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_next">+1</a>';
 			}
 
 		} else {

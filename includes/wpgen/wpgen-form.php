@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 add_action( 'wp_footer_close', 'wpgen_frontend_form', 50 );
 if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
@@ -55,7 +54,6 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				$defaults = wp_parse_args( $temp, $defaults );
 				unset( $temp );
 			}
-
 
 			// Создаем массив элементов по умолчанию.
 			$elems = array(
@@ -122,6 +120,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'root'  => 'customizerButtonType',
 					'style' => array(
 						'common'   => __( 'Common', 'wpgen' ),
+						'empty'    => __( 'Empty', 'wpgen' ),
 						'gradient' => __( 'Gradient', 'wpgen' ),
 						'slide'    => __( 'Slide', 'wpgen' ),
 					),
@@ -140,10 +139,10 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'general-link-color' => array(
-					'title' => 'Цвет ссылок',
-					'type'  => 'elem',
-					'root'  => 'linkColor',
-					'style' => array(
+					'title'   => 'Цвет ссылок',
+					'type'    => 'elem',
+					'root'    => 'linkColor',
+					'style'   => array(
 						'primary'   => __( 'primary', 'wpgen' ),
 						'secondary' => __( 'secondary', 'wpgen' ),
 						'blue'      => __( 'blue', 'wpgen' ),
@@ -156,7 +155,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'type'     => 'color',
 					'root'     => 'primary',
 					'saturate' => 'mini',
-					'style' => array(
+					'style'    => array(
 						'red'     => __( 'red', 'wpgen' ),
 						'orange'  => __( 'orange', 'wpgen' ),
 						'amber'   => __( 'amber', 'wpgen' ),
@@ -181,7 +180,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'type'     => 'color',
 					'root'     => 'secondary',
 					'saturate' => 'mini',
-					'style' => array(
+					'style'    => array(
 						'red'     => __( 'red', 'wpgen' ),
 						'orange'  => __( 'orange', 'wpgen' ),
 						'amber'   => __( 'amber', 'wpgen' ),
@@ -206,7 +205,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'type'     => 'color',
 					'root'     => 'gray',
 					'saturate' => 'saturate',
-					'style' => array(
+					'style'    => array(
 						'slate'   => __( 'slate', 'wpgen' ),
 						'gray'    => __( 'gray', 'wpgen' ),
 						'zinc'    => __( 'zinc', 'wpgen' ),
@@ -259,10 +258,10 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				),
 
 				'elem-bd-color' => array(
-					'title' => 'Цвет бордера элементов',
-					'type'  => 'elem',
-					'root'  => 'elemBdColor',
-					'style' => array(
+					'title'   => 'Цвет бордера элементов',
+					'type'    => 'elem',
+					'root'    => 'elemBdColor',
+					'style'   => array(
 						'primary'   => __( 'primary', 'wpgen' ),
 						'secondary' => __( 'secondary', 'wpgen' ),
 						'bg'        => __( 'gray', 'wpgen' ),
@@ -320,7 +319,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'btn-bd-radius' => array(
-					'title' => 'Радиус бордера элементов',
+					'title' => 'Радиус бордера кнопок',
 					'type'  => 'form',
 					'root'  => 'btnBdRadius',
 					'style' => array(
@@ -354,14 +353,16 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				),
 			);
 
-		$out = '<button id="wpgen-btn" class="btn btn-default btn-wpgen" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
+			$elems = apply_filters( 'wpgen_form_options', $elems );
+
+		$out = '<button id="wpgen-btn" class="' . implode( ' ', get_button_classes( 'btn-wpgen', 'default' ) ) . '" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
 				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
 					$out .= '<fieldset class="btn-set">';
 						// $out .= '<input id="wpgen-name" type="text" name="name" required>';
-						$out .= '<input id="wpgen-random" type="button" class="btn" value="Random">';
-						$out .= '<input id="wpgen-submit" type="submit" class="btn wpgen-action btn-secondary" data-action="save" value="Save">';
-						$out .= '<input id="wpgen-submit" type="submit" class="btn wpgen-action btn-default" data-action="reset" value="Default">';
+						$out .= '<input id="wpgen-random" type="button" class="' . implode( ' ', get_button_classes() ) . '" value="Random">';
+						$out .= '<input id="wpgen-submit" type="submit" class="' . implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) . '" data-action="save" value="Save">';
+						$out .= '<input id="wpgen-submit" type="submit" class="' . implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) . '" data-action="reset" value="Default">';
 					$out .= '</fieldset>';
 
 					foreach ( $elems as $key_e => $elem ) {
@@ -445,7 +446,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 										}
 									} else {
 
-										if ( $default === $key_c ) {
+										if ( $default == $key_c ) {
 											$out .= '<option value="' . $key_c . '" selected>' . $value . '</option>';
 										} else {
 											$out .= '<option value="' . $key_c . '">' . $value . '</option>';
@@ -462,9 +463,10 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			$out .= '</div>';
 
+			$out = apply_filters( 'wpgen_form_html', $out );
+
 			echo $out;
 
-		} // end if is_wpgen_active().
-
+		}
 	}
 }

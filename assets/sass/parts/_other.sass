@@ -17,44 +17,6 @@
 					margin-left: $gutter
 
 
-// #scroll-top
-// .scroll-top
-// 	display: none
-// 	position: fixed
-// 	bottom: $margin*2
-// 	cursor: pointer
-// 	z-index: 9
-// 	.scroll-top__text, .scroll-top__btn
-// 		display: inline-block
-// 		vertical-align: middle
-// 		margin-bottom: 0
-// 	.scroll-top__text
-// 		font-size: $small-font-size
-// 	.scroll-top__btn
-// 		margin-right: $gutter
-// 		padding: $gutter*2
-// 		transition: $transition
-// 		.scroll-top__btn-icon
-// 			display: block
-// 			width: 19px
-// 			height: 19px
-// 			transform: rotate(180deg)
-// 			background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat
-// 			filter: invert(100%)
-// 	&.scroll-top_right
-// 		right: $margin
-// 	&.scroll-top_left
-// 		left: $margin
-
-// @media (min-width: 992px)
-// 	.scroll-top
-// 		bottom: $margin*3
-// 		&.scroll-top_right
-// 			right: $margin*2
-// 		&.scroll-top_left
-// 			left: $margin*2
-
-
 .scroll-top
 	display: none
 	position: fixed
@@ -90,7 +52,7 @@
 			&.btn-reset
 				&::before
 					right: 0
-		&.scroll-top_button
+		&.scroll-top_button:not(.button-empty)
 			&::before
 				filter: invert(100%)
 	&_right

@@ -72,7 +72,7 @@ jQuery(document).ready(function ($) {
 			// аттрибут по умолчанию
 			btn.attr( 'data-type', 'common' );
 
-			$.each(['gradient', 'slide'], function( index, value ) {
+			$.each(['empty', 'gradient', 'slide'], function( index, value ) {
 				if ( classes.includes( value ) ) {
 					btn.attr( 'data-type', value );
 				}
@@ -215,7 +215,7 @@ jQuery(document).ready(function ($) {
 						}
 
 						obj['inputBdColor'] = wpgen_value[colorName + '-' + inputBdColorSaturate];
-
+						console.log( wpgen_value[colorName + '-' + inputBdColorSaturate] );
 					}
 
 					if ( linkColorName == 'blue' ) {
@@ -346,7 +346,7 @@ jQuery(document).ready(function ($) {
 				} else {
 
 					// исключаем работу с цветами для разных элементов, потому что эти значения ищутся в предыдущем условии и выбираются среди цветовых опций
-					if ( $.inArray( value.name, ['elem-bg-saturate', 'elem-bd-color',  'elem-bd-color', 'elem-bd-color-saturate', 'input-bd-color-saturate'] ) === -1 ) {
+					if ( $.inArray( value.name, ['btn-bd-radius', 'elem-bg-saturate', 'elem-bd-color',  'elem-bd-color', 'elem-bd-color-saturate', 'input-bd-color-saturate'] ) === -1 ) {
 						obj[root] = wpgen_value[currentValue];
 					}
 
@@ -359,6 +359,10 @@ jQuery(document).ready(function ($) {
 					if ( value.name == 'btn-size' ) {
 						obj['buttonPaddingTop'] = wpgen_value[currentValue].split(' ')[0];
 						obj['buttonPaddingLeft'] = wpgen_value[currentValue].split(' ')[1];
+					}
+
+					if ( value.name == 'btn-bd-radius' ) {
+						console.log( wpgen_value[currentValue] );
 					}
 
 				}
@@ -397,8 +401,6 @@ jQuery(document).ready(function ($) {
 		});
 
 		rootString = ':root {' + rootString + '}';
-
-		console.log( rootString );
 
 		$( '#wpgen-root' ).empty().text( rootString );
 

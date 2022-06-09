@@ -17,7 +17,7 @@ add_action( 'wp_ajax_nopriv_ajax_wpgen', 'ajax_wpgen_callback' );
  */
 function ajax_wpgen_callback() {
 
-	$_POST = wp_unslash( array_map( 'esc_attr', $_POST ) ); // Очистка массива.
+	//$_POST = wp_unslash( array_map( 'esc_attr', $_POST ) ); // Очистка массива.
 
 	if ( isset( $_POST['type'] ) && $_POST['type'] === 'reset' ) {
 
@@ -42,10 +42,10 @@ function ajax_wpgen_callback() {
 
 					$option = str_replace( 'customizer-', '', $key );
 					$option = str_replace( '-', '_', $option );
+					$option = str_replace( 'amp;', '', $option );
 
-					$customizer_options[ $option ] = $value;
+					$customizer_options[ sanitize_text_field( $option ) ] = sanitize_text_field( $value );
 					unset( $data[ $key ] );
-
 				}
 			}
 

@@ -76,11 +76,11 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 
 		// Шрифты.
 		if ( isset( $data['primary-font'] ) ) {
-			$root_wpgen['primaryFont'] = '\'' . get_selected_font( $data['primary-font'] ) . '\'';
+			$root_wpgen['primaryFont'] = get_selected_font( $data['primary-font'] );
 		}
 
 		if ( isset( $data['secondary-font'] ) ) {
-			$root_wpgen['secondaryFont'] = '\'' . get_selected_font( $data['secondary-font'] ) . '\'';
+			$root_wpgen['secondaryFont'] = get_selected_font( $data['secondary-font'] );
 		}
 
 		// Цвет ссылок.
@@ -112,6 +112,11 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			$btn_size                        = get_selected_value( $data['btn-size'] );
 			$root_wpgen['buttonPaddingTop']  = explode( ' ', $btn_size )[0];
 			$root_wpgen['buttonPaddingLeft'] = explode( ' ', $btn_size )[1];
+		}
+
+		// Радиус бордера кнопок.
+		if ( isset( $data['btn-bd-radius'] ) ) {
+			$root_wpgen['btnBdRadius'] = get_selected_value( $data['btn-bd-radius'] );
 		}
 
 		// Паддинги элементов.

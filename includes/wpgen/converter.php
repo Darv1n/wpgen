@@ -51,12 +51,11 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 
 		$converter = apply_filters( 'get_selected_font', $converter );
 
-		if ( is_null( $string ) ) {
+		if ( empty( $string ) ) {
 			return $converter;
 		} else {
 			return strtr( $string, $converter );
 		}
-
 	}
 }
 
@@ -74,8 +73,7 @@ function source_get_selected_font( $default_fonts ) {
 
 	return $default_fonts;
 
-}
-*/
+}*/
 
 
 
@@ -167,15 +165,15 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'zinc-800'     => RGBtoHEX( 'rgb(39, 39, 42)' ),
 			'zinc-900'     => RGBtoHEX( 'rgb(24, 24, 27)' ),
 			'neutral-50'   => RGBtoHEX( 'rgb(250, 250, 250)' ),
-			'neutral-100 ' => RGBtoHEX( 'rgb(245, 245, 245)' ),
-			'neutral-200 ' => RGBtoHEX( 'rgb(229, 229, 229)' ),
-			'neutral-300 ' => RGBtoHEX( 'rgb(212, 212, 212)' ),
-			'neutral-400 ' => RGBtoHEX( 'rgb(163, 163, 163)' ),
-			'neutral-500 ' => RGBtoHEX( 'rgb(115, 115, 115)' ),
-			'neutral-600 ' => RGBtoHEX( 'rgb(82, 82, 82)' ),
-			'neutral-700 ' => RGBtoHEX( 'rgb(64, 64, 64)' ),
-			'neutral-800 ' => RGBtoHEX( 'rgb(38, 38, 38)' ),
-			'neutral-900 ' => RGBtoHEX( 'rgb(23, 23, 23)' ),
+			'neutral-100'  => RGBtoHEX( 'rgb(245, 245, 245)' ),
+			'neutral-200'  => RGBtoHEX( 'rgb(229, 229, 229)' ),
+			'neutral-300'  => RGBtoHEX( 'rgb(212, 212, 212)' ),
+			'neutral-400'  => RGBtoHEX( 'rgb(163, 163, 163)' ),
+			'neutral-500'  => RGBtoHEX( 'rgb(115, 115, 115)' ),
+			'neutral-600'  => RGBtoHEX( 'rgb(82, 82, 82)' ),
+			'neutral-700'  => RGBtoHEX( 'rgb(64, 64, 64)' ),
+			'neutral-800'  => RGBtoHEX( 'rgb(38, 38, 38)' ),
+			'neutral-900'  => RGBtoHEX( 'rgb(23, 23, 23)' ),
 			'stone-50'     => RGBtoHEX( 'rgb(250, 250, 249)' ),
 			'stone-100'    => RGBtoHEX( 'rgb(245, 245, 244)' ),
 			'stone-200'    => RGBtoHEX( 'rgb(231, 229, 228)' ),
@@ -247,15 +245,15 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'green-800'    => RGBtoHEX( 'rgb(22, 101, 52)' ),
 			'green-900'    => RGBtoHEX( 'rgb(20, 83, 45)' ),
 			'emerald-50'   => RGBtoHEX( 'rgb(236, 253, 245)' ),
-			'emerald-100 ' => RGBtoHEX( 'rgb(209, 250, 229)' ),
-			'emerald-200 ' => RGBtoHEX( 'rgb(167, 243, 208)' ),
-			'emerald-300 ' => RGBtoHEX( 'rgb(110, 231, 183)' ),
-			'emerald-400 ' => RGBtoHEX( 'rgb(52, 211, 153)' ),
-			'emerald-500 ' => RGBtoHEX( 'rgb(16, 185, 129)' ),
-			'emerald-600 ' => RGBtoHEX( 'rgb(5, 150, 105)' ),
-			'emerald-700 ' => RGBtoHEX( 'rgb(4, 120, 87)' ),
-			'emerald-800 ' => RGBtoHEX( 'rgb(6, 95, 70)' ),
-			'emerald-900 ' => RGBtoHEX( 'rgb(6, 78, 59)' ),
+			'emerald-100'  => RGBtoHEX( 'rgb(209, 250, 229)' ),
+			'emerald-200'  => RGBtoHEX( 'rgb(167, 243, 208)' ),
+			'emerald-300'  => RGBtoHEX( 'rgb(110, 231, 183)' ),
+			'emerald-400'  => RGBtoHEX( 'rgb(52, 211, 153)' ),
+			'emerald-500'  => RGBtoHEX( 'rgb(16, 185, 129)' ),
+			'emerald-600'  => RGBtoHEX( 'rgb(5, 150, 105)' ),
+			'emerald-700'  => RGBtoHEX( 'rgb(4, 120, 87)' ),
+			'emerald-800'  => RGBtoHEX( 'rgb(6, 95, 70)' ),
+			'emerald-900'  => RGBtoHEX( 'rgb(6, 78, 59)' ),
 			'teal-50'      => RGBtoHEX( 'rgb(240, 253, 250)' ),
 			'teal-100'     => RGBtoHEX( 'rgb(204, 251, 241)' ),
 			'teal-200'     => RGBtoHEX( 'rgb(153, 246, 228)' ),
@@ -327,15 +325,15 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'purple-800'   => RGBtoHEX( 'rgb(107, 33, 168)' ),
 			'purple-900'   => RGBtoHEX( 'rgb(88, 28, 135)' ),
 			'fuchsia-50'   => RGBtoHEX( 'rgb(253, 244, 255)' ),
-			'fuchsia-100 ' => RGBtoHEX( 'rgb(250, 232, 255)' ),
-			'fuchsia-200 ' => RGBtoHEX( 'rgb(245, 208, 254)' ),
-			'fuchsia-300 ' => RGBtoHEX( 'rgb(240, 171, 252)' ),
-			'fuchsia-400 ' => RGBtoHEX( 'rgb(232, 121, 249)' ),
-			'fuchsia-500 ' => RGBtoHEX( 'rgb(217, 70, 239)' ),
-			'fuchsia-600 ' => RGBtoHEX( 'rgb(192, 38, 211)' ),
-			'fuchsia-700 ' => RGBtoHEX( 'rgb(162, 28, 175)' ),
-			'fuchsia-800 ' => RGBtoHEX( 'rgb(134, 25, 143)' ),
-			'fuchsia-900 ' => RGBtoHEX( 'rgb(112, 26, 117)' ),
+			'fuchsia-100'  => RGBtoHEX( 'rgb(250, 232, 255)' ),
+			'fuchsia-200'  => RGBtoHEX( 'rgb(245, 208, 254)' ),
+			'fuchsia-300'  => RGBtoHEX( 'rgb(240, 171, 252)' ),
+			'fuchsia-400'  => RGBtoHEX( 'rgb(232, 121, 249)' ),
+			'fuchsia-500'  => RGBtoHEX( 'rgb(217, 70, 239)' ),
+			'fuchsia-600'  => RGBtoHEX( 'rgb(192, 38, 211)' ),
+			'fuchsia-700'  => RGBtoHEX( 'rgb(162, 28, 175)' ),
+			'fuchsia-800'  => RGBtoHEX( 'rgb(134, 25, 143)' ),
+			'fuchsia-900'  => RGBtoHEX( 'rgb(112, 26, 117)' ),
 			'pink-50'      => RGBtoHEX( 'rgb(253, 242, 248)' ),
 			'pink-100'     => RGBtoHEX( 'rgb(252, 231, 243)' ),
 			'pink-200'     => RGBtoHEX( 'rgb(251, 207, 232)' ),
@@ -369,7 +367,7 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 
 			return $array;
 
-		} elseif ( is_null( $string ) ) {
+		} elseif ( empty( $string ) ) {
 			return $converter;
 		} else {
 			return strtr( $string, $converter );
