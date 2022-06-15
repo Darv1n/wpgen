@@ -51,10 +51,10 @@ jQuery(document).ready(function ($) {
 	}
 
 	//устанавливам основной массив даты селекторов из localStorage
-	var wpgenData = localStorage.getItem( 'wpgenData' );
-	if ( null !== wpgenData ) {
-		formDataSaver( JSON.parse( wpgenData ) );
-	}
+	// var wpgenData = localStorage.getItem( 'wpgenData' );
+	// if ( null !== wpgenData ) {
+	// 	formDataSaver( JSON.parse( wpgenData ) );
+	// }
 
 	// Указываем цвет кнопок в атрибутах (нужно для корректной работы wpgen)
 	$.each(['.button', '.btn'], function( index, value ) {

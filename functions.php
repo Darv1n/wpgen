@@ -28,6 +28,11 @@ require_once get_template_directory() . '/includes/template-parts.php';
 require_once get_template_directory() . '/includes/template-functions.php';
 require_once get_template_directory() . '/includes/template-wrappers.php';
 
+// Init.
+require_once get_template_directory() . '/includes/init/init-gallery.php';
+require_once get_template_directory() . '/includes/init/init-media.php';
+require_once get_template_directory() . '/includes/init/init-youtube.php';
+
 // Wpgen.
 require_once get_template_directory() . '/includes/wpgen/functions.php';
 require_once get_template_directory() . '/includes/wpgen/converter.php';

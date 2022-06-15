@@ -356,6 +356,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'rose-900'     => RGBtoHEX( 'rgb(136, 19, 55)' ),
 		);
 
+		$converter = apply_filters( 'get_selected_value', $converter );
+
 		if ( ! is_null( $name ) ) {
 			$array = array();
 
@@ -374,3 +376,19 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 		}
 	}
 }
+
+
+/*
+Usage:
+add_filter( 'get_selected_value','source_get_selected_value' );
+function source_get_selected_value( $default_values ) {
+
+	$source_values = array(
+		'neutral-900'  => '#000',
+	);
+
+	$default_fonts = wp_parse_args( $source_values, $default_values );
+
+	return $default_fonts;
+
+}*/

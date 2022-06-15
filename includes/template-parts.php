@@ -615,7 +615,7 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 			$paged = 1;
 		}
 
-		if ( $pages === 1 ) {
+		if ( (int) $pages === 1 ) {
 			return;
 		}
 
@@ -625,8 +625,8 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 		if ( $post_pagination === 'numeric' ) {
 
 			// Previous page.
-			if ( $paged > 1 ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_prev">-1</a>';
+			if ( $paged > 3 ) {
+				$output .= '<a href="' . esc_url( get_pagenum_link( 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_prev">-1</a>';
 			}
 
 			// Основной цикл вывода ссылок.
@@ -641,8 +641,8 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 			}
 
 			// Next Page.
-			if ( $paged < $pages ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_next">+1</a>';
+			if ( $pages > 5 && $paged < $pages - 2 ) {
+				$output .= '<a href="' . esc_url( get_pagenum_link( $pages ) ) . '" class="posts-navigation__item button posts-navigation__item_next">+1</a>';
 			}
 
 		} else {

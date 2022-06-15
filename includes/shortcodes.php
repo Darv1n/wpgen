@@ -210,7 +210,7 @@ if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 
 		// Собираем классы списка.
 		$classes[] = 'social-list';
-		$classes[] = 'social-list_' . $atts['class'];
+		$classes[] = 'social-list_' . $atts['type'];
 		if ( $atts['class'] ) {
 			$classes[] = $atts['class'];
 		}

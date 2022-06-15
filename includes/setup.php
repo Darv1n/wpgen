@@ -146,10 +146,10 @@ if ( ! function_exists( 'wpgen_print_root_styles' ) ) {
 	 */
 	function wpgen_print_root_styles() {
 
-		$root_defaults = get_root_styles();
+		$root_styles = get_root_styles();
 
 		$root_string = '';
-		foreach ( $root_defaults as $key => $root_value ) {
+		foreach ( $root_styles as $key => $root_value ) {
 			$root_string .= '--' . $key . ': ' . $root_value . ';';
 		}
 

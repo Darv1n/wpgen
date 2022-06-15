@@ -54,10 +54,48 @@ if ( ! function_exists( 'is_wpgen_active' ) ) {
 		}
 
 		return false;
-
 	}
 }
 
+
+
+if ( ! function_exists( 'translit' ) ) {
+
+	/**
+	 * String transliteration function.
+	 *
+	 * @param string $control array key to get one value.
+	 *
+	 * @return array
+	 */
+	function translit( $string = null ) {
+
+		$converter = array(
+			'а' => 'a',    'б' => 'b',    'в' => 'v',    'г' => 'g',    'д' => 'd',
+			'е' => 'e',    'ё' => 'e',    'ж' => 'zh',   'з' => 'z',    'и' => 'i',
+			'й' => 'y',    'к' => 'k',    'л' => 'l',    'м' => 'm',    'н' => 'n',
+			'о' => 'o',    'п' => 'p',    'р' => 'r',    'с' => 's',    'т' => 't',
+			'у' => 'u',    'ф' => 'f',    'х' => 'h',    'ц' => 'c',    'ч' => 'ch',
+			'ш' => 'sh',   'щ' => 'sch',  'ь' => '',     'ы' => 'y',    'ъ' => '',
+			'э' => 'e',    'ю' => 'yu',   'я' => 'ya',
+
+			'А' => 'A',    'Б' => 'B',    'В' => 'V',    'Г' => 'G',    'Д' => 'D',
+			'Е' => 'E',    'Ё' => 'E',    'Ж' => 'Zh',   'З' => 'Z',    'И' => 'I',
+			'Й' => 'Y',    'К' => 'K',    'Л' => 'L',    'М' => 'M',    'Н' => 'N',
+			'О' => 'O',    'П' => 'P',    'Р' => 'R',    'С' => 'S',    'Т' => 'T',
+			'У' => 'U',    'Ф' => 'F',    'Х' => 'H',    'Ц' => 'C',    'Ч' => 'Ch',
+			'Ш' => 'Sh',   'Щ' => 'Sch',  'Ь' => '',     'Ы' => 'Y',    'Ъ' => '',
+			'Э' => 'E',    'Ю' => 'Yu',   'Я' => 'Ya',
+		);
+
+		// Return controls.
+		if ( is_null( $string ) ) {
+			return $converter;
+		} else {
+			return strtr( $string, $converter );;
+		}
+	}
+}
 
 
 if ( ! function_exists( 'array_key_last' ) ) {
@@ -147,6 +185,7 @@ if ( ! function_exists( 'shuffle_assoc' ) ) {
 	function shuffle_assoc( $array ) {
 
 		$keys = array_keys( $array );
+
 		shuffle( $keys );
 
 		foreach ( $keys as $key ) {
@@ -556,24 +595,19 @@ if ( ! function_exists( 'remove_emoji' ) ) {
 	function remove_emoji( $string ) {
 
 		// Match Emoticons.
-		$regex_emoticons = '/[\x{1F600}-\x{1F64F}]/u';
-		$clear_string = preg_replace( $regex_emoticons, '', $string );
+		$clear_string = preg_replace( '/[\x{1F600}-\x{1F64F}]/u', '', $string );
 
 		// Match Miscellaneous Symbols and Pictographs.
-		$regex_symbols = '/[\x{1F300}-\x{1F5FF}]/u';
-		$clear_string = preg_replace( $regex_symbols, '', $clear_string );
+		$clear_string = preg_replace( '/[\x{1F300}-\x{1F5FF}]/u', '', $clear_string );
 
 		// Match Transport And Map Symbols.
-		$regex_transport = '/[\x{1F680}-\x{1F6FF}]/u';
-		$clear_string = preg_replace( $regex_transport, '', $clear_string );
+		$clear_string = preg_replace( '/[\x{1F680}-\x{1F6FF}]/u', '', $clear_string );
 
 		// Match Miscellaneous Symbols.
-		$regex_misc = '/[\x{2600}-\x{26FF}]/u';
-		$clear_string = preg_replace( $regex_misc, '', $clear_string );
+		$clear_string = preg_replace( '/[\x{2600}-\x{26FF}]/u', '', $clear_string );
 
 		// Match Dingbats.
-		$regex_dingbats = '/[\x{2700}-\x{27BF}]/u';
-		$clear_string = preg_replace( $regex_dingbats, '', $clear_string );
+		$clear_string = preg_replace( '/[\x{2700}-\x{27BF}]/u', '', $clear_string );
 
 		return $clear_string;
 	}
@@ -600,20 +634,20 @@ if ( ! function_exists( 'get_webp_from_folders' ) ) {
 
 		$output = '';
 
-		// получаем части изображения.
+		// Получаем части изображения.
 		$ext = pathinfo( $name );
 
-		// собираем пути до файлов.
+		// Собираем пути до файлов.
 		$path      = $folder . $ext['basename'];
 		$path_webp = $folder_webp . $ext['filename'] . '.webp';
 
-		// проверяем, что изображение существует.
+		// Проверяем, что изображение существует.
 		if ( file_exists( get_stylesheet_directory() . $path ) ) {
 
-			// получаем высоту и ширину изображения.
+			// Получаем высоту и ширину изображения.
 			$image_attributes = getimagesize( get_stylesheet_directory() . $path );
 
-			// проверяем, что .webp изображение существует.
+			// Проверяем, что .webp изображение существует.
 			if ( file_exists( get_stylesheet_directory() . $path_webp ) ) {
 				$output .= '<picture class="' . $class . '">';
 					$output .= '<source srcset="' . get_stylesheet_directory_uri() . $path_webp . '" type="image/webp">';

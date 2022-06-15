@@ -575,46 +575,51 @@ if ( ! function_exists( 'get_wpgen_index_page_columns_classes' ) ) {
 	 * Get classes for index page columns.
 	 *
 	 * @param string $class index page columns classes.
+	 * @param string $columns_count return classes with specified columns.
 	 *
 	 * @return array
 	 */
-	function get_wpgen_index_page_columns_classes( $class = '' ) {
+	function get_wpgen_index_page_columns_classes( $class = '', $columns_count = null ) {
 
 		// Collect array.
 		$classes   = array();
 		$classes[] = 'article-column';
 		$classes[] = 'col-12';
 
-		if ( wpgen_options( 'index_page_columns' ) === 'six' ) {
+		if ( is_null( $columns_count ) ) {
+			$columns_count = wpgen_options( 'archive_page_columns' );
+		}
+
+		if ( intval( $columns_count ) > 0 && intval( $columns_count ) < 7 && is_int( intval( $columns_count ) ) ) {
+			$columns_count = get_wpgen_count_columns( $columns_count, false );
+		}
+
+		// Default else is three columns.
+		if ( $columns_count === 'six' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-2';
 			$classes[] = 'article-column-6';
-		}
-		if ( wpgen_options( 'index_page_columns' ) === 'five' ) {
+		} elseif ( $columns_count === 'five' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-5th';
 			$classes[] = 'article-column-5';
-		}
-		if ( wpgen_options( 'index_page_columns' ) === 'four' ) {
+		} elseif ( $columns_count === 'four' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
 			$classes[] = 'col-xl-3';
 			$classes[] = 'article-column-4';
-		}
-		if ( wpgen_options( 'index_page_columns' ) === 'three' ) {
+		} elseif ( $columns_count === 'two' ) {
+			$classes[] = 'col-sm-6';
+			$classes[] = 'article-column-2';
+		} elseif ( $columns_count === 'one' ) {
+			$classes[] = 'col-sm-12';
+			$classes[] = 'article-column-1';
+		} else {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
 			$classes[] = 'article-column-3';
-		}
-		if ( wpgen_options( 'index_page_columns' ) === 'two' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'article-column-2';
-		}
-		if ( wpgen_options( 'index_page_columns' ) === 'one' ) {
-			$classes[] = 'col-sm-12';
-			$classes[] = 'article-column-1';
 		}
 
 		// Check whether the function has accepted any classes or not.
@@ -654,7 +659,7 @@ if ( ! function_exists( 'wpgen_index_page_columns_classes' ) ) {
 
 
 
-if ( ! function_exists( 'get_wpgen_count_archive_page_columns' ) ) {
+if ( ! function_exists( 'get_wpgen_count_columns' ) ) {
 
 	/**
 	 * Get int count archive page columns.
@@ -663,7 +668,7 @@ if ( ! function_exists( 'get_wpgen_count_archive_page_columns' ) ) {
 	 *
 	 * @return array
 	 */
-	function get_wpgen_count_archive_page_columns( $control = null ) {
+	function get_wpgen_count_columns( $control = null, $int = true ) {
 
 		if ( is_null( $control ) ) {
 			$control = wpgen_options( 'archive_page_columns' );
@@ -676,9 +681,17 @@ if ( ! function_exists( 'get_wpgen_count_archive_page_columns' ) ) {
 			'four'  => 4,
 			'five'  => 5,
 			'six'   => 6,
+			'seven' => 7,
+			'eight' => 8,
+			'nine'  => 9,
+			'ten'   => 10,
 		);
 
-		return strtr( $control, $converter );
+		if ( array_key_exists( $control, $converter ) || $int ) {
+			return strtr( $control, $converter );
+		} else {
+			return strtr( intval( $control ), array_flip( $converter ) );
+		}
 	}
 }
 
@@ -704,36 +717,36 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 			$columns_count = wpgen_options( 'archive_page_columns' );
 		}
 
+		if ( intval( $columns_count ) > 0 && intval( $columns_count ) < 7 && is_int( intval( $columns_count ) ) ) {
+			$columns_count = get_wpgen_count_columns( $columns_count, false );
+		}
+
+		// Default else is three columns.
 		if ( $columns_count === 'six' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-2';
 			$classes[] = 'article-column-6';
-		}
-		if ( $columns_count === 'five' ) {
+		} elseif ( $columns_count === 'five' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-5th';
 			$classes[] = 'article-column-5';
-		}
-		if ( $columns_count === 'four' ) {
+		} elseif ( $columns_count === 'four' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
 			$classes[] = 'col-xl-3';
 			$classes[] = 'article-column-4';
-		}
-		if ( $columns_count === 'three' ) {
+		} elseif ( $columns_count === 'two' ) {
+			$classes[] = 'col-sm-6';
+			$classes[] = 'article-column-2';
+		} elseif ( $columns_count === 'one' ) {
+			$classes[] = 'col-sm-12';
+			$classes[] = 'article-column-1';
+		} else {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
 			$classes[] = 'article-column-3';
-		}
-		if ( $columns_count === 'two' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'article-column-2';
-		}
-		if ( $columns_count === 'one' ) {
-			$classes[] = 'col-sm-12';
-			$classes[] = 'article-column-1';
 		}
 
 		// Check whether the function has accepted any classes or not.

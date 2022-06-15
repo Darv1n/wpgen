@@ -29,16 +29,14 @@
 			margin-right: .5rem
 	a.posts-navigation__item
 		position: relative
-	a.posts-navigation__item
+		&.posts-navigation__item_prev, &.posts-navigation__item_next
+			color: transparent
+			&::before
+				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
+				filter: invert(100%)
 		&.posts-navigation__item_prev
-			color: transparent
 			&::before
-				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
 				transform: translate(-50%, -50%) rotate(90deg)
-				filter: invert(100%)
 		&.posts-navigation__item_next
-			color: transparent
 			&::before
-				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
 				transform: translate(-50%, -50%) rotate(-90deg)
-				filter: invert(100%)

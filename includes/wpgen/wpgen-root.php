@@ -157,6 +157,8 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 		// Return controls.
 		if ( is_null( $control ) ) {
 			return $root_wpgen;
+		} elseif ( ! isset( $root_wpgen[ $control ] ) || empty( $root_wpgen[ $control ] ) ) {
+			return false;
 		} else {
 			return $root_wpgen[ $control ];
 		}

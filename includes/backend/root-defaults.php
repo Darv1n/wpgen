@@ -80,6 +80,8 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 		// Return controls.
 		if ( is_null( $control ) ) {
 			return $root_defaults;
+		} elseif ( ! isset( $root_defaults[ $control ] ) || empty( $root_defaults[ $control ] ) ) {
+			return false;
 		} else {
 			return $root_defaults[ $control ];
 		}
@@ -140,6 +142,8 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 		// Return controls.
 		if ( is_null( $control ) ) {
 			return $root_styles;
+		} elseif ( ! isset( $root_styles[ $control ] ) || empty( $root_styles[ $control ] ) ) {
+			return false;
 		} else {
 			return $root_styles[ $control ];
 		}

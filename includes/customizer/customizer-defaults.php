@@ -17,26 +17,26 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	function wpgen_options( $control = null ) {
 
 		$wpgen_defaults = array(
-			'general_color_scheme'              => 'white',
-			'general_header_color_scheme'       => 'white',
-			'general_menu_color_scheme'         => 'white',
-			'general_footer_color_scheme'       => 'white',
+			'general_color_scheme'                    => 'white',
+			'general_header_color_scheme'             => 'white',
+			'general_menu_color_scheme'               => 'white',
+			'general_footer_color_scheme'             => 'white',
 
-			'general_wpgen_active'              => true,
-			'general_container_width'           => 'average',
-			'general_content_width'             => 'wide',
-			'general_button_type'               => 'common',
-			'general_top_bar_display'           => false,
-			'general_header_type'               => 'header-simple',
-			'general_menu_display'              => true,
-			'general_menu_type'                 => 'menu-open',
-			'general_menu_position'             => 'absolute',
-			'general_menu_align'                => 'left',
-			'general_menu_button_alignment'     => 'right',
-			'general_menu_button_type'          => 'button-icon-text',
-			'general_menu_button_icon_position' => 'right',
-			'general_bottom_bar_display'        => false,
-			'general_footer_type'               => 'footer-four-columns',
+			'general_wpgen_active'                    => true,
+			'general_container_width'                 => 'average',
+			'general_content_width'                   => 'wide',
+			'general_button_type'                     => 'common',
+			'general_top_bar_display'                 => false,
+			'general_header_type'                     => 'header-simple',
+			'general_menu_display'                    => true,
+			'general_menu_type'                       => 'menu-open',
+			'general_menu_position'                   => 'absolute',
+			'general_menu_align'                      => 'left',
+			'general_menu_button_alignment'           => 'right',
+			'general_menu_button_type'                => 'button-icon-text',
+			'general_menu_button_icon_position'       => 'right',
+			'general_bottom_bar_display'              => false,
+			'general_footer_type'                     => 'footer-four-columns',
 
 			'general_breadcrumbs_display'             => true,
 			'general_breadcrumbs'                     => 'woocommerce',
@@ -95,32 +95,32 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'archive_page_detail_button'              => 'button',
 			'archive_page_detail_description'         => 'excerpt',
 
-			'other_vkontakte'      => '',
-			'other_facebook'       => '',
-			'other_instagram'      => '',
-			'other_youtube'        => '',
-			'other_twitter'        => '',
-			'other_telegram'       => '',
-			'other_linkedin'       => '',
+			'other_vkontakte'                         => '',
+			'other_facebook'                          => '',
+			'other_instagram'                         => '',
+			'other_youtube'                           => '',
+			'other_twitter'                           => '',
+			'other_telegram'                          => '',
+			'other_linkedin'                          => '',
 
-			'other_whatsapp_phone' => '',
-			'other_telegram_nick'  => '',
-			'other_viber_phone'    => '',
+			'other_whatsapp_phone'                    => '',
+			'other_telegram_nick'                     => '',
+			'other_viber_phone'                       => '',
 
-			'other_address'        => '',
-			'other_phone'          => '',
-			'other_email'          => '',
+			'other_address'                           => '',
+			'other_phone'                             => '',
+			'other_email'                             => '',
 
-			'other_yandex_verification' => '',
-			'other_google_verification' => '',
-			'other_mailru_verification' => '',
-			'other_yandex_counter'      => '',
-			'other_google_counter'      => '',
-			'other_mailru_counter'      => '',
+			'other_yandex_verification'               => '',
+			'other_google_verification'               => '',
+			'other_mailru_verification'               => '',
+			'other_yandex_counter'                    => '',
+			'other_google_counter'                    => '',
+			'other_mailru_counter'                    => '',
 
-			'advertising_top_content'    => '',
-			'advertising_bottom_content' => '',
-			'advertising_popup'          => '',
+			'advertising_top_content'                 => '',
+			'advertising_bottom_content'              => '',
+			'advertising_popup'                       => '',
 		);
 
 		// Merge child and parent default options.
@@ -132,6 +132,8 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 		// Return controls.
 		if ( is_null( $control ) ) {
 			return $wpgen_defaults;
+		} elseif ( ! isset( $wpgen_defaults[ $control ] ) || empty( $wpgen_defaults[ $control ] ) ) {
+			return false;
 		} else {
 			return $wpgen_defaults[ $control ];
 		}
