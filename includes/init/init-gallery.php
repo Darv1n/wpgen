@@ -31,66 +31,15 @@ if ( ! function_exists( 'the_gallery_shortcode' ) ) {
 			'inner'         => true,
 			'shuffle'       => true,
 			'allowed_types' => array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ),
+			'caption_text'  => null,
+			'caption_link'  => null,
 		), $atts );
 
 		if ( is_string( $atts['allowed_types'] ) ) {
 			$atts['allowed_types'] = array_map( 'trim', explode( ',', $atts['allowed_types'] ) );
 		}
 
-		return the_gallery( $atts['folder'], $atts['titles'], $atts['columns_count'], $atts['inner'], $atts['shuffle'], $atts['allowed_types'], false );
-	}
-}
-
-
-
-if ( ! function_exists( 'get_gallery' ) ) {
-
-	/**
-	 * Return images array from root folder.
-	 *
-	 * @param string $folder       root folder path. Default: 'data/'.
-	 * @param bool $inner          include inner folders. Default: true.
-	 * @param bool $shuffle        mix it up. Default: true.
-	 * @param array $allowed_types permissible file extensions. Default: array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ).
-	 *
-	 * @return array
-	 */
-	function get_gallery( $folder = 'data/', $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ) ) {
-
-		$directory     = get_stylesheet_directory() . '/' . trailingslashit( $folder );
-		$images        = array();
-
-		if ( ! is_dir( $directory ) ) {
-			return false;
-		}
-
-		$images = get_folder_images( trailingslashit( $folder ), true, $allowed_types );
-
-		foreach ( scandir( $directory ) as $key => $directory_object ) {
-			if ( in_array( $directory_object, array( '.', '..' ), true ) ) {
-				continue;
-			}
-				
-			$directory_link = $directory . $directory_object;
-
-			if ( is_dir( $directory_link ) && $inner ) {
-				$gallery = get_gallery( trailingslashit( $folder ) . $directory_object . '/', $inner, $shuffle, $allowed_types );
-
-				if ( is_array( $gallery ) && ! empty( $gallery ) ) {
-					foreach ( $gallery as $key => $gallery_value ) {
-						$images[] = $gallery_value;
-					}
-				}
-			}
-		}
-
-		if ( $shuffle ) {
-			$images = shuffle_assoc( $images );
-		}
-
-		$images = apply_filters( 'get_gallery', $images );
-
-		return $images;
+		return the_gallery( $atts['folder'], $atts['titles'], $atts['columns_count'], $atts['inner'], $atts['shuffle'], $atts['allowed_types'], $atts['caption_text'], $atts['caption_link'], false );
 	}
 }
 
@@ -107,11 +56,13 @@ if ( ! function_exists( 'the_gallery' ) ) {
 	 * @param bool $inner           include inner folders. Default: true.
 	 * @param bool $shuffle         mix it up. Default: true.
 	 * @param array $allowed_types  permissible file extensions. Default: array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ).
+	 * @param string $caption_text  photo gallery author. Default: null.
+	 * @param string $caption_link  photo gallery author link. Default: null.
 	 * @param bool $echo            echo or return output html. Default: true.
 	 *
 	 * @return array
 	 */
-	function the_gallery( $folder = 'data/', $titles = array(), $columns_count = null, $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ), $echo = true ) {
+	function the_gallery( $folder = 'data/', $titles = array(), $columns_count = null, $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ), $caption_text = null, $caption_link = null, $echo = true ) {
 
 		$images = get_gallery( trailingslashit( $folder ), $inner, $shuffle, $allowed_types );
 
@@ -147,7 +98,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 				}
 
 				if ( empty( $title ) && is_singular() ) {
-					$title = get_the_title() . ' ' . $key + 1;
+					$title = get_the_title() . ' ' . $key++;
 				}
 
 				$html .= '<a href="' . $image . '" class="' . implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) . '" title="' . $title . '">';
@@ -157,6 +108,18 @@ if ( ! function_exists( 'the_gallery' ) ) {
 			}
 
 			$html .= '</div>';
+
+			if ( ! empty( $caption_text ) ) {
+				$html .= '<div class="masonry-caption">';
+				if ( ! empty( $caption_link ) ) {
+					$html .= '<span>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;</span>';
+					$html .= '<a class="link link-color-unborder" href="' . esc_html( $caption_link ) . '">' . $caption_text . '</a>';
+				} else {
+					$html .= '<p>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;' . $caption_text . '</p>';
+				}
+				$html .= '</div>';
+			}
+
 		$html .= '</div>';
 
 		wp_enqueue_script( 'masonry' );
@@ -206,6 +169,60 @@ if ( ! function_exists( 'the_gallery' ) ) {
 		} else {
 			return $html;
 		}
+	}
+}
+
+
+
+
+if ( ! function_exists( 'get_gallery' ) ) {
+
+	/**
+	 * Return images array from root folder.
+	 *
+	 * @param string $folder       root folder path. Default: 'data/'.
+	 * @param bool $inner          include inner folders. Default: true.
+	 * @param bool $shuffle        mix it up. Default: true.
+	 * @param array $allowed_types permissible file extensions. Default: array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ).
+	 *
+	 * @return array
+	 */
+	function get_gallery( $folder = 'data/', $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ) ) {
+
+		$directory     = get_stylesheet_directory() . '/' . trailingslashit( $folder );
+		$images        = array();
+
+		if ( ! is_dir( $directory ) ) {
+			return false;
+		}
+
+		$images = get_folder_images( trailingslashit( $folder ), true, $allowed_types );
+
+		foreach ( scandir( $directory ) as $key => $directory_object ) {
+			if ( in_array( $directory_object, array( '.', '..' ), true ) ) {
+				continue;
+			}
+				
+			$directory_link = $directory . $directory_object;
+
+			if ( is_dir( $directory_link ) && $inner ) {
+				$gallery = get_gallery( trailingslashit( $folder ) . trailingslashit( $directory_object ), $inner, $shuffle, $allowed_types );
+
+				if ( is_array( $gallery ) && ! empty( $gallery ) ) {
+					foreach ( $gallery as $key => $gallery_value ) {
+						$images[] = $gallery_value;
+					}
+				}
+			}
+		}
+
+		if ( $shuffle ) {
+			$images = shuffle_assoc( $images );
+		}
+
+		$images = apply_filters( 'get_gallery', $images );
+
+		return $images;
 	}
 }
 

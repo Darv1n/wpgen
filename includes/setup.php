@@ -188,6 +188,9 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		// Основные скрипты. Компиляция галпом. Могут быть переопределены в дочерней.
 		wp_enqueue_script( 'common-scripts', get_theme_file_uri( 'assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
 
+		// Magnific.
+		wp_register_script( 'magnific-scripts', get_theme_file_uri( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ), array( 'jquery' ), null, true );
+
 		// Комментарии.
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );

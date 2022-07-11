@@ -750,7 +750,7 @@ if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 		// Get edit link, if the checkbox is set in the customizer settings and the user has enough rights.
 		if ( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<div class="article-footer__item">';
-				$output .= '<a class="edit-link" href="' . get_edit_post_link() . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="edit-link link link-color-unborder" href="' . get_edit_post_link() . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</div>';
 		}
 

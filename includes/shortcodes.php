@@ -10,7 +10,7 @@ add_shortcode( 'wpgen-copyright', 'wpgen_shortcode_copyright' ); // [wpgen-copyr
 add_shortcode( 'current-year', 'wpgen_current_year' ); // [current-year year="2019"].
 add_shortcode( 'current-date', 'wpgen_current_date' ); // [current-date format="j F Y" date="28.01.2020" add_days="1"].
 add_shortcode( 'privacy-link', 'wpgen_privacy_link' ); // [privacy-link font-size="small"].
-add_shortcode( 'wpgen-social-list', 'wpgen_shortcode_social_list' ); // [wpgen-social-list type="links"].
+add_shortcode( 'wpgen-social-list', 'wpgen_shortcode_social_list' ); // [wpgen-social-list type="links" class="list-inline"].
 add_shortcode( 'wpgen-telegram', 'wpgen_shortcode_telegram' ); // [wpgen-telegram nick="artzolin"].
 add_shortcode( 'wpgen-whatsapp', 'wpgen_shortcode_whatsapp' ); // [wpgen-whatsapp number="+79500463854"].
 add_shortcode( 'wpgen-viber', 'wpgen_shortcode_viber' ); // [wpgen-viber number="+79500463854"].
@@ -38,11 +38,19 @@ if ( ! function_exists( 'wpgen_shortcode_copyright' ) ) {
 			'class'      => '',
 			'year'       => '',
 			'text'       => 'Zolin Digital',
-			'link'       => 'https://zolin.digital/',
+			'link'       => '',
 			'link-class' => '',
 			'display'    => '',
 			'font-size'  => 'normal', // small, large.
 		), $atts );
+
+		if ( empty( $atts['link'] ) ) {
+			if ( determine_locale() === 'ru_RU' ) {
+				$atts['link'] = 'https://artzolin.ru/';
+			} else {
+				$atts['link'] = 'https://zolin.digital/';
+			}
+		}
 
 		// Собираем utm.
 		if ( is_multisite() ) {
@@ -194,7 +202,7 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 
 	/**
-	 * Add shortcode with social list [wpgen-social-list type="links"]
+	 * Add shortcode with social list [wpgen-social-list type="links" class="list-inline"]
 	 *
 	 * @param array $atts shortcode attributes.
 	 *

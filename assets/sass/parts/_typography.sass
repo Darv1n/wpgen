@@ -35,8 +35,10 @@ body
 .relative
 	position: relative
 
-.bg-color
+.theme_white
 	background: $white-color
+	.bg-color
+		background: $white-color
 
 .theme_light
 	background: $bg-color-lighten
@@ -296,6 +298,8 @@ table, .table
 	list-style: none
 	li
 		display: inline-block
+		&:not(:last-child)
+			margin-right: 0.5rem
 
 .list-inline-item
 	display: inline-block

@@ -918,7 +918,7 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 		$classes = array();
 
 		if ( wpgen_options( 'archive_page_detail_button' ) === 'button' ) {
-			$classes[] = get_button_classes( '', $color );
+			$classes   = get_button_classes( '', $color );
 			$classes[] = 'button_more';
 		} else {
 			$classes[] = 'link';
@@ -930,7 +930,9 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		$classes = array_unique( (array) $classes );
+
+		return $classes;
 	}
 }
 
@@ -950,7 +952,7 @@ if ( ! function_exists( 'wpgen_link_more_classes' ) ) {
 
 		$classes = get_wpgen_link_more_classes( $class );
 		$classes = apply_filters( 'wpgen_link_more_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
 			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';

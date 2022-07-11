@@ -9,7 +9,7 @@
  * get_media_favicon()    - Принимает url сайта, скачивает favicon, если его нет, возвращает локальную ссылку
  * add_media_query_vars() - Добавляем pg в get запросы страницы
  *
- * Shortcode usage: [media-list requests="example" lang="en" columns_count="five" per_page="20" pagination="true"]
+ * Shortcode usage: [media-list requests="example" lang="en" per_page="20" columns_count="five" pagination="true"]
  *
  * @package wpgen
  */
@@ -24,7 +24,7 @@ if ( ! function_exists( 'the_media_shortcode' ) ) {
 	/**
 	 * Return media list html in shortcode.
 	 * Usage: [media-list]
-	 * Usage: [media-list requests="example" lang="en" columns_count="five" per_page="20" pagination="true"]
+	 * Usage: [media-list requests="example" lang="en" per_page="20" columns_count="five" pagination="true"]
 	 *
 	 * @param array $atts shortcode attributes.
 	 *
@@ -42,7 +42,6 @@ if ( ! function_exists( 'the_media_shortcode' ) ) {
 			'columns_count' => null,
 			'pagination'    => true,
 			'tags'          => array( 'main' ),
-			'folder'        => 'data/',
 			'echo'          => false,
 		), $atts );
 
@@ -50,10 +49,9 @@ if ( ! function_exists( 'the_media_shortcode' ) ) {
 			$atts['tags'] = array_map( 'trim', explode( ',', $atts['tags'] ) );
 		}
 
-		return the_media( $atts['requests'], $atts['lang'], $atts['per_page'], $atts['columns_count'], $atts['pagination'], $atts['tags'], $atts['folder'], $atts['echo'] );
+		return the_media( $atts['requests'], $atts['lang'], $atts['per_page'], $atts['columns_count'], $atts['pagination'], $atts['tags'], $atts['echo'] );
 	}
 }
-
 
 
 if ( ! function_exists( 'the_media' ) ) {
@@ -67,12 +65,15 @@ if ( ! function_exists( 'the_media' ) ) {
 	 * @param string $columns_count number of columns. Default: wpgen_options( 'archive_page_columns' ).
 	 * @param bool $pagination      output the pagination or not. Default: false.
 	 * @param array $tags           return marks. Default: array( 'main' ).
-	 * @param string $folder        file to save data. Default: data/.
 	 * @param bool $echo            echo or return output html. Default: true.
 	 *
 	 * @return echo
 	 */
-	function the_media( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $folder = 'data/', $echo = true ) {
+	function the_media( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $echo = true ) {
+
+		if ( is_null( $requests ) ) {
+			$requests = apply_filters( 'get_media_requests', $requests );
+		}
 
 		if ( is_null( $requests ) ) {
 			return false;
@@ -82,7 +83,8 @@ if ( ! function_exists( 'the_media' ) ) {
 			$lang = get_first_value_from_string( determine_locale(), '_' );
 		}
 
-		$excel = get_media( $requests, $lang, $tags, trailingslashit( $folder ) );
+		$folder = apply_filters( 'get_media_file_folder', 'data/' ); // base folder
+		$excel  = get_media( $requests, $lang, $tags, trailingslashit( $folder ) );
 
 		if ( ! $excel || empty( $excel ) ) {
 			return false;
@@ -111,6 +113,12 @@ if ( ! function_exists( 'the_media' ) ) {
 			$columns_count = get_wpgen_count_columns( $columns_count, false );
 		}
 
+		$article_classes   = array();
+		$article_classes[] = 'article-media';
+		$article_classes[] = 'media';
+		$article_classes[] = 'elem';
+		$article_classes   = apply_filters( 'get_media__article_classes', $article_classes );
+
 		$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) . '">';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
@@ -128,14 +136,14 @@ if ( ! function_exists( 'the_media' ) ) {
 						$source_name = $excel_row[ $names['source'] ];
 					}
 
-					if ( ! empty( $excel_row[ $names['new-title'] ] ) ) {
+					if ( isset( $names['new-title'] ) &&  ! empty( $excel_row[ $names['new-title'] ] ) ) {
 						$media_title = $excel_row[ $names['new-title'] ];
 					} else {
 						$media_title = $excel_row[ $names['title'] ];
 					}
 
 					$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) . '">';
-						$html .= '<article class="article-media media elem">';
+						$html .= '<article class="' . implode( ' ', $article_classes ) . '">';
 							$html .= '<div class="media--source">';
 								$html .= '<img class="media--icon" src="' . get_media_favicon( $excel_row[ $names['url'] ] ) . '" alt="' . $source_name . ' icon"><p>' . $source_name . '</p>';
 							$html .= '</div>';
@@ -194,7 +202,7 @@ if ( ! function_exists( 'the_media' ) ) {
 					$i++;
 				}
 
-				if ( $ceil > 5 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
+				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
 					$html .= '<li class="elem-nav--item elem-nav--item-next"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button' ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
 				}
 
@@ -222,11 +230,10 @@ if ( ! function_exists( 'get_media' ) ) {
 	 * @param array $requests main array with search queries.
 	 * @param string $lang    language of response from google api.
 	 * @param array $tags     return marks.
-	 * @param string $folder  file to save data.
 	 *
 	 * @return array
 	 */
-	function get_media( $requests = null, $lang = null, $tags = array( 'main' ), $folder = 'data/' ) {
+	function get_media( $requests = null, $lang = null, $tags = array( 'main' ) ) {
 
 		if ( is_null( $requests ) ) {
 			return false;
@@ -236,7 +243,13 @@ if ( ! function_exists( 'get_media' ) ) {
 			$lang = get_first_value_from_string( determine_locale(), '_' );
 		}
 
-		$file_import   = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . 'media-' . $lang . '.xlsx';
+		if ( ! isset( $folder ) ) {
+			$folder = apply_filters( 'get_media_file_folder', 'data/' ); // base folder
+		}
+
+		$file_name     = 'media-' . $lang . '.xlsx';
+		$file_name     = apply_filters( 'get_media_file_name', $file_name );
+		$file_import   = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . $file_name;
 		$current_date  = gmdate( 'd-m-Y' );
 		$request_items = 100; // Number of items in the request.
 		$titles        = array(); // Array to prevent overlapping headers.
@@ -328,6 +341,9 @@ if ( ! function_exists( 'get_media' ) ) {
 
 		$excel = apply_filters( 'get_media', $excel );
 
+		// Сбрасываем ключи массива.
+		$excel = array_values( $excel );
+
 		return $excel;
 	}
 }
@@ -360,16 +376,16 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 	 * Return site favicon link.
 	 *
 	 * @param string $url    site url to get a favicon.
-	 * @param string $folder folder which favicon saved.
 	 *
 	 * @return string
 	 */
-	function get_media_favicon( $url = null, $folder = 'data/media-favicons/' ) {
+	function get_media_favicon( $url = null ) {
 
 		if ( is_null( $url ) ) {
 			return false;
 		}
 
+		$folder       = apply_filters( 'get_media_favicons_folder', 'data/media-favicons/' ); // favicons folder
 		$domain_host  = wp_parse_url( $url )['host'];
 		$domain_title = str_replace( 'www.', '', $domain_host );
 		$domain_title = get_title_slug( $domain_title );

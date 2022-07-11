@@ -31,10 +31,10 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_menu_display'                    => true,
 			'general_menu_type'                       => 'menu-open',
 			'general_menu_position'                   => 'absolute',
-			'general_menu_align'                      => 'left',
+			'general_menu_align'                      => 'right',
 			'general_menu_button_alignment'           => 'right',
 			'general_menu_button_type'                => 'button-icon-text',
-			'general_menu_button_icon_position'       => 'right',
+			'general_menu_button_icon_position'       => 'left',
 			'general_bottom_bar_display'              => false,
 			'general_footer_type'                     => 'footer-four-columns',
 

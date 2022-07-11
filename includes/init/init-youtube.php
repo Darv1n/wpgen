@@ -6,6 +6,7 @@
  * the_youtube_videos()            - Принимает массив запросов, язык, кол-во элементов и пагинацию, выводит html-разметку .row>.cols>.elem.video
  * get_youtube_videos()            - Принимает массив запросов и язык, возвращает массив для записи в excel таблицу
  * youtube_search_snippet()        - Функция основного циклического запроса к youtube api, возвращает массив excel
+ * cmpart()                        - Используется для сортировки массива по дате
  * get_youtube_thumbnail()         - Получает и сохраняет youtube изображение по слагу
  * add_youtube_videos_query_vars() - Добавляем pg в get запросы страницы
  *
@@ -42,7 +43,6 @@ if ( ! function_exists( 'the_youtube_videos_shortcode' ) ) {
 			'columns_count' => null,
 			'pagination'    => true,
 			'tags'          => array( 'main' ),
-			'folder'        => 'data/',
 			'echo'          => false,
 		), $atts );
 
@@ -61,7 +61,7 @@ if ( ! function_exists( 'the_youtube_videos_shortcode' ) ) {
 			$queries = $atts['requests'];
 		}
 
-		return the_youtube_videos( $queries, $atts['lang'], $atts['per_page'], $atts['columns_count'], $atts['pagination'], $atts['tags'], $atts['folder'], $atts['echo'] );
+		return the_youtube_videos( $queries, $atts['lang'], $atts['per_page'], $atts['columns_count'], $atts['pagination'], $atts['tags'], $atts['echo'] );
 	}
 }
 
@@ -78,12 +78,11 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 	 * @param string $columns_count number of columns. Default: wpgen_options( 'archive_page_columns' ).
 	 * @param bool $pagination      output the pagination or not. Default: false.
 	 * @param array $tags           return marks. Default: array( 'main' ).
-	 * @param string $folder        file to save data. Default: data/.
 	 * @param bool $echo            echo or return output html. Default: true.
 	 *
 	 * @return echo
 	 */
-	function the_youtube_videos( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $folder = 'data/', $echo = true ) {
+	function the_youtube_videos( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $echo = true ) {
 
 		if ( is_null( $requests ) && wpgen_options( 'youtube_api_requests' ) ) {
 			$requests = wpgen_options( 'youtube_api_requests' );
@@ -97,7 +96,8 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 			$lang = get_first_value_from_string( determine_locale(), '_' );
 		}
 
-		$excel = get_youtube_videos( $requests, $lang, $tags, trailingslashit( $folder ) );
+		$folder = apply_filters( 'get_youtube_video_file_folder', 'data/' ); // base folder
+		$excel  = get_youtube_videos( $requests, $lang, $tags, trailingslashit( $folder ) );
 
 		if ( ! $excel || empty( $excel ) ) {
 			return false;
@@ -109,8 +109,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 			$current_link = get_home_url();
 		}
 
-		$per_page = apply_filters( 'the_youtube_videos_per_page', $per_page );
-
+		$per_page  = apply_filters( 'the_youtube_videos_per_page', $per_page );
 		$html      = ''; // Main output.
 		$names     = array(); // Excel first line names.
 		$page_var  = get_query_var( 'pg', false );
@@ -127,6 +126,11 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 		} else {
 			$columns_count = get_wpgen_count_columns( $columns_count, false );
 		}
+
+		$article_classes   = array();
+		$article_classes[] = 'article-video';
+		$article_classes[] = 'video';
+		$article_classes   = apply_filters( 'get_youtube_video_article_classes', $article_classes );
 
 		$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) . '">';
 		foreach ( $excel as $key_d => $excel_row ) {
@@ -149,7 +153,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 					}
 
 					$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) . '">';
-						$html .= '<article class="article-video video elem">';
+						$html .= '<article class="' . implode( ' ', $article_classes ) . '">';
 							$html .= '<a class="video--thmb" href="' . esc_url( $utm ) . '" style="background: url( ' . get_youtube_thumbnail( $excel_row[ $names['slug'] ] ) . ' ) center/cover no-repeat" aria-hidden="true" tabindex="-1" target="_blank"></a>';
 							$html .= '<h3 class="video--title h6"><a href="' . esc_url( $utm ) . '" class="video--link" target="_blank">' . $youtube_title . '</a></h3>';
 							$html .= '<time class="video--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( $excel_row[ $names['date'] ] ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( $excel_row[ $names['date'] ] ) ) ) . '</time>';
@@ -208,7 +212,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 					$i++;
 				}
 
-				if ( $ceil > 5 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
+				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
 					$html .= '<li class="elem-nav--item elem-nav--item-next"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button' ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
 				}
 
@@ -236,11 +240,10 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 	 * @param array $requests main array with search queries.
 	 * @param string $lang    language of response from google api.
 	 * @param array $tags     return marks.
-	 * @param string $folder  file to save data.
 	 *
 	 * @return array
 	 */
-	function get_youtube_videos( $requests = null, $lang = null, $tags = array( 'main' ), $folder = 'data/' ) {
+	function get_youtube_videos( $requests = null, $lang = null, $tags = array( 'main' ) ) {
 
 		if ( is_null( $requests ) && wpgen_options( 'youtube_api_requests' ) ) {
 			$requests = wpgen_options( 'youtube_api_requests' );
@@ -254,10 +257,16 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 			$lang = get_first_value_from_string( determine_locale(), '_' );
 		}
 
-		$excel         = array();
-		$excel[]       = array( 'tag', 'date', 'title', 'new title', 'slug' );
-		$file_import   = get_stylesheet_directory() . '/' . $folder . 'youtube-' . $lang . '.xlsx';
-		$current_date  = gmdate( 'd-m-Y' );
+		if ( ! isset( $folder ) ) {
+			$folder = apply_filters( 'get_youtube_video_file_folder', 'data/' ); // base folder
+		}
+
+		$current_date = gmdate( 'd-m-Y' );
+		$file_name    = 'youtube-' . $lang . '.xlsx';
+		$file_name    = apply_filters( 'get_youtube_videos_file_name', $file_name );
+		$file_import  = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . $file_name;
+		$excel        = array();
+		$excel[]      = array( 'tag', 'date', 'title', 'new title', 'slug' );
 
 		// Check file_import.
 		if ( file_exists( $file_import ) ) {
@@ -269,8 +278,11 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 			}
 		}
 
+		$frequency_update = 'never';
+		$frequency_update = apply_filters( 'get_youtube_frequency_update', $frequency_update );
+
 		// Check that current date is not the same as file date was updated.
-		if ( $current_date !== $file_date ) {
+		if ( ! file_exists( $file_import ) || ( $frequency_update !== 'never' && $current_date !== $file_date ) ) {
 
 			foreach ( $requests as $key_r => $request ) {
 
@@ -285,7 +297,6 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 			if ( ! empty( $excel ) ) { 
 				SimpleXLSXGen::fromArray( $excel )->saveAs( $file_import );
 			}
-
 		}
 
 		// Retrieve specified tags from $tags.
@@ -307,6 +318,17 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 				}
 			}
 		}
+
+		// Пересобираем массив с сортировкой по дате.
+		unset( $excel[0] ); // Удаляем первый ключ.
+		usort( $excel, 'cmpart' ); // Сортируем по дате.
+		$excel = array_reverse( $excel ); // Отражаем массив.
+		array_unshift( $excel, array( 'tag', 'date', 'title', 'new title', 'slug' ) ); // Добавляем первый клюб обратно.
+
+		$excel = apply_filters( 'get_youtube_videos', $excel );
+
+		// Сбрасываем ключи массива.
+		$excel = array_values( $excel );
 
 		return $excel;
 	}
@@ -401,6 +423,26 @@ if ( ! function_exists( 'youtube_search_snippet' ) ) {
 
 
 
+if ( ! function_exists( 'cmpart' ) ) {
+
+	/**
+	 * Return sorted values array (used to sort media by date)
+	 *
+	 * @param array $a first value.
+	 * @param array $b second value.
+	 *
+	 * @return int
+	 */
+	function cmpart( $a, $b ) {
+		if ( $a[1] === $b[1] ) {
+			return 0;
+		}
+		return ( strtotime( $a[1] ) < strtotime( $b[1] ) ) ? -1 : 1;
+	}
+}
+
+
+
 if ( ! function_exists( 'get_youtube_thumbnail' ) ) {
 
 	/**
@@ -417,14 +459,15 @@ if ( ! function_exists( 'get_youtube_thumbnail' ) ) {
 			return false;
 		}
 
-		$file_path  = get_stylesheet_directory() . '/' . $folder . get_title_slug( $file_name ) . '.jpg';
-		$image_path = get_stylesheet_directory_uri() . '/' . $folder . get_title_slug( $file_name ) . '.jpg';
+		$folder     = apply_filters( 'get_youtube_video_thumbnails_folder', 'data/youtube-thumbnail/' ); // thumbnail folder
+		$file_path  = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . get_title_slug( $file_name ) . '.jpg';
+		$image_path = get_stylesheet_directory_uri() . '/' . trailingslashit( $folder ) . get_title_slug( $file_name ) . '.jpg';
 
 		if ( file_exists( $file_path ) ) {
 			return $image_path;
 		}
 
-		$dir = get_stylesheet_directory() . '/' . $folder;
+		$dir = get_stylesheet_directory() . '/' . trailingslashit( $folder );
 		if ( ! is_dir( $dir ) ) {
 			mkdir( $dir, 0755, true );
 		}

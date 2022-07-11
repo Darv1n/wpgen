@@ -27,7 +27,7 @@
 		color: $white-color
 	&_icon
 		&::before
-			@include pseudo($left: 1.25rem, $top: 50%, $width: 1rem, $height: 1rem, $background: url(../img/icons/sets/set-default.svg#arrow-down) center/cover no-repeat)
+			@include pseudo($left: 1.5rem, $top: 50%, $width: 1rem, $height: 1rem, $background: url(../img/icons/sets/set-default.svg#arrow-down) center/cover no-repeat)
 			transform: translateY(-50%) rotate(180deg)
 			transition: $transition
 		&.scroll-top_solo-icon
@@ -36,22 +36,22 @@
 				left: 50%
 				transform: translate(-50%, -50%) rotate(180deg)
 		&.scroll-top_icon-left
-			padding-left: calc( .25rem + 1rem )
+			padding-left: calc( .5rem + 1rem )
 			&.scroll-top_button:not(.btn-reset)
-				padding-left: calc( 1.25rem + .25rem + 1rem )
+				padding-left: calc( 1.25rem + .5rem + 1rem )
 			&.btn-reset
 				&::before
-					left: 0
+					left: .25rem
 		&.scroll-top_icon-right
 			padding-right: calc( .25rem + 1rem )
 			&.scroll-top_button:not(.btn-reset)
-				padding-right: calc( 1.25rem + .25rem + 1rem )
+				padding-right: calc( 1.5rem + .5rem + 1rem )
 			&::before
 				left: auto
-				right: 1.25rem
+				right: 1.5rem
 			&.btn-reset
 				&::before
-					right: 0
+					right: .25rem
 		&.scroll-top_button:not(.button-empty)
 			&::before
 				filter: invert(100%)
@@ -137,11 +137,11 @@
 			height: 42px
 			padding: 8px
 			color: $text-color
-			background-color: $gray-color-light
-			border: $border-middle-gray-color
+			background-color: $white-color
+			border: $border-light-gray-color
 			border-radius: 50%
 			&:hover, &:active, &:focus
-				border: $border-text-color
+				border: $border-middle-gray-color
 
 
 
