@@ -22,6 +22,7 @@ require_once get_template_directory() . '/includes/backend/functions.php';
 require_once get_template_directory() . '/includes/backend/root-defaults.php';
 require_once get_template_directory() . '/includes/backend/pre-get-posts.php';
 require_once get_template_directory() . '/includes/backend/save-post.php';
+require_once get_template_directory() . '/includes/backend/the-content.php';
 
 // Frontend.
 require_once get_template_directory() . '/includes/template-parts.php';
@@ -32,6 +33,9 @@ require_once get_template_directory() . '/includes/template-wrappers.php';
 require_once get_template_directory() . '/includes/init/init-gallery.php';
 require_once get_template_directory() . '/includes/init/init-media.php';
 require_once get_template_directory() . '/includes/init/init-youtube.php';
+require_once get_template_directory() . '/includes/init/init-form.php';
+require_once get_template_directory() . '/includes/init/init-slider.php';
+require_once get_template_directory() . '/includes/init/init-elems.php';
 
 // Wpgen.
 require_once get_template_directory() . '/includes/wpgen/functions.php';
@@ -46,12 +50,13 @@ require_once get_template_directory() . '/includes/shortcodes.php';
 
 // Lib for DOM parsing https://simplehtmldom.sourceforge.io/
 require_once get_template_directory() . '/includes/plugin-additions/simple-html-dom.php';
+require_once get_template_directory() . '/includes/plugin-additions/SimpleXLSX.php';
 
 // Lib for Excel import https://github.com/shuchkin/simplexlsx/
-if ( ! is_plugin_active( 'tablepress/tablepress.php' ) ) {
-	require_once get_template_directory() . '/includes/plugin-additions/SimpleXLSX.php';
+if ( is_plugin_active( 'tablepress/tablepress.php' ) && file_exists( WP_PLUGIN_DIR . '/tablepress/libraries/simplexlsx.class.php' ) ) {
+	// require_once WP_PLUGIN_DIR . '/tablepress/libraries/simplexlsx.class.php';
 } else {
-	require_once WP_PLUGIN_DIR . '/tablepress/libraries/simplexlsx.class.php';
+	require_once get_template_directory() . '/includes/plugin-additions/SimpleXLSX.php';
 }
 
 // Lib for Excel export https://github.com/shuchkin/simplexlsxgen/

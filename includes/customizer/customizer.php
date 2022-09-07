@@ -442,6 +442,7 @@ function wpgen_customize_register( $wp_customize ) {
 	$general_top_bar_description               = __( 'This checkbox displays two sidebars at the header of the site. They are adds in the widget section options', 'wpgen' );
 	$general_bottom_bar_description            = __( 'This checkbox displays two sidebars at the footer of the site. They are adds in the widget section options', 'wpgen' );
 	$general_cookie_display_description        = __( 'Displays a notification about the use of cookies on the site', 'wpgen' );
+	$general_external_utm_links_description    = __( 'Adds utm tags to all external links', 'wpgen' );
 	$sidebar_display_description               = __( 'Display sidebar?', 'wpgen' );
 	$sidebar_position_description              = __( 'This field displays the sidebar to the left or right of the main content; on mobile devices, the sidebar is displayed after the main content', 'wpgen' );
 	$single_post_template_type_description     = __( 'This field displays template of the post', 'wpgen' );
@@ -498,8 +499,9 @@ function wpgen_customize_register( $wp_customize ) {
 	wpgen_select_control( 'general', 'scroll_top_button_alignment', __( 'Select scroll top button alignment', 'wpgen' ), '', $alignment_select, 72 );
 	wpgen_select_control( 'general', 'scroll_top_button_type', __( 'Select scroll top button type', 'wpgen' ), '', $general_menu_button_type_select, 74 );
 
-	wpgen_tab_title( 'general', 'cookie_title', __( 'Cookie', 'wpgen' ), '', 80 );
+	wpgen_tab_title( 'general', 'cookie_title', __( 'Other', 'wpgen' ), '', 80 );
 	wpgen_checkbox_control( 'general', 'cookie_display', __( 'Cookie display', 'wpgen' ), $general_cookie_display_description, 82 );
+	wpgen_checkbox_control( 'general', 'external_utm_links', __( 'External UTM Links', 'wpgen' ), $general_external_utm_links_description, 84 );
 
 	// #Sidebar.
 	wpgen_checkbox_control( 'sidebar', 'display', __( 'Sidebar display', 'wpgen' ), '', 2 );

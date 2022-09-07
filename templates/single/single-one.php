@@ -7,7 +7,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'article-single' ); ?>>
+<article <?php post_class( 'article-single' ); ?>>
 
 	<header class="entry__part entry__header article-header" role="banner" aria-label="<?php esc_html_e( 'Header of the article with title', 'wpgen' ); ?>">
 		<?php the_title( '<h1 class="entry__title">', '</h1>' ); ?>

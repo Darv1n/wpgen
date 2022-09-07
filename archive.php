@@ -42,15 +42,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
 										get_template_part( 'templates/archive/archive-' . get_post_type() );
 									} else {
-										if ( wpgen_options( 'archive_page_template_type' ) === 'simple' ) {
-											get_template_part( 'templates/archive/archive-simple' );
-										} elseif ( wpgen_options( 'archive_page_template_type' ) === 'banners' ) {
-											get_template_part( 'templates/archive/archive-banners' );
-										} elseif ( wpgen_options( 'archive_page_template_type' ) === 'tils' ) {
-											get_template_part( 'templates/archive/archive-tils' );
-										} else {
-											get_template_part( 'templates/archive/archive-list' );
-										}
+										get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
 									}
 
 								?>

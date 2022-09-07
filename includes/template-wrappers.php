@@ -52,7 +52,7 @@ function wpgen_body_classes( $classes ) {
 		$classes[] = 'theme_elems_' . $elem_bg_color_style;
 	}
 
-	return array_unique( $classes );
+	return array_unique( (array) $classes );
 }
 add_filter( 'body_class', 'wpgen_body_classes' );
 
@@ -66,8 +66,50 @@ add_filter( 'body_class', 'wpgen_body_classes' );
  */
 function wpgen_post_classes( $classes ) {
 
-	// Collect array.
+	$format = get_post_format();
+	if ( ! $format ) {
+		$format = 'standard';
+	}
+
+	if ( in_array( 'hentry', $classes, true ) ) {
+		unset( $classes[ array_search( 'hentry', $classes ) ] );
+	}
+	if ( in_array( 'sticky', $classes, true ) ) {
+		unset( $classes[ array_search( 'sticky', $classes ) ] );
+	}
+	if ( in_array( 'post-' . get_the_ID(), $classes, true ) ) {
+		unset( $classes[ array_search( 'post-' . get_the_ID(), $classes ) ] );
+	}
+	if ( in_array( 'type-' . get_post_type(), $classes, true ) ) {
+		unset( $classes[ array_search( 'type-' . get_post_type(), $classes ) ] );
+	}
+	if ( in_array( 'status-' . get_post_status(), $classes, true ) ) {
+		unset( $classes[ array_search( 'status-' . get_post_status(), $classes ) ] );
+	}
+	if ( in_array( 'format-' . $format, $classes, true ) ) {
+		unset( $classes[ array_search( 'format-' . $format, $classes ) ] );
+	}
+
+	$taxonomy_names = get_object_taxonomies( get_post_type() );
+
+	foreach ( $taxonomy_names as $key => $taxonomy ) {
+		$terms = get_the_terms( get_the_ID(), $taxonomy );
+		if ( $terms ) {
+			foreach ( get_the_terms( get_the_ID(), $taxonomy ) as $key => $term ) {
+
+				if ( $taxonomy === 'post_tag' ) {
+					$taxonomy = 'tag';
+				}
+
+				if ( in_array( $taxonomy . '-' . $term->slug, $classes, true ) ) {
+					unset( $classes[ array_search( $taxonomy . '-' . $term->slug, $classes ) ] );
+				}
+			}
+		}
+	}
+
 	$classes[] = 'entry';
+	$classes[] = 'article';
 
 	if ( ! in_array( 'article-single', $classes, true ) ) {
 		$classes[] = 'article-archive';
@@ -75,16 +117,16 @@ function wpgen_post_classes( $classes ) {
 
 	// Adds type article classes for single.
 	if ( is_single() ) {
-		$classes[] = 'article-template-' . wpgen_options( 'single_post_template_type' );
+		// $classes[] = 'article-template-' . wpgen_options( 'single_post_template_type' );
 	}
 
 	// Adds type article classes for archive.
 	if ( is_archive() ) {
-		$classes[] = 'article-template_' . wpgen_options( 'archive_page_template_type' );
+		// $classes[] = 'article-template_' . wpgen_options( 'archive_page_template_type' );
 	}
 
 	$classes = apply_filters( 'wpgen_post_classes', $classes );
-	return array_unique( $classes );
+	return array_unique( (array) $classes );
 }
 add_filter( 'post_class', 'wpgen_post_classes' );
 
@@ -111,7 +153,7 @@ if ( ! function_exists( 'get_wpgen_container_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -131,12 +173,12 @@ if ( ! function_exists( 'wpgen_container_classes' ) ) {
 
 		$classes = get_wpgen_container_classes( $class );
 		$classes = apply_filters( 'wpgen_container_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -206,7 +248,7 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -226,12 +268,12 @@ if ( ! function_exists( 'wpgen_content_area_classes' ) ) {
 
 		$classes = get_wpgen_content_area_classes( $class );
 		$classes = apply_filters( 'wpgen_content_area_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -267,7 +309,7 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -287,12 +329,12 @@ if ( ! function_exists( 'wpgen_widget_area_classes' ) ) {
 
 		$classes = get_wpgen_widget_area_classes( $class );
 		$classes = apply_filters( 'wpgen_widget_area_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -343,7 +385,7 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -363,12 +405,12 @@ if ( ! function_exists( 'wpgen_header_classes' ) ) {
 
 		$classes = get_wpgen_header_classes( $class );
 		$classes = apply_filters( 'wpgen_header_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -412,7 +454,7 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -432,12 +474,12 @@ if ( ! function_exists( 'wpgen_footer_classes' ) ) {
 
 		$classes = get_wpgen_footer_classes( $class );
 		$classes = apply_filters( 'wpgen_footer_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -478,7 +520,7 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -498,12 +540,12 @@ if ( ! function_exists( 'wpgen_main_menu_classes' ) ) {
 
 		$classes = get_wpgen_main_menu_classes( $class );
 		$classes = apply_filters( 'wpgen_main_menu_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -537,7 +579,7 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -557,12 +599,12 @@ if ( ! function_exists( 'wpgen_meta_display_classes' ) ) {
 
 		$classes = get_wpgen_meta_display_classes( $class );
 		$classes = apply_filters( 'wpgen_meta_display_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -627,7 +669,7 @@ if ( ! function_exists( 'get_wpgen_index_page_columns_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -647,12 +689,12 @@ if ( ! function_exists( 'wpgen_index_page_columns_classes' ) ) {
 
 		$classes = get_wpgen_index_page_columns_classes( $class );
 		$classes = apply_filters( 'wpgen_index_page_columns_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -754,7 +796,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -774,12 +816,12 @@ if ( ! function_exists( 'wpgen_archive_page_columns_classes' ) ) {
 
 		$classes = get_wpgen_archive_page_columns_classes( $class );
 		$classes = apply_filters( 'wpgen_archive_page_columns_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -805,7 +847,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -825,12 +867,12 @@ if ( ! function_exists( 'wpgen_archive_page_columns_wrapper_classes' ) ) {
 
 		$classes = get_wpgen_archive_page_columns_wrapper_classes( $class );
 		$classes = apply_filters( 'wpgen_archive_page_columns_wrapper_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -859,10 +901,7 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
 		} else {
 			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
-
-			if ( $color !== null ) {
-				$classes[] = 'button-' . wpgen_options( 'general_button_type' ) . '-' . $color;
-			}
+			$classes[] = 'button-' . wpgen_options( 'general_button_type' ) . '-' . $color;
 		}
 
 		// Check whether the function has accepted any classes or not.
@@ -870,7 +909,7 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 			$classes[] = $class;
 		}
 
-		return array_unique( $classes );
+		return array_unique( (array) $classes );
 	}
 }
 
@@ -891,12 +930,12 @@ if ( ! function_exists( 'button_classes' ) ) {
 
 		$classes = get_button_classes( $class, $color );
 		$classes = apply_filters( 'button_classes', $classes, $class );
-		$classes = array_unique( $classes );
+		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }
@@ -955,9 +994,9 @@ if ( ! function_exists( 'wpgen_link_more_classes' ) ) {
 		$classes = array_unique( (array) $classes );
 
 		if ( $echo ) {
-			echo 'class="' . implode( ' ', array_map( 'esc_attr', $classes ) ) . '"';
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		} else {
-			return array_map( 'esc_attr', $classes );
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
 		}
 	}
 }

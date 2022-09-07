@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( ! function_exists( 'vardump' ) ) {
 
 	/**
@@ -25,8 +24,6 @@ if ( ! function_exists( 'vardump' ) ) {
 		}
 	}
 }
-
-
 
 if ( ! function_exists( 'is_wpgen_active' ) ) {
 
@@ -56,8 +53,6 @@ if ( ! function_exists( 'is_wpgen_active' ) ) {
 		return false;
 	}
 }
-
-
 
 if ( ! function_exists( 'translit' ) ) {
 
@@ -97,7 +92,6 @@ if ( ! function_exists( 'translit' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'array_key_last' ) ) {
 
 	/**
@@ -115,8 +109,6 @@ if ( ! function_exists( 'array_key_last' ) ) {
 		return array_keys( $array )[ count( $array ) - 1 ];
 	}
 }
-
-
 
 if ( ! function_exists( 'array_key_first' ) ) {
 
@@ -139,8 +131,6 @@ if ( ! function_exists( 'array_key_first' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'sanitize_form_field' ) ) {
 
 	/**
@@ -155,8 +145,6 @@ if ( ! function_exists( 'sanitize_form_field' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'is_int_even' ) ) {
 
 	/**
@@ -170,8 +158,6 @@ if ( ! function_exists( 'is_int_even' ) ) {
 		return ! ( (int) $var & 1 );
 	}
 }
-
-
 
 if ( ! function_exists( 'shuffle_assoc' ) ) {
 
@@ -197,8 +183,6 @@ if ( ! function_exists( 'shuffle_assoc' ) ) {
 		return $array;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_curl_content' ) ) {
 
@@ -238,6 +222,66 @@ if ( ! function_exists( 'get_curl_content' ) ) {
 	}
 }
 
+if ( ! function_exists( 'save_remote_file' ) ) {
+
+	/**
+	 * Retrieves content via curl and writes an acknowledgement/error in the log file.
+	 *
+	 * @param string $file_link   External file link.
+	 * @param string $file_name   File name.
+	 * @param string $file_path   Path on the server to save the file.
+	 * @param string $sleep       Delay after receiving a file. Default: 0.1 sec
+	 *
+	 * @return string
+	 */
+	function save_remote_file( $file_link = null, $file_name = null, $file_path = null, $sleep = 100000 ) {
+
+		if ( is_null( $file_link ) ) {
+			return;
+		}
+
+		if ( is_null( $file_name ) ) {
+			$file_name = get_last_value_from_string( untrailingslashit( $file_link ), '/' );
+		}
+
+		$file_name = get_title_slug( $file_name );
+
+		if ( is_null( $file_path ) ) {
+			$html_dir   = get_stylesheet_directory() . '/data/html/';
+
+			if ( ! is_dir( $html_dir ) ) {
+				mkdir( $html_dir, 0755, true );
+			}
+
+			$file_path = trailingslashit( $html_dir ) . $file_name . '.html';
+		}
+
+		$ext = pathinfo( $file_path, PATHINFO_EXTENSION );
+
+		// vardump( $file_link );
+		// vardump( $file_name );
+		// vardump( $file_path );
+
+		// Если файла не существует, пытаемся его получить.
+		if ( ! file_exists( $file_path ) ) {
+			$external_html = get_curl_content( $file_link, $file_name );
+			if ( $external_html !== false ) {
+				$file_put_contents = file_put_contents( $file_path, $external_html, LOCK_EX );
+				if ( $file_put_contents === false ) {
+					vardump( 'Возникла ошибка при парсинге файла ' . $file_name . '.' . $ext . ' (ссылка ' . $file_link . ')' );
+				} else {
+					vardump( 'Файл ' . $file_name . '.' . $ext . ' успешно скачан' );
+				}
+				usleep( (int) $sleep );
+			} else {
+				vardump( 'Хуевый ответ от функции get_curl_content() (ссылка ' . $file_link . ')' );
+			} // end if false != $external_html
+		} // end if !file_exists( $file_path )
+
+		return $file_path;
+	}
+}
+
 
 
 if ( ! function_exists( 'get_title_slug' ) ) {
@@ -258,8 +302,6 @@ if ( ! function_exists( 'get_title_slug' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_random_date' ) ) {
 
 	/**
@@ -279,8 +321,6 @@ if ( ! function_exists( 'get_random_date' ) ) {
 		return $random_date;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_explode_part' ) ) {
 
@@ -307,8 +347,6 @@ if ( ! function_exists( 'get_explode_part' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_first_value_from_string' ) ) {
 
 	/**
@@ -328,8 +366,6 @@ if ( ! function_exists( 'get_first_value_from_string' ) ) {
 		return $string;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_last_value_from_string' ) ) {
 
@@ -351,8 +387,6 @@ if ( ! function_exists( 'get_last_value_from_string' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_probability' ) ) {
 
 	/**
@@ -373,8 +407,6 @@ if ( ! function_exists( 'get_probability' ) ) {
 		}
 	}
 }
-
-
 
 if ( ! function_exists( 'get_first_post_img' ) ) {
 
@@ -403,8 +435,6 @@ if ( ! function_exists( 'get_first_post_img' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'format_bytes' ) ) {
 
 	/**
@@ -431,8 +461,6 @@ if ( ! function_exists( 'format_bytes' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'str_word_count_utf8' ) ) {
 
 	/**
@@ -447,8 +475,6 @@ if ( ! function_exists( 'str_word_count_utf8' ) ) {
 		return count( $array );
 	}
 }
-
-
 
 if ( ! function_exists( 'read_time_estimate' ) ) {
 
@@ -484,8 +510,6 @@ if ( ! function_exists( 'read_time_estimate' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'mb_ucfirst' ) && extension_loaded( 'mbstring' ) ) {
 
 	/**
@@ -502,8 +526,6 @@ if ( ! function_exists( 'mb_ucfirst' ) && extension_loaded( 'mbstring' ) ) {
 		return $str;
 	}
 }
-
-
 
 if ( ! function_exists( 'RGBtoHEX' ) ) {
 
@@ -540,8 +562,6 @@ if ( ! function_exists( 'RGBtoHEX' ) ) {
 		return '#' . $r . $g . $b;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_range_number' ) ) {
 
@@ -581,8 +601,6 @@ if ( ! function_exists( 'get_range_number' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'remove_emoji' ) ) {
 
 	/**
@@ -612,8 +630,6 @@ if ( ! function_exists( 'remove_emoji' ) ) {
 		return $clear_string;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_webp_from_folders' ) ) {
 

@@ -2,6 +2,8 @@
 /**
  * WordPress action hook save_post
  *
+ * @link https://developer.wordpress.org/reference/hooks/the_content/
+ *
  * @package wpgen
  */
 

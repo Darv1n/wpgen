@@ -188,9 +188,6 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		// Основные скрипты. Компиляция галпом. Могут быть переопределены в дочерней.
 		wp_enqueue_script( 'common-scripts', get_theme_file_uri( 'assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
 
-		// Magnific.
-		wp_register_script( 'magnific-scripts', get_theme_file_uri( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ), array( 'jquery' ), null, true );
-
 		// Комментарии.
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
@@ -200,6 +197,29 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		if ( ! is_user_logged_in() ) {
 			wp_dequeue_style( 'global-styles' );
 		}
+
+		// Magnific.
+		wp_register_style( 'magnific-styles', get_theme_file_uri( '/assets/libs/magnific-popup/magnific-popup.min.css' ), array(), filemtime( get_theme_file_path( '/assets/libs/magnific-popup/magnific-popup.min.css' ) ) );
+		wp_register_script( 'magnific-scripts', get_theme_file_uri( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ) ), true );
+
+		// Swiper.
+		wp_register_style( 'swiper-styles', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css' );
+		wp_register_script( 'swiper-scripts', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array( 'jquery' ) );
+
+		// Slick.
+		wp_register_style( 'slick-styles', get_theme_file_uri( '/assets/css/slick.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/slick.min.css' ) ) );
+		wp_register_script( 'slick-scripts', get_theme_file_uri( '/assets/libs/slick/slick.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/libs/slick/slick.min.js' ) ), true );
+
+		// Register form scripts
+		wp_register_script( 'handler-form', get_theme_file_uri( '/assets/js/handler-form.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/handler-form.min.js' ) ), true );
+		wp_localize_script( 
+			'handler-form',
+			'form_obj',
+			array(
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'form-nonce' ),
+			)
+		);
 
 		// Скрипты и стили для формы wpgen, если она активна.
 		if ( is_wpgen_active() ) {

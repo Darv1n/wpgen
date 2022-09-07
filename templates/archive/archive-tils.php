@@ -7,15 +7,15 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article <?php post_class(); ?>>
 
 	<?php
 
-	if ( has_post_thumbnail() ) {
-		$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
-	} else {
-		$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
-	}
+		if ( has_post_thumbnail() ) {
+			$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+		} else {
+			$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
+		}
 
 	?>
 

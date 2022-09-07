@@ -119,7 +119,7 @@ if ( ! function_exists( 'the_media' ) ) {
 		$article_classes[] = 'elem';
 		$article_classes   = apply_filters( 'get_media__article_classes', $article_classes );
 
-		$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) . '">';
+		$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) ) . '">';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach ( $excel_row as $key_c => $excel_col ) {
@@ -142,13 +142,20 @@ if ( ! function_exists( 'the_media' ) ) {
 						$media_title = $excel_row[ $names['title'] ];
 					}
 
-					$html .= '<div class="' . implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) . '">';
-						$html .= '<article class="' . implode( ' ', $article_classes ) . '">';
+					$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) ) . '">';
+						$html .= '<article class="' . esc_attr( implode( ' ', $article_classes ) ) . '">';
 							$html .= '<div class="media--source">';
-								$html .= '<img class="media--icon" src="' . get_media_favicon( $excel_row[ $names['url'] ] ) . '" alt="' . $source_name . ' icon"><p>' . $source_name . '</p>';
+								if ( $favicon_url = get_media_favicon( $excel_row[ $names['url'] ] ) ) {
+									$html .= '<img class="media--icon" src="' . esc_url( $favicon_url ) . '" alt="' . esc_attr( $source_name ) . ' icon">';
+								}
+								$html .= '<p>' . esc_html( $source_name ) . '</p>';
 							$html .= '</div>';
-							$html .= '<h3 class="media--title h6"><a href="' . esc_url( $utm ) . '" class="media--link" target="_blank">' . $media_title . '</a></h3>';
-							$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( $excel_row[ $names['date'] ] ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( $excel_row[ $names['date'] ] ) ) ) . '</time>';
+							$html .= '<h3 class="media--title h6"><a href="' . esc_url( $utm ) . '" class="media--link" target="_blank">' . esc_html( $media_title ) . '</a></h3>';
+							if ( determine_locale() === 'ru_RU' ) {
+								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
+							} else {
+								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . gmdate( 'j F Y', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ). '</time>';
+							}
 						$html .= '</article>';
 					$html .= '</div>';
 				}
@@ -180,7 +187,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				$html .= '<ul class="list-unstyled list-inline elem-nav--list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-prev"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button' ) ) . '" href="' . esc_url( $current_link ) . '">-1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-prev"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $current_link ) . '">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -193,9 +200,9 @@ if ( ! function_exists( 'the_media' ) ) {
 
 					if ( in_array( $i, $page_nav_keys, true ) ) {
 						if ( (int) get_query_var( 'pg', 1 ) === $i ) {
-							$html .= '<li class="elem-nav--item"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button button-default disabled' ) ) . '" href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link disabled', 'default', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
 						} else {
-							$html .= '<li class="elem-nav--item"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button' ) ) . '" href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
 						}
 					}
 
@@ -203,7 +210,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-next"><a class="' . implode( ' ', get_button_classes( 'elem-nav--link button' ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-next"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
 				}
 
 				$html .= '</ul>';
@@ -249,7 +256,7 @@ if ( ! function_exists( 'get_media' ) ) {
 
 		$file_name     = 'media-' . $lang . '.xlsx';
 		$file_name     = apply_filters( 'get_media_file_name', $file_name );
-		$file_import   = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . $file_name;
+		$file_import   = trailingslashit( get_stylesheet_directory() ) . trailingslashit( $folder ) . $file_name;
 		$current_date  = gmdate( 'd-m-Y' );
 		$request_items = 100; // Number of items in the request.
 		$titles        = array(); // Array to prevent overlapping headers.
@@ -390,19 +397,19 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 		$domain_title = str_replace( 'www.', '', $domain_host );
 		$domain_title = get_title_slug( $domain_title );
 
-		$dir = get_stylesheet_directory() . '/' . trailingslashit( $folder );
+		$dir = trailingslashit( get_stylesheet_directory() ) . trailingslashit( $folder );
 		if ( ! is_dir( $dir ) ) {
 			mkdir( $dir, 0755, true );
 		}
 
-		$file_path  = get_stylesheet_directory() . '/' . trailingslashit( $folder ) . $domain_title . '.png';
-		$image_path = get_stylesheet_directory_uri() . '/' . trailingslashit( $folder ) . $domain_title . '.png';
+		$file_path  = trailingslashit( get_stylesheet_directory() ) . trailingslashit( $folder ) . $domain_title . '.png';
+		$image_path = trailingslashit( get_stylesheet_directory_uri() ) . trailingslashit( $folder ) . $domain_title . '.png';
 
 		if ( ! file_exists( $file_path ) ) {
 			file_put_contents ( $file_path, file_get_contents( 'https://www.google.com/s2/favicons?domain=' . $domain_host ) );
 		}
 
-		if ( file_exists( $file_path ) ) {
+		if ( file_exists( $file_path ) && filesize( $file_path ) > 0 ) {
 			return $image_path;
 		}
 

@@ -9,7 +9,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'article-single article-search' ); ?>>
+<article <?php post_class( 'article-single article-search' ); ?>>
 	<header class="entry__part entry__header">
 		<?php the_title( sprintf( '<h2 class="entry__title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 

@@ -26,7 +26,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 				// Get a template with a post type, if there is one in the theme.
 				if ( file_exists( get_theme_file_path( 'templates/single/single-' . get_post_type() . '.php' ) ) ) {
-					get_template_part( 'templates/single/single-' . get_post_type() );
+					get_template_part( 'templates/single/single', get_post_type() );
 				} else {
 					get_template_part( 'templates/single/single', wpgen_options( 'single_post_template_type' ) );
 				}

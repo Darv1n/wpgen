@@ -7,18 +7,18 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article <?php post_class(); ?>>
 
 	<div class="row">
 		<div class="col-12 col-xs-12 col-md-5">
 
 			<?php
 
-			if ( has_post_thumbnail() ) {
-				$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
-			} else {
-				$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
-			}
+				if ( has_post_thumbnail() ) {
+					$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+				} else {
+					$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
+				}
 
 			?>
 
@@ -60,7 +60,6 @@
 			</div>
 
 		</div>
-
 	</div>
 
 </article>

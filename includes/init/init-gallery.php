@@ -71,7 +71,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 		}
 
 		// Если в переменную передать строку с путем до xlsx файла, то можем взять заголовки из него.
-		if ( is_string( $titles ) && file_exists( get_stylesheet_directory() . '/' . $titles ) && pathinfo( $titles, PATHINFO_EXTENSION ) === 'xlsx' ) {
+		if ( is_string( $titles ) && file_exists( trailingslashit( get_stylesheet_directory() ) . $titles ) && pathinfo( $titles, PATHINFO_EXTENSION ) === 'xlsx' ) {
 			$titles = get_gallery_xlsx_titles( $titles );
 		}
 
@@ -101,8 +101,8 @@ if ( ! function_exists( 'the_gallery' ) ) {
 					$title = get_the_title() . ' ' . $key++;
 				}
 
-				$html .= '<a href="' . $image . '" class="' . implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) . '" title="' . $title . '">';
-					$html .= '<img src="' . $image . '" class="masonry-image" alt="' . $title . '"/>';
+				$html .= '<a href="' . esc_url( $image ) . '" class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) ) . '" title="' . esc_attr( $title ) . '">';
+					$html .= '<img src="' . esc_url( $image ) . '" class="masonry-image" alt="' . esc_attr( $title ) . '"/>';
 				$html .= '</a>';
 
 			}
@@ -113,9 +113,9 @@ if ( ! function_exists( 'the_gallery' ) ) {
 				$html .= '<div class="masonry-caption">';
 				if ( ! empty( $caption_link ) ) {
 					$html .= '<span>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;</span>';
-					$html .= '<a class="link link-color-unborder" href="' . esc_html( $caption_link ) . '">' . $caption_text . '</a>';
+					$html .= '<a class="link link-color-unborder" href="' . esc_url( $caption_link ) . '">' . esc_html( $caption_text ) . '</a>';
 				} else {
-					$html .= '<p>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;' . $caption_text . '</p>';
+					$html .= '<p>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;' . esc_html( $caption_text ) . '</p>';
 				}
 				$html .= '</div>';
 			}
@@ -136,7 +136,6 @@ if ( ! function_exists( 'the_gallery' ) ) {
 		});';
 
 		wp_add_inline_script( 'masonry', $masonry_init );
-
 
 		wp_enqueue_script( 'magnific-scripts' );
 
@@ -189,7 +188,7 @@ if ( ! function_exists( 'get_gallery' ) ) {
 	 */
 	function get_gallery( $folder = 'data/', $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ) ) {
 
-		$directory     = get_stylesheet_directory() . '/' . trailingslashit( $folder );
+		$directory     = trailingslashit( get_stylesheet_directory() ) . trailingslashit( $folder );
 		$images        = array();
 
 		if ( ! is_dir( $directory ) ) {
@@ -241,8 +240,8 @@ if ( ! function_exists( 'get_folder_images' ) ) {
 	 */
 	function get_folder_images( $folder = 'data/', $return_uri = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ) ) {
 
-		$directory_uri = get_stylesheet_directory_uri() . '/' . trailingslashit( $folder );
-		$directory     = get_stylesheet_directory() . '/' . trailingslashit( $folder );
+		$directory_uri = trailingslashit( get_stylesheet_directory_uri() ) . trailingslashit( $folder );
+		$directory     = trailingslashit( get_stylesheet_directory() ) . trailingslashit( $folder );
 		$images        = array();
 
 		if ( ! is_dir( $directory ) ) {
@@ -283,7 +282,7 @@ if ( ! function_exists( 'get_gallery_xlsx_titles' ) ) {
 	 */
 	function get_gallery_xlsx_titles( $path = '' ) {
 
-		$file_import     = get_stylesheet_directory() . '/' . $path;
+		$file_import     = trailingslashit( get_stylesheet_directory() ) . $path;
 		$titles          = array();
 
 		if ( empty( $path ) || ! file_exists( $file_import ) ) {

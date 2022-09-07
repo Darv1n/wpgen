@@ -1,0 +1,157 @@
+@import "components/_mixins"
+
+@import "_common-vars"
+
+.slick-slider
+	position: relative
+	display: block
+	box-sizing: border-box
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	-webkit-touch-callout: none
+	-khtml-user-select: none
+	-ms-touch-action: pan-y
+	touch-action: pan-y
+	-webkit-tap-highlight-color: transparent
+
+.slick-list
+	position: relative
+	display: block
+	overflow: hidden
+	margin: 0
+	padding: 0
+	&:focus
+		outline: none
+	&.dragging
+		cursor: pointer
+		cursor: hand
+
+.slick-slider
+	.slick-track, .slick-list
+		-webkit-transform: translate3d(0, 0, 0)
+		-moz-transform: translate3d(0, 0, 0)
+		-ms-transform: translate3d(0, 0, 0)
+		-o-transform: translate3d(0, 0, 0)
+		transform: translate3d(0, 0, 0)
+
+.slick-track
+	position: relative
+	top: 0
+	left: 0
+	display: block
+	margin-left: auto
+	margin-right: auto
+	&:before
+		display: table
+		content: ''
+	&:after
+		display: table
+		content: ''
+		clear: both
+
+.slick-loading .slick-track
+	visibility: hidden
+
+.slick-slide
+	display: none
+	float: left
+	height: 100%
+	min-height: 1px
+
+[dir='rtl'] .slick-slide
+	float: right
+
+.slick-slide
+	img
+		display: block
+	&.slick-loading img
+		display: none
+	&.dragging img
+		pointer-events: none
+
+.slick-initialized .slick-slide
+	display: block
+
+.slick-loading .slick-slide
+	visibility: hidden
+
+.slick-vertical .slick-slide
+	display: block
+	height: auto
+	border: 1px solid transparent
+
+.slick-arrow.slick-hidden
+	display: none
+
+.slick-prev, .slick-next
+	position: absolute
+	top: 50%
+	padding: 1rem
+	margin-bottom: .5rem
+	font-size: 0
+	overflow: hidden
+	&:before
+		@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
+		filter: invert(100%)
+
+.slick-prev::before
+	transform: translate(-50%, -50%) rotate(90deg)
+	
+.slick-next::before
+	transform: translate(-50%, -50%) rotate(-90deg)
+
+.slick-prev
+	left: -2.5rem
+
+[dir='rtl'] .slick-prev
+	right: -2.5rem
+	left: auto
+
+.slick-next
+	right: -2.5rem
+
+[dir='rtl'] .slick-next
+	right: auto
+	left: -2.5rem
+
+.slick-dotted.slick-slider
+	margin-bottom: 1.5rem
+
+.slick-dots
+	position: absolute
+	bottom: -1rem
+	display: block
+	width: 100%
+	padding: 0
+	margin: 0
+	list-style: none
+	text-align: center
+	li
+		position: relative
+		display: inline-block
+		width: 12px
+		height: 12px
+		margin: 0 4px
+		padding: 0
+		cursor: pointer
+	button
+		font-size: 0
+		line-height: 0
+		display: block
+		width: 12px
+		height: 12px
+		padding: 5px
+		cursor: pointer
+		color: transparent
+		outline: none
+		background: $white-color
+		border: 2px solid $primary-color
+		border-radius: 50%
+		&:hover, &:focus
+			background: $primary-color
+			border: 2px solid $primary-color
+	.slick-active button
+		background: $primary-color
+		border: 2px solid $primary-color

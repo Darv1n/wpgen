@@ -7,7 +7,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'article-single' ); ?>>
+<article <?php post_class( 'article-single' ); ?>>
 
 	<header class="entry__part entry__header article-header" role="banner" aria-label="<?php esc_html_e( 'Header of the article with title', 'wpgen' ); ?>">
 		<?php the_title( '<h1 class="entry__title">', '</h1>' ); ?>
@@ -46,11 +46,11 @@
 				?>
 			</div>
 
-			<?php if ( wpgen_options( 'single_post_entry_footer_display' ) ) {	?>
+			<?php if ( wpgen_options( 'single_post_entry_footer_display' ) ) { ?>
 				<footer class="entry__part entry__footer article-footer" role="contentinfo" aria-label="<?php esc_html_e( 'Footer of the article with additional information', 'wpgen' ); ?>">
 					<?php the_wpgen_entry_footer(); ?>
 				</footer>
-			<?php }	?>
+			<?php } ?>
 
 		</div>
 

@@ -38,19 +38,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 					<div <?php wpgen_archive_page_columns_classes(); ?>>
 
-						<?php
-
-						if ( wpgen_options( 'archive_page_template_type' ) === 'simple' ) {
-							get_template_part( 'templates/archive/archive-simple' );
-						} elseif ( wpgen_options( 'archive_page_template_type' ) === 'banners' ) {
-							get_template_part( 'templates/archive/archive-banners' );
-						} elseif ( wpgen_options( 'archive_page_template_type' ) === 'tils' ) {
-							get_template_part( 'templates/archive/archive-tils' );
-						} else {
-							get_template_part( 'templates/archive/archive-list' );
-						}
-
-						?>
+						<?php get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) ); ?>
 
 					</div>
 

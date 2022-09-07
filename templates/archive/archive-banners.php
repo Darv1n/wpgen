@@ -7,7 +7,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article <?php post_class(); ?>>
 
 	<?php if ( wpgen_options( 'archive_page_meta_display' ) ) { ?>
 		<div class="entry__part entry__meta entry__meta_inline">
@@ -17,11 +17,11 @@
 
 	<?php
 
-	if ( has_post_thumbnail() ) {
-		$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
-	} else {
-		$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
-	}
+		if ( has_post_thumbnail() ) {
+			$background_image = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+		} else {
+			$background_image = get_stylesheet_directory_uri() . '/assets/img/default-banner.jpg';
+		}
 
 	?>
 

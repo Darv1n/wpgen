@@ -9,7 +9,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'article-single' ); ?>>
+<article <?php post_class( 'article-single' ); ?>>
 	<header class="entry__part entry__header">
 		<?php
 
