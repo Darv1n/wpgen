@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-08-28 16:49+0400\n"
-"PO-Revision-Date: 2022-08-28 16:51+0400\n"
+"POT-Creation-Date: 2022-09-07 08:43+0400\n"
+"PO-Revision-Date: 2022-09-07 08:46+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -138,7 +138,7 @@ msgstr ""
 
 #: includes/customizer/customizer.php:326 includes/wpgen/wpgen-form.php:122
 msgid "Common"
-msgstr "ё"
+msgstr "Общий"
 
 #: includes/customizer/customizer.php:327 includes/wpgen/wpgen-form.php:124
 msgid "Gradient"
@@ -347,21 +347,22 @@ msgstr "Примечание: будет работать, только если
 
 #: includes/customizer/customizer.php:438
 msgid "Choose which side to display the menu"
-msgstr ""
+msgstr "Выберите, с какой стороны отображать меню"
 
 #: includes/customizer/customizer.php:439
 msgid "Position of the menu container when opened"
-msgstr ""
+msgstr "Положение контейнера меню при открытии"
 
 #: includes/customizer/customizer.php:440
 msgid "Alignment of the menu container"
-msgstr ""
+msgstr "Выравнивание контейнера меню"
 
 #: includes/customizer/customizer.php:441
 msgid ""
 "This checkbox activates the WpGen form in the frontend for the site "
 "administrator"
 msgstr ""
+"Этот чекбокс активирует форму WpGen во фронтенде для администратора сайта"
 
 #: includes/customizer/customizer.php:442
 msgid ""
@@ -436,7 +437,7 @@ msgstr ""
 
 #: includes/customizer/customizer.php:455
 msgid "Enter you nick in telegram"
-msgstr ""
+msgstr "Введите свой ник в телеграмме"
 
 #: includes/customizer/customizer.php:456
 msgid "Get your yandex verification code in the Yandex Webmaster Tools"

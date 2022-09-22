@@ -150,7 +150,7 @@ if ( ! function_exists( 'get_wpgen_container_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -245,7 +245,7 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -306,7 +306,7 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -382,7 +382,7 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -451,7 +451,7 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -517,7 +517,7 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -576,7 +576,7 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -666,7 +666,7 @@ if ( ! function_exists( 'get_wpgen_index_page_columns_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -793,7 +793,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -844,7 +844,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -906,7 +906,7 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		return array_unique( (array) $classes );
@@ -966,7 +966,7 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 
 		// Check whether the function has accepted any classes or not.
 		if ( $class ) {
-			$classes[] = $class;
+			$classes = array_merge( $classes, explode( ' ', $class ) );
 		}
 
 		$classes = array_unique( (array) $classes );
