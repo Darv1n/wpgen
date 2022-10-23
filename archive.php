@@ -40,7 +40,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 									// Get a template with a post type, if there is one in the theme.
 									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
-										get_template_part( 'templates/archive/archive-' . get_post_type() );
+										get_template_part( 'templates/archive/archive', get_post_type() );
 									} else {
 										get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
 									}

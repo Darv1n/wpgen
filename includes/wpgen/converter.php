@@ -61,7 +61,7 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 
 
 /*
-Usage:
+// Usage:
 add_filter( 'get_selected_font','source_get_selected_font' );
 function source_get_selected_font( $default_fonts ) {
 
@@ -73,7 +73,8 @@ function source_get_selected_font( $default_fonts ) {
 
 	return $default_fonts;
 
-}*/
+}
+*/
 
 
 
@@ -379,7 +380,7 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 
 
 /*
-Usage:
+//Usage:
 add_filter( 'get_selected_value','source_get_selected_value' );
 function source_get_selected_value( $default_values ) {
 
@@ -391,4 +392,5 @@ function source_get_selected_value( $default_values ) {
 
 	return $default_fonts;
 
-}*/
+}
+*/

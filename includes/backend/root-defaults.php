@@ -90,12 +90,12 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 
 
 /*
-Usage:
+// Usage:
 add_filter( 'root_defaults_filter_options', 'source_root_defaults_filter_options', 30 );
 function source_root_defaults_filter_options( $root_styles ) {
 
 	$source_styles = array(
-		'primaryFont' => 'jost',
+		'primaryFont'   => 'jost',
 		'secondaryFont' => 'jost',
 	);
 
@@ -151,12 +151,12 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 
 
 /*
-Usage:
+// Usage:
 add_filter( 'root_styles_filter_options', 'source_root_styles_filter_options', 30 );
 function source_root_styles_filter_options( $root_styles ) {
 
 	$source_styles = array(
-		'primaryFont' => '\'Jost\'',
+		'primaryFont'   => '\'Jost\'',
 		'secondaryFont' => '\'Jost\'',
 	);
 

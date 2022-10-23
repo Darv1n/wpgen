@@ -23,15 +23,14 @@ if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 	 */
 	function wpgen_pre_get_posts( $query ) {
 
-		// Выходим, если это админ-панель или не основной запрос.
+		// Exit if it is an admin or not a main query request.
 		if ( is_admin() || ! $query->is_main_query() ) {
 			return;
 		}
 
-		// Сортируем по post_type результаты поиска.
+		// Sort search results by post_type.
 		if ( $query->is_search ) {
 			$query->set( 'orderby', 'type' );
 		}
-
 	}
 }

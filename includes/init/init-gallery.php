@@ -23,7 +23,7 @@ if ( ! function_exists( 'the_gallery_shortcode' ) ) {
 	 */
 	function the_gallery_shortcode( $atts ) {
 
-		// Белый список параметров и значения по умолчанию для шорткода.
+		// White list of parameters and default values for the shortcode.
 		$atts = shortcode_atts( array(
 			'folder'        => 'data/',
 			'titles'        => array(),
@@ -70,12 +70,12 @@ if ( ! function_exists( 'the_gallery' ) ) {
 			return false;
 		}
 
-		// Если в переменную передать строку с путем до xlsx файла, то можем взять заголовки из него.
+		// If you pass in a variable a string with the path to the xlsx file, we can take the headers from it.
 		if ( is_string( $titles ) && file_exists( trailingslashit( get_stylesheet_directory() ) . $titles ) && pathinfo( $titles, PATHINFO_EXTENSION ) === 'xlsx' ) {
 			$titles = get_gallery_xlsx_titles( $titles );
 		}
 
-		// Если кол-во колонок не передано, берем его из дефолтной опции. В противном случае прогоняем через фнкцию конвертакции числа в строку.
+		// If the number of columns is not passed, we take it from default option. Otherwise we run it through number to string conversion function.
 		if ( is_null( $columns_count ) ) {
 			$columns_count = wpgen_options( 'archive_page_columns' );
 		} else {

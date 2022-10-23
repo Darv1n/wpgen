@@ -93,6 +93,12 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 			return '...';
 		});
 
+		// Переписываем email в нижний регистр.
+		add_filter( 'sanitize_email', 'lowercase_sanitize_email' );
+		function lowercase_sanitize_email( $email ) {
+			return strtolower( $email );
+		}
+
 		// Скрываем админ панель.
 		add_filter( 'show_admin_bar', '__return_false' );
 

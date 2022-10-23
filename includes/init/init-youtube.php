@@ -35,7 +35,7 @@ if ( ! function_exists( 'the_youtube_videos_shortcode' ) ) {
 
 		$lang_default = get_first_value_from_string( determine_locale(), '_' );
 
-		// Белый список параметров и значения по умолчанию для шорткода.
+		// White list of parameters and default values for shortcode.
 		$atts = shortcode_atts( array(
 			'requests'      => null,
 			'lang'          => $lang_default,
@@ -262,7 +262,7 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 		}
 
 		if ( ! isset( $folder ) ) {
-			$folder = apply_filters( 'get_youtube_video_file_folder', 'data/' ); // base folder
+			$folder = apply_filters( 'get_youtube_video_file_folder', 'data/' ); // base folder.
 		}
 
 		$current_date = gmdate( 'd-m-Y' );
@@ -323,15 +323,15 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 			}
 		}
 
-		// Пересобираем массив с сортировкой по дате.
-		unset( $excel[0] ); // Удаляем первый ключ.
-		usort( $excel, 'cmpart' ); // Сортируем по дате.
-		$excel = array_reverse( $excel ); // Отражаем массив.
-		array_unshift( $excel, array( 'tag', 'date', 'title', 'new title', 'slug' ) ); // Добавляем первый клюб обратно.
+		// Rebuild array sorted by date.
+		unset( $excel[0] ); // Delete first key.
+		usort( $excel, 'cmpart' ); // Sort by date.
+		$excel = array_reverse( $excel ); // Reverse array.
+		array_unshift( $excel, array( 'tag', 'date', 'title', 'new title', 'slug' ) ); // Add first key back in.
 
 		$excel = apply_filters( 'get_youtube_videos', $excel );
 
-		// Сбрасываем ключи массива.
+		// Reset keys of array.
 		$excel = array_values( $excel );
 
 		return $excel;
@@ -370,7 +370,7 @@ if ( ! function_exists( 'youtube_search_snippet' ) ) {
 			$args['pageToken'] = $page_token;
 		}
 
-		// Добавляем тег main (для вывода без ручной проверки) только если запрос с официального канала автора.
+		// Add main tag (to output without manual checking) only if the request is from the author's official channel.
 		if ( $type_request === 'channel_id' ) {
 			$main_tag = 'main';
 		} else {
@@ -380,7 +380,7 @@ if ( ! function_exists( 'youtube_search_snippet' ) ) {
 		$names       = array();
 		$excel_slugs = array();
 
-		// Список слагов нужен для проверки на уникальность значений в таблице, что не добавлять строки повторно.
+		// The list of slags is needed to check the uniqueness of the values in the table, so that you don't have to add rows repeatedly.
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach	( $excel_row as $key_c => $excel_col ) {
@@ -396,12 +396,12 @@ if ( ! function_exists( 'youtube_search_snippet' ) ) {
 
 		vardump( 'Делаем запрос youtube api' );
 
-		// Проверим правильный ли получили ответ.
+		// See if we got the right answer.
 		if ( is_wp_error( $response ) ) {
 			return $response->get_error_message();
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 
-			// Все OK, делаем что нибудь с данными $request['body'].
+			// Do something with the data $request['body'].
 			$json_result = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( isset( $json_result->items ) ) {

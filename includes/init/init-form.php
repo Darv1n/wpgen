@@ -19,24 +19,24 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 	 */
 	function form_ajax_action_callback() {
 
-		parse_str( $_POST['content'], $data ); // Создаём массив который содержит значения полей заполненной формы.
+		parse_str( $_POST['content'], $data ); // Create an array that contains the values of the fields of the filled form.
 
-		$errors   = array(); // Массив ошибок.
-		$message  = array(); // Массив письма.
+		$errors   = array(); // Error array.
+		$message  = array(); // Letter array.
 		$home_url = preg_replace( '/^(http[s]?):\/\//', '', get_home_url() );
 
-		// Проверяем nonce. Если проверкане прошла, то блокируем отправку.
+		// Check nonce. If check fails, block sending.
 		/*if ( !wp_verify_nonce( $data['nonce'], 'form-nonce' ) ) {
 			wp_die( __( 'Data sent from a different address', 'wpgen' ) );
 		}*/
 
-		// Проверяем на спам. Если скрытое поле заполнено или снят чек, то блокируем отправку.
+		// Check for spam. If hidden field is full or the check is cleared, block sending.
 		if ( ! $data['form-anticheck'] || ! empty( $data['form-submitted'] ) ) {
 			$errors['submit'] = __( 'Your comment does not pass the spam filter. If an error occurs, please write to team@zolin.digital', 'wpgen' );
 			wp_send_json_error( $errors );
 		}
 
-		// Проверяем полей имени, если пустое, то пишем сообщение в массив ошибок.
+		// Check name fields, if empty, write message to error array.
 		if ( empty( $data['form-name'] ) || ! isset( $data['form-name'] ) ) {
 			$errors['name'] = __( 'Please enter your name', 'wpgen' );
 		} else {
@@ -61,7 +61,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 			$message[ __( 'Form name', 'wpgen' ) ] = __( 'Simple form', 'wpgen' );
 		}
 
-/*		// Проверяем поле емайла, если пустое, то пишем сообщение в массив ошибок.
+/*		// Check email field, if it is empty, write message in error array.
 		if ( empty( $data['form-email'] ) || ! isset( $data['form-email'] ) ) {
 			$errors['email'] = __( 'Please enter your email address', 'wpgen' );
 		} elseif ( ! preg_match( '/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i', $data['form-email'] ) ) {
@@ -70,7 +70,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 			$form-email = sanitize_email( $data['form-email'] );
 		}
 
-		// Проверяем полей сообщения, если пустое, то пишем сообщение в массив ошибок.
+		// Check message fields, if empty, write message in error array.
 		if ( empty( $data['form-message'] ) || !isset( $data['form-message'] ) ) {
 			$errors['message'] = __( 'Please enter your message', 'wpgen' );
 		} else {
@@ -79,11 +79,11 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 
 		$form_subject = __( 'Application from site', 'wpgen' ) . ' ' . $home_url;
 
-		// Проверяем массив ошибок, если не пустой, то передаем сообщение. Иначе отправляем письмо.
+		// Сheck error array, if it's not empty, return json error. Otherwise send email.
 		if ( $errors ) {
 			wp_send_json_error( $errors );
 		} else {
-			// Указываем адресатов.
+			// Specify addressees.
 			$email_to[] = 'webdev1992@yandex.ru';
 			if ( ! empty( wpgen_options( 'other_email' ) ) ) {
 				$email_to[] = wpgen_options( 'other_email' );
@@ -98,10 +98,10 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 				$body .= $key . ': ' . $value . "\r\n";
 			}
 			
-			// Отправляем письмо.
+			// Send email.
 			$wp_mail = wp_mail( $email_to, $form_subject, $body, $headers );
 
-			// Отправляем сообщение об успешной отправке.
+			// Return json about successful sending.
 			if ( $wp_mail ) {
 				wp_send_json_success( __( 'A message has been sent. We will contact you shortly', 'wpgen' ) );
 			} else {
@@ -110,7 +110,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 			}
 		}
 
-		// На всякий случай убиваем еще раз процесс ajax.
+		// Kill ajax process.
 		wp_die();
 	}
 }
@@ -188,8 +188,9 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 	}
 }
 
+/*
 // Usage: add feedback form before footer
-/*add_action( 'after_site_content', 'add_feedback_form_before_footer', 10 );
+add_action( 'after_site_content', 'add_feedback_form_before_footer', 10 );
 function add_feedback_form_before_footer() {
 
 	$html = '<section class="section section-feedback">
@@ -202,9 +203,11 @@ function add_feedback_form_before_footer() {
 	</section>';
 
 	echo $html;
-}*/
+}
+*/
 
-/*// Usage: add popup form after footer
+/*
+// Usage: add popup form after footer
 add_action( 'wp_footer', 'add_popup_form_before_footer', 10 );
 function add_popup_form_before_footer() {
 
@@ -230,4 +233,5 @@ function add_popup_form_before_footer() {
 	$after_form  = '</div>';
 
 	echo get_feedback_form( 'popup-form', __( 'Popup form', 'wpgen' ), $before_form, $after_form );
-}*/
+}
+*/

@@ -23,12 +23,12 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 
 		$data = get_option( 'root_options', false );
 
-		// Возвращаем путой массив, если опций нет.
+		// Return an empty array if there are no options.
 		if ( ! $data ) {
 			return array();
 		}
 
-		// Цвета.
+		// Colors.
 		$gpc  = explode( '-', $data['general-primary-color'] )[0];
 		$gpcs = explode( '-', $data['general-primary-color'] )[1];
 		$gsc  = explode( '-', $data['general-secondary-color'] )[0];
@@ -74,7 +74,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			'elemBgColor'           => get_selected_value( $gbc . '-' . $data['elem-bg-saturate'] ),
 		);
 
-		// Шрифты.
+		// Fonts.
 		if ( isset( $data['primary-font'] ) ) {
 			$root_wpgen['primaryFont'] = get_selected_font( $data['primary-font'] );
 		}
@@ -83,7 +83,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			$root_wpgen['secondaryFont'] = get_selected_font( $data['secondary-font'] );
 		}
 
-		// Цвет ссылок.
+		// Link color.
 		if ( isset( $data['general-link-color'] ) ) {
 			if ( $data['general-link-color'] === 'blue' ) {
 				$link_color = $data['general-link-color'];
@@ -98,7 +98,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			$root_wpgen['linkColorLight'] = get_selected_value( $link_color . '-400' );
 		}
 
-		// Цвет шрифтов на элементах.
+		// Elements text color.
 		if ( isset( $data['elem-bg-saturate'] ) ) {
 			if ( get_opposite_color_style_by_saturate( $data['elem-bg-saturate'] ) === 'white' ) {
 				$root_wpgen['elemTextColor'] = get_selected_value( $gbc . '-50' );
@@ -107,45 +107,45 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			}
 		}
 
-		// Размер кнопок.
+		// Button size.
 		if ( isset( $data['btn-size'] ) ) {
 			$btn_size                        = get_selected_value( $data['btn-size'] );
 			$root_wpgen['buttonPaddingTop']  = explode( ' ', $btn_size )[0];
 			$root_wpgen['buttonPaddingLeft'] = explode( ' ', $btn_size )[1];
 		}
 
-		// Радиус бордера кнопок.
+		// Button bordering radius.
 		if ( isset( $data['btn-bd-radius'] ) ) {
 			$root_wpgen['btnBdRadius'] = get_selected_value( $data['btn-bd-radius'] );
 		}
 
-		// Паддинги элементов.
+		// Elements padding.
 		if ( isset( $data['elem-padding'] ) ) {
 			$root_wpgen['elemPadding'] = get_selected_value( $data['elem-padding'] );
 		}
 
-		// Тени элементов.
+		// Elements shadows.
 		if ( isset( $data['elem-shadow'] ) ) {
 			$root_wpgen['elemShadow']      = get_selected_value( $data['elem-shadow'] );
 			$root_wpgen['elemShadowHover'] = str_replace( '0.15', '0.25', get_selected_value( $data['elem-shadow'] ) );
 		}
 
-		// Ширина бордера элементов.
+		// Elements border width.
 		if ( isset( $data['elem-bd-width'] ) ) {
 			$root_wpgen['elemBdWidth'] = get_selected_value( $data['elem-bd-width'] );
 		}
 
-		// Цвет бордера элементов.
+		// Elements border color.
 		if ( isset( $data['elem-bd-color'] ) ) {
 			$root_wpgen['elemBdColor'] = get_selected_value( explode( '-', $data[ 'general-' . $data['elem-bd-color'] . '-color' ] )[0] . '-' . $data['elem-bd-color-saturate'] );
 		}
 
-		// Радиус бордера элементов.
+		// Elements border radius.
 		if ( isset( $data['elem-bd-radius'] ) ) {
 			$root_wpgen['elemBdRadius'] = get_selected_value( $data['elem-bd-radius'] );
 		}
 
-		// Ховер бордера элементов.
+		// Elements border color hover.
 		if ( isset( $data['elem-bd-color-saturate'] ) ) {
 			if ( get_opposite_color_style_by_saturate( $data['elem-bd-color-saturate'] ) === 'white' ) {
 				$root_wpgen['elemBdColorHover'] = get_selected_value( explode( '-', $data[ 'general-' . $data['elem-bd-color'] . '-color' ] )[0] . '-' . get_prev_saturate( $data['elem-bd-color-saturate'] ) );

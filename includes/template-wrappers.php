@@ -25,7 +25,7 @@ function wpgen_body_classes( $classes ) {
 	}
 
 	// Adds a class of no-sidebar when there is no sidebar present.
-	if ( wpgen_options( 'sidebar_display' ) && ! wpgen_options( 'sidebar_left_display' ) && ! wpgen_options( 'sidebar_right_display' ) ) {
+	if ( ! wpgen_options( 'sidebar_left_display' ) && ! wpgen_options( 'sidebar_right_display' ) ) {
 		$classes[] = 'no-sidebar';
 	}
 

@@ -34,7 +34,7 @@ if ( ! function_exists( 'the_media_shortcode' ) ) {
 
 		$lang_default = get_first_value_from_string( determine_locale(), '_' );
 
-		// Белый список параметров и значения по умолчанию для шорткода.
+		// White list of parameters and default values for the shortcode.
 		$atts = shortcode_atts( array(
 			'requests'      => null,
 			'lang'          => $lang_default,
@@ -251,7 +251,7 @@ if ( ! function_exists( 'get_media' ) ) {
 		}
 
 		if ( ! isset( $folder ) ) {
-			$folder = apply_filters( 'get_media_file_folder', 'data/' ); // base folder
+			$folder = apply_filters( 'get_media_file_folder', 'data/' ); // base folder.
 		}
 
 		$file_name     = 'media-' . $lang . '.xlsx';
@@ -330,7 +330,7 @@ if ( ! function_exists( 'get_media' ) ) {
 						$names[ get_title_slug( $excel_col ) ] = $key_c;
 					}
 				} else {
-					// Убираем строки с неподходящими тегами, а всякий случай убираем дубли заголовков.
+					// Remove lines with unsuitable tags, and just in case remove duplicate titles.
 					if ( ! in_array( $excel_row[ $names['tag'] ], $tags, true ) || in_array( $excel_row[ $names['title'] ], $titles, true ) ) {
 						unset( $excel[ $key_d ] );
 					}
@@ -340,15 +340,15 @@ if ( ! function_exists( 'get_media' ) ) {
 			}
 		}
 
-		// Пересобираем массив с сортировкой по дате.
-		unset( $excel[0] ); // Удаляем первый ключ.
-		usort( $excel, 'cmpart' ); // Сортируем по дате.
-		$excel = array_reverse( $excel ); // Отражаем массив.
-		array_unshift( $excel, array( 'tag', 'date', 'title', 'url', 'source' ) ); // Добавляем первый клюб обратно.
+		// Rebuild array sorted by date.
+		unset( $excel[0] ); // Delete first key.
+		usort( $excel, 'cmpart' ); // Sort by date.
+		$excel = array_reverse( $excel ); // Reverse array.
+		array_unshift( $excel, array( 'tag', 'date', 'title', 'url', 'source' ) ); // Add first key back in.
 
 		$excel = apply_filters( 'get_media', $excel );
 
-		// Сбрасываем ключи массива.
+		// Reset keys of array.
 		$excel = array_values( $excel );
 
 		return $excel;
@@ -382,7 +382,7 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 	/**
 	 * Return site favicon link.
 	 *
-	 * @param string $url    site url to get a favicon.
+	 * @param string $url site url to get a favicon.
 	 *
 	 * @return string
 	 */
@@ -392,7 +392,7 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 			return false;
 		}
 
-		$folder       = apply_filters( 'get_media_favicons_folder', 'data/media-favicons/' ); // favicons folder
+		$folder       = apply_filters( 'get_media_favicons_folder', 'data/media-favicons/' ); // favicons folder.
 		$domain_host  = wp_parse_url( $url )['host'];
 		$domain_title = str_replace( 'www.', '', $domain_host );
 		$domain_title = get_title_slug( $domain_title );

@@ -22,7 +22,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 			$saturate_array      = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 );
 			$saturate_array_mini = array( 400, 500, 600 );
 
-			// Пишем дефолтные опции и перезаписываем из через настройки.
+			// Write default options and overwrite them with the settings.
 			$defaults = array(
 				'customizer-general-container-width'  => wpgen_options( 'general_container_width' ),
 				'customizer-archive-page-columns'     => wpgen_options( 'archive_page_columns' ),
@@ -38,7 +38,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				'input-bd-color-saturate'             => get_explode_part( get_root_defaults( 'inputBdColor' ), 1, '-' ),
 			);
 
-			// Пересобираем опции через начтройки root_options и wpgen_options.
+			// Rebuild options via root_options and wpgen_options.
 			$root_options = get_option( 'root_options', false );
 			if ( $root_options ) {
 				$defaults = wp_parse_args( $root_options, $defaults );
@@ -55,22 +55,22 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				unset( $temp );
 			}
 
-			// Создаем массив элементов по умолчанию.
+			// Create default array of elements.
 			$elems = array(
 				'primary-font' => array(
-					'title' => 'Акцентный шрифт',
+					'title' => __( 'Primary Font', 'wpgen' ),
 					'type'  => 'typography',
 					'root'  => 'primaryFont',
 					'style' => get_selected_font(),
 				),
 				'secondary-font' => array(
-					'title' => 'Шрифт для текста',
+					'title' => __( 'Text Font', 'wpgen' ),
 					'type'  => 'typography',
 					'root'  => 'secondaryFont',
 					'style' => get_selected_font(),
 				),
 				'customizer-general-container-width' => array(
-					'title' => 'Контейнер',
+					'title' => __( 'Container', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerContainer',
 					'style' => array(
@@ -82,7 +82,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'customizer-archive-page-columns' => array(
-					'title' => 'Кол-во колонок',
+					'title' => __( 'Number of columns', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerColumns',
 					'style' => array(
@@ -93,7 +93,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'customizer-general-menu-position' => array(
-					'title' => 'Тип меню',
+					'title' => __( 'Menu type', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerMenuPosition',
 					'style' => array(
@@ -102,7 +102,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'customizer-general-menu-button-type' => array(
-					'title' => 'Кнопка меню',
+					'title' => __( 'Menu button type', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerMenuButtonType',
 					'style' => array(
@@ -115,7 +115,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'customizer-general-button-type' => array(
-					'title' => 'Тип кнопок',
+					'title' => __( 'Button type', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerButtonType',
 					'style' => array(
@@ -126,7 +126,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'btn-size' => array(
-					'title' => 'Размер кнопок',
+					'title' => __( 'Button size', 'wpgen' ),
 					'type'  => 'form',
 					'root'  => 'btnSize',
 					'style' => array(
@@ -139,7 +139,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'general-link-color' => array(
-					'title'   => 'Цвет ссылок',
+					'title'   => __( 'Link color', 'wpgen' ),
 					'type'    => 'elem',
 					'root'    => 'linkColor',
 					'style'   => array(
@@ -151,7 +151,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'default' => 'primary',
 				),
 				'general-primary-color' => array(
-					'title'    => 'Основной цвет',
+					'title'    => __( 'Primary color', 'wpgen' ),
 					'type'     => 'color',
 					'root'     => 'primary',
 					'saturate' => 'mini',
@@ -176,7 +176,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'general-secondary-color' => array(
-					'title'    => 'Второстепенный цвет',
+					'title'    => __( 'Secondary color', 'wpgen' ),
 					'type'     => 'color',
 					'root'     => 'secondary',
 					'saturate' => 'mini',
@@ -201,7 +201,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'general-bg-color' => array(
-					'title'    => 'Цветовая схема',
+					'title'    => __( 'Color scheme', 'wpgen' ),
 					'type'     => 'color',
 					'root'     => 'gray',
 					'saturate' => 'saturate',
@@ -214,7 +214,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'elem-bg-saturate' => array(
-					'title' => 'Фон неактивных элементов',
+					'title' => __( 'Background of inactive elements', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemBgColor',
 					'style' => array(
@@ -231,7 +231,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'elem-padding' => array(
-					'title' => 'Внутренний отступ элементов',
+					'title' => __( 'Internal element paddings', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemPadding',
 					'style' => array(
@@ -245,7 +245,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'elem-bd-width' => array(
-					'title' => 'Ширина бордера элементов',
+					'title' => __( 'Width of border elements', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemBdWidth',
 					'style' => array(
@@ -258,7 +258,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				),
 
 				'elem-bd-color' => array(
-					'title'   => 'Цвет бордера элементов',
+					'title'   => __( 'Color of border elements', 'wpgen' ),
 					'type'    => 'elem',
 					'root'    => 'elemBdColor',
 					'style'   => array(
@@ -266,11 +266,11 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'secondary' => __( 'secondary', 'wpgen' ),
 						'bg'        => __( 'gray', 'wpgen' ),
 					),
-					'help'    => 'Чтобы отключить бордер выберите опцию «border-none» в предыдущем пункте',
+					'help'    => __( 'To disable the border-none option in the previous paragraph', 'wpgen' ),
 					'default' => 'primary',
 				),
 				'elem-bd-color-saturate' => array(
-					'title' => 'Насыщенность цвета бордера элементов',
+					'title' => __( 'Color saturate of border elements', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemBdColorSaturate',
 					'style' => array(
@@ -287,7 +287,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'elem-shadow' => array(
-					'title' => 'Тени элементов',
+					'title' => __( 'Shadow elements', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemShadow',
 					'style' => array(
@@ -303,7 +303,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'elem-bd-radius' => array(
-					'title' => 'Радиус бордера элементов',
+					'title' => __( 'Elements border radius', 'wpgen' ),
 					'type'  => 'elem',
 					'root'  => 'elemBdRadius',
 					'style' => array(
@@ -319,7 +319,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'btn-bd-radius' => array(
-					'title' => 'Радиус бордера кнопок',
+					'title' => __( 'Buttons border radius', 'wpgen' ),
 					'type'  => 'form',
 					'root'  => 'btnBdRadius',
 					'style' => array(
@@ -335,7 +335,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					),
 				),
 				'input-bd-color-saturate' => array(
-					'title' => 'Насыщенность цвета бордера инпутов',
+					'title' => __( 'Border color saturate of input elements', 'wpgen' ),
 					'type'  => 'form',
 					'root'  => 'inputBdColorSaturate',
 					'style' => array(
@@ -354,6 +354,18 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 			);
 
 			$elems = apply_filters( 'wpgen_form_options', $elems );
+
+			
+			/*
+			// Usage:
+			add_filter( 'wpgen_form_options','child_theme_wpgen_form_options' );
+			function child_theme_wpgen_form_options( $elems ) {
+
+				unset( $elems['customizer-archive-page-columns'] );
+
+				return $elems;
+
+			}*/
 
 		$out = '<button id="wpgen-btn" class="' . implode( ' ', get_button_classes( 'btn-wpgen', 'default' ) ) . '" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';

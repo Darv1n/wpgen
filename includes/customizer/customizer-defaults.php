@@ -47,8 +47,8 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_cookie_display'                  => true,
 			'general_external_utm_links'              => true,
 
-			'sidebar_display'                         => true,
-			'sidebar_position'                        => 'left',
+			'sidebar_left_display'                    => true,
+			'sidebar_right_display'                   => false,
 			'sidebar_display_home'                    => true,
 			'sidebar_display_post'                    => true,
 			'sidebar_display_page'                    => true,
@@ -56,9 +56,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'sidebar_display_search'                  => true,
 			'sidebar_display_error'                   => true,
 			'sidebar_display_author'                  => false,
-
-			'sidebar_left_display'                    => true,
-			'sidebar_right_display'                   => false,
 
 			'single_post_meta_display'                => true,
 			'single_post_template_type'               => 'one',
@@ -118,10 +115,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'other_yandex_counter'                    => '',
 			'other_google_counter'                    => '',
 			'other_mailru_counter'                    => '',
-
-			'advertising_top_content'                 => '',
-			'advertising_bottom_content'              => '',
-			'advertising_popup'                       => '',
 		);
 
 		// Merge child and parent default options.
@@ -141,15 +134,13 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	}
 }
 
-
 /*
-Usage:
+// Usage:
 add_filter( 'wpgen_filter_options','child_theme_filter_options' );
 function child_theme_filter_options( $wpgen_defaults ) {
 
 	$child_theme_defaults = array(
 		'general_menu_position' => 'right',
-		'sidebar_position' => 'right',
 		'general_test' => false,
 	);
 

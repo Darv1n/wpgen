@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter( 'wpseo_robots', '__return_false' );
-add_filter( 'wpseo_googlebot', '__return_false' ); // Yoast SEO 14.x or newer
-add_filter( 'wpseo_bingbot', '__return_false' ); // Yoast SEO 14.x or newer
+add_filter( 'wpseo_googlebot', '__return_false' ); // Yoast SEO 14.x or newer.
+add_filter( 'wpseo_bingbot', '__return_false' ); // Yoast SEO 14.x or newer.
 
 // Yoast filters.
 if ( function_exists( 'yoast_breadcrumb' ) ) {

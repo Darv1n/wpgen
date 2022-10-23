@@ -595,9 +595,10 @@ if ( ! function_exists( 'get_range_number' ) ) {
 		return $curent_range_step;
 
 		/*
-		Usage:
-			$range_step = range(0, 100, 5); // получаем массив [0,5,10,15,20,25,....100]
-			$result_range = get_range_number( 95, $range_step );*/
+		// Usage:
+		$range_step = range(0, 100, 5); // получаем массив [0,5,10,15,20,25,....100]
+		$result_range = get_range_number( 95, $range_step );
+		*/
 	}
 }
 
@@ -650,20 +651,20 @@ if ( ! function_exists( 'get_webp_from_folders' ) ) {
 
 		$output = '';
 
-		// Получаем части изображения.
+		// Get parts of image.
 		$ext = pathinfo( $name );
 
-		// Собираем пути до файлов.
+		// Collect file paths.
 		$path      = $folder . $ext['basename'];
 		$path_webp = $folder_webp . $ext['filename'] . '.webp';
 
-		// Проверяем, что изображение существует.
+		// Check that image exists.
 		if ( file_exists( get_stylesheet_directory() . $path ) ) {
 
-			// Получаем высоту и ширину изображения.
+			// Get height and width of the image.
 			$image_attributes = getimagesize( get_stylesheet_directory() . $path );
 
-			// Проверяем, что .webp изображение существует.
+			// Check that the .webp image exists.
 			if ( file_exists( get_stylesheet_directory() . $path_webp ) ) {
 				$output .= '<picture class="' . $class . '">';
 					$output .= '<source srcset="' . get_stylesheet_directory_uri() . $path_webp . '" type="image/webp">';

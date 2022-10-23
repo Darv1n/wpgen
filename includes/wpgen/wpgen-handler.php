@@ -17,7 +17,7 @@ add_action( 'wp_ajax_nopriv_ajax_wpgen', 'ajax_wpgen_callback' );
  */
 function ajax_wpgen_callback() {
 
-	//$_POST = wp_unslash( array_map( 'esc_attr', $_POST ) ); // Очистка массива.
+	// $_POST = wp_unslash( array_map( 'esc_attr', $_POST ) ); // Cleaning array.
 
 	if ( isset( $_POST['type'] ) && $_POST['type'] === 'reset' ) {
 
@@ -29,7 +29,7 @@ function ajax_wpgen_callback() {
 	} else {
 
 		if ( ! empty( $_POST['content'] ) ) {
-			parse_str( wp_unslash( $_POST['content'] ), $data ); // Создаём массив который содержит значения полей заполненной формы.
+			parse_str( wp_unslash( $_POST['content'] ), $data ); // Create array that contains values of fields of filled form.
 
 			$customizer_options = get_option( 'wpgen_options', false );
 

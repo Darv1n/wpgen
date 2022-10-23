@@ -22,7 +22,7 @@ function wpgen_root_filter_options( $wpgen_defaults ) {
 	$root_options  = get_option( 'root_options', false );
 	$wpgen_options = array();
 
-	// Цвета темы.
+	// Theme colors.
 	if ( $root_options && isset( $root_options['general-bg-color'] ) ) {
 
 		$theme_style = get_style_by_saturate( explode( '-', $root_options['general-bg-color'] )[1] );
@@ -36,28 +36,28 @@ function wpgen_root_filter_options( $wpgen_defaults ) {
 
 	$data = get_option( 'wpgen_options', false );
 
-	// Ширина контейнера.
+	// Container width.
 	if ( isset( $data['general_container_width'] ) ) {
 		$wpgen_options['general_container_width'] = $data['general_container_width'];
 	}
 
-	// Кол-во колонок.
+	// Number of columns.
 	if ( isset( $data['archive_page_columns'] ) ) {
 		$wpgen_options['archive_page_columns'] = $data['archive_page_columns'];
 	}
 
-	// Позиция меню.
+	// Menu position.
 	if ( isset( $data['general_menu_position'] ) ) {
 		$wpgen_options['general_menu_position'] = $data['general_menu_position'];
 	}
 
-	// Кнопки меню и вверх.
+	// Menu and up buttons.
 	if ( isset( $data['general_menu_button_type'] ) ) {
 		$wpgen_options['general_menu_button_type']       = $data['general_menu_button_type'];
 		$wpgen_options['general_scroll_top_button_type'] = $data['general_menu_button_type'];
 	}
 
-	// Стиль кнопок.
+	// Button style.
 	if ( isset( $data['general_button_type'] ) ) {
 		$wpgen_options['general_button_type'] = $data['general_button_type'];
 	}

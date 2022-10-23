@@ -11,6 +11,8 @@
 	padding: $padding/2 $padding
 	background: $white-color
 	box-sizing: border-box
+	&-title
+		font-size: $large-font-size
 	&.customize-control-label, &.customize-control-hidden
 		width: auto
 		padding: $padding/2 $padding
@@ -31,7 +33,6 @@
 			&:not(:last-child)
 				margin-right: $margin
 
-
 .control-lock
 	position: absolute
 	width: 100%
@@ -39,4 +40,4 @@
 	top: 0
 	left: 0
 	background-color: rgba(0, 0, 0, 0.18)
-	cursor: not-allowed 
+	cursor: not-allowed

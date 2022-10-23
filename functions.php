@@ -15,6 +15,7 @@ require_once get_template_directory() . '/includes/setup.php';
 
 // Customizer.
 require_once get_template_directory() . '/includes/customizer/customizer.php';
+require_once get_template_directory() . '/includes/customizer/customizer-controls.php';
 require_once get_template_directory() . '/includes/customizer/customizer-defaults.php';
 
 // Backend.
