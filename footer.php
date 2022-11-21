@@ -26,13 +26,13 @@
 
 				<?php
 
-				if ( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
-					get_template_part( 'templates/footer/footer-three-columns' );
-				} elseif ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
-					get_template_part( 'templates/footer/footer-four-columns' );
-				} else {
-					get_template_part( 'templates/footer/footer-simple' );
-				}
+					if ( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
+						get_template_part( 'templates/footer/footer-three-columns' );
+					} elseif ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
+						get_template_part( 'templates/footer/footer-four-columns' );
+					} else {
+						get_template_part( 'templates/footer/footer-simple' );
+					}
 
 				?>
 

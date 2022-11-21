@@ -155,6 +155,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 		$general_wpgen_active                      = __( 'This checkbox activates the WpGen form in the frontend for the site administrator', 'wpgen' );
 		$general_top_bar_description               = __( 'This checkbox displays two sidebars at the header of the site. They are adds in the widget section options', 'wpgen' );
 		$general_bottom_bar_description            = __( 'This checkbox displays two sidebars at the footer of the site. They are adds in the widget section options', 'wpgen' );
+		$general_comments_display_description      = __( 'Comments block hide/display', 'wpgen' );
 		$general_cookie_display_description        = __( 'Displays a notification about the use of cookies on the site', 'wpgen' );
 		$general_external_utm_links_description    = __( 'Adds utm tags to all external links', 'wpgen' );
 		$sidebar_display_description               = __( 'Display sidebar?', 'wpgen' );
@@ -212,6 +213,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'scroll_top_button_type'      => array( 'select_control', __( 'Select scroll top button type', 'wpgen' ), '', $general_menu_button_type_select ),
 
 			'cookie_title'                => array( 'tab_title', __( 'Other', 'wpgen' ), '' ),
+			'comments_display'            => array( 'checkbox_control', __( 'Comments display', 'wpgen' ), $general_comments_display_description ),
 			'cookie_display'              => array( 'checkbox_control', __( 'Cookie display', 'wpgen' ), $general_cookie_display_description ),
 			'external_utm_links'          => array( 'checkbox_control', __( 'External UTM Links', 'wpgen' ), $general_external_utm_links_description ),
 		);

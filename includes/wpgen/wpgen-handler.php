@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'wp_ajax_ajax_wpgen', 'ajax_wpgen_callback' );
-add_action( 'wp_ajax_nopriv_ajax_wpgen', 'ajax_wpgen_callback' );
+add_action( 'wp_ajax_wpgen_handler', 'ajax_wpgen_callback' );
+add_action( 'wp_ajax_nopriv_wpgen_handler', 'ajax_wpgen_callback' );
 
 /**
  * Ajax callback wpgen form.

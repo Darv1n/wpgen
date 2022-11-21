@@ -44,6 +44,8 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_scroll_top_button_alignment'     => 'right',
 			'general_scroll_top_button_type'          => 'icon-text',
 			'general_scroll_top_button_icon_position' => 'left',
+
+			'general_comments_display'                => true,
 			'general_cookie_display'                  => true,
 			'general_external_utm_links'              => true,
 

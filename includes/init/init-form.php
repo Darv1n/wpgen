@@ -26,7 +26,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 		$home_url = preg_replace( '/^(http[s]?):\/\//', '', get_home_url() );
 
 		// Check nonce. If check fails, block sending.
-		/*if ( !wp_verify_nonce( $data['nonce'], 'form-nonce' ) ) {
+		/*if ( ! wp_verify_nonce( $data['nonce'], 'form-nonce' ) ) {
 			wp_die( __( 'Data sent from a different address', 'wpgen' ) );
 		}*/
 
@@ -37,7 +37,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 		}
 
 		// Check name fields, if empty, write message to error array.
-		if ( empty( $data['form-name'] ) || ! isset( $data['form-name'] ) ) {
+		if ( ! isset( $data['form-name'] ) || empty( $data['form-name'] ) ) {
 			$errors['name'] = __( 'Please enter your name', 'wpgen' );
 		} else {
 			$message[ __( 'Name', 'wpgen' ) ] = sanitize_text_field( $data['form-name'] );
@@ -45,7 +45,7 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 
 		$tels = get_option( 'tels', array() );
 
-		if ( empty( $data['form-tel'] ) || ! isset( $data['form-tel'] ) ) {
+		if ( ! isset( $data['form-tel'] ) || empty( $data['form-tel'] ) ) {
 			$errors['tel'] = __( 'Please enter a phone number', 'wpgen' );
 		} elseif ( in_array( sanitize_text_field( $data['form-tel'] ), $tels ) ) {
 			$errors['tel'] = __( 'You have already sent a request from this phone number. If an error occurs, please write to team@zolin.digital', 'wpgen' );
@@ -62,16 +62,16 @@ if ( ! function_exists( 'form_ajax_action_callback' ) ) {
 		}
 
 /*		// Check email field, if it is empty, write message in error array.
-		if ( empty( $data['form-email'] ) || ! isset( $data['form-email'] ) ) {
+		if ( ! isset( $data['form-email'] ) || empty( $data['form-email'] ) ) {
 			$errors['email'] = __( 'Please enter your email address', 'wpgen' );
-		} elseif ( ! preg_match( '/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i', $data['form-email'] ) ) {
+		} elseif ( ! preg_match( '/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,8}$/i', $data['form-email'] ) ) {
 			$errors['email'] = __( 'Email address is incorrect', 'wpgen' );
 		} else {
 			$form-email = sanitize_email( $data['form-email'] );
 		}
 
 		// Check message fields, if empty, write message in error array.
-		if ( empty( $data['form-message'] ) || !isset( $data['form-message'] ) ) {
+		if ( ! isset( $data['form-message'] ) || empty( $data['form-message'] ) ) {
 			$errors['message'] = __( 'Please enter your message', 'wpgen' );
 		} else {
 			$message[ __( 'Message', 'wpgen' ) ] = sanitize_textarea_field( $data['form-message'] );
@@ -146,6 +146,27 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 			$tel_placeholder = '___-__-__';
 		}
 
+		$available_tags = array(
+			'b' => array(),
+			'a' => array(
+				'href'   => array(),
+				'target' => array(),
+				'class'  => array(),
+			),
+		);
+
+		$privacy_policy_url = get_privacy_policy_url();
+
+		if ( empty( $privacy_policy_url ) && is_multisite() && ! is_main_site() ) {
+			switch_to_blog( 1 );
+			$privacy_policy_url = get_privacy_policy_url();
+			restore_current_blog();
+		}
+
+		if ( empty( $privacy_policy_url ) ) {
+			$privacy_policy_url = get_home_url();
+		}
+
 		$form_id = get_title_slug( $form_id );
 
 		$html = '<form id="' . esc_attr( $form_id ) . '" class="form ' . esc_attr( $form_id ) . '">
@@ -156,7 +177,7 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 			<input type="text" name="form-submitted" id="form-submitted" value="" style="display: none !important;">
 			<input type="hidden" name="form-label" id="form-label" value="' . $form_label . '">
 
-			<p class="description small">' . __( 'By clicking the button, you consent to the processing of', 'wpgen' ) . ' <a class="link link-unborder" href="' . esc_url( get_privacy_policy_url() ) . '">' . __( 'personal data', 'wpgen' ) . '</a></p>
+			<p class="description small">' . sprintf( wp_kses( __( 'By clicking the button, you consent to the processing of <a class="link link-unborder" href="%s" target="_blank">personal data</a>', 'wpgen' ), $available_tags ), esc_url( $privacy_policy_url ) ) .'</p>
 
 			<button type="submit" id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" data-process-text="' . __( 'Sending...', 'wpgen' ) . '" data-complete-text="' . __( 'Sent', 'wpgen' ) . '" data-error-text="' . __( 'Error', 'wpgen' ) . '">' . __( 'Send', 'wpgen' ) . '</button>
 		';

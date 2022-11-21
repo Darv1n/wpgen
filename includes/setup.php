@@ -99,9 +99,6 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 			return strtolower( $email );
 		}
 
-		// Скрываем админ панель.
-		add_filter( 'show_admin_bar', '__return_false' );
-
 		// Убираем meta generator.
 		add_filter( 'the_generator', '__return_empty_string' );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -248,8 +245,6 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpgen_scripts' );
-
-
 
 if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 

@@ -121,7 +121,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 		if ( wpgen_options( 'single_post_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
-				$output .= '<a class="meta__link" href="' . get_comments_link() . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
+				$output .= '<a class="meta__link" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
 
@@ -143,7 +143,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 		if ( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<li class="meta__item meta__item_edit">';
-				$output .= '<a class="edit-link" href="' . get_edit_post_link() . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="edit-link" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
 		}
 
@@ -241,7 +241,7 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 
 		if ( wpgen_options( 'archive_page_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<li class="meta__item meta__item_edit">';
-				$output .= '<a class="edit-link" href="' . get_edit_post_link() . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="edit-link" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
 		}
 
@@ -333,7 +333,7 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 		// вся кнопка справа/слева.
 		$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
 
-		$output .= '<button id="menu-toggle" class="' . implode( ' ', $classes ) . '">';
+		$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
 
 		if ( ! in_array( $menu_button_type, array( 'icon', 'button-icon' ), true ) ) {
 			$output .= esc_html__( 'Menu', 'wpgen' );
@@ -366,15 +366,10 @@ function my_menu_toggle( $output ) {
 	return $output;
 }*/
 
-
-
-
 add_action( 'wp_footer_close', 'wpgen_scroll_top', 10 );
 if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 
-	/**
-	 * Display scroll to top button on action hook wp_footer_close.
-	 */
+	// Display scroll to top button on action hook wp_footer_close.
 	function wpgen_scroll_top() {
 
 		$output = '';
@@ -421,7 +416,7 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 			// кнопка справа/слева.
 			$classes[] = 'scroll-top_' . wpgen_options( 'general_scroll_top_button_alignment' );
 
-			$output .= '<button id="scroll-top" class="' . implode( ' ', $classes ) . '">';
+			$output .= '<button id="scroll-top" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
 
 				if ( ! in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
 					$output .= esc_html__( 'Scroll up', 'wpgen' );
@@ -434,8 +429,6 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 		echo apply_filters( 'wpgen_scroll_top', $output );
 	}
 }
-
-
 
 add_action( 'wp_footer_close', 'wpgen_cookie_accepter', 20 );
 if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
@@ -462,16 +455,16 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 			}
 
 			$output .= '<div id="cookie" class="cookie" style="display: none">';
-				$output .= '<div class="' . esc_html( implode( ' ', get_wpgen_container_classes() ) ) . '">';
+				$output .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
 					$output .= '<div class="row align-items-center">';
 						$output .= '<div class="col-12 col-lg-8 cookie__message">';
 							$output .= '<p class="small">' . __( 'We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. <br>By clicking «Accept», you consent to the use of ALL the cookies', 'wpgen' ) . '</p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__privacy">';
-							$output .= '<p><a href="' . $privacy_policy_url . '" role="button" class="link link-color-unborder" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
+							$output .= '<p><a href="' . esc_url( $privacy_policy_url ) . '" role="button" class="link link-color-unborder" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__confirm">';
-							$output .= '<button id="cookie_action" class="' . implode( ' ', get_button_classes() ) . '" type="button">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
+							$output .= '<button id="cookie_action" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" type="button">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
 						$output .= '</div>';
 					$output .= '</div>';
 				$output .= '</div>';
@@ -482,9 +475,6 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 		echo apply_filters( 'wpgen_cookie_accepter', $output );
 	}
 }
-
-
-
 
 add_action( 'before_site_content', 'wpgen_breadcrumbs', 10 );
 if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
@@ -500,8 +490,8 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 		if ( ! is_front_page() && ! is_home() ) {
 
 			if ( wpgen_options( 'general_breadcrumbs_display' ) ) {
-				$before .= '<section id="breadcrumbs" class="site__breadcrumbs breadcrumbs breadcrumbs_' . wpgen_options( 'general_breadcrumbs' ) . '">';
-					$before .= '<div class="' . esc_html( implode( ' ', get_wpgen_container_classes() ) ) . '">';
+				$before .= '<section id="breadcrumbs" class="site__breadcrumbs breadcrumbs breadcrumbs_' . esc_attr( wpgen_options( 'general_breadcrumbs' ) ) . '">';
+					$before .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
 						$before .= '<div class="row">';
 							$before .= '<div class="col-12 align-items-center">';
 
@@ -606,9 +596,10 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 
 		global $paged;
 		global $wp_query;
-		$pages = $wp_query->max_num_pages;
-		$range = 2;
-		$showitems = ( $range * 2 ) + 1;
+
+		$pages           = $wp_query->max_num_pages;
+		$range           = 2;
+		$showitems       = ( $range * 2 ) + 1;
 		$post_pagination = wpgen_options( 'archive_page_pagination' );
 
 		if ( ! $pages || empty( $paged ) ) {
@@ -750,7 +741,7 @@ if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 		// Get edit link, if the checkbox is set in the customizer settings and the user has enough rights.
 		if ( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
 			$output .= '<div class="article-footer__item">';
-				$output .= '<a class="edit-link link link-color-unborder" href="' . get_edit_post_link() . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="edit-link link link-color-unborder" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</div>';
 		}
 
@@ -838,13 +829,13 @@ if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
 							<?php
 
-							if ( wpgen_options( 'archive_page_template_type' ) === 'custom' ) {
-								do_action('wpgen_archive_page_template_custom' );
-							} else {
-								get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
-							}
+								if ( wpgen_options( 'archive_page_template_type' ) === 'custom' ) {
+									do_action('wpgen_archive_page_template_custom' );
+								} else {
+									get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
+								}
 
-								?>
+							?>
 
 						</div>
 

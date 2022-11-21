@@ -12,29 +12,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter( 'the_content', 'external_utm_links' );
-function external_utm_links( $content ) {
+if ( ! function_exists( 'external_utm_links' ) ) {
+	function external_utm_links( $content ) {
 
-	if ( ! is_admin() && wpgen_options( 'general_external_utm_links' ) && $content !== '' ) {
-
-		$home_host = wp_parse_url( get_home_url() )['host'];
-
-		preg_match_all( "/\shref=\"(?<href>[^\"]+)\"/", $content, $matches );
-
-		if ( ! empty( $matches ) ) {
-			foreach ( $matches['href'] as $key => $link ) {
-				$parts = wp_parse_url( $link );
-
-				if ( isset( $parts['host'] ) && $parts['host'] !== $home_host ) {
-					$new_link = add_query_arg( array( 'utm_source' => $home_host ), $link );
-					// vardump( $link );
-					// vardump( $new_link );
-					$content  = str_replace( $link, $new_link, $content );
-				}
-			}
+		if ( ! is_admin() && wpgen_options( 'general_external_utm_links' ) && $content !== '' ) {
+			$pattern = '/<a (.*?)href=[\"\'](.*?)[\"\'](.*?)>(.*?)<\/a>/si';
+			$content = preg_replace_callback( $pattern, 'external_utm_links_parser', $content, - 1, $count );
 		}
 
-		// $content = preg_replace( '/^(http[s]?):\/\//', '', $content );
+		return $content;
 	}
+}
 
-	return $content;
+if ( ! function_exists( 'external_utm_links_parser' ) ) {
+	function external_utm_links_parser( $matches ) {
+
+		$home_parse_url  = wp_parse_url( get_home_url() );
+		$match_parse_url = wp_parse_url( $matches[2] );
+
+		if ( $home_parse_url['host'] === $match_parse_url['host'] ) {
+			$url = $matches[2];
+		} elseif ( isset( $match_parse_url['query'] ) && stripos( $match_parse_url['query'], 'utm_' ) !== false ) {
+			$url = $matches[2];
+		} else {
+			$url = add_query_arg( array( 'utm_source' => $home_parse_url['host'] ), $matches[2] );
+		}
+
+		return '<a ' . $matches[1] . ' href="' . $url . '" ' . $matches[3] . '>' . $matches[4] . '</a>';
+	}
 }
