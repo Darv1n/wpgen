@@ -65,8 +65,6 @@ if ( ! function_exists( 'the_youtube_videos_shortcode' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'the_youtube_videos' ) ) {
 
 	/**
@@ -234,8 +232,6 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_youtube_videos' ) ) {
 
 	/**
@@ -338,8 +334,6 @@ if ( ! function_exists( 'get_youtube_videos' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'youtube_search_snippet' ) ) {
 
 	/**
@@ -425,8 +419,6 @@ if ( ! function_exists( 'youtube_search_snippet' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'cmpart' ) ) {
 
 	/**
@@ -444,8 +436,6 @@ if ( ! function_exists( 'cmpart' ) ) {
 		return ( strtotime( $a[1] ) < strtotime( $b[1] ) ) ? -1 : 1;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_youtube_thumbnail' ) ) {
 
@@ -506,7 +496,7 @@ if ( ! function_exists( 'get_youtube_thumbnail' ) ) {
 	}
 }
 
-
+add_filter( 'query_vars', 'add_youtube_videos_query_vars' );
 if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 
 	/**
@@ -523,4 +513,4 @@ if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 		return array_unique( $qvars );
 	}
 }
-add_filter( 'query_vars', 'add_youtube_videos_query_vars' );
+

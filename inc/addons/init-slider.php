@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( ! function_exists( 'the_slick_gallery' ) ) {
 
 	/**
@@ -180,7 +179,6 @@ if ( ! function_exists( 'the_slick_gallery' ) ) {
 		}
 	}
 }
-
 
 if ( ! function_exists( 'get_slick_gallery' ) ) {
 

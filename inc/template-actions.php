@@ -1,12 +1,57 @@
 <?php
 /**
- * Functions which enhance the theme by hooking into WordPress
+ * Template actions
  *
  * @package wpgen
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+add_action( 'pre_get_posts', 'wpgen_pre_get_posts', 1 );
+if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
+
+	/**
+	 * Function for pre_get_posts action hook.
+	 *
+	 * @param WP_Query $query The WP_Query instance (passed by reference).
+	 *
+	 * @link https://developer.wordpress.org/reference/hooks/pre_get_posts/
+	 *
+	 * @return void
+	 */
+	function wpgen_pre_get_posts( $query ) {
+
+		// Exit if it is an admin or not a main query request.
+		if ( is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
+
+		// Sort search results by post_type.
+		if ( $query->is_search ) {
+			$query->set( 'orderby', 'type' );
+		}
+	}
+}
+
+add_action( 'save_post', 'wpgen_save_post' );
+if ( ! function_exists( 'wpgen_save_post' ) ) {
+
+	/**
+	 * Function for save_post action hook.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @link https://developer.wordpress.org/reference/hooks/save_post/
+	 *
+	 * @return void
+	 */
+	function wpgen_save_post( $post_id ) {
+
+		// Write in post meta reading speed.
+		update_post_meta( $post_id, 'read_time', read_time_estimate( get_post( $post_id )->post_content ) );
+	}
 }
 
 add_action( 'wp_head', 'wpgen_page_speed_start', 1 );
@@ -39,51 +84,6 @@ if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
 		sprintf( __( 'Page generated in %s seconds', 'wpgen' ), esc_html( $time ) ); // Печатаем комментарий.
 	}
 }
-
-add_filter( 'wp_nav_menu_args', 'wpgen_nav_menu_args' );
-if ( ! function_exists( 'wpgen_nav_menu_args' ) ) {
-
-	/**
-	 * Filters the arguments used to display a navigation menu. Replace tag div with nav.
-	 *
-	 * @param array $args Parameter for filter.
-	 *
-	 * @return array
-	 */
-	function wpgen_nav_menu_args( $args = '' ) {
-		if ( $args['container'] === 'div' ) {
-			$args['container'] = 'nav';
-		}
-		return $args;
-	}
-}
-
-add_filter( 'wp_robots', 'wpgen_robots' );
-if ( ! function_exists( 'wpgen_robots' ) ) {
-
-	/**
-	 * Function for hook wp_robots. Prints noindex, nofollow tags on archive pages, if there are no posts in this archive page.
-	 *
-	 * @param array $robots Parameter for filter.
-	 *
-	 * @return array
-	 */
-	function wpgen_robots( $robots ) {
-
-		if ( is_archive() && ! have_posts() ) {
-			$robots['noindex']  = true;
-			$robots['nofollow'] = true;
-		}
-
-		$robots['max-snippet']       = '-1';
-		$robots['max-image-preview'] = 'large';
-		$robots['max-video-preview'] = '-1';
-
-		return $robots;
-	}
-}
-
-
 
 add_action( 'wp_head', 'wpgen_seo_verification', 1 );
 if ( ! function_exists( 'wpgen_seo_verification' ) ) {

@@ -43,8 +43,6 @@ if ( ! function_exists( 'the_gallery_shortcode' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'the_gallery' ) ) {
 
 	/**
@@ -171,9 +169,6 @@ if ( ! function_exists( 'the_gallery' ) ) {
 	}
 }
 
-
-
-
 if ( ! function_exists( 'get_gallery' ) ) {
 
 	/**
@@ -225,8 +220,6 @@ if ( ! function_exists( 'get_gallery' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_folder_images' ) ) {
 
 	/**
@@ -268,8 +261,6 @@ if ( ! function_exists( 'get_folder_images' ) ) {
 		return $images;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_gallery_xlsx_titles' ) ) {
 

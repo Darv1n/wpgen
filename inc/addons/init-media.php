@@ -53,7 +53,6 @@ if ( ! function_exists( 'the_media_shortcode' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'the_media' ) ) {
 
 	/**
@@ -227,8 +226,6 @@ if ( ! function_exists( 'the_media' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_media' ) ) {
 
 	/**
@@ -355,8 +352,6 @@ if ( ! function_exists( 'get_media' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'cmpart' ) ) {
 
 	/**
@@ -374,8 +369,6 @@ if ( ! function_exists( 'cmpart' ) ) {
 		return ( strtotime( $a[1] ) < strtotime( $b[1] ) ) ? -1 : 1;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_media_favicon' ) ) {
 
@@ -417,7 +410,7 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 	}
 }
 
-
+add_filter( 'query_vars', 'add_media_query_vars' );
 if ( ! function_exists( 'add_media_query_vars' ) ) {
 
 	/**
@@ -434,4 +427,3 @@ if ( ! function_exists( 'add_media_query_vars' ) ) {
 		return array_unique( $qvars );
 	}
 }
-add_filter( 'query_vars', 'add_media_query_vars' );

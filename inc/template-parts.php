@@ -49,8 +49,6 @@ if ( ! function_exists( 'get_wpgen_site_branding' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'the_wpgen_site_branding' ) ) {
 
 	/**
@@ -78,8 +76,6 @@ if ( ! function_exists( 'the_wpgen_site_branding' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 	/**
@@ -99,9 +95,9 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 		if ( wpgen_options( 'single_post_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
-				$output .= '<time data-title="' . esc_html__( 'Published Date', 'wpgen' ) . '" class="entry__date entry__date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
+				$output .= '<time data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '" class="entry__date entry__date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
 				if ( wpgen_options( 'single_post_date_modified_display' ) && get_the_modified_date( 'j M, Y' ) !== get_the_date( 'j M, Y' ) ) {
-					$output .= '<time data-title="' . esc_html__( 'Modified Date', 'wpgen' ) . '" class="entry__date entry__date-modified small data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
+					$output .= '<time data-title="' . esc_attr( __( 'Modified Date', 'wpgen' ) ) . '" class="entry__date entry__date-modified small data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
 				}
 			$output .= '</li>';
 		}
@@ -130,13 +126,13 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 		}
 
 		if ( wpgen_options( 'single_post_meta_time_display' ) ) {
-			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_html__( 'Reading speed', 'wpgen' ) . '" >';
+			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '" >';
 				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . esc_html__( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
 		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'single_post_meta_views_display' ) ) {
-			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_html__( 'Views', 'wpgen' ) . '" >';
+			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '" >';
 				$output .= get_kap_views();
 			$output .= '</li>';
 		}
@@ -151,7 +147,6 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 		return apply_filters( 'get_wpgen_post_meta_list', $output );
 	}
 }
-
 
 if ( ! function_exists( 'the_wpgen_post_meta_list' ) ) {
 
@@ -180,7 +175,6 @@ if ( ! function_exists( 'the_wpgen_post_meta_list' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 
 	/**
@@ -200,7 +194,7 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 
 		if ( wpgen_options( 'archive_page_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
-				$output .= '<time data-title="' . esc_html__( 'Published Date', 'wpgen' ) . '" class="entry__date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
+				$output .= '<time data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '" class="entry__date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
 			$output .= '</li>';
 		}
 
@@ -219,23 +213,19 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 
 		if ( wpgen_options( 'archive_page_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
-				$output .= '<a href="' . get_comments_link() . '" class="meta__link" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
+				$output .= '<a href="' . esc_url( get_comments_link() ) . '" class="meta__link" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'archive_page_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
-			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_html__( 'Reading speed', 'wpgen' ) . '" >';
+			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '" >';
 				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . esc_html__( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
 		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'archive_page_meta_views_display' ) ) {
-			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_html__( 'Views', 'wpgen' ) . '" >';
-				if ( is_home() && is_front_page() ) {
-					$output .= get_kap_views( get_the_ID(), 'post' ); // костыль из-за того, что в плагин не передается 'post'.
-				} else {
-					$output .= get_kap_views();
-				}
+			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '" >';
+				$output .= get_kap_views( get_the_ID(), get_post_type() );
 			$output .= '</li>';
 		}
 
@@ -249,8 +239,6 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 		return apply_filters( 'get_wpgen_archive_meta_list', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'the_wpgen_archive_meta_list' ) ) {
 
@@ -278,8 +266,6 @@ if ( ! function_exists( 'the_wpgen_archive_meta_list' ) ) {
 		}
 	}
 }
-
-
 
 add_action( 'wpgen_before_main_navigation', 'wpgen_menu_toggle', 10 );
 if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
@@ -320,17 +306,17 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 			$classes[] = 'menu-toggle_text';
 		}
 
-		// изменяем тип кнопки, если в настройках выбран НЕ common.
+		// Изменяем тип кнопки, если в настройках выбран НЕ common.
 		if ( in_array( 'button', $classes, true ) && wpgen_options( 'general_button_type' ) !== 'common' ) {
 			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
 		}
 
-		// иконка справа/слева.
+		// Иконка справа/слева.
 		if ( in_array( $menu_button_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
 			$classes[] = 'menu-toggle_icon-' . wpgen_options( 'general_menu_button_icon_position' );
 		}
 
-		// вся кнопка справа/слева.
+		// Вся кнопка справа/слева.
 		$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
 
 		$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
@@ -522,7 +508,6 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'get_wpgen_post_navigation' ) ) {
 
 	/**
@@ -580,8 +565,6 @@ if ( ! function_exists( 'the_wpgen_post_navigation' ) ) {
 		}
 	}
 }
-
-
 
 if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 
@@ -669,7 +652,6 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'the_wpgen_posts_navigation' ) ) {
 
 	/**
@@ -696,7 +678,6 @@ if ( ! function_exists( 'the_wpgen_posts_navigation' ) ) {
 		}
 	}
 }
-
 
 if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 
@@ -750,7 +731,6 @@ if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'the_wpgen_entry_footer' ) ) {
 
 	/**
@@ -778,7 +758,6 @@ if ( ! function_exists( 'the_wpgen_entry_footer' ) ) {
 	}
 }
 
-
 add_action( 'wpgen_after_comment_form', 'the_wpgen_similar_posts', 15 );
 if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
@@ -789,68 +768,69 @@ if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
 		<?php if ( get_post_type() === 'post' && wpgen_options( 'single_post_similar_posts_display' ) ) { ?>
 
-		<section id="similar-posts" class="similar-posts">
+			<section id="similar-posts" class="similar-posts">
 
-			<h2 class="section-title"><?php esc_html_e( 'Similar posts', 'wpgen' ); ?></h2>
+				<h2 class="section-title"><?php esc_html_e( 'Similar posts', 'wpgen' ); ?></h2>
 
-			<div class="row">
+				<?php
 
-			<?php
+					$args = array(
+						'post__not_in'   => array( get_the_ID() ),
+						'posts_per_page' => wpgen_options( 'single_post_similar_posts_count' ),
+						'orderby'        => wpgen_options( 'single_post_similar_posts_orderby' ),
+					);
 
-				$args = array(
-					'post__not_in'   => array( get_the_ID() ),
-					'posts_per_page' => wpgen_options( 'single_post_similar_posts_count' ),
-					'orderby'        => wpgen_options( 'single_post_similar_posts_orderby' ),
-				);
-
-				if ( has_category() ) {
-					$cats_object = get_the_category();
-					foreach ( $cats_object as $key => $cat ) {
-						$cats[] = $cat->term_id;
+					if ( has_category() ) {
+						$cats_object = get_the_category();
+						foreach ( $cats_object as $key => $cat ) {
+							$cats[] = $cat->term_id;
+						}
+						$args['category__in'] = $cats;
 					}
-					$args['category__in'] = $cats;
-				}
 
-				if ( has_tag() ) {
-					$tags_object = get_the_tags();
-					foreach ( $tags_object as $key => $tag ) {
-						$tags[] = $tag->term_id;
+					if ( has_tag() ) {
+						$tags_object = get_the_tags();
+						foreach ( $tags_object as $key => $tag ) {
+							$tags[] = $tag->term_id;
+						}
+						$args['tag__in'] = $tags;
 					}
-					$args['tag__in'] = $tags;
-				}
 
-				$query = new wp_query( $args );
+					$query = new wp_query( $args );
 
-				if ( $query->have_posts() ) : ?>
-					<?php while ( $query->have_posts() ) : ?>
-						<?php $query->the_post(); ?>
+					if ( $query->have_posts() ) : ?>
 
-						<div <?php wpgen_archive_page_columns_classes(); ?>>
+						<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 
-							<?php
+						<?php while ( $query->have_posts() ) : ?>
+							<?php $query->the_post(); ?>
 
-								if ( wpgen_options( 'archive_page_template_type' ) === 'custom' ) {
-									do_action('wpgen_archive_page_template_custom' );
-								} else {
-									get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
-								}
+							<div <?php wpgen_archive_page_columns_classes(); ?>>
 
-							?>
+								<?php
+
+									// Get a template with a post type, if there is one in the theme.
+									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
+										get_template_part( 'templates/archive/archive', get_post_type() );
+									} else {
+										get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
+									}
+
+								?>
+
+							</div>
+
+						<?php endwhile; ?>
 
 						</div>
 
-					<?php endwhile; ?>
-
 					<?php endif; ?>
 
-				<?php wp_reset_postdata(); ?>
+					<?php wp_reset_postdata(); ?>
 
-			</div>
-
-		</section>
+			</section>
 
 		<?php } ?>
 
-		<?php
-	}
+	<?php }
 }

@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( ! function_exists( 'the_elems' ) ) {
 
 	/**

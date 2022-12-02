@@ -1,6 +1,6 @@
 <?php
 /**
- * All other common functions for theme
+ * Template functions
  *
  * @package wpgen
  */

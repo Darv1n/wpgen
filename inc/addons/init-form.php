@@ -171,11 +171,11 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 
 		$html = '<form id="' . esc_attr( $form_id ) . '" class="form ' . esc_attr( $form_id ) . '">
 			<input type="text" name="form-name" id="form-name" class="required form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
-			<input type="tel" name="form-tel" id="form-tel" class="required form-tel" inputmode="numeric" placeholder="' . $tel_placeholder .'" value="">
+			<input type="tel" name="form-tel" id="form-tel" class="required form-tel" inputmode="numeric" placeholder="' . esc_attr( $tel_placeholder ) .'" value="">
 
 			<input type="checkbox" name="form-anticheck" id="form-anticheck" class="form-anticheck" style="display: none !important;" value="true" checked="checked">
 			<input type="text" name="form-submitted" id="form-submitted" value="" style="display: none !important;">
-			<input type="hidden" name="form-label" id="form-label" value="' . $form_label . '">
+			<input type="hidden" name="form-label" id="form-label" value="' . esc_attr( $form_label ) . '">
 
 			<p class="description small">' . sprintf( wp_kses( __( 'By clicking the button, you consent to the processing of <a class="link link-unborder" href="%s" target="_blank">personal data</a>', 'wpgen' ), $available_tags ), esc_url( $privacy_policy_url ) ) .'</p>
 

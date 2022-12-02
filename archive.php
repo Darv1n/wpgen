@@ -34,20 +34,20 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 					<?php while ( have_posts() ) : ?>
 						<?php the_post(); ?>
 
-							<div <?php wpgen_archive_page_columns_classes(); ?>>
+						<div <?php wpgen_archive_page_columns_classes(); ?>>
 
-								<?php
+							<?php
 
-									// Get a template with a post type, if there is one in the theme.
-									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
-										get_template_part( 'templates/archive/archive', get_post_type() );
-									} else {
-										get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
-									}
+								// Get a template with a post type, if there is one in the theme.
+								if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
+									get_template_part( 'templates/archive/archive', get_post_type() );
+								} else {
+									get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
+								}
 
-								?>
+							?>
 
-							</div>
+						</div>
 
 					<?php endwhile; ?>
 
