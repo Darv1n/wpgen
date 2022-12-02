@@ -25,7 +25,7 @@
 
 	?>
 
-	<a class="entry__part entry__thumbnail post-thumbnail post-thumbnail-bg" href="<?php the_permalink(); ?>" style="background: url( <?php echo esc_html( $background_image ); ?> ) center no-repeat" aria-hidden="true" tabindex="-1"></a>
+	<a class="entry__part entry__thumbnail post-thumbnail post-thumbnail-bg" href="<?php the_permalink(); ?>" style="background: url( <?php echo esc_url( $background_image ); ?> ) center no-repeat" aria-hidden="true" tabindex="-1"></a>
 
 	<div class="entry__part entry__header">
 		<h2 class="entry__title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>

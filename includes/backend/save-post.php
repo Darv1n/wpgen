@@ -25,6 +25,5 @@ if ( ! function_exists( 'wpgen_save_post' ) ) {
 
 		// Write in post meta reading speed.
 		update_post_meta( $post_id, 'read_time', read_time_estimate( get_post( $post_id )->post_content ) );
-
 	}
 }

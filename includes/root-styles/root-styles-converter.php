@@ -9,19 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( ! function_exists( 'get_selected_font' ) ) {
 
 	/**
 	 * Return array with conver fonts.
 	 *
-	 * @param string $string key to get one value.
+	 * @param string $control key to get one value.
 	 *
 	 * @return array
 	 */
-	function get_selected_font( $string = null ) {
+	function get_selected_font( $control = null ) {
 
-		$string = mb_convert_case( $string, MB_CASE_LOWER, 'UTF-8' );
+		if ( ! is_null( $control ) ) {
+			$control = mb_convert_case( $control, MB_CASE_LOWER, 'UTF-8' );
+		}
 
 		$converter = array(
 			'open-sans'        => 'Open Sans',
@@ -51,14 +52,16 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 
 		$converter = apply_filters( 'get_selected_font', $converter );
 
-		if ( empty( $string ) ) {
+		// Return controls.
+		if ( is_null( $control ) ) {
 			return $converter;
+		} elseif ( ! isset( $converter[ $control ] ) || empty( $converter[ $control ] ) ) {
+			return false;
 		} else {
-			return strtr( $string, $converter );
+			return $converter[ $control ];
 		}
 	}
 }
-
 
 /*
 // Usage:
@@ -72,25 +75,24 @@ function source_get_selected_font( $default_fonts ) {
 	$default_fonts = wp_parse_args( $source_fonts, $default_fonts );
 
 	return $default_fonts;
-
 }
 */
-
-
 
 if ( ! function_exists( 'get_selected_value' ) ) {
 
 	/**
 	 * Return array with conver fonts.
 	 *
-	 * @param string $string key to get one value.
-	 * @param string $name   key name returns an array with a substring (like border).
+	 * @param string $control key to get one value.
+	 * @param string $name    key name returns an array with a substring (like border).
 	 *
 	 * @return array
 	 */
-	function get_selected_value( $string = null, $name = null ) {
+	function get_selected_value( $control = null, $name = null ) {
 
-		$string = mb_convert_case( $string, MB_CASE_LOWER, 'UTF-8' );
+		if ( ! is_null( $control ) ) {
+			$control = mb_convert_case( $control, MB_CASE_LOWER, 'UTF-8' );
+		}
 
 		$converter = array(
 			'border-none'  => '0px',
@@ -359,7 +361,10 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 
 		$converter = apply_filters( 'get_selected_value', $converter );
 
+		// Return controls.
 		if ( ! is_null( $name ) ) {
+
+			// Return names array values like rose-100, rose-200, rose-300 etc
 			$array = array();
 
 			foreach ( $converter as $key => $value ) {
@@ -370,14 +375,15 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 
 			return $array;
 
-		} elseif ( empty( $string ) ) {
+		} elseif ( is_null( $control ) ) {
 			return $converter;
+		} elseif ( ! isset( $converter[ $control ] ) || empty( $converter[ $control ] ) ) {
+			return false;
 		} else {
-			return strtr( $string, $converter );
+			return $converter[ $control ];
 		}
 	}
 }
-
 
 /*
 //Usage:
@@ -391,6 +397,5 @@ function source_get_selected_value( $default_values ) {
 	$default_fonts = wp_parse_args( $source_values, $default_values );
 
 	return $default_fonts;
-
 }
 */

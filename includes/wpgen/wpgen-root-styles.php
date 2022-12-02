@@ -9,6 +9,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_filter( 'root_styles_filter_options', 'wpgen_root_styles_filter_options', 30 );
+if ( ! function_exists( 'wpgen_root_styles_filter_options' ) ) {
+
+	/**
+	 * Filter options in get_root_styles() function.
+	 *
+	 * @param array $root_styles array of css styles
+	 *
+	 * @return void
+	 */
+	function wpgen_root_styles_filter_options( $root_styles ) {
+
+		$wpgen_styles = get_wpgen_root_style();
+
+		if ( is_array( $wpgen_styles ) && ! empty( $wpgen_styles ) ) {
+			$root_styles = wp_parse_args( $wpgen_styles, $root_styles );
+		}
+
+		return $root_styles;
+	}
+}
 
 if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 

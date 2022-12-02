@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'wpseo_robots', '__return_false' );
 add_filter( 'wpseo_googlebot', '__return_false' ); // Yoast SEO 14.x or newer.
 add_filter( 'wpseo_bingbot', '__return_false' ); // Yoast SEO 14.x or newer.
 
@@ -32,14 +31,12 @@ if ( function_exists( 'yoast_breadcrumb' ) ) {
 
 }
 
-
 // Define the wpseo_opengraph_show_publish_date callback.
 function wpgen_overwrite_yoast_publish_date( $content ) {
 	$content = get_the_modified_date();
 	return $content;
 };
 add_filter( 'wpseo_og_article_published_time', 'wpgen_overwrite_yoast_publish_date', 90, 2 );
-
 
 // Добавляем закрывающий слег в теги rel="canonical".
 function add_trail_slash_to_canonical_yoast( $canonical_url ) {

@@ -18,11 +18,9 @@ if ( ! function_exists( 'wpgen_page_speed_start' ) ) {
 	function wpgen_page_speed_start() {
 		$start_time             = microtime();
 		$start_array            = explode( ' ', $start_time );
-		$GLOBALS['start_times'] = $start_array[1] + $start_array[0]; // пишем время в глобальную переменную.
+		$GLOBALS['start_times'] = $start_array[1] + $start_array[0]; // Пишем время в глобальную переменную.
 	}
 }
-
-
 
 add_action( 'wp_footer', 'wpgen_page_speed_end', 90 );
 if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
@@ -36,13 +34,11 @@ if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
 		$end_time  = microtime();
 		$end_array = explode( ' ', $end_time );
 		$end_times = $end_array[1] + $end_array[0];
+		$time      = $end_times - $start_times;
 
-		$time = $end_times - $start_times;
-		printf( '<!-- Страница сгенерирована за %f секунд -->', esc_html( $time ) ); // печатаем комментарий.
+		sprintf( __( 'Page generated in %s seconds', 'wpgen' ), esc_html( $time ) ); // Печатаем комментарий.
 	}
 }
-
-
 
 add_filter( 'wp_nav_menu_args', 'wpgen_nav_menu_args' );
 if ( ! function_exists( 'wpgen_nav_menu_args' ) ) {
@@ -61,8 +57,6 @@ if ( ! function_exists( 'wpgen_nav_menu_args' ) ) {
 		return $args;
 	}
 }
-
-
 
 add_filter( 'wp_robots', 'wpgen_robots' );
 if ( ! function_exists( 'wpgen_robots' ) ) {
@@ -91,27 +85,6 @@ if ( ! function_exists( 'wpgen_robots' ) ) {
 
 
 
-add_filter( 'robots_txt', 'wpgen_robots_txt', 20, 2 );
-if ( ! function_exists( 'wpgen_robots_txt' ) ) {
-
-	/**
-	 * Function for hook robots_txt.
-	 *
-	 * @param string $output the robots.txt output.
-	 * @param bool   $public whether the site is considered 'public'.
-	 *
-	 * @return string
-	 */
-	function wpgen_robots_txt( $output, $public ) {
-
-		$output .= "Disallow: /wp-json\n";
-
-		return apply_filters( 'wpgen_robots_txt', $output, $public );
-	}
-}
-
-
-
 add_action( 'wp_head', 'wpgen_seo_verification', 1 );
 if ( ! function_exists( 'wpgen_seo_verification' ) ) {
 
@@ -132,8 +105,6 @@ if ( ! function_exists( 'wpgen_seo_verification' ) ) {
 
 	}
 }
-
-
 
 add_action( 'wp_footer', 'wpgen_print_counters', 25 );
 if ( ! function_exists( 'wpgen_print_counters' ) ) {

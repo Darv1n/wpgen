@@ -9,32 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-if ( ! function_exists( 'get_default_fonts' ) ) {
-
-	/**
-	 * Return fonts (for usage in setup.php and for wpgen form)
-	 *
-	 * @return array
-	 */
-	function get_default_fonts() {
-
-		$root_options = get_option( 'root_options', false );
-
-		if ( $root_options && isset( $root_options['primary-font'] ) && isset( $root_options['secondary-font'] ) ) {
-			$fonts['primary']   = get_selected_font( $root_options['primary-font'] );
-			$fonts['secondary'] = get_selected_font( $root_options['secondary-font'] );
-		} else {
-			$fonts['primary']   = get_root_styles( 'primaryFont' );
-			$fonts['secondary'] = get_root_styles( 'secondaryFont' );
-		}
-
-		return $fonts;
-	}
-}
-
-
-
 if ( ! function_exists( 'get_style_by_saturate' ) ) {
 
 	/**
@@ -64,8 +38,6 @@ if ( ! function_exists( 'get_style_by_saturate' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_color_style_by_saturate' ) ) {
 
 	/**
@@ -91,8 +63,6 @@ if ( ! function_exists( 'get_color_style_by_saturate' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'get_opposite_color_style_by_saturate' ) ) {
 
 	/**
@@ -117,8 +87,6 @@ if ( ! function_exists( 'get_opposite_color_style_by_saturate' ) ) {
 		return $theme_style;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_next_saturate' ) ) {
 
@@ -146,8 +114,6 @@ if ( ! function_exists( 'get_next_saturate' ) ) {
 		return $value;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_prev_saturate' ) ) {
 

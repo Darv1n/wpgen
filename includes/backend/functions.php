@@ -63,7 +63,7 @@ if ( ! function_exists( 'translit' ) ) {
 	 *
 	 * @return array
 	 */
-	function translit( $string = null ) {
+	function translit( $control = null ) {
 
 		$converter = array(
 			'а' => 'a',    'б' => 'b',    'в' => 'v',    'г' => 'g',    'д' => 'd',
@@ -84,10 +84,10 @@ if ( ! function_exists( 'translit' ) ) {
 		);
 
 		// Return controls.
-		if ( is_null( $string ) ) {
+		if ( is_null( $control ) ) {
 			return $converter;
 		} else {
-			return strtr( $string, $converter );;
+			return strtr( $control, $converter );;
 		}
 	}
 }
@@ -170,6 +170,7 @@ if ( ! function_exists( 'shuffle_assoc' ) ) {
 	 */
 	function shuffle_assoc( $array ) {
 
+		$new  = array();
 		$keys = array_keys( $array );
 
 		shuffle( $keys );
@@ -281,8 +282,6 @@ if ( ! function_exists( 'save_remote_file' ) ) {
 		return $file_path;
 	}
 }
-
-
 
 if ( ! function_exists( 'get_title_slug' ) ) {
 

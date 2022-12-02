@@ -22,7 +22,7 @@
 
 			?>
 
-			<a class="entry__part entry__thumbnail post-thumbnail post-thumbnail-bg" href="<?php the_permalink(); ?>" style="background: url( <?php echo esc_html( $background_image ); ?> ) center no-repeat" aria-hidden="true" tabindex="-1"></a>
+			<a class="entry__part entry__thumbnail post-thumbnail post-thumbnail-bg" href="<?php the_permalink(); ?>" style="background: url( <?php echo esc_url( $background_image ); ?> ) center no-repeat" aria-hidden="true" tabindex="-1"></a>
 
 		</div>
 		<div class="col-12 col-xs-12 col-md-7">

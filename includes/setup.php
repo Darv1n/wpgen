@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_action( 'after_setup_theme', 'wpgen_setup' );
 if ( ! function_exists( 'wpgen_setup' ) ) {
 
 	/**
@@ -138,31 +139,8 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		});
 	}
 }
-add_action( 'after_setup_theme', 'wpgen_setup' );
 
-
-
-if ( ! function_exists( 'wpgen_print_root_styles' ) ) {
-
-	/**
-	 * Output a string of root styles in wp_head.
-	 */
-	function wpgen_print_root_styles() {
-
-		$root_styles = get_root_styles();
-
-		$root_string = '';
-		foreach ( $root_styles as $key => $root_value ) {
-			$root_string .= '--' . $key . ': ' . $root_value . ';';
-		}
-
-		echo '<style id="wpgen-root">:root {' . esc_attr( $root_string ) . '}</style>';
-	}
-}
-add_action( 'wp_head', 'wpgen_print_root_styles', 1 );
-
-
-
+add_action( 'wp_enqueue_scripts', 'wpgen_scripts' );
 if ( ! function_exists( 'wpgen_scripts' ) ) {
 
 	/**
@@ -171,16 +149,6 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 	function wpgen_scripts() {
 		// Стандартный файл стилей с инфой о теме. Не используется для css из-за не удобной компиляции.
 		// wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
-
-		// Шрифты (пытаемся получить их из опций, которые сгенерил wpgen или берем дефолтные).
-		$fonts = get_default_fonts();
-
-		if ( ! is_wpgen_active() && $fonts['primary'] === $fonts['secondary'] ) {
-			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-		} else {
-			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-			wp_enqueue_style( 'secondary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['secondary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
-		}
 
 		// Сетка Бутстрап.
 		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( 'assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
@@ -244,8 +212,8 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		}
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wpgen_scripts' );
 
+add_action( 'widgets_init', 'wpgen_widgets_init' );
 if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 	/**
@@ -358,10 +326,8 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 		}
 	}
 }
-add_action( 'widgets_init', 'wpgen_widgets_init' );
 
-
-
+add_filter( 'intermediate_image_sizes', 'unset_intermediate_image_sizes' );
 if ( ! function_exists( 'unset_intermediate_image_sizes' ) ) {
 
 	/**
@@ -385,10 +351,8 @@ if ( ! function_exists( 'unset_intermediate_image_sizes' ) ) {
 
 	}
 }
-add_filter( 'intermediate_image_sizes', 'unset_intermediate_image_sizes' );
 
-
-
+add_filter( 'nav_menu_item_id', 'remove_nav_menu_item_id', 10, 3 );
 if ( ! function_exists( 'remove_nav_menu_item_id' ) ) {
 
 	/**
@@ -405,10 +369,8 @@ if ( ! function_exists( 'remove_nav_menu_item_id' ) ) {
 	    return '';
 	}
 }
-add_filter( 'nav_menu_item_id', 'remove_nav_menu_item_id', 10, 3 );
 
-
-
+add_filter( 'nav_menu_css_class', 'remove_nav_menu_item_class', 10, 3 );
 if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
 
 	/**
@@ -432,16 +394,12 @@ if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
 		return $classes;
 	}
 }
-add_filter( 'nav_menu_css_class', 'remove_nav_menu_item_class', 10, 3 );
 
-
-// TGM Plugin Activation Class.
-require_once get_parent_theme_file_path( '/includes/plugin-additions/class-tgm-plugin-activation.php' );
-
+add_action( 'tgmpa_register', 'wpgen_register_recommended_plugins' );
 if ( ! function_exists( 'wpgen_register_recommended_plugins' ) ) {
 
 	/**
-	 * Register recommended plugins with TGM Plugin Activation
+	 * Register recommended plugins with TGM Plugin Activation (require class-tgm-plugin-activation.php in functions.php)
 	 */
 	function wpgen_register_recommended_plugins() {
 		$plugins = array(
@@ -510,6 +468,7 @@ if ( ! function_exists( 'wpgen_register_recommended_plugins' ) ) {
 				'external_url' => 'https://carbonfields.net/',
 			),
 		);
+
 		$config = array(
 			'id'           => 'wpgen',                 // ID for hashing notices for multiple instances of TGMPA.
 			'default_path' => '',                      // Default absolute path to bundled plugins.
@@ -522,13 +481,14 @@ if ( ! function_exists( 'wpgen_register_recommended_plugins' ) ) {
 			'is_automatic' => false,                   // Automatically activate plugins after installation or not.
 			'message'      => '',                      // Message to output right before the plugins table.
 		);
+
 		tgmpa( $plugins, $config );
 	}
 }
-add_action( 'tgmpa_register', 'wpgen_register_recommended_plugins' );
 
-
-
+add_filter( 'the_title', 'wpgen_search_highlight' );
+add_filter( 'the_content', 'wpgen_search_highlight' );
+add_filter( 'the_excerpt', 'wpgen_search_highlight' );
 if ( ! function_exists( 'wpgen_search_highlight' ) ) {
 
 	/**
@@ -566,9 +526,5 @@ if ( ! function_exists( 'wpgen_search_highlight' ) ) {
 		endif; // is_search.
 
 		return $text;
-
 	}
 }
-add_filter( 'the_title', 'wpgen_search_highlight' );
-add_filter( 'the_content', 'wpgen_search_highlight' );
-add_filter( 'the_excerpt', 'wpgen_search_highlight' );

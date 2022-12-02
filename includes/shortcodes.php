@@ -355,7 +355,8 @@ if ( ! function_exists( 'wpgen_shortcode_whatsapp' ) ) {
 		), $atts );
 
 		$whatsapp_phone = preg_replace( '/(\D)/', '', $atts['number'] );
-		$output .= '<a class="' . esc_attr( $atts['class'] ) . '" href="https://api.whatsapp.com/send?phone=' . esc_html( $whatsapp_phone ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
+
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="https://api.whatsapp.com/send?phone=' . esc_html( $whatsapp_phone ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_whatsapp', $output );
 	}

@@ -30,7 +30,7 @@ if ( ! function_exists( 'external_utm_links_parser' ) ) {
 		$home_parse_url  = wp_parse_url( get_home_url() );
 		$match_parse_url = wp_parse_url( $matches[2] );
 
-		if ( $home_parse_url['host'] === $match_parse_url['host'] ) {
+		if ( isset( $home_parse_url['host'] ) && isset( $match_parse_url['host'] ) && $home_parse_url['host'] === $match_parse_url['host'] ) {
 			$url = $matches[2];
 		} elseif ( isset( $match_parse_url['query'] ) && stripos( $match_parse_url['query'], 'utm_' ) !== false ) {
 			$url = $matches[2];

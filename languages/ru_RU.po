@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-11-19 09:41+0400\n"
-"PO-Revision-Date: 2022-11-19 09:49+0400\n"
+"POT-Creation-Date: 2022-12-02 11:05+0400\n"
+"PO-Revision-Date: 2022-12-02 11:05+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -92,43 +92,43 @@ msgstr "Черная"
 
 #: includes/customizer/customizer-controls.php:28
 #: includes/customizer/customizer-controls.php:36
-#: includes/wpgen/wpgen-form.php:77
+#: includes/wpgen/wpgen-frontend-form.php:77
 msgid "Narrow"
 msgstr "Узкий"
 
 #: includes/customizer/customizer-controls.php:29
-#: includes/wpgen/wpgen-form.php:78
+#: includes/wpgen/wpgen-frontend-form.php:78
 msgid "General"
 msgstr "Основной"
 
 #: includes/customizer/customizer-controls.php:30
-#: includes/wpgen/wpgen-form.php:79
+#: includes/wpgen/wpgen-frontend-form.php:79
 msgid "Average"
 msgstr "Средний"
 
 #: includes/customizer/customizer-controls.php:31
 #: includes/customizer/customizer-controls.php:37
-#: includes/wpgen/wpgen-form.php:80
+#: includes/wpgen/wpgen-frontend-form.php:80
 msgid "Wide"
 msgstr "Широкий"
 
 #: includes/customizer/customizer-controls.php:32
-#: includes/wpgen/wpgen-form.php:81
+#: includes/wpgen/wpgen-frontend-form.php:81
 msgid "Fluid"
 msgstr ""
 
 #: includes/customizer/customizer-controls.php:41
-#: includes/wpgen/wpgen-form.php:122
+#: includes/wpgen/wpgen-frontend-form.php:122
 msgid "Common"
 msgstr "Общий"
 
 #: includes/customizer/customizer-controls.php:42
-#: includes/wpgen/wpgen-form.php:124
+#: includes/wpgen/wpgen-frontend-form.php:124
 msgid "Gradient"
 msgstr ""
 
 #: includes/customizer/customizer-controls.php:43
-#: includes/wpgen/wpgen-form.php:125
+#: includes/wpgen/wpgen-frontend-form.php:125
 msgid "Slide"
 msgstr ""
 
@@ -157,12 +157,12 @@ msgid "Relative"
 msgstr ""
 
 #: includes/customizer/customizer-controls.php:59
-#: includes/wpgen/wpgen-form.php:100
+#: includes/wpgen/wpgen-frontend-form.php:100
 msgid "Absolute"
 msgstr ""
 
 #: includes/customizer/customizer-controls.php:60
-#: includes/wpgen/wpgen-form.php:101
+#: includes/wpgen/wpgen-frontend-form.php:101
 msgid "Fixed"
 msgstr ""
 
@@ -184,32 +184,32 @@ msgid "Center"
 msgstr "По центру"
 
 #: includes/customizer/customizer-controls.php:76
-#: includes/wpgen/wpgen-form.php:109
+#: includes/wpgen/wpgen-frontend-form.php:109
 msgid "Button + Icon + Text"
 msgstr "Кнопка + иконка + текст"
 
 #: includes/customizer/customizer-controls.php:77
-#: includes/wpgen/wpgen-form.php:110
+#: includes/wpgen/wpgen-frontend-form.php:110
 msgid "Button + Icon"
 msgstr "Кнопка + иконка"
 
 #: includes/customizer/customizer-controls.php:78
-#: includes/wpgen/wpgen-form.php:111
+#: includes/wpgen/wpgen-frontend-form.php:111
 msgid "Button + Text"
 msgstr "Кнопка + текст"
 
 #: includes/customizer/customizer-controls.php:79
-#: includes/wpgen/wpgen-form.php:112
+#: includes/wpgen/wpgen-frontend-form.php:112
 msgid "Icon"
 msgstr "Иконка"
 
 #: includes/customizer/customizer-controls.php:80
-#: includes/wpgen/wpgen-form.php:113
+#: includes/wpgen/wpgen-frontend-form.php:113
 msgid "Icon + Text"
 msgstr "Иконка + текст"
 
 #: includes/customizer/customizer-controls.php:81
-#: includes/wpgen/wpgen-form.php:114
+#: includes/wpgen/wpgen-frontend-form.php:114
 msgid "Text"
 msgstr "Текст"
 
@@ -260,22 +260,22 @@ msgid "Random"
 msgstr "Случайно"
 
 #: includes/customizer/customizer-controls.php:115
-#: includes/wpgen/wpgen-form.php:89
+#: includes/wpgen/wpgen-frontend-form.php:89
 msgid "Three"
 msgstr "Три"
 
 #: includes/customizer/customizer-controls.php:116
-#: includes/wpgen/wpgen-form.php:90
+#: includes/wpgen/wpgen-frontend-form.php:90
 msgid "Four"
 msgstr "Четыре"
 
 #: includes/customizer/customizer-controls.php:117
-#: includes/wpgen/wpgen-form.php:91
+#: includes/wpgen/wpgen-frontend-form.php:91
 msgid "Five"
 msgstr "Пять"
 
 #: includes/customizer/customizer-controls.php:118
-#: includes/wpgen/wpgen-form.php:92
+#: includes/wpgen/wpgen-frontend-form.php:92
 msgid "Six"
 msgstr "Шесть"
 
@@ -878,11 +878,11 @@ msgstr ""
 "При отправке формы произошла неизвестная ошибка. Пожалуйста, напишите на "
 "team@zolin.digital"
 
-#: includes/init/init-form.php:161
+#: includes/init/init-form.php:173
 msgid "What is your name?"
 msgstr "Как вас зовут?"
 
-#: includes/init/init-form.php:168
+#: includes/init/init-form.php:180
 #, php-format
 msgid ""
 "By clicking the button, you consent to the processing of <a class=\"link "
@@ -891,31 +891,31 @@ msgstr ""
 "Нажимая на кнопку, вы даете согласие на обработку <a class=\"link link-"
 "unborder\" href=\"%s\" target=\"_blank\">персональных данных</a>"
 
-#: includes/init/init-form.php:170
+#: includes/init/init-form.php:182
 msgid "Sending..."
 msgstr "Отправка..."
 
-#: includes/init/init-form.php:170
+#: includes/init/init-form.php:182
 msgid "Sent"
 msgstr "Отправлено"
 
-#: includes/init/init-form.php:170
+#: includes/init/init-form.php:182
 msgid "Error"
 msgstr "Ошибка"
 
-#: includes/init/init-form.php:170
+#: includes/init/init-form.php:182
 msgid "Send"
 msgstr "Отправить"
 
-#: includes/init/init-form.php:174
+#: includes/init/init-form.php:186
 msgid "or"
 msgstr "или"
 
-#: includes/init/init-form.php:177 includes/shortcodes.php:358
+#: includes/init/init-form.php:189 includes/shortcodes.php:359
 msgid "Write to Whatsapp"
 msgstr "Написать в Whatsapp"
 
-#: includes/init/init-form.php:180 includes/shortcodes.php:332
+#: includes/init/init-form.php:192 includes/shortcodes.php:332
 msgid "Write to Telegram"
 msgstr "Написать в Telegram"
 
@@ -1236,71 +1236,71 @@ msgstr "Все установки завершены."
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: includes/setup.php:33
+#: includes/setup.php:34
 msgid "Primary"
 msgstr ""
 
-#: includes/setup.php:256
+#: includes/setup.php:224
 msgid "Sidebar"
 msgstr ""
 
-#: includes/setup.php:258
+#: includes/setup.php:226
 msgid "Add widgets in left sidebar"
 msgstr ""
 
-#: includes/setup.php:266
+#: includes/setup.php:234
 msgid "Sidebar Right"
 msgstr ""
 
-#: includes/setup.php:268
+#: includes/setup.php:236
 msgid "Add widgets in right sidebar"
 msgstr ""
 
-#: includes/setup.php:278
+#: includes/setup.php:246
 msgid "Header top bar left"
 msgstr ""
 
-#: includes/setup.php:280
+#: includes/setup.php:248
 msgid "Header top sidebar left"
 msgstr ""
 
-#: includes/setup.php:287
+#: includes/setup.php:255
 msgid "Header top bar right"
 msgstr ""
 
-#: includes/setup.php:289
+#: includes/setup.php:257
 msgid "Header top sidebar right"
 msgstr ""
 
-#: includes/setup.php:299
+#: includes/setup.php:267
 msgid "Footer bottom bar left"
 msgstr ""
 
-#: includes/setup.php:301
+#: includes/setup.php:269
 msgid "Footer bottom sidebar left"
 msgstr ""
 
-#: includes/setup.php:308
+#: includes/setup.php:276
 msgid "Footer bottom bar right"
 msgstr ""
 
-#: includes/setup.php:310
+#: includes/setup.php:278
 msgid "Footer bottom sidebar right"
 msgstr ""
 
-#: includes/setup.php:320 includes/setup.php:322
+#: includes/setup.php:288 includes/setup.php:290
 msgid "First footer sidebar"
 msgstr "Футер первая колонка"
 
-#: includes/setup.php:329 includes/setup.php:331
+#: includes/setup.php:297 includes/setup.php:299
 msgid "Second footer sidebar"
 msgstr "Футер вторая колонка"
 
-#: includes/setup.php:338 includes/setup.php:340
+#: includes/setup.php:306 includes/setup.php:308
 msgid "Third footer sidebar"
 msgstr "Футер третья колонка"
 
-#: includes/setup.php:350 includes/setup.php:352
+#: includes/setup.php:318 includes/setup.php:320
 msgid "Fourth footer sidebar"
 msgstr "Футер четвертая колонка"
 
@@ -1316,9 +1316,14 @@ msgstr "Все права защищены"
 msgid "Privacy policy"
 msgstr "Политика конфиденциальности"
 
-#: includes/shortcodes.php:384
+#: includes/shortcodes.php:385
 msgid "Write to Viber"
 msgstr "Написать в Viber"
+
+#: includes/template-functions.php:39
+#, php-format
+msgid "Page generated in %s seconds"
+msgstr "Страница сгенерирована за %s секунд"
 
 #: includes/template-parts.php:102 includes/template-parts.php:203
 msgid "Published Date"
@@ -1398,405 +1403,445 @@ msgstr "Теги:"
 msgid "Similar posts"
 msgstr "Похожие посты"
 
-#: includes/wpgen/wpgen-form.php:61
+#: includes/wpgen/wpgen-frontend-form.php:61
 msgid "Primary Font"
 msgstr "Основной шрифт"
 
-#: includes/wpgen/wpgen-form.php:67
+#: includes/wpgen/wpgen-frontend-form.php:67
 msgid "Text Font"
 msgstr "Текстовый шрифт"
 
-#: includes/wpgen/wpgen-form.php:73
+#: includes/wpgen/wpgen-frontend-form.php:73
 msgid "Container"
 msgstr "Контейнер"
 
-#: includes/wpgen/wpgen-form.php:85
+#: includes/wpgen/wpgen-frontend-form.php:85
 msgid "Number of columns"
 msgstr "Количество колонок"
 
-#: includes/wpgen/wpgen-form.php:96
+#: includes/wpgen/wpgen-frontend-form.php:96
 msgid "Menu type"
 msgstr "Тип меню"
 
-#: includes/wpgen/wpgen-form.php:105
+#: includes/wpgen/wpgen-frontend-form.php:105
 msgid "Menu button type"
 msgstr "Тип кнопки меню"
 
-#: includes/wpgen/wpgen-form.php:118
+#: includes/wpgen/wpgen-frontend-form.php:118
 msgid "Button type"
 msgstr "Тип кнопки"
 
-#: includes/wpgen/wpgen-form.php:123
+#: includes/wpgen/wpgen-frontend-form.php:123
 msgid "Empty"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:129
+#: includes/wpgen/wpgen-frontend-form.php:129
 msgid "Button size"
 msgstr "Размер кнопки"
 
-#: includes/wpgen/wpgen-form.php:133
+#: includes/wpgen/wpgen-frontend-form.php:133
 msgid "btn-xs"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:134
+#: includes/wpgen/wpgen-frontend-form.php:134
 msgid "btn-sm"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:135
+#: includes/wpgen/wpgen-frontend-form.php:135
 msgid "btn"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:136
+#: includes/wpgen/wpgen-frontend-form.php:136
 msgid "btn-md"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:137
+#: includes/wpgen/wpgen-frontend-form.php:137
 msgid "btn-lg"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:138
+#: includes/wpgen/wpgen-frontend-form.php:138
 msgid "btn-xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:142
+#: includes/wpgen/wpgen-frontend-form.php:142
 msgid "Link color"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:146 includes/wpgen/wpgen-form.php:265
+#: includes/wpgen/wpgen-frontend-form.php:146
+#: includes/wpgen/wpgen-frontend-form.php:265
 msgid "primary"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:147 includes/wpgen/wpgen-form.php:266
+#: includes/wpgen/wpgen-frontend-form.php:147
+#: includes/wpgen/wpgen-frontend-form.php:266
 msgid "secondary"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:148 includes/wpgen/wpgen-form.php:169
-#: includes/wpgen/wpgen-form.php:194
+#: includes/wpgen/wpgen-frontend-form.php:148
+#: includes/wpgen/wpgen-frontend-form.php:169
+#: includes/wpgen/wpgen-frontend-form.php:194
 msgid "blue"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:149 includes/wpgen/wpgen-form.php:210
-#: includes/wpgen/wpgen-form.php:267
+#: includes/wpgen/wpgen-frontend-form.php:149
+#: includes/wpgen/wpgen-frontend-form.php:210
+#: includes/wpgen/wpgen-frontend-form.php:267
 msgid "gray"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:154
+#: includes/wpgen/wpgen-frontend-form.php:154
 msgid "Primary color"
 msgstr "Основной цвет"
 
-#: includes/wpgen/wpgen-form.php:159 includes/wpgen/wpgen-form.php:184
+#: includes/wpgen/wpgen-frontend-form.php:159
+#: includes/wpgen/wpgen-frontend-form.php:184
 msgid "red"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:160 includes/wpgen/wpgen-form.php:185
+#: includes/wpgen/wpgen-frontend-form.php:160
+#: includes/wpgen/wpgen-frontend-form.php:185
 msgid "orange"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:161 includes/wpgen/wpgen-form.php:186
+#: includes/wpgen/wpgen-frontend-form.php:161
+#: includes/wpgen/wpgen-frontend-form.php:186
 msgid "amber"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:162 includes/wpgen/wpgen-form.php:187
+#: includes/wpgen/wpgen-frontend-form.php:162
+#: includes/wpgen/wpgen-frontend-form.php:187
 msgid "yellow"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:163 includes/wpgen/wpgen-form.php:188
+#: includes/wpgen/wpgen-frontend-form.php:163
+#: includes/wpgen/wpgen-frontend-form.php:188
 msgid "lime"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:164 includes/wpgen/wpgen-form.php:189
+#: includes/wpgen/wpgen-frontend-form.php:164
+#: includes/wpgen/wpgen-frontend-form.php:189
 msgid "green"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:165 includes/wpgen/wpgen-form.php:190
+#: includes/wpgen/wpgen-frontend-form.php:165
+#: includes/wpgen/wpgen-frontend-form.php:190
 msgid "emerald"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:166 includes/wpgen/wpgen-form.php:191
+#: includes/wpgen/wpgen-frontend-form.php:166
+#: includes/wpgen/wpgen-frontend-form.php:191
 msgid "teal"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:167 includes/wpgen/wpgen-form.php:192
+#: includes/wpgen/wpgen-frontend-form.php:167
+#: includes/wpgen/wpgen-frontend-form.php:192
 msgid "cyan"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:168 includes/wpgen/wpgen-form.php:193
+#: includes/wpgen/wpgen-frontend-form.php:168
+#: includes/wpgen/wpgen-frontend-form.php:193
 msgid "sky"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:170 includes/wpgen/wpgen-form.php:195
+#: includes/wpgen/wpgen-frontend-form.php:170
+#: includes/wpgen/wpgen-frontend-form.php:195
 msgid "indigo"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:171 includes/wpgen/wpgen-form.php:196
+#: includes/wpgen/wpgen-frontend-form.php:171
+#: includes/wpgen/wpgen-frontend-form.php:196
 msgid "violet"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:172 includes/wpgen/wpgen-form.php:197
+#: includes/wpgen/wpgen-frontend-form.php:172
+#: includes/wpgen/wpgen-frontend-form.php:197
 msgid "purple"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:173 includes/wpgen/wpgen-form.php:198
+#: includes/wpgen/wpgen-frontend-form.php:173
+#: includes/wpgen/wpgen-frontend-form.php:198
 msgid "fuchsia"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:174 includes/wpgen/wpgen-form.php:199
+#: includes/wpgen/wpgen-frontend-form.php:174
+#: includes/wpgen/wpgen-frontend-form.php:199
 msgid "pink"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:175 includes/wpgen/wpgen-form.php:200
+#: includes/wpgen/wpgen-frontend-form.php:175
+#: includes/wpgen/wpgen-frontend-form.php:200
 msgid "rose"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:179
+#: includes/wpgen/wpgen-frontend-form.php:179
 msgid "Secondary color"
 msgstr "Вторичный цвет"
 
-#: includes/wpgen/wpgen-form.php:204
+#: includes/wpgen/wpgen-frontend-form.php:204
 msgid "Color scheme"
 msgstr "Цветовая схема"
 
-#: includes/wpgen/wpgen-form.php:209
+#: includes/wpgen/wpgen-frontend-form.php:209
 msgid "slate"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:211
+#: includes/wpgen/wpgen-frontend-form.php:211
 msgid "zinc"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:212
+#: includes/wpgen/wpgen-frontend-form.php:212
 msgid "neutral"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:213
+#: includes/wpgen/wpgen-frontend-form.php:213
 msgid "stone"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:217
+#: includes/wpgen/wpgen-frontend-form.php:217
 msgid "Background of inactive elements"
 msgstr "Фон неактивных элементов"
 
-#: includes/wpgen/wpgen-form.php:221 includes/wpgen/wpgen-form.php:277
+#: includes/wpgen/wpgen-frontend-form.php:221
+#: includes/wpgen/wpgen-frontend-form.php:277
 msgid "50"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:222 includes/wpgen/wpgen-form.php:278
+#: includes/wpgen/wpgen-frontend-form.php:222
+#: includes/wpgen/wpgen-frontend-form.php:278
 msgid "100"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:223 includes/wpgen/wpgen-form.php:279
+#: includes/wpgen/wpgen-frontend-form.php:223
+#: includes/wpgen/wpgen-frontend-form.php:279
 msgid "200"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:224 includes/wpgen/wpgen-form.php:280
+#: includes/wpgen/wpgen-frontend-form.php:224
+#: includes/wpgen/wpgen-frontend-form.php:280
 msgid "300"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:225 includes/wpgen/wpgen-form.php:281
+#: includes/wpgen/wpgen-frontend-form.php:225
+#: includes/wpgen/wpgen-frontend-form.php:281
 msgid "400"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:226 includes/wpgen/wpgen-form.php:282
+#: includes/wpgen/wpgen-frontend-form.php:226
+#: includes/wpgen/wpgen-frontend-form.php:282
 msgid "500"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:227 includes/wpgen/wpgen-form.php:283
+#: includes/wpgen/wpgen-frontend-form.php:227
+#: includes/wpgen/wpgen-frontend-form.php:283
 msgid "600"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:228 includes/wpgen/wpgen-form.php:284
+#: includes/wpgen/wpgen-frontend-form.php:228
+#: includes/wpgen/wpgen-frontend-form.php:284
 msgid "700"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:229 includes/wpgen/wpgen-form.php:285
+#: includes/wpgen/wpgen-frontend-form.php:229
+#: includes/wpgen/wpgen-frontend-form.php:285
 msgid "800"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:230 includes/wpgen/wpgen-form.php:286
+#: includes/wpgen/wpgen-frontend-form.php:230
+#: includes/wpgen/wpgen-frontend-form.php:286
 msgid "900"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:234
+#: includes/wpgen/wpgen-frontend-form.php:234
 msgid "Internal element paddings"
 msgstr "Внутренние отступы элементов"
 
-#: includes/wpgen/wpgen-form.php:240
+#: includes/wpgen/wpgen-frontend-form.php:240
 msgid "p-2"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:241
+#: includes/wpgen/wpgen-frontend-form.php:241
 msgid "p-3"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:242
+#: includes/wpgen/wpgen-frontend-form.php:242
 msgid "p-4"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:243
+#: includes/wpgen/wpgen-frontend-form.php:243
 msgid "p-5"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:244
+#: includes/wpgen/wpgen-frontend-form.php:244
 msgid "p-6"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:248
+#: includes/wpgen/wpgen-frontend-form.php:248
 msgid "Width of border elements"
 msgstr "Ширина бордера элементов"
 
-#: includes/wpgen/wpgen-form.php:252
+#: includes/wpgen/wpgen-frontend-form.php:252
 msgid "border-none"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:253
+#: includes/wpgen/wpgen-frontend-form.php:253
 msgid "border"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:254
+#: includes/wpgen/wpgen-frontend-form.php:254
 msgid "border-2"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:255
+#: includes/wpgen/wpgen-frontend-form.php:255
 msgid "border-4"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:256
+#: includes/wpgen/wpgen-frontend-form.php:256
 msgid "border-8"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:261
+#: includes/wpgen/wpgen-frontend-form.php:261
 msgid "Color of border elements"
 msgstr "Цвет бордера элементов"
 
-#: includes/wpgen/wpgen-form.php:269
+#: includes/wpgen/wpgen-frontend-form.php:269
 msgid "To disable the border-none option in the previous paragraph"
 msgstr "Чтобы отключить, укажите border-none в предыдущем пункте"
 
-#: includes/wpgen/wpgen-form.php:273
+#: includes/wpgen/wpgen-frontend-form.php:273
 msgid "Color saturate of border elements"
 msgstr "Насыщенность цвета бордера элементов"
 
-#: includes/wpgen/wpgen-form.php:290
+#: includes/wpgen/wpgen-frontend-form.php:290
 msgid "Shadow elements"
 msgstr "Тень элементов"
 
-#: includes/wpgen/wpgen-form.php:294 includes/wpgen/wpgen-form.php:302
+#: includes/wpgen/wpgen-frontend-form.php:294
+#: includes/wpgen/wpgen-frontend-form.php:302
 msgid "shadow-none"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:295
+#: includes/wpgen/wpgen-frontend-form.php:295
 msgid "shadow-sm"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:296
+#: includes/wpgen/wpgen-frontend-form.php:296
 msgid "shadow"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:297
+#: includes/wpgen/wpgen-frontend-form.php:297
 msgid "shadow-md"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:298
+#: includes/wpgen/wpgen-frontend-form.php:298
 msgid "shadow-lg"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:299
+#: includes/wpgen/wpgen-frontend-form.php:299
 msgid "shadow-xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:300
+#: includes/wpgen/wpgen-frontend-form.php:300
 msgid "shadow-2xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:301
+#: includes/wpgen/wpgen-frontend-form.php:301
 msgid "shadow-inner"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:306
+#: includes/wpgen/wpgen-frontend-form.php:306
 msgid "Elements border radius"
 msgstr "Радиус бордера элементов"
 
-#: includes/wpgen/wpgen-form.php:310 includes/wpgen/wpgen-form.php:326
+#: includes/wpgen/wpgen-frontend-form.php:310
+#: includes/wpgen/wpgen-frontend-form.php:326
 msgid "rounded-none"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:311 includes/wpgen/wpgen-form.php:327
+#: includes/wpgen/wpgen-frontend-form.php:311
+#: includes/wpgen/wpgen-frontend-form.php:327
 msgid "rounded-sm"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:312 includes/wpgen/wpgen-form.php:328
+#: includes/wpgen/wpgen-frontend-form.php:312
+#: includes/wpgen/wpgen-frontend-form.php:328
 msgid "rounded"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:313 includes/wpgen/wpgen-form.php:329
+#: includes/wpgen/wpgen-frontend-form.php:313
+#: includes/wpgen/wpgen-frontend-form.php:329
 msgid "rounded-md"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:314 includes/wpgen/wpgen-form.php:330
+#: includes/wpgen/wpgen-frontend-form.php:314
+#: includes/wpgen/wpgen-frontend-form.php:330
 msgid "rounded-lg"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:315 includes/wpgen/wpgen-form.php:331
+#: includes/wpgen/wpgen-frontend-form.php:315
+#: includes/wpgen/wpgen-frontend-form.php:331
 msgid "rounded-xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:316 includes/wpgen/wpgen-form.php:332
+#: includes/wpgen/wpgen-frontend-form.php:316
+#: includes/wpgen/wpgen-frontend-form.php:332
 msgid "rounded-2xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:317 includes/wpgen/wpgen-form.php:333
+#: includes/wpgen/wpgen-frontend-form.php:317
+#: includes/wpgen/wpgen-frontend-form.php:333
 msgid "rounded-3xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:318 includes/wpgen/wpgen-form.php:334
+#: includes/wpgen/wpgen-frontend-form.php:318
+#: includes/wpgen/wpgen-frontend-form.php:334
 msgid "rounded-4xl"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:322
+#: includes/wpgen/wpgen-frontend-form.php:322
 msgid "Buttons border radius"
 msgstr "Радиус бордера кнопок"
 
-#: includes/wpgen/wpgen-form.php:338
+#: includes/wpgen/wpgen-frontend-form.php:338
 msgid "Border color saturate of input elements"
 msgstr "Насыщенность цвета бордера инпутов"
 
-#: includes/wpgen/wpgen-form.php:342
+#: includes/wpgen/wpgen-frontend-form.php:342
 msgid "50 (900 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:343
+#: includes/wpgen/wpgen-frontend-form.php:343
 msgid "100 (800 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:344
+#: includes/wpgen/wpgen-frontend-form.php:344
 msgid "200 (700 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:345
+#: includes/wpgen/wpgen-frontend-form.php:345
 msgid "300 (600 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:346
+#: includes/wpgen/wpgen-frontend-form.php:346
 msgid "400 (500 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:347
+#: includes/wpgen/wpgen-frontend-form.php:347
 msgid "500 (400 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:348
+#: includes/wpgen/wpgen-frontend-form.php:348
 msgid "600 (300 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:349
+#: includes/wpgen/wpgen-frontend-form.php:349
 msgid "700 (200 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:350
+#: includes/wpgen/wpgen-frontend-form.php:350
 msgid "800 (100 для темной темы)"
 msgstr ""
 
-#: includes/wpgen/wpgen-form.php:351
+#: includes/wpgen/wpgen-frontend-form.php:351
 msgid "900 (50 для темной темы)"
 msgstr ""
 
