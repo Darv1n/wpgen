@@ -18,7 +18,7 @@ function wpgen_customize_register( $wp_customize ) {
 	class wpgen_Customize_Control extends WP_Customize_Control {
 
 		public function render_content() {
-			echo '<span>' . esc_html( $this->label ) . '</span>';
+			echo '<span>' . get_escape_title( $this->label ) . '</span>';
 		}
 	}
 
@@ -87,7 +87,6 @@ function wpgen_customize_register( $wp_customize ) {
 
 		// Return filtered html.
 		return esc_html( $input );
-
 	}
 
 	// Common functions for reusable options.

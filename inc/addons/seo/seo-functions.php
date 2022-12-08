@@ -200,7 +200,7 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 			$title[] = get_bloginfo( 'name' );
 		}
 
-		$seo_defaults['title'] = get_escape_title( implode( ' ', $title ) );
+		$seo_defaults['title'] = implode( ' ', $title );
 
 		if ( is_home() || is_front_page() || is_post_type_archive() ) {
 			$seo_defaults['property']['type'] = 'website';
@@ -208,7 +208,7 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 			$seo_defaults['property']['type'] = 'article';
 		}
 
-		$seo_defaults['property']['og:site_name'] = get_escape_title( get_bloginfo( 'name' ) );
+		$seo_defaults['property']['og:site_name'] = get_bloginfo( 'name' );
 		$seo_defaults['property']['og:locale']    = determine_locale();
 
 		if ( is_single() && has_post_thumbnail() ) {
@@ -227,7 +227,7 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 			$seo_defaults['property']['og:updated_time']        = get_the_modified_date( 'Y-m-d\TH:i:sP' );
 			$seo_defaults['property']['article:published_time'] = get_the_date( 'Y-m-d\TH:i:sP' );
 			$seo_defaults['property']['article:modified_time']  = get_the_modified_date( 'Y-m-d\TH:i:sP' );
-			$seo_defaults['description']                        = get_escape_title( get_the_excerpt() );
+			$seo_defaults['description']                        = get_the_excerpt();
 		}
 
 		// Merge child and parent default options.

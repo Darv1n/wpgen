@@ -190,7 +190,7 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 		}
 
 		if ( ! empty( $privacy_policy_url ) ) {
-			$output .= '<p><a href="' . esc_url( $privacy_policy_url ) . '" class="' . implode( ' ', $classes ) . '">' . esc_html( $atts['text'] ) . '</a></p>';
+			$output .= '<p><a href="' . esc_url( $privacy_policy_url ) . '" class="' . implode( ' ', $classes ) . '">' . get_escape_title( $atts['text'] ) . '</a></p>';
 		}
 
 		return apply_filters( 'wpgen_current_year', $output );
@@ -412,7 +412,7 @@ if ( ! function_exists( 'wpgen_shortcode_contact_list' ) ) {
 
 			$output = '<ul class="' . esc_attr( $atts['class'] ) . '">';
 			if ( wpgen_options( 'other_address' ) ) {
-				$output .= '<li class="contacts-list__item contacts-list__item_address">' . esc_html( wpgen_options( 'other_address' ) ) . '</li>';
+				$output .= '<li class="contacts-list__item contacts-list__item_address">' . get_escape_title( wpgen_options( 'other_address' ) ) . '</li>';
 			}
 			if ( wpgen_options( 'other_phone' ) ) {
 				$output .= '<li class="contacts-list__item contacts-list__item_phone"><a href="tel:' . esc_html( preg_replace( '/[^0-9]/', '', wpgen_options( 'other_phone' ) ) ) . '" class="contacts-list__link link link-color-unborder">' . esc_html( wpgen_options( 'other_phone' ) ) . '</a></li>';

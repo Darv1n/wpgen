@@ -89,7 +89,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 		if ( wpgen_options( 'single_post_meta_author_display' ) ) {
 			$output .= '<li class="meta__item meta__item_autor">';
-				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>';
+				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
@@ -188,7 +188,7 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 
 		if ( wpgen_options( 'archive_page_meta_author_display' ) ) {
 			$output .= '<li class="meta__item meta__item_autor">';
-				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>';
+				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 

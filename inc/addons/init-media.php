@@ -149,7 +149,7 @@ if ( ! function_exists( 'the_media' ) ) {
 								}
 								$html .= '<p>' . esc_html( $source_name ) . '</p>';
 							$html .= '</div>';
-							$html .= '<h3 class="media--title h6"><a href="' . esc_url( $utm ) . '" class="media--link" target="_blank">' . esc_html( $media_title ) . '</a></h3>';
+							$html .= '<h3 class="media--title h6"><a href="' . esc_url( $utm ) . '" class="media--link" target="_blank">' . get_escape_title( $media_title ) . '</a></h3>';
 							if ( determine_locale() === 'ru_RU' ) {
 								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
 							} else {

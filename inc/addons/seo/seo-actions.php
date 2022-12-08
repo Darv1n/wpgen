@@ -38,15 +38,15 @@ if ( ! function_exists( 'the_wpgen_seo_meta_data' ) ) {
 		}
 
 		if ( isset( $seo_defaults['description'] ) && ! empty( $seo_defaults['description'] ) ) {
-			$output .= '<meta name="description" content="' . esc_html( $seo_defaults['description'] ) . '" />' . "\r\n";
+			$output .= '<meta name="description" content="' . get_escape_title( $seo_defaults['description'] ) . '" />' . "\r\n";
 		}
 
 		if ( isset( $seo_defaults['title'] ) && ! empty( $seo_defaults['title'] ) ) {
-			$output .= '<meta property="og:title" content="' . esc_html( $seo_defaults['title'] ) . '" />' . "\r\n";
+			$output .= '<meta property="og:title" content="' . get_escape_title( $seo_defaults['title'] ) . '" />' . "\r\n";
 		}
 
 		if ( isset( $seo_defaults['description'] ) && ! empty( $seo_defaults['description'] ) ) {
-			$output .= '<meta property="og:description" content="' . esc_html( $seo_defaults['description'] ) . '" />' . "\r\n";
+			$output .= '<meta property="og:description" content="' . get_escape_title( $seo_defaults['description'] ) . '" />' . "\r\n";
 		}
 
 		if ( isset( $seo_defaults['property'] ) && is_array( $seo_defaults['property'] ) && ! empty( $seo_defaults['property'] ) ) {

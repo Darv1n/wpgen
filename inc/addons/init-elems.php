@@ -63,10 +63,10 @@ if ( ! function_exists( 'the_elems' ) ) {
 							}
 						}
 						if ( isset( $item['title'] ) && ! empty( $item['title'] ) ) {
-							$html .= '<h3 class="elem--title h4">' . esc_html( $item['title'] ) . '</h3>';
+							$html .= '<h3 class="elem--title h4">' . get_escape_title( $item['title'] ) . '</h3>';
 						}
 						if ( isset( $item['description'] ) && ! empty( $item['description'] ) ) {
-							$html .= '<p class="elem--description">' . esc_html( $item['description'] ) . '</p>';
+							$html .= '<p class="elem--description">' . get_escape_title( $item['description'] ) . '</p>';
 						}
 
 						$html .= '</div>';
