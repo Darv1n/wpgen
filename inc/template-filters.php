@@ -88,7 +88,7 @@ if ( ! function_exists( 'wpgen_robots_txt' ) ) {
 	 */
 	function wpgen_robots_txt( $output, $public ) {
 
-		$output .= "Disallow: /wp-json\n";
+		$output .= 'Disallow: /wp-json\n';
 
 		return apply_filters( 'wpgen_robots_txt', $output, $public );
 	}

@@ -16,7 +16,7 @@ if ( ! function_exists( 'vardump' ) ) {
 	 *
 	 * @param string $var parameter for dumping.
 	 */
-	function vardump( $var ) {
+	function vardump( $var = '' ) {
 		if ( current_user_can( 'manage_options' ) ) {
 			echo '<pre>';
 				var_dump( $var );
@@ -101,7 +101,7 @@ if ( ! function_exists( 'array_key_last' ) ) {
 	 *
 	 * @return int
 	 */
-	function array_key_last( $array ) {
+	function array_key_last( $array = array() ) {
 
 		if ( ! is_array( $array ) || empty( $array ) ) {
 			return null;
@@ -119,7 +119,7 @@ if ( ! function_exists( 'array_key_first' ) ) {
 	 *
 	 * @return int
 	 */
-	function array_key_first( $array ) {
+	function array_key_first( $array = array() ) {
 
 		if ( ! is_array( $array ) || empty( $array ) ) {
 			return null;
@@ -140,7 +140,7 @@ if ( ! function_exists( 'sanitize_form_field' ) ) {
 	 *
 	 * @return string
 	 */
-	function sanitize_form_field( $string ) {
+	function sanitize_form_field( $string = '' ) {
 		return sanitize_text_field( wp_unslash( $string ) );
 	}
 }
@@ -154,7 +154,7 @@ if ( ! function_exists( 'is_int_even' ) ) {
 	 *
 	 * @return int
 	 */
-	function is_int_even( $var ) {
+	function is_int_even( $var = 0 ) {
 		return ! ( (int) $var & 1 );
 	}
 }
@@ -168,7 +168,7 @@ if ( ! function_exists( 'shuffle_assoc' ) ) {
 	 *
 	 * @return array
 	 */
-	function shuffle_assoc( $array ) {
+	function shuffle_assoc( $array = array() ) {
 
 		$new  = array();
 		$keys = array_keys( $array );
@@ -283,6 +283,32 @@ if ( ! function_exists( 'save_remote_file' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_escape_title' ) ) {
+
+	/**
+	 * Escapes and beautifies title.
+	 *
+	 * @param string $string source title.
+	 *
+	 * @return string
+	 */
+	function get_escape_title( $string = null ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
+
+		$string = wptexturize( $string );
+		$string = convert_chars( $string );
+		$string = esc_html( $string );
+		$string = capital_P_dangit( $string );
+		$string = preg_replace( '/\s+/', ' ', $string );
+		$string = trim( $string );
+
+		return $string;
+	}
+}
+
 if ( ! function_exists( 'get_title_slug' ) ) {
 
 	/**
@@ -292,7 +318,11 @@ if ( ! function_exists( 'get_title_slug' ) ) {
 	 *
 	 * @return string
 	 */
-	function get_title_slug( $string ) {
+	function get_title_slug( $string = null ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		$string = urldecode( sanitize_title( $string ) );
 		$string = preg_replace( '/([^a-z\d\-\_])/', '', $string );
@@ -332,7 +362,11 @@ if ( ! function_exists( 'get_explode_part' ) ) {
 	 *
 	 * @return string
 	 */
-	function get_explode_part( $string, $num = 0, $separator = ',' ) {
+	function get_explode_part( $string = null, $num = 0, $separator = ',' ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		$num = intval( $num );
 
@@ -356,13 +390,15 @@ if ( ! function_exists( 'get_first_value_from_string' ) ) {
 	 *
 	 * @return string
 	 */
-	function get_first_value_from_string( $string, $separator = ',' ) {
+	function get_first_value_from_string( $string = null, $separator = ',' ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		$array = array_map( 'trim', explode( $separator, $string ) );
 
-		$string = $array[0];
-
-		return $string;
+		return $array[0];
 	}
 }
 
@@ -376,13 +412,16 @@ if ( ! function_exists( 'get_last_value_from_string' ) ) {
 	 *
 	 * @return string
 	 */
-	function get_last_value_from_string( $string, $separator = ',' ) {
+	function get_last_value_from_string( $string = null, $separator = ',' ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
+
 		$array = array_map( 'trim', explode( $separator, $string ) );
 		$array = array_reverse( $array );
 
-		$string = $array[0];
-
-		return $string;
+		return $array[0];
 	}
 }
 
@@ -484,7 +523,11 @@ if ( ! function_exists( 'read_time_estimate' ) ) {
 	 *
 	 * @return string
 	 */
-	function read_time_estimate( $content ) {
+	function read_time_estimate( $content = null ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		// Clear the content from the tags, count the number of words.
 		$word_count = str_word_count_utf8( wp_strip_all_tags( $content ) );
@@ -535,7 +578,11 @@ if ( ! function_exists( 'RGBtoHEX' ) ) {
 	 *
 	 * @return string
 	 */
-	function RGBtoHEX( $string ) {
+	function RGBtoHEX( $string = null ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		$rgb = explode( ', ', $string );
 
@@ -610,7 +657,11 @@ if ( ! function_exists( 'remove_emoji' ) ) {
 	 *
 	 * @return string
 	 */
-	function remove_emoji( $string ) {
+	function remove_emoji( $string = null ) {
+
+		if ( is_null( $string ) ) {
+			return false;
+		}
 
 		// Match Emoticons.
 		$clear_string = preg_replace( '/[\x{1F600}-\x{1F64F}]/u', '', $string );

@@ -486,19 +486,30 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 					$after .= '</div>';
 				$after .= '</section>';
 
-				if ( wpgen_options( 'general_breadcrumbs' ) === 'yoast' && function_exists( 'yoast_breadcrumb' ) ) {
+				if ( wpgen_options( 'general_breadcrumbs' ) === 'navxt' && is_plugin_active( 'breadcrumb-navxt/breadcrumb-navxt.php' ) ) {
+
+					$before .= '<nav class="breadcrumbs-navigation" typeof="BreadcrumbList" vocab="https://schema.org/" aria-label="breadcrumb">';
+						$before .= '<ol class="list-inline list-unstyled">';
+
+						$after  .= '</ol>';
+					$after  .= '</nav>';
+
+					echo $before;
+						bcn_display_list();
+					echo $after;
+				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'yoast' && is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 					echo $before;
 						yoast_breadcrumb( '<nav class="breadcrumbs__navigation">', '</nav>' );
 					echo $after;
-				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'rankmath' && function_exists( 'rank_math_the_breadcrumbs' ) ) {
+				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'rankmath' && is_plugin_active( 'seo-by-rank-math/rank-math.php' ) ) {
 					echo $before;
 						rank_math_the_breadcrumbs();
 					echo $after;
-				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'seopress' && function_exists( 'seopress_display_breadcrumbs' ) ) {
+				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'seopress' && is_plugin_active( 'wp-seopress/seopress.php' ) ) {
 					echo $before;
 						seopress_display_breadcrumbs();
 					echo $after;
-				} elseif ( class_exists( 'WooCommerce' ) ) {
+				} elseif ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 					echo $before;
 						woocommerce_breadcrumb();
 					echo $after;

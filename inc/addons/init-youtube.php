@@ -514,3 +514,20 @@ if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 	}
 }
 
+add_filter( 'allowed_seo_canonical_query_vars','allowed_pg_canonical_query_vars' );
+if ( ! function_exists( 'allowed_pg_canonical_query_vars' ) ) {
+
+	/**
+	 * Добавляем get-переменную, которая не удаляется при построении canonical ссылок
+	 * 
+	 * @param array $allowed_seo_canonical_query_vars The array of allowed query variable names for custom seo tags.
+	 *
+	 * @return array
+	 */
+	function allowed_pg_canonical_query_vars( $allowed_seo_canonical_query_vars ) {
+
+		$allowed_seo_canonical_query_vars[] = 'pg';
+
+		return array_unique( $allowed_seo_canonical_query_vars );
+	}
+}

@@ -36,6 +36,11 @@ require_once get_template_directory() . '/inc/addons/init-elems.php';
 require_once get_template_directory() . '/inc/addons/tgm/class-tgm-plugin-activation.php';
 require_once get_template_directory() . '/inc/addons/tgm/tgm-setup.php';
 
+// SEO.
+require_once get_template_directory() . '/inc/addons/seo/seo-functions.php';
+require_once get_template_directory() . '/inc/addons/seo/seo-filters.php';
+require_once get_template_directory() . '/inc/addons/seo/seo-actions.php';
+
 // Root Styles.
 require_once get_template_directory() . '/inc/addons/root-styles/root-styles-functions.php';
 require_once get_template_directory() . '/inc/addons/root-styles/root-styles-converter.php';
@@ -67,6 +72,11 @@ if ( ! class_exists( 'SimpleXLSXGen' ) ) {
 // Yoast SEO.
 if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 	require_once get_template_directory() . '/inc/compatibility/yoast.php';
+}
+
+// Breadcrumb NavXT.
+if ( is_plugin_active( 'breadcrumb-navxt/breadcrumb-navxt.php' ) ) {
+	require_once get_template_directory() . '/inc/compatibility/breadcrumb-navxt.php';
 }
 
 // WooCommerce.

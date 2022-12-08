@@ -1,21 +1,31 @@
 .breadcrumbs
 	padding: 1.125rem 0
-	&_yoast
-		ul, ol
-			padding: 0
-			margin: 0
-			list-style-type: none
-			li
-				display: inline-block
-				vertical-align: middle
-				margin-right: $gutter*2
-				*
-					font-size: $small-font-size
-				a
-					margin-right: $gutter
-				.breadcrumb_last
-					margin-left: $gutter
+	*
+		font-size: $small-font-size
 
+.breadcrumbs_navxt
+	.breadcrumbs-item
+		&:not(:last-child)
+			position: relative
+			margin-right: 1rem
+			&::before
+				position: absolute
+				content: '/'
+				right: -.75rem
+
+.breadcrumbs_yoast
+	ul, ol
+		padding: 0
+		margin: 0
+		list-style-type: none
+		li
+			display: inline-block
+			vertical-align: middle
+			margin-right: $gutter*2
+			a
+				margin-right: $gutter
+			.breadcrumb_last
+				margin-left: $gutter
 
 .scroll-top
 	display: none
