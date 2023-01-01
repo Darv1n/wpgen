@@ -73,9 +73,8 @@ if ( ! function_exists( 'the_slick_gallery' ) ) {
 					$title = get_the_title() . ' ' . $key++;
 				}
 
-				$html .= '<a href="' . esc_url( $image ) . '" class="slick-item" aria-hidden="true" tabindex="-1">';
-					// $html .= '<img src="' . $image . '" class="slick-image" alt="' . $title . '"/>';
-					$html .= '<div class="slick-image" style="background: url( ' . esc_url( $image ) . ' ) center/contain no-repeat"></div>';
+				$html .= '<a class="slick-item" href="' . esc_url( $image ) . '" aria-hidden="true" tabindex="-1">';
+					$html .= '<div class="slick-image" style="background: url( ' . esc_url( $image ) . ' ) center/contain no-repeat" role="img"></div>';
 				$html .= '</a>';
 
 			}
@@ -101,6 +100,8 @@ if ( ! function_exists( 'the_slick_gallery' ) ) {
 				})
 			});
 		});';
+
+		$magnific_gallery_init = minify_js( $magnific_gallery_init );
 
 		wp_add_inline_script( 'magnific-scripts', $magnific_gallery_init );
 

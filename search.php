@@ -19,7 +19,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 			<header class="entry__header">
 				<h1 class="entry__title">
-					<?php printf( esc_html__( 'Search Results for: %s', 'wpgen' ), '<span>' . get_search_query() . '</span>' ); ?>
+					<?php printf( __( 'Search Results for: %s', 'wpgen' ), '<span>' . get_search_query() . '</span>' ); ?>
 				</h1>
 			</header>
 

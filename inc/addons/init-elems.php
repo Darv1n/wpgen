@@ -43,7 +43,7 @@ if ( ! function_exists( 'the_elems' ) ) {
 
 					$string = 'class="' . esc_attr( implode( ' ', $elem_classes ) ) . '"';
 					if ( isset( $item['bg-image'] ) && ! empty( $item['bg-image'] ) && file_exists( trailingslashit( get_stylesheet_directory() ) . $item['bg-image'] ) ) {
-						$string .= ' style="background: url( ' . esc_url( trailingslashit( get_stylesheet_directory_uri() ) . $item['bg-image'] ) . ' ) center/cover no-repeat"';
+						$string .= ' style="background: url( ' . esc_url( trailingslashit( get_stylesheet_directory_uri() ) . $item['bg-image'] ) . ' ) center/cover no-repeat" role="img"';
 					}
 
 					if ( isset( $item['link'] ) && ! empty( $item['link'] ) ) {

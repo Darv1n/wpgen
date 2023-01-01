@@ -16,16 +16,14 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 	<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
 		<header class="entry__header">
-			<h1 class="entry__title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found', 'wpgen' ); ?></h1>
+			<h1 class="entry__title"><?php _e( 'Oops! That page can&rsquo;t be found', 'wpgen' ); ?></h1>
 		</header>
 
 		<div class="entry__content">
-			<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'wpgen' ); ?></p>
+			<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'wpgen' ); ?></p>
 
-			<?php
-				get_search_form();
-				do_action( '404_widgets' );
-			?>
+			<?php get_search_form(); ?>
+			<?php do_action( '404_widgets' ); ?>
 
 		</div>
 

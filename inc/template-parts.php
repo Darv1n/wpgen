@@ -88,16 +88,16 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 	function get_wpgen_post_meta_list( $output = '' ) {
 
 		if ( wpgen_options( 'single_post_meta_author_display' ) ) {
-			$output .= '<li class="meta__item meta__item_autor">';
-				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_escape_title( get_the_author() ) . '</a>';
+			$output .= '<li class="meta__item meta__item_author">';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'single_post_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
-				$output .= '<time data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '" class="entry__date entry__date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
+				$output .= '<time class="entry__date entry__date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
 				if ( wpgen_options( 'single_post_date_modified_display' ) && get_the_modified_date( 'j M, Y' ) !== get_the_date( 'j M, Y' ) ) {
-					$output .= '<time data-title="' . esc_attr( __( 'Modified Date', 'wpgen' ) ) . '" class="entry__date entry__date-modified small data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
+					$output .= '<time class="entry__date entry__date-modified small data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Modified Date', 'wpgen' ) ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
 				}
 			$output .= '</li>';
 		}
@@ -105,46 +105,46 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 		if ( get_post_type() === 'post' ) {
 			if ( wpgen_options( 'single_post_meta_cats_display' ) && has_category() ) {
 				$output .= '<li class="meta__item meta__item_category">';
-					$output .= get_the_category_list( ', ' );
+					$categories = get_the_category();
+					foreach ( $categories as $key => $category ) {
+						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $category->term_id, $category->taxonomy ) ) . '">' . esc_html( $category->name ) . '</a>';
+					}
+					$output .= implode( ', ', $list );
 				$output .= '</li>';
 			}
 			if ( wpgen_options( 'single_post_meta_tags_display' ) && has_tag() ) {
 				$output .= '<li class="meta__item meta__item_tag">';
-					$output .= get_the_tag_list( '', ', ' );
+					$tags = get_the_tags();
+					foreach ( $tags as $key => $tag ) {
+						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $tag->term_id, $tag->taxonomy ) ) . '">' . esc_html( $tag->name ) . '</a>';
+					}
+					$output .= implode( ', ', $list );
 				$output .= '</li>';
 			}
 		}
 
+		if ( wpgen_options( 'single_post_meta_time_display' ) ) {
+			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
+				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
+			$output .= '</li>';
+		}
+
 		if ( wpgen_options( 'single_post_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
-				$output .= '<a class="meta__link" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
-			$output .= '</li>';
-		}
-
-		if ( empty( get_post_meta( get_the_ID(), 'read_time', true ) ) ) {
-			add_post_meta( get_the_ID(), 'read_time', read_time_estimate( get_the_content() ), true );
-		}
-
-		if ( wpgen_options( 'single_post_meta_time_display' ) ) {
-			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '" >';
-				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . esc_html__( 'min.', 'wpgen' );
-			$output .= '</li>';
-		}
-
-		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'single_post_meta_views_display' ) ) {
-			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '" >';
-				$output .= get_kap_views();
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="meta__item meta__item_edit">';
-				$output .= '<a class="edit-link" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
 
 		// Filter html output.
-		return apply_filters( 'get_wpgen_post_meta_list', $output );
+		$output = apply_filters( 'get_wpgen_post_meta_list', $output );
+
+		if ( wpgen_options( 'single_post_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
+			$output .= '<li class="meta__item meta__item_edit">';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+			$output .= '</li>';
+		}
+
+		return $output;
 	}
 }
 
@@ -187,14 +187,14 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 	function get_wpgen_archive_meta_list( $output = '' ) {
 
 		if ( wpgen_options( 'archive_page_meta_author_display' ) ) {
-			$output .= '<li class="meta__item meta__item_autor">';
-				$output .= '<a class="meta__link" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_escape_title( get_the_author() ) . '</a>';
+			$output .= '<li class="meta__item meta__item_author">';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'archive_page_meta_date_display' ) ) {
 			$output .= '<li class="meta__item meta__item_date">';
-				$output .= '<time data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '" class="entry__date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
+				$output .= '<time class="entry__date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
 			$output .= '</li>';
 		}
 
@@ -211,32 +211,28 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 			}
 		}
 
+		if ( wpgen_options( 'archive_page_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
+			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
+				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
+			$output .= '</li>';
+		}
+
 		if ( wpgen_options( 'archive_page_meta_comments_display' ) ) {
 			$output .= '<li class="meta__item meta__item_comments-count">';
-				$output .= '<a href="' . esc_url( get_comments_link() ) . '" class="meta__link" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'archive_page_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
-			$output .= '<li class="meta__item meta__item_time data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '" >';
-				$output .= get_post_meta( get_the_ID(), 'read_time', true ) . ' ' . esc_html__( 'min.', 'wpgen' );
-			$output .= '</li>';
-		}
-
-		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) && wpgen_options( 'archive_page_meta_views_display' ) ) {
-			$output .= '<li class="meta__item meta__item_views-count data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '" >';
-				$output .= get_kap_views( get_the_ID(), get_post_type() );
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'archive_page_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="meta__item meta__item_edit">';
-				$output .= '<a class="edit-link" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
 
 		// Filter html output.
-		return apply_filters( 'get_wpgen_archive_meta_list', $output );
+		$output = apply_filters( 'get_wpgen_archive_meta_list', $output );
+
+		if ( wpgen_options( 'archive_page_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
+			$output .= '<li class="meta__item meta__item_edit">';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+			$output .= '</li>';
+		}
+
+		return $output;
 	}
 }
 
@@ -332,8 +328,8 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 	}
 }
 
-// Testing.
-/*add_filter( 'wpgen_menu_toggle','my_menu_toggle' );
+// Usage:
+/*add_filter( 'wpgen_menu_toggle', 'my_menu_toggle' );
 function my_menu_toggle( $output ) {
 
 	$output = '';
@@ -389,25 +385,23 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 				$classes[] = 'scroll-top_text';
 			}
 
-			// изменяем тип кнопки, если в настройках выбран НЕ common.
+			// Изменяем тип кнопки, если в настройках выбран НЕ common.
 			if ( in_array( 'button', $classes, true ) && wpgen_options( 'general_button_type' ) !== 'common' ) {
 				$classes[] = 'button-' . wpgen_options( 'general_button_type' );
 			}
 
-			// иконка справа/слева.
+			// Иконка справа/слева.
 			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
 				$classes[] = 'scroll-top_icon-' . wpgen_options( 'general_scroll_top_button_icon_position' );
 			}
 
-			// кнопка справа/слева.
+			// Кнопка справа/слева.
 			$classes[] = 'scroll-top_' . wpgen_options( 'general_scroll_top_button_alignment' );
 
 			$output .= '<button id="scroll-top" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
-
-				if ( ! in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
-					$output .= esc_html__( 'Scroll up', 'wpgen' );
-				}
-
+			if ( ! in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
+				$output .= esc_html__( 'Scroll up', 'wpgen' );
+			}
 			$output .= '</button>';
 		}
 
@@ -427,19 +421,6 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 		$output = '';
 
 		if ( ! is_user_logged_in() && wpgen_options( 'general_cookie_display' ) ) {
-
-			$privacy_policy_url = get_privacy_policy_url();
-
-			if ( empty( $privacy_policy_url ) && is_multisite() && ! is_main_site() ) {
-				switch_to_blog( 1 );
-				$privacy_policy_url = get_privacy_policy_url();
-				restore_current_blog();
-			}
-
-			if ( empty( $privacy_policy_url ) ) {
-				$privacy_policy_url = get_home_url();
-			}
-
 			$output .= '<div id="cookie" class="cookie" style="display: none">';
 				$output .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
 					$output .= '<div class="row align-items-center">';
@@ -447,7 +428,7 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 							$output .= '<p class="small">' . __( 'We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. <br>By clicking «Accept», you consent to the use of ALL the cookies', 'wpgen' ) . '</p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__privacy">';
-							$output .= '<p><a href="' . esc_url( $privacy_policy_url ) . '" role="button" class="link link-color-unborder" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
+							$output .= '<p><a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_privacy_policy_url() ) . '" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
 						$output .= '</div>';
 						$output .= '<div class="col-12 col-lg-2 cookie__confirm">';
 							$output .= '<button id="cookie_action" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" type="button">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
@@ -476,7 +457,7 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 		if ( ! is_front_page() && ! is_home() ) {
 
 			if ( wpgen_options( 'general_breadcrumbs_display' ) ) {
-				$before .= '<section id="breadcrumbs" class="site__breadcrumbs breadcrumbs breadcrumbs_' . esc_attr( wpgen_options( 'general_breadcrumbs' ) ) . '">';
+				$before .= '<section id="breadcrumbs" class="site__breadcrumbs breadcrumbs breadcrumbs_' . esc_attr( wpgen_options( 'general_breadcrumbs_type' ) ) . '">';
 					$before .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
 						$before .= '<div class="row">';
 							$before .= '<div class="col-12 align-items-center">';
@@ -486,7 +467,7 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 					$after .= '</div>';
 				$after .= '</section>';
 
-				if ( wpgen_options( 'general_breadcrumbs' ) === 'navxt' && is_plugin_active( 'breadcrumb-navxt/breadcrumb-navxt.php' ) ) {
+				if ( wpgen_options( 'general_breadcrumbs_type' ) === 'navxt' && is_plugin_active( 'breadcrumb-navxt/breadcrumb-navxt.php' ) ) {
 
 					$before .= '<nav class="breadcrumbs-navigation" typeof="BreadcrumbList" vocab="https://schema.org/" aria-label="breadcrumb">';
 						$before .= '<ol class="list-inline list-unstyled">';
@@ -497,15 +478,19 @@ if ( ! function_exists( 'wpgen_breadcrumbs' ) ) {
 					echo $before;
 						bcn_display_list();
 					echo $after;
-				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'yoast' && is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
+				} elseif ( wpgen_options( 'general_breadcrumbs_type' ) === 'kama' && class_exists( 'Kama_Breadcrumbs' ) ) {
+					echo $before;
+						kama_breadcrumbs();
+					echo $after;
+				} elseif ( wpgen_options( 'general_breadcrumbs_type' ) === 'yoast' && is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) {
 					echo $before;
 						yoast_breadcrumb( '<nav class="breadcrumbs__navigation">', '</nav>' );
 					echo $after;
-				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'rankmath' && is_plugin_active( 'seo-by-rank-math/rank-math.php' ) ) {
+				} elseif ( wpgen_options( 'general_breadcrumbs_type' ) === 'rankmath' && is_plugin_active( 'seo-by-rank-math/rank-math.php' ) ) {
 					echo $before;
 						rank_math_the_breadcrumbs();
 					echo $after;
-				} elseif ( wpgen_options( 'general_breadcrumbs' ) === 'seopress' && is_plugin_active( 'wp-seopress/seopress.php' ) ) {
+				} elseif ( wpgen_options( 'general_breadcrumbs_type' ) === 'seopress' && is_plugin_active( 'wp-seopress/seopress.php' ) ) {
 					echo $before;
 						seopress_display_breadcrumbs();
 					echo $after;
@@ -609,25 +594,40 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 		// Choose numeric or older/newer pagination from customizer option.
 		if ( $post_pagination === 'numeric' ) {
 
-			// Previous page.
+			// First page.
 			if ( $paged > 3 ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( 1 ) ) . '" class="posts-navigation__item button posts-navigation__item_prev">-1</a>';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'posts-navigation__item posts-navigation__item_first' ) ) ) . '" href="' . esc_url( get_pagenum_link( 1 ) ) . '" role="button">-1</a>';
 			}
 
 			// Основной цикл вывода ссылок.
 			for ( $i = 1; $i <= $pages; $i++ ) {
 				if ( 1 !== $pages && ( ! ( $i >= $paged + $range + 1 || $i <= $paged - $range - 1 ) || $pages <= $showitems ) ) {
+
 					if ( $paged === $i ) {
-						$output .= '<span class="posts-navigation__item posts-navigation__item_current button button-default disabled">' . $i . '</span>';
+						$output .= '<span class="' . esc_attr( implode( ' ', get_button_classes( 'disabled posts-navigation__item posts-navigation__item_current' ) ) ) . '">' . $i . '</span>';
 					} else {
-						$output .= '<a href="' . esc_url( get_pagenum_link( $i ) ) . '" class="posts-navigation__item button">' . $i . '</a>';
+
+						if ( $paged === $i ) {
+							$classes = 'posts-navigation__item posts-navigation__item_current';
+						} elseif ( $paged + 1 === $i ) {
+							$rel     = ' rel="next"';
+							$classes = 'posts-navigation__item posts-navigation__item_next';
+						} elseif ( $paged > 1 && $paged - 1 === $i ) {
+							$rel     = ' rel="prev"';
+							$classes = 'posts-navigation__item posts-navigation__item_prev';
+						} else {
+							$rel     = '';
+							$classes = 'posts-navigation__item';
+						}
+
+						$output .= '<a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( get_pagenum_link( $i ) ) . '" role="button"' . $rel . '>' . $i . '</a>';
 					}
 				}
 			}
 
-			// Next Page.
+			// Last Page.
 			if ( $pages > 5 && $paged < $pages - 2 ) {
-				$output .= '<a href="' . esc_url( get_pagenum_link( $pages ) ) . '" class="posts-navigation__item button posts-navigation__item_next">+1</a>';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'posts-navigation__item posts-navigation__item_last' ) ) ) . '" href="' . esc_url( get_pagenum_link( $pages ) ) . '" role="button">+1</a>';
 			}
 
 		} else {
@@ -731,9 +731,9 @@ if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 		}
 
 		// Get edit link, if the checkbox is set in the customizer settings and the user has enough rights.
-		if ( wpgen_options( 'single_post_meta_edit_display' ) && current_user_can( 'edit_posts' ) ) {
+		if ( wpgen_options( 'single_post_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 			$output .= '<div class="article-footer__item">';
-				$output .= '<a class="edit-link link link-color-unborder" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
+				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</div>';
 		}
 
@@ -819,14 +819,12 @@ if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 							<div <?php wpgen_archive_page_columns_classes(); ?>>
 
 								<?php
-
 									// Get a template with a post type, if there is one in the theme.
 									if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
 										get_template_part( 'templates/archive/archive', get_post_type() );
 									} else {
 										get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
 									}
-
 								?>
 
 							</div>

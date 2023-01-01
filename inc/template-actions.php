@@ -13,7 +13,7 @@ add_action( 'pre_get_posts', 'wpgen_pre_get_posts', 1 );
 if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 
 	/**
-	 * Function for pre_get_posts action hook.
+	 * Function for 'pre_get_posts' action hook.
 	 *
 	 * @param WP_Query $query The WP_Query instance (passed by reference).
 	 *
@@ -23,7 +23,7 @@ if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 	 */
 	function wpgen_pre_get_posts( $query ) {
 
-		// Exit if it is an admin or not a main query request.
+		// Exit if is admin or not main query request.
 		if ( is_admin() || ! $query->is_main_query() ) {
 			return;
 		}
@@ -32,25 +32,6 @@ if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 		if ( $query->is_search ) {
 			$query->set( 'orderby', 'type' );
 		}
-	}
-}
-
-add_action( 'save_post', 'wpgen_save_post' );
-if ( ! function_exists( 'wpgen_save_post' ) ) {
-
-	/**
-	 * Function for save_post action hook.
-	 *
-	 * @param int $post_id Post ID.
-	 *
-	 * @link https://developer.wordpress.org/reference/hooks/save_post/
-	 *
-	 * @return void
-	 */
-	function wpgen_save_post( $post_id ) {
-
-		// Write in post meta reading speed.
-		update_post_meta( $post_id, 'read_time', read_time_estimate( get_post( $post_id )->post_content ) );
 	}
 }
 

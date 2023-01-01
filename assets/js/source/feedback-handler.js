@@ -18,11 +18,11 @@ jQuery(document).ready(function ($) {
 		if ( ! form.hasClass( 'submited' ) ) {
 			$.ajax({
 				type: 'POST',
-				url: form_obj.url, // Путь к файлу admin-ajax.php
+				url: feedback_handler_obj.url, // Путь к файлу admin-ajax.php
 				data: {
-					'action': 'form_action', // Событие к которому будем обращаться.
+					'action': 'feedback_form_action', // Событие к которому будем обращаться.
 					'content': form.serialize(), // Передаём значения формы.
-					// 'security': form_obj.nonce, // Используем nonce для защиты.
+					// 'security': feedback_handler_obj.nonce, // Используем nonce для защиты.
 				},
 				beforeSend: function () {
 					_this.data( 'process-text' );

@@ -17,7 +17,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 		<?php do_action( 'wpgen_before_archive_page' ); ?>
 
-		<header class="entry__header" role="banner" aria-label="<?php esc_html_e( 'Archive Page Header', 'wpgen' ); ?>">
+		<header class="entry__header" role="banner" aria-label="<?php _e( 'Archive Page Header', 'wpgen' ); ?>">
 			<?php
 				the_archive_title( '<h1 class="archive-title">', '</h1>' );
 				the_archive_description( '<div class="archive-description">', '</div>' );

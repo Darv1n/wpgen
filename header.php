@@ -15,7 +15,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link href="https://gmpg.org/xfn/11" rel="profile">
 
 	<?php wp_head(); ?>
 </head>
@@ -26,16 +26,16 @@
 
 	<div id="page" class="site">
 
-		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wpgen' ); ?></a>
+		<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'wpgen' ); ?></a>
 
-		<header id="masthead" <?php wpgen_header_classes(); ?> role="banner" aria-label="<?php esc_html_e( 'Main Site Header', 'wpgen' ); ?>">
+		<header id="header" <?php wpgen_header_classes(); ?> role="banner" aria-label="<?php _e( 'Main Site Header', 'wpgen' ); ?>">
 
 			<?php do_action( 'wp_header_open' ); ?>
 
 			<!-- Header Top Bar -->
-			<?php if ( wpgen_options( 'general_top_bar_display' ) ) { ?>
+			<?php if ( wpgen_options( 'general_header_top_bar_display' ) ) { ?>
 				<div id="header__top-bar" class="header__top-bar">
-					<div <?php wpgen_container_classes(); ?>>
+					<div <?php wpgen_container_classes( 'container-header' ); ?>>
 						<div class="row align-items-center">
 							<div class="header__item text-md-left col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-left' ); ?></div>
 							<div class="header__item text-md-right col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-right' ); ?></div>
@@ -63,7 +63,7 @@
 		<!-- @hooked wpgen_breadcrumbs - 10 -->
 		<?php do_action( 'before_site_content' ); ?>
 
-		<div id="content" class="site__content">
+		<section id="content" class="site__content">
 
 			<div <?php wpgen_container_classes(); ?>>
 				<div class="row">

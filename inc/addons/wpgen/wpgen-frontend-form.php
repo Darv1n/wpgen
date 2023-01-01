@@ -357,7 +357,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			/*
 			// Usage:
-			add_filter( 'wpgen_form_options','child_theme_wpgen_form_options' );
+			add_filter( 'wpgen_form_options', 'child_theme_wpgen_form_options' );
 			function child_theme_wpgen_form_options( $elems ) {
 
 				unset( $elems['customizer-archive-page-columns'] );
@@ -366,14 +366,14 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			}*/
 
-		$out = '<button id="wpgen-btn" class="' . implode( ' ', get_button_classes( 'btn-wpgen', 'default' ) ) . '" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
+		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'btn-wpgen', 'default' ) ) ) . '" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
 				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
 					$out .= '<fieldset class="btn-set">';
 						// $out .= '<input id="wpgen-name" type="text" name="name" required>';
-						$out .= '<input id="wpgen-random" type="button" class="' . implode( ' ', get_button_classes() ) . '" value="Random">';
-						$out .= '<input id="wpgen-submit" type="submit" class="' . implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) . '" data-action="save" value="Save">';
-						$out .= '<input id="wpgen-submit" type="submit" class="' . implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) . '" data-action="reset" value="Default">';
+						$out .= '<input id="wpgen-random" type="button" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" value="Random">';
+						$out .= '<input id="wpgen-submit" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) ) . '" data-action="save" value="Save">';
+						$out .= '<input id="wpgen-submit" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) ) . '" data-action="reset" value="Default">';
 					$out .= '</fieldset>';
 
 					foreach ( $elems as $key_e => $elem ) {

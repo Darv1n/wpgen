@@ -8,7 +8,6 @@
 ?>
 
 <div class="row align-items-center">
-
 	<div class="col-12 col-sm-4"><?php the_wpgen_site_branding(); ?></div>
 	<div class="col-12 col-sm-8">
 
@@ -26,12 +25,11 @@
 
 						wp_nav_menu( $args );
 
-						?>
+					?>
 
 				</nav>
 			</div>
 		<?php } ?>
 
 	</div>
-
 </div>

@@ -65,7 +65,7 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 
 /*
 // Usage:
-add_filter( 'get_selected_font','source_get_selected_font' );
+add_filter( 'get_selected_font', 'source_get_selected_font' );
 function source_get_selected_font( $default_fonts ) {
 
 	$source_fonts = array(
@@ -387,7 +387,7 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 
 /*
 //Usage:
-add_filter( 'get_selected_value','source_get_selected_value' );
+add_filter( 'get_selected_value', 'source_get_selected_value' );
 function source_get_selected_value( $default_values ) {
 
 	$source_values = array(

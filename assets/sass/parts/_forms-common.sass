@@ -74,10 +74,6 @@ input[type="submit"]
 	&:focus, &:active, &.active
 		background-color: $primary-color-darken
 		border: $border-width solid $primary-color-darken
-	&.disabled, &:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active
-		color: $text-color
-		cursor: not-allowed
-		box-shadow: none
 	&.btn-secondary, &.button-secondary
 		background: $secondary-color
 		border: $border-secondary-color
@@ -109,6 +105,17 @@ input[type="submit"]
 			color: $white-color
 			background-color: $gray-color
 			border: $border-width solid $gray-color
+	&.disabled, [disabled]
+		background: $gray-color-lighten
+		border: $border-width solid $gray-color-lighten
+		color: $text-color
+		cursor: not-allowed
+		box-shadow: none
+		&:hover, &:focus, &:active
+			background: $gray-color-lighten
+			border: $border-width solid $gray-color-lighten
+			color: $text-color
+			box-shadow: none
 
 .theme_white, .theme_light, .theme_elems_white .elem, .theme_elems_light .elem
 	button,

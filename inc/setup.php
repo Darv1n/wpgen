@@ -131,12 +131,12 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		add_filter( 'get_the_archive_title', function( $title ) {
 			$title = wp_strip_all_tags( $title ); // удаляем лишний span.
 			return preg_replace( '~^[^:]+: ~', '', $title );
-		});
+		} );
 
 		// убираем ссылку на https://ru.wordpress.org/ в авторизации.
 		add_filter( 'login_headerurl', function() {
 			return home_url(); // или любой другой адрес.
-		});
+		} );
 	}
 }
 
@@ -151,13 +151,13 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		// wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
 
 		// Сетка Бутстрап.
-		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( 'assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
+		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( '/assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
 
 		// Основные стили. Компиляция галпом. Могут быть переопределены в дочерней.
-		wp_enqueue_style( 'common-styles', get_theme_file_uri( 'assets/css/common.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/common.min.css' ) ) );
+		wp_enqueue_style( 'common-styles', get_theme_file_uri( '/assets/css/common.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/common.min.css' ) ) );
 
 		// Основные скрипты. Компиляция галпом. Могут быть переопределены в дочерней.
-		wp_enqueue_script( 'common-scripts', get_theme_file_uri( 'assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
+		wp_enqueue_script( 'common-scripts', get_theme_file_uri( '/assets/js/common.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/common.min.js' ) ), true );
 
 		// Комментарии.
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -181,23 +181,23 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		wp_register_style( 'slick-styles', get_theme_file_uri( '/assets/css/slick.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/slick.min.css' ) ) );
 		wp_register_script( 'slick-scripts', get_theme_file_uri( '/assets/libs/slick/slick.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/libs/slick/slick.min.js' ) ), true );
 
-		// Register form scripts
-		wp_register_script( 'handler-form', get_theme_file_uri( '/assets/js/handler-form.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/handler-form.min.js' ) ), true );
+		// Register feedback form scripts.
+		wp_register_script( 'feedback-handler', get_theme_file_uri( '/assets/js/feedback-handler.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/feedback-handler.min.js' ) ), true );
 		wp_localize_script( 
-			'handler-form',
-			'form_obj',
+			'feedback-handler',
+			'feedback_handler_obj',
 			array(
 				'url'   => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'form-nonce' ),
+				'nonce' => wp_create_nonce( 'feedback-handler-nonce' ),
 			)
 		);
 
 		// Скрипты и стили для формы wpgen, если она активна.
 		if ( is_wpgen_active() ) {
 
-			wp_enqueue_style( 'wpgen-styles', get_theme_file_uri( 'assets/css/wpgen-style.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/wpgen-style.min.css' ) ) );
+			wp_enqueue_style( 'wpgen-styles', get_theme_file_uri( '/assets/css/wpgen-style.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/wpgen-style.min.css' ) ) );
 
-			wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( 'assets/js/source/wpgen.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/source/wpgen.js' ) ), true );
+			wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( '/assets/js/source/wpgen.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/source/wpgen.js' ) ), true );
 
 			// Используем функцию wp_localize_script для передачи переменных в JS скрипт.
 			wp_localize_script(
@@ -241,7 +241,7 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 			) );
 		}
 
-		if ( wpgen_options( 'general_top_bar_display' ) ) {
+		if ( wpgen_options( 'general_header_top_bar_display' ) ) {
 			register_sidebar( array(
 				'name'          => esc_html__( 'Header top bar left', 'wpgen' ),
 				'id'            => 'sidebar-top-left',
@@ -262,7 +262,7 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 			) );
 		}
 
-		if ( wpgen_options( 'general_bottom_bar_display' ) ) {
+		if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) {
 			register_sidebar( array(
 				'name'          => esc_html__( 'Footer bottom bar left', 'wpgen' ),
 				'id'            => 'sidebar-footer-bottom-left',

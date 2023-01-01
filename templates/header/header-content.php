@@ -7,9 +7,9 @@
 
 ?>
 
-<div id="header__middle-bar" class="header__middle-bar" <?php echo has_custom_header() ? 'style="background: url( ' . esc_url( get_header_image() ) . ' ) center no-repeat"' : ''; ?>>
+<div id="header__middle-bar" class="header__middle-bar" <?php echo has_custom_header() ? 'style="background: url( ' . esc_url( get_header_image() ) . ' ) center/cover no-repeat" role="img"' : ''; ?>>
 
-	<div <?php wpgen_container_classes(); ?>>
+	<div <?php wpgen_container_classes( 'container-header' ); ?>>
 		<div class="row align-items-center">
 			<div class="col-12 col-md-4">
 
@@ -31,7 +31,7 @@
 </div>
 
 <div id="header__bottom-bar" class="header__bottom-bar">
-	<div <?php wpgen_container_classes(); ?>>
+	<div <?php wpgen_container_classes( 'container-header' ); ?>>
 
 		<?php do_action( 'wpgen_before_site_main_menu' ); ?>
 

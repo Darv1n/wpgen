@@ -9,15 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'wp_ajax_form_action', 'form_ajax_action_callback' );
-add_action( 'wp_ajax_nopriv_form_action', 'form_ajax_action_callback' );
+add_action( 'wp_ajax_feedback_form_action', 'ajax_feedback_form_callback' );
+add_action( 'wp_ajax_nopriv_feedback_form_action', 'ajax_feedback_form_callback' );
 
-if ( ! function_exists( 'form_ajax_action_callback' ) ) {
+if ( ! function_exists( 'ajax_feedback_form_callback' ) ) {
 
 	/**
 	 * Form handler.
 	 */
-	function form_ajax_action_callback() {
+	function ajax_feedback_form_callback() {
 
 		parse_str( $_POST['content'], $data ); // Create an array that contains the values of the fields of the filled form.
 
@@ -140,12 +140,6 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 			$form_label = __( 'Simple form', 'wpgen' );
 		}
 
-		if ( determine_locale() === 'ru_RU' ) {
-			$tel_placeholder = '+7 (___) ___-__-__';
-		} else {
-			$tel_placeholder = '___-__-__';
-		}
-
 		$available_tags = array(
 			'b' => array(),
 			'a' => array(
@@ -155,48 +149,36 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 			),
 		);
 
-		$privacy_policy_url = get_privacy_policy_url();
-
-		if ( empty( $privacy_policy_url ) && is_multisite() && ! is_main_site() ) {
-			switch_to_blog( 1 );
-			$privacy_policy_url = get_privacy_policy_url();
-			restore_current_blog();
-		}
-
-		if ( empty( $privacy_policy_url ) ) {
-			$privacy_policy_url = get_home_url();
-		}
-
 		$form_id = get_title_slug( $form_id );
 
 		$html = '<form id="' . esc_attr( $form_id ) . '" class="form ' . esc_attr( $form_id ) . '">
-			<input type="text" name="form-name" id="form-name" class="required form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
-			<input type="tel" name="form-tel" id="form-tel" class="required form-tel" inputmode="numeric" placeholder="' . esc_attr( $tel_placeholder ) .'" value="">
+			<input id="form-name" class="required form-name" type="text" name="form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
+			<input id="form-tel" class="required form-tel" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone?', 'wpgen' ) . '" value="">
 
-			<input type="checkbox" name="form-anticheck" id="form-anticheck" class="form-anticheck" style="display: none !important;" value="true" checked="checked">
-			<input type="text" name="form-submitted" id="form-submitted" value="" style="display: none !important;">
-			<input type="hidden" name="form-label" id="form-label" value="' . esc_attr( $form_label ) . '">
+			<input id="form-anticheck" class="form-anticheck" type="checkbox" name="form-anticheck" style="display: none !important;" value="true" checked="checked">
+			<input id="form-submitted" type="text" name="form-submitted" value="" style="display: none !important;">
+			<input id="form-label" type="hidden" name="form-label" value="' . esc_attr( $form_label ) . '">
 
-			<p class="description small">' . sprintf( wp_kses( __( 'By clicking the button, you consent to the processing of <a class="link link-unborder" href="%s" target="_blank">personal data</a>', 'wpgen' ), $available_tags ), esc_url( $privacy_policy_url ) ) .'</p>
+			<p class="description small">' . sprintf( wp_kses( __( 'By clicking the button, you consent to the processing of <a class="link link-unborder" href="%s" target="_blank">personal data</a>', 'wpgen' ), $available_tags ), esc_url( get_privacy_policy_url() ) ) .'</p>
 
-			<button type="submit" id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" data-process-text="' . __( 'Sending...', 'wpgen' ) . '" data-complete-text="' . __( 'Sent', 'wpgen' ) . '" data-error-text="' . __( 'Error', 'wpgen' ) . '">' . __( 'Send', 'wpgen' ) . '</button>
+			<button id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" type="submit" data-process-text="' . __( 'Sending...', 'wpgen' ) . '" data-complete-text="' . __( 'Sent', 'wpgen' ) . '" data-error-text="' . __( 'Error', 'wpgen' ) . '">' . __( 'Send', 'wpgen' ) . '</button>
 		';
 
 		if ( wpgen_options( 'other_whatsapp_phone' ) || wpgen_options( 'other_telegram_nick' ) ) {
 			$html .= '<hr>' . __( 'or', 'wpgen' ) . '<hr>';
 			$html .= '<div class="button-set">';
 			if ( wpgen_options( 'other_whatsapp_phone' ) ) {
-				$html .= '<a class="btn btn-whatsapp" href="https://api.whatsapp.com/send?phone=' . esc_html( preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
+				$html .= '<a class="btn btn-whatsapp" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
 			}
 			if ( wpgen_options( 'other_telegram_nick' ) ) {
-				$html .= '<a class="btn btn-telegram" href="' . esc_url( 'https://t.me/' . esc_html( wpgen_options( 'other_telegram_nick' ) ) ) . '">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+				$html .= '<a class="btn btn-telegram" href="' . esc_url( 'https://t.me/' . wpgen_options( 'other_telegram_nick' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
 			}
 			$html .= '</div>';
 		}
 
 		$html .= '</form>';
 
-		// <input type="submit" id="form-submit" class="' . implode( ' ', array_map( 'esc_attr', $button_classes ) ) . '" value="' . __( 'Send', 'wpgen' ) . '">
+		// <input type="submit" id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" value="' . __( 'Send', 'wpgen' ) . '">
 
 		$html = $before_form . $html . $after_form;
 
@@ -215,7 +197,7 @@ add_action( 'after_site_content', 'add_feedback_form_before_footer', 10 );
 function add_feedback_form_before_footer() {
 
 	$html = '<section class="section section-feedback">
-		<div class="' . implode( ' ', array_map( 'esc_attr', get_wpgen_container_classes() ) ) . '">
+		<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">
 			<div class="title-wrapper">
 				<h2 class="section-title">' . __( 'Feedback form', 'wpgen' ) . '</h2>
 			</div>
@@ -247,6 +229,8 @@ function add_popup_form_before_footer() {
 			preload: [0, 2],
 		});
 	});';
+
+	$magnific_popup_form_init = minify_js( $magnific_popup_form_init );
 
 	wp_add_inline_script( 'magnific-scripts', $magnific_popup_form_init );
 

@@ -63,6 +63,6 @@ if ( ! function_exists( 'the_wpgen_seo_meta_data' ) ) {
 
 		echo $output;
 
-		//vardump( $seo_defaults );
+		// vardump( $seo_defaults );
 	}
 }

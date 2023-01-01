@@ -26,8 +26,10 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_container_width'                 => 'average',
 			'general_content_width'                   => 'wide',
 			'general_button_type'                     => 'common',
-			'general_top_bar_display'                 => false,
+
+			'general_header_top_bar_display'          => false,
 			'general_header_type'                     => 'header-simple',
+
 			'general_menu_display'                    => true,
 			'general_menu_type'                       => 'menu-open',
 			'general_menu_position'                   => 'absolute',
@@ -35,18 +37,23 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_menu_button_alignment'           => 'right',
 			'general_menu_button_type'                => 'button-icon-text',
 			'general_menu_button_icon_position'       => 'left',
-			'general_bottom_bar_display'              => false,
+
+			'general_footer_bottom_bar_display'       => false,
 			'general_footer_type'                     => 'footer-four-columns',
 
 			'general_breadcrumbs_display'             => true,
-			'general_breadcrumbs'                     => 'woocommerce',
+			'general_breadcrumbs_type'                => 'woocommerce',
+			'general_breadcrumbs_separator'           => '/',
+
 			'general_scroll_top_button_display'       => true,
 			'general_scroll_top_button_alignment'     => 'right',
 			'general_scroll_top_button_type'          => 'icon-text',
 			'general_scroll_top_button_icon_position' => 'left',
 
 			'general_seo_tags_display'                => true,
-			'general_comments_display'                => true,
+			'general_seo_tags_separator'              => '|',
+
+			'general_comments_display'                => false,
 			'general_cookie_display'                  => true,
 			'general_external_utm_links'              => true,
 
@@ -67,7 +74,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'single_post_meta_cats_display'           => true,
 			'single_post_meta_tags_display'           => false,
 			'single_post_meta_comments_display'       => false,
-			'single_post_meta_views_display'          => true,
 			'single_post_meta_time_display'           => true,
 			'single_post_meta_edit_display'           => true,
 			'single_post_date_modified_display'       => false,
@@ -89,7 +95,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'archive_page_meta_cats_display'          => false,
 			'archive_page_meta_tags_display'          => false,
 			'archive_page_meta_comments_display'      => false,
-			'archive_page_meta_views_display'         => true,
 			'archive_page_meta_time_display'          => true,
 			'archive_page_meta_edit_display'          => false,
 			'archive_page_detail'                     => true,
@@ -106,7 +111,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 
 			'other_whatsapp_phone'                    => '',
 			'other_telegram_nick'                     => '',
-			'other_viber_phone'                       => '',
 
 			'other_address'                           => '',
 			'other_phone'                             => '',
@@ -130,7 +134,7 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 		if ( is_null( $control ) ) {
 			return $wpgen_defaults;
 		} elseif ( ! isset( $wpgen_defaults[ $control ] ) || empty( $wpgen_defaults[ $control ] ) ) {
-			return false;
+			return '';
 		} else {
 			return $wpgen_defaults[ $control ];
 		}
@@ -139,12 +143,12 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 
 /*
 // Usage:
-add_filter( 'wpgen_filter_options','child_theme_filter_options' );
+add_filter( 'wpgen_filter_options', 'child_theme_filter_options' );
 function child_theme_filter_options( $wpgen_defaults ) {
 
 	$child_theme_defaults = array(
 		'general_menu_position' => 'right',
-		'general_test' => false,
+		'general_test'          => false,
 	);
 
 	$wpgen_defaults = wp_parse_args( $child_theme_defaults, $wpgen_defaults );

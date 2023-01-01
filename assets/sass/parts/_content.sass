@@ -202,7 +202,7 @@
 		padding-left: 19px
 		font-size: $small-font-size
 		vertical-align: middle
-		&.meta__item_autor
+		&.meta__item_author
 			&::before
 				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#user) center no-repeat)
 		&.meta__item_date
@@ -217,12 +217,12 @@
 		&.meta__item_edit
 			&::before
 				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#edit) center no-repeat)
-		&.meta__item_views-count
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#eye) center no-repeat)
 		&.meta__item_time
 			&::before
 				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#time) center no-repeat)
+		&.meta__item_views-count
+			&::before
+				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#eye) center no-repeat)
 
 .theme_dark, .theme_black
 	.meta__item
@@ -235,7 +235,7 @@
 
 // #Post #Article #Archives
 .section-title
-	margin-bottom: 2rem
+	margin-bottom: 1rem
 
 .entry
 	position: relative
@@ -256,8 +256,6 @@
 	height: 100%
 	.meta, .entry__excerpt p, .link-more
 		margin-bottom: 0
-	.entry__title
-		font-size: $h4
 
 .attachment-post-thumbnail
 	max-height: 550px

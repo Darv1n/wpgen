@@ -40,7 +40,7 @@ if ( ! function_exists( 'wpgen_comments_list' ) ) {
 		?>
 
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>>
-			<div id="div-comment-<?php comment_ID(); ?>" class="<?php echo esc_html( implode( ' ', $comment_bocy_classes ) ); ?>">
+			<div id="div-comment-<?php comment_ID(); ?>" class="<?php esc_attr_e( implode( ' ', $comment_bocy_classes ) ); ?>">
 
 				<?php if ( get_avatar( $comment ) ) { ?>
 					<div class="comment-author comment-author-avatar">
@@ -129,10 +129,12 @@ if ( ! function_exists( 'wpgen_comments_list' ) ) {
 
 	<?php } ?>
 
-		<?php if ( comments_open() ) { ?>
-			<?php comment_form(); ?>
-		<?php } else { ?>
-			<p class="no-comments"><?php esc_html__( 'Comments are closed', 'wpgen' ); ?></p>
-		<?php } ?>
+	<?php if ( comments_open() ) { ?>
+		<?php comment_form(); ?>
+	<?php } else { ?>
+		<div class="no-comments">
+			<p><?php _e( 'Comments are closed', 'wpgen' ); ?></p>
+		</div>
+	<?php } ?>
 
 </div>

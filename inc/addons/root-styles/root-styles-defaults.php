@@ -68,7 +68,7 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			'elemBdWidth'           => 'border-2',
 			'elemBdRadius'          => 'rounded-md',
 
-			'btnSize'               => 'btn-lg',
+			'btnSize'               => 'btn-md',
 			'btnBdRadius'           => 'rounded-md',
 
 			'inputBdColor'          => 'slate-300',

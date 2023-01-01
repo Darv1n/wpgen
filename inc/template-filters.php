@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Filters
+ * Template filters
  *
  * @package wpgen
  */
@@ -13,7 +13,7 @@ add_filter( 'the_content', 'external_utm_links' );
 if ( ! function_exists( 'external_utm_links' ) ) {
 
 	/**
-	 * Function for the_content action hook.
+	 * Function for 'the_content' filter-hook.
 	 *
 	 * @param $content post content
 	 *
@@ -50,11 +50,38 @@ if ( ! function_exists( 'external_utm_links_callback' ) ) {
 	}
 }
 
+add_filter( 'privacy_policy_url', 'wpgen_privacy_policy_url' );
+if ( ! function_exists( 'wpgen_privacy_policy_url' ) ) {
+
+	/**
+	 * Function for 'privacy_policy_url' filter-hook.
+	 * 
+	 * @param string $url         The URL to the privacy policy page. Empty string if it doesn't exist.
+	 * @param int $policy_page_id The ID of privacy policy page.
+	 *
+	 * @return string
+	 */
+	function wpgen_privacy_policy_url( $url ) {
+
+		if ( empty( $url ) && is_multisite() && ! is_main_site() ) {
+			switch_to_blog( 1 );
+			$url = get_privacy_policy_url();
+			restore_current_blog();
+		}
+
+		if ( empty( $url ) ) {
+			$url = get_home_url();
+		}
+
+		return trailingslashit( $url );
+	}
+}
+
 add_filter( 'wp_robots', 'wpgen_robots' );
 if ( ! function_exists( 'wpgen_robots' ) ) {
 
 	/**
-	 * Function for hook wp_robots. Prints noindex, nofollow tags on archive pages, if there are no posts in this archive page.
+	 * Function for 'wp_robots' filter-hook. Prints noindex, nofollow tags on archive pages, if there are no posts in this archive page.
 	 *
 	 * @param array $robots Parameter for filter.
 	 *
@@ -79,7 +106,7 @@ add_filter( 'robots_txt', 'wpgen_robots_txt', 20, 2 );
 if ( ! function_exists( 'wpgen_robots_txt' ) ) {
 
 	/**
-	 * Function for hook robots_txt.
+	 * Function for 'robots_txt' filter-hook.
 	 *
 	 * @param string $output the robots.txt output.
 	 * @param bool   $public whether the site is considered 'public'.
@@ -98,7 +125,7 @@ add_filter( 'intermediate_image_sizes', 'unset_intermediate_image_sizes' );
 if ( ! function_exists( 'unset_intermediate_image_sizes' ) ) {
 
 	/**
-	 * Function for `intermediate_image_sizes` filter-hook.
+	 * Function for 'intermediate_image_sizes' filter-hook.
 	 * 
 	 * @param string[] $default_sizes An array of intermediate image size names.
 	 *
@@ -140,7 +167,7 @@ add_filter( 'nav_menu_item_id', 'remove_nav_menu_item_id', 10, 3 );
 if ( ! function_exists( 'remove_nav_menu_item_id' ) ) {
 
 	/**
-	 * Function for `nav_menu_item_id` filter-hook.
+	 * Function for 'nav_menu_item_id' filter-hook.
 	 * 
 	 * @param string   $menu_id   The ID that is applied to the menu item's `<li>` element.
 	 * @param WP_Post  $menu_item The current menu item.
@@ -158,7 +185,7 @@ add_filter( 'nav_menu_css_class', 'remove_nav_menu_item_class', 10, 3 );
 if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
 
 	/**
-	 * Function for `nav_menu_css_class` filter-hook.
+	 * Function for 'nav_menu_css_class' filter-hook.
 	 * 
 	 * @param string[] $classes   Array of the CSS classes that are applied to the menu item's `<li>` element.
 	 * @param WP_Post  $menu_item The current menu item object.

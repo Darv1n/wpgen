@@ -168,7 +168,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 		$other_tab_social_list_description         = __( 'Add a link to social-list networks using a shortcode <strong>[wpgen-social-list]</strong>', 'wpgen' );
 		$other_tab_contacts_list_description       = __( 'Add a link to contacts-list using a shortcode <strong>[wpgen-contacts-list]</strong> or single <strong>[wpgen-email]</strong>, <strong>[wpgen-phone]</strong>, <strong>[wpgen-address]</strong>', 'wpgen' );
 		$other_tab_whatsapp_phone_description      = __( 'Enter data in the format 7999XXXXXXX without "+"', 'wpgen' );
-		$other_tab_viber_phone_description         = __( 'Enter data in the format 7999XXXXXXX without "+"', 'wpgen' );
 		$other_tab_telegram_nick_description       = __( 'Enter you nick in telegram', 'wpgen' );
 		$other_tab_yandex_verification_description = __( 'Get your yandex verification code in the Yandex Webmaster Tools', 'wpgen' );
 		$other_tab_google_verification_description = __( 'Get your google verification code in the Google Search Console', 'wpgen' );
@@ -189,10 +188,11 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'button_type'                 => array( 'select_control', __( 'Select button type', 'wpgen' ), '', $general_button_type_select ),
 
 			'header_title'                => array( 'tab_title', __( 'Header', 'wpgen' ), '' ),
-			'top_bar_display'             => array( 'checkbox_control', __( 'Top bar display', 'wpgen' ), $general_top_bar_description ),
+			'header_top_bar_display'      => array( 'checkbox_control', __( 'Top bar display', 'wpgen' ), $general_top_bar_description ),
 			'header_color_scheme'         => array( 'select_control', __( 'Header color scheme', 'wpgen' ), '', $general_color_scheme_select ),
 			'header_type'                 => array( 'select_control', __( 'Select header type', 'wpgen' ), '', $general_header_type_select ),
 
+			'menu_title'                  => array( 'tab_title', __( 'Menu', 'wpgen' ), '' ),
 			'menu_display'                => array( 'checkbox_control', __( 'Menu display', 'wpgen' ), '' ),
 			'menu_type'                   => array( 'select_control', __( 'Select menu type', 'wpgen' ), '', $general_menu_type_select ),
 			'menu_color_scheme'           => array( 'select_control', __( 'Menu color scheme', 'wpgen' ), '', $general_color_scheme_select ),
@@ -202,19 +202,25 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'menu_button_type'            => array( 'select_control', __( 'Select menu button type', 'wpgen' ), '', $general_menu_button_type_select ),
 
 			'footer_title'                => array( 'tab_title', __( 'Footer', 'wpgen' ), '' ),
-			'bottom_bar_display'          => array( 'checkbox_control', __( 'Bottom bar display', 'wpgen' ), $general_bottom_bar_description ),
+			'footer_bottom_bar_display'   => array( 'checkbox_control', __( 'Bottom bar display', 'wpgen' ), $general_bottom_bar_description ),
 			'footer_color_scheme'         => array( 'select_control', __( 'Footer color scheme', 'wpgen' ), '', $general_color_scheme_select ),
 			'footer_type'                 => array( 'select_control', __( 'Select footer type', 'wpgen' ), '', $general_footer_type_select ),
 
+			'breadcrumbs_title'           => array( 'tab_title', __( 'Breadcrumbs', 'wpgen' ), '' ),
 			'breadcrumbs_display'         => array( 'checkbox_control', __( 'Breadcrumbs display', 'wpgen' ), '' ),
-			'breadcrumbs'                 => array( 'select_control', __( 'Select position', 'wpgen' ), '', $general_breadcrumbs_select ),
+			'breadcrumbs_type'            => array( 'select_control', __( 'Select breadcrumbs type', 'wpgen' ), '', $general_breadcrumbs_select ),
+			'breadcrumbs_separator'       => array( 'text_control', __( 'Breadcrumbs separator', 'wpgen' ), '' ),
 
+			'scroll_top_title'            => array( 'tab_title', __( 'Scroll top', 'wpgen' ), '' ),
 			'scroll_top_button_display'   => array( 'checkbox_control', __( 'Scroll to top button display', 'wpgen' ), '' ),
 			'scroll_top_button_alignment' => array( 'select_control', __( 'Select scroll top button alignment', 'wpgen' ), '', $alignment_select ),
 			'scroll_top_button_type'      => array( 'select_control', __( 'Select scroll top button type', 'wpgen' ), '', $general_menu_button_type_select ),
 
-			'cookie_title'                => array( 'tab_title', __( 'Other', 'wpgen' ), '' ),
+			'seo_tags_title'              => array( 'tab_title', __( 'SEO', 'wpgen' ), '' ),
 			'seo_tags_display'            => array( 'checkbox_control', __( 'Seo meta tags display', 'wpgen' ), $general_seo_tags_display_description ),
+			'seo_tags_separator'          => array( 'text_control', __( 'Seo meta tags separator', 'wpgen' ), '' ),
+
+			'other_title'                 => array( 'tab_title', __( 'Other', 'wpgen' ), '' ),
 			'comments_display'            => array( 'checkbox_control', __( 'Comments display', 'wpgen' ), $general_comments_display_description ),
 			'cookie_display'              => array( 'checkbox_control', __( 'Cookie display', 'wpgen' ), $general_cookie_display_description ),
 			'external_utm_links'          => array( 'checkbox_control', __( 'External UTM Links', 'wpgen' ), $general_external_utm_links_description ),
@@ -244,7 +250,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'meta_tags_display'         => array( 'checkbox_control', __( 'Meta tags display', 'wpgen' ), '' ),
 			'meta_comments_display'     => array( 'checkbox_control', __( 'Meta comments display', 'wpgen' ), '' ),
 			'meta_time_display'         => array( 'checkbox_control', __( 'Meta read time display', 'wpgen' ), '' ),
-			'meta_views_display'        => array( 'checkbox_control', __( 'Meta views display', 'wpgen' ), '' ),
 			'meta_edit_display'         => array( 'checkbox_control', __( 'Meta edit display', 'wpgen' ), '' ),
 
 			'tab_title'                 => array( 'tab_title', __( 'Post options', 'wpgen' ), '' ),
@@ -273,7 +278,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'meta_tags_display'     => array( 'checkbox_control', __( 'Meta tags display', 'wpgen' ), '' ),
 			'meta_comments_display' => array( 'checkbox_control', __( 'Meta comments display', 'wpgen' ), '' ),
 			'meta_time_display'     => array( 'checkbox_control', __( 'Meta read time display', 'wpgen' ), '' ),
-			'meta_views_display'    => array( 'checkbox_control', __( 'Meta views display', 'wpgen' ), '' ),
 			'meta_edit_display'     => array( 'checkbox_control', __( 'Meta edit display', 'wpgen' ), '' ),
 
 			'detail'                => array( 'checkbox_control', __( 'Detail settings', 'wpgen' ), '' ),
@@ -297,7 +301,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'phone'               => array( 'text_control', __( 'Phone', 'wpgen' ), '' ),
 			'email'               => array( 'text_control', __( 'Email', 'wpgen' ), '' ),
 			'whatsapp_phone'      => array( 'text_control', __( 'Whatsapp phone', 'wpgen' ), $other_tab_whatsapp_phone_description ),
-			'viber_phone'         => array( 'text_control', __( 'Viber', 'wpgen' ), $other_tab_viber_phone_description ),
 			'telegram_nick'       => array( 'text_control', __( 'Telegram nick', 'wpgen' ), $other_tab_telegram_nick_description ),
 
 			'tab_verification'    => array( 'tab_title', __( 'Verifications and counters', 'wpgen' ), '' ),
@@ -326,7 +329,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 
 /*
 // Usage:
-add_filter( 'wpgen_filter_controls','child_theme_filter_controls' );
+add_filter( 'wpgen_filter_controls', 'child_theme_filter_controls' );
 function child_theme_filter_controls( $wpgen_controls ) {
 
 	$wpgen_controls['other']['new_control'] = array( 'checkbox_control', __( 'New checkbox control', 'wpgen' ), '' );

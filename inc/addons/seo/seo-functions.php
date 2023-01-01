@@ -123,7 +123,9 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 		}
 
 		// Title prefixes.
-		if ( is_category() ) {
+		if ( is_post_type_archive() ) {
+			$title[] = _x( 'Archives:', 'post type archive title prefix', 'wpgen' );
+		} elseif ( is_category() ) {
 			$title[] = _x( 'Category:', 'category archive title prefix', 'wpgen' );
 		} elseif ( is_tag() ) {
 			$title[] = _x( 'Tag:', 'tag archive title prefix', 'wpgen' );
@@ -157,15 +159,17 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 			} elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
 				$title[] = _x( 'Chats', 'post format archive title', 'wpgen' );
 			}
-		} elseif ( is_post_type_archive() ) {
-			$title[] = _x( 'Archives:', 'post type archive title prefix', 'wpgen' );
 		}
 
 		// Main title.
 		if ( is_single() || is_page() ) {
 			$title[] = get_the_title();
-		} elseif ( is_archive() ) {
-			$title[] = get_queried_object()->name;
+		} elseif ( is_404() ) {
+			$title[] = __( 'Page not found', 'wpgen' );
+		} elseif ( is_search() ) {
+			$title[] = sprintf( __( 'Search Results for &#8220;%s&#8221;', 'wpgen' ), get_search_query( false ) );
+		} elseif ( is_post_type_archive() ) {
+			$title[] = get_queried_object()->label;
 		} elseif ( is_author() ) {
 			$title[] = get_queried_object()->display_name ?? '';
 		} elseif ( is_date() ) {
@@ -176,15 +180,11 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 			} elseif ( is_day() ) {
 				$title[]  = get_the_date( 'F j, Y' );
 			}
-		} elseif ( is_404() ) {
-			$title[] = __( 'Page not found', 'wpgen' );
-		} elseif ( is_search() ) {
-			$title[] = sprintf( __( 'Search Results for &#8220;%s&#8221;', 'wpgen' ), get_search_query( false ) );
-		} elseif ( is_post_type_archive() ) {
-			$title[] = get_queried_object()->label;
+		} elseif ( is_archive() ) {
+			$title[] = get_queried_object()->name;
 		}
 
-		// Добавляем информацию о сайте в заголовок
+		// Add site info in the title.
 		if ( ! isset( $title ) ) {
 			$title[] = get_bloginfo( 'name' );
 			$title[] = $separator;

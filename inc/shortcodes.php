@@ -13,12 +13,10 @@ add_shortcode( 'privacy-link', 'wpgen_privacy_link' ); // [privacy-link font-siz
 add_shortcode( 'wpgen-social-list', 'wpgen_shortcode_social_list' ); // [wpgen-social-list type="links" class="list-inline"].
 add_shortcode( 'wpgen-telegram', 'wpgen_shortcode_telegram' ); // [wpgen-telegram nick="artzolin"].
 add_shortcode( 'wpgen-whatsapp', 'wpgen_shortcode_whatsapp' ); // [wpgen-whatsapp number="+79500463854"].
-add_shortcode( 'wpgen-viber', 'wpgen_shortcode_viber' ); // [wpgen-viber number="+79500463854"].
 add_shortcode( 'wpgen-contacts-list', 'wpgen_shortcode_contact_list' ); // [wpgen-contacts-list].
 add_shortcode( 'wpgen-address', 'wpgen_shortcode_address' ); // [wpgen-address].
 add_shortcode( 'wpgen-phone', 'wpgen_shortcode_phone' ); // [wpgen-phone].
 add_shortcode( 'wpgen-email', 'wpgen_shortcode_email' ); // [wpgen-email].
-
 
 if ( ! function_exists( 'wpgen_shortcode_copyright' ) ) {
 	/**
@@ -55,7 +53,7 @@ if ( ! function_exists( 'wpgen_shortcode_copyright' ) ) {
 		// Собираем utm.
 		if ( is_multisite() ) {
 			$network_url_parts = wp_parse_url( network_home_url() );
-			$utm = add_query_arg( array( 'utm_source' => $home_url_parts['host'], 'utm_medium' => $network_url_parts['host'] ), $atts['link'] );
+			$utm               = add_query_arg( array( 'utm_source' => $home_url_parts['host'], 'utm_medium' => $network_url_parts['host'] ), $atts['link'] );
 		} else {
 			$utm = add_query_arg( array( 'utm_source' => $home_url_parts['host'] ), $atts['link'] );
 		}
@@ -73,30 +71,27 @@ if ( ! function_exists( 'wpgen_shortcode_copyright' ) ) {
 		if ( $atts['font-size'] !== 'normal' ) {
 			$classes[] = $atts['font-size'];
 		}
-		$classes = array_map( 'esc_attr', $classes );
 
 		// Собираем классы для тега <a>.
-		$links_classes[] = 'link link-color-unborder copyright__link initialism';
+		$links_classes[] = 'copyright__link';
+		$links_classes[] = 'initialism';
 		if ( $atts['link-class'] ) {
 			$links_classes[] = $atts['link-class'];
 		}
-		$links_classes = array_map( 'esc_attr', $links_classes );
 
 		// Собираем HTML.
 		$output .= '<div class="copyright">';
 		if ( empty( $atts['display'] ) || $atts['display'] === 'created' ) {
-			$output .= '<p class="' . implode( ' ', $classes ) . '">' . esc_html__( 'Created by', 'wpgen' ) . ' <strong><a href="' . esc_url( $utm ) . '" class="' . implode( ' ', $links_classes ) . '">' . mb_convert_case( esc_html( $atts['text'] ), MB_CASE_TITLE, 'UTF-8' ) . '</a></strong></p>';
+			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">' . esc_html__( 'Created by', 'wpgen' ) . ' <strong><a class="' . esc_attr( implode( ' ', get_link_classes( $links_classes ) ) ) . '" href="' . esc_url( $utm ) . '" rel="external">' . mb_convert_case( esc_html( $atts['text'] ), MB_CASE_TITLE, 'UTF-8' ) . '</a></strong></p>';
 		}
 		if ( empty( $atts['display'] ) || $atts['display'] === 'rights' ) {
-			$output .= '<p class="' . implode( ' ', $classes ) . '">&#9400; ' . esc_html( $year ) . ' ' . esc_html__( 'All rights reserved', 'wpgen' ) . ' ' . esc_html( $home_url_parts['host'] ) . '</p>';
+			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">&#9400; ' . esc_html( $year ) . ' ' . esc_html__( 'All rights reserved', 'wpgen' ) . ' ' . esc_html( $home_url_parts['host'] ) . '</p>';
 		}
 		$output .= '</div>';
 
 		return apply_filters( 'wpgen_shortcode_copyright', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_current_year' ) ) {
 
@@ -119,8 +114,6 @@ if ( ! function_exists( 'wpgen_current_year' ) ) {
 		return apply_filters( 'wpgen_current_year', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_current_date' ) ) {
 
@@ -145,8 +138,6 @@ if ( ! function_exists( 'wpgen_current_date' ) ) {
 		return apply_filters( 'current_date', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 
@@ -178,26 +169,12 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 		if ( $atts['class'] ) {
 			$classes[] = $atts['class'];
 		}
-		$classes = array_map( 'esc_attr', $classes );
 
-		// Собираем ссылку.
-		if ( is_multisite() && ! is_main_site() ) {
-			switch_to_blog( 1 );
-			$privacy_policy_url = get_privacy_policy_url();
-			restore_current_blog();
-		} else {
-			$privacy_policy_url = get_privacy_policy_url();
-		}
-
-		if ( ! empty( $privacy_policy_url ) ) {
-			$output .= '<p><a href="' . esc_url( $privacy_policy_url ) . '" class="' . implode( ' ', $classes ) . '">' . get_escape_title( $atts['text'] ) . '</a></p>';
-		}
+		$output .= '<a class="' . esc_attr( implode( ' ', $classes ) ) . '" href="' . esc_url( get_privacy_policy_url() ) . '">' . get_escape_title( $atts['text'] ) . '</a>';
 
 		return apply_filters( 'wpgen_current_year', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 
@@ -222,95 +199,91 @@ if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 		if ( $atts['class'] ) {
 			$classes[] = $atts['class'];
 		}
-		$classes = array_map( 'esc_attr', $classes );
 
 		// Собираем HTML.
 		$output = '<ul class="' . esc_attr( implode( ' ', $classes ) ) . '">';
-		if ( wpgen_options( 'other_vkontakte' ) ) {
-			$output .= '<li class="social-list__item social-list__item_vk">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_vkontakte' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Vkontakte';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/vk.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_facebook' ) ) {
-			$output .= '<li class="social-list__item social-list__item_fb">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_facebook' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Facebook';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/facebook.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_instagram' ) ) {
-			$output .= '<li class="social-list__item social-list__item_ig">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_instagram' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Instagram';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/instagram.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_youtube' ) ) {
-			$output .= '<li class="social-list__item social-list__item_yt">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_youtube' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Youtube';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/youtube.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_twitter' ) ) {
-			$output .= '<li class="social-list__item social-list__item_tw">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_twitter' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Twitter';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/twitter.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_telegram' ) ) {
-			$output .= '<li class="social-list__item social-list__item_tg">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_telegram' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'Telegram';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/telegram-plane.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
-		if ( wpgen_options( 'other_linkedin' ) ) {
-			$output .= '<li class="social-list__item social-list__item_in">';
-				$output .= '<a href="' . esc_url( wpgen_options( 'other_linkedin' ) ) . '" class="social-list__link link link-color-unborder" target="_blank" rel="noopener noreferrer">';
-					if ( $atts['type'] === 'links' ) {
-						$output .= 'LinkedIn';
-					} else {
-						$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/linkedin.svg' ) );
-					}
-				$output .= '</a>';
-			$output .= '</li>';
-		}
+			if ( wpgen_options( 'other_vkontakte' ) ) {
+				$output .= '<li class="social-list__item social-list__item_vk">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_vkontakte' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Vkontakte';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/vk.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_facebook' ) ) {
+				$output .= '<li class="social-list__item social-list__item_fb">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_facebook' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Facebook';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/facebook.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_instagram' ) ) {
+				$output .= '<li class="social-list__item social-list__item_ig">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_instagram' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Instagram';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/instagram.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_youtube' ) ) {
+				$output .= '<li class="social-list__item social-list__item_yt">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_youtube' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Youtube';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/youtube.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_twitter' ) ) {
+				$output .= '<li class="social-list__item social-list__item_tw">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_twitter' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Twitter';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/twitter.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_telegram' ) ) {
+				$output .= '<li class="social-list__item social-list__item_tg">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_telegram' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'Telegram';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/telegram-plane.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
+			if ( wpgen_options( 'other_linkedin' ) ) {
+				$output .= '<li class="social-list__item social-list__item_in">';
+					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_linkedin' ) ) . '" target="_blank" rel="noopener noreferrer external">';
+						if ( $atts['type'] === 'links' ) {
+							$output .= 'LinkedIn';
+						} else {
+							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/linkedin.svg' ) );
+						}
+					$output .= '</a>';
+				$output .= '</li>';
+			}
 		$output .= '</ul>';
 
 		return apply_filters( 'wpgen_shortcode_social_list', $output );
 	}
 }
-
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_telegram' ) ) {
 
@@ -329,13 +302,11 @@ if ( ! function_exists( 'wpgen_shortcode_telegram' ) ) {
 			'nick'  => wpgen_options( 'other_telegram_nick' ),
 		), $atts );
 
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://t.me/' . esc_html( $atts['nick'] ) ) . '">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://t.me/' . $atts['nick'] ) . '">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_telegram', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_whatsapp' ) ) {
 
@@ -354,41 +325,11 @@ if ( ! function_exists( 'wpgen_shortcode_whatsapp' ) ) {
 			'number' => wpgen_options( 'other_whatsapp_phone' ),
 		), $atts );
 
-		$whatsapp_phone = preg_replace( '/(\D)/', '', $atts['number'] );
-
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="https://api.whatsapp.com/send?phone=' . esc_html( $whatsapp_phone ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', $atts['number'] ) ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_whatsapp', $output );
 	}
 }
-
-
-
-if ( ! function_exists( 'wpgen_shortcode_viber' ) ) {
-
-	/**
-	 * Add shortcode with viber link [wpgen-viber number="+79500463854"]
-	 *
-	 * @param array $atts shortcode attributes.
-	 *
-	 * @return string
-	 */
-	function wpgen_shortcode_viber( $atts ) {
-
-		// Define a white list of attributes.
-		$atts = shortcode_atts( array(
-			'class'  => 'btn btn-viber',
-			'number' => wpgen_options( 'other_viber_phone' ),
-		), $atts );
-
-		$viber_phone = preg_replace( '/(\D)/', '', $atts['number'] );
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="viber://chat?number=%2B' . esc_html( $viber_phone ) . '">' . esc_html__( 'Write to Viber', 'wpgen' ) . '</a>';
-
-		return apply_filters( 'wpgen_shortcode_whatsapp', $output );
-	}
-}
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_contact_list' ) ) {
 
@@ -415,20 +356,17 @@ if ( ! function_exists( 'wpgen_shortcode_contact_list' ) ) {
 				$output .= '<li class="contacts-list__item contacts-list__item_address">' . get_escape_title( wpgen_options( 'other_address' ) ) . '</li>';
 			}
 			if ( wpgen_options( 'other_phone' ) ) {
-				$output .= '<li class="contacts-list__item contacts-list__item_phone"><a href="tel:' . esc_html( preg_replace( '/[^0-9]/', '', wpgen_options( 'other_phone' ) ) ) . '" class="contacts-list__link link link-color-unborder">' . esc_html( wpgen_options( 'other_phone' ) ) . '</a></li>';
+				$output .= '<li class="contacts-list__item contacts-list__item_phone"><a class="' . esc_attr( implode( ' ', get_link_classes( 'contacts-list__link' ) ) ) . '" href="tel:' . esc_attr( preg_replace( '/[^0-9]/', '', wpgen_options( 'other_phone' ) ) ) . '">' . esc_html( wpgen_options( 'other_phone' ) ) . '</a></li>';
 			}
 			if ( wpgen_options( 'other_email' ) ) {
-				$output .= '<li class="contacts-list__item contacts-list__item_email"><a href="mailto:' . esc_html( wpgen_options( 'other_email' ) ) . '" class="contacts-list__link link link-color-unborder">' . esc_html( wpgen_options( 'other_email' ) ) . '</a></li>';
+				$output .= '<li class="contacts-list__item contacts-list__item_email"><a class="' . esc_attr( implode( ' ', get_link_classes( 'contacts-list__link' ) ) ) . '" href="mailto:' . esc_attr( wpgen_options( 'other_email' ) ) . '">' . esc_html( wpgen_options( 'other_email' ) ) . '</a></li>';
 			}
 			$output .= '</ul>';
-
 		}
 
 		return apply_filters( 'wpgen_shortcode_contact_list', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_address' ) ) {
 
@@ -453,8 +391,6 @@ if ( ! function_exists( 'wpgen_shortcode_address' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'wpgen_shortcode_phone' ) ) {
 	/**
 	 * Add shortcode with phone number [wpgen-phone]
@@ -471,13 +407,11 @@ if ( ! function_exists( 'wpgen_shortcode_phone' ) ) {
 			'phone' => wpgen_options( 'other_phone' ),
 		), $atts );
 
-		$output = '<p class="' . esc_attr( $atts['class'] ) . '"><a href="tel:' . esc_html( preg_replace( '/[^0-9]/', '', $atts['phone'] ) ) . '" class="contacts-list__link link link-color-unborder">' . esc_html( $atts['phone'] ) . '</a></p>';
+		$output = '<p class="' . esc_attr( $atts['class'] ) . '"><a class="' . esc_attr( implode( ' ', get_link_classes( 'contacts-list__link' ) ) ) . '" href="tel:' . esc_attr( preg_replace( '/[^0-9]/', '', $atts['phone'] ) ) . '">' . esc_html( $atts['phone'] ) . '</a></p>';
 
 		return apply_filters( 'wpgen_shortcode_phone', $output );
 	}
 }
-
-
 
 if ( ! function_exists( 'wpgen_shortcode_email' ) ) {
 
@@ -496,7 +430,7 @@ if ( ! function_exists( 'wpgen_shortcode_email' ) ) {
 			'email' => wpgen_options( 'other_email' ),
 		), $atts );
 
-		$output = '<p class="' . esc_attr( $atts['class'] ) . '"><a href="mailto:' . esc_html( $atts['email'] ) . '" class="contacts-list__link link link-color-unborder">' . esc_html( $atts['email'] ) . '</a></p>';
+		$output = '<p class="' . esc_attr( $atts['class'] ) . '"><a class="' . esc_attr( implode( ' ', get_link_classes( 'contacts-list__link' ) ) ) . '" href="mailto:' . esc_attr( $atts['email'] ) . '">' . esc_html( $atts['email'] ) . '</a></p>';
 
 		return apply_filters( 'wpgen_shortcode_email', $output );
 	}

@@ -152,8 +152,8 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 
 					$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) ) . '">';
 						$html .= '<article class="' . esc_attr( implode( ' ', $article_classes ) ) . '">';
-							$html .= '<a class="video--thmb" href="' . esc_url( $utm ) . '" style="background: url( ' . esc_url( get_youtube_thumbnail( $excel_row[ $names['slug'] ] ) ) . ' ) center/cover no-repeat" aria-hidden="true" tabindex="-1" target="_blank"></a>';
-							$html .= '<h3 class="video--title h6"><a href="' . esc_url( $utm ) . '" class="video--link" target="_blank">' . esc_html( $youtube_title ) . '</a></h3>';
+							$html .= '<a class="video--thmb" href="' . esc_url( $utm ) . '" style="background: url( ' . esc_url( get_youtube_thumbnail( $excel_row[ $names['slug'] ] ) ) . ' ) center/cover no-repeat" aria-hidden="true" tabindex="-1" target="_blank" role="img"></a>';
+							$html .= '<h3 class="video--title h6"><a class="video--link" href="' . esc_url( $utm ) . '" target="_blank">' . esc_html( $youtube_title ) . '</a></h3>';
 							if ( determine_locale() === 'ru_RU' ) {
 								$html .= '<time class="video--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
 							} else {
@@ -192,7 +192,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 				$html .= '<ul class="list-unstyled list-inline elem-nav--list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-prev"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $current_link ) . '">-1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -204,18 +204,31 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 					}
 
 					if ( in_array( $i, $page_nav_keys, true ) ) {
-						if ( (int) get_query_var( 'pg', 1 ) === $i ) {
-							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link disabled', 'default', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+
+						$pg = (int) get_query_var( 'pg', 1 );
+
+						if ( $pg === $i ) {
+							$rel     = '';
+							$classes = 'elem-nav--link elem-nav--link-current disabled';
+						} elseif ( $pg + 1 === $i ) {
+							$rel     = ' rel="next"';
+							$classes = 'elem-nav--link elem-nav--link-next';
+						} elseif ( $pg > 1 && $pg - 1 === $i ) {
+							$rel     = ' rel="prev"';
+							$classes = 'elem-nav--link elem-nav--link-prev';
 						} else {
-							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+							$rel     = '';
+							$classes = 'elem-nav--link';
 						}
+
+						$html .= '<li class="elem-nav--item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
 					}
 
 					$i++;
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-next"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';
@@ -514,7 +527,7 @@ if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 	}
 }
 
-add_filter( 'allowed_seo_canonical_query_vars','allowed_pg_canonical_query_vars' );
+add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars' );
 if ( ! function_exists( 'allowed_pg_canonical_query_vars' ) ) {
 
 	/**

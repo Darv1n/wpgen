@@ -149,7 +149,7 @@ if ( ! function_exists( 'the_media' ) ) {
 								}
 								$html .= '<p>' . esc_html( $source_name ) . '</p>';
 							$html .= '</div>';
-							$html .= '<h3 class="media--title h6"><a href="' . esc_url( $utm ) . '" class="media--link" target="_blank">' . get_escape_title( $media_title ) . '</a></h3>';
+							$html .= '<h3 class="media--title h6"><a class="media--link" href="' . esc_url( $utm ) . '" target="_blank">' . get_escape_title( $media_title ) . '</a></h3>';
 							if ( determine_locale() === 'ru_RU' ) {
 								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
 							} else {
@@ -186,7 +186,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				$html .= '<ul class="list-unstyled list-inline elem-nav--list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-prev"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $current_link ) . '">-1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -198,18 +198,31 @@ if ( ! function_exists( 'the_media' ) ) {
 					}
 
 					if ( in_array( $i, $page_nav_keys, true ) ) {
-						if ( (int) get_query_var( 'pg', 1 ) === $i ) {
-							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link disabled', 'default', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+
+						$pg = (int) get_query_var( 'pg', 1 );
+
+						if ( $pg === $i ) {
+							$rel     = '';
+							$classes = 'elem-nav--link elem-nav--link-current disabled';
+						} elseif ( $pg + 1 === $i ) {
+							$rel     = ' rel="next"';
+							$classes = 'elem-nav--link elem-nav--link-next';
+						} elseif ( $pg > 1 && $pg - 1 === $i ) {
+							$rel     = ' rel="prev"';
+							$classes = 'elem-nav--link elem-nav--link-prev';
 						} else {
-							$html .= '<li class="elem-nav--item"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( $link ) . '">' . $i . '</a></li>';
+							$rel     = '';
+							$classes = 'elem-nav--link';
 						}
+
+						$html .= '<li class="elem-nav--item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
 					}
 
 					$i++;
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-next"><a ' . button_classes( 'elem-nav--link', 'primary', false ) . ' href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '">+1</a></li>';
+					$html .= '<li class="elem-nav--item elem-nav--item-last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';
@@ -428,7 +441,7 @@ if ( ! function_exists( 'add_media_query_vars' ) ) {
 	}
 }
 
-add_filter( 'allowed_seo_canonical_query_vars','allowed_pg_canonical_query_vars' );
+add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars' );
 if ( ! function_exists( 'allowed_pg_canonical_query_vars' ) ) {
 
 	/**

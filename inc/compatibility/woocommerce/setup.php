@@ -13,14 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 // Query WooCommerce activation
 if ( ! function_exists( 'is_woocommerce_activated' ) ) {
 	function is_woocommerce_activated() {
 		return class_exists( 'WooCommerce' ) ? true : false;
 	}
 }
-
 
 // Checks if the current page is a product archive
 function is_product_archive() {
@@ -31,17 +29,14 @@ function is_product_archive() {
 	}
 }
 
-
 // WooCommerce setup function.
 function wpgen_woocommerce_setup() {
 	add_theme_support( 'woocommerce' );
-	//add_theme_support( 'wc-product-gallery-zoom' );
-	//add_theme_support( 'wc-product-gallery-lightbox' );
-	//add_theme_support( 'wc-product-gallery-slider' );
+	// add_theme_support( 'wc-product-gallery-zoom' );
+	// add_theme_support( 'wc-product-gallery-lightbox' );
+	// add_theme_support( 'wc-product-gallery-slider' );
 }
 add_action( 'after_setup_theme', 'wpgen_woocommerce_setup' );
-
-
 
 // WooCommerce specific scripts & stylesheets.
 function wpgen_woocommerce_scripts() {
@@ -266,7 +261,6 @@ if ( ! function_exists( 'wpgen_woocommerce_header_cart' ) ) {
 		<?php
 	}
 }
-
 
 // Breadcrumbs delimetr.
 function wpgen_change_breadcrumb_delimiter( $defaults ) {

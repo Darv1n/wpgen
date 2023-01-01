@@ -525,7 +525,7 @@ if ( ! function_exists( 'read_time_estimate' ) ) {
 	 */
 	function read_time_estimate( $content = null ) {
 
-		if ( is_null( $string ) ) {
+		if ( is_null( $content ) ) {
 			return false;
 		}
 
@@ -538,9 +538,9 @@ if ( ! function_exists( 'read_time_estimate' ) ) {
 		// Article reading time in minutes.
 		$minutes = floor( $word_count / $words_per_minute );
 
-		if ( $minutes === 0 ) {
+		if ( (int) $minutes === 0 ) {
 			$str = '< 1';
-		} elseif ( ( $minutes > 0 ) && ( $minutes <= 10 ) ) {
+		} elseif ( ( (int) $minutes > 0 ) && ( (int) $minutes <= 10 ) ) {
 			$p   = $minutes + 1;
 			$str = (string) $minutes . '-' . (string) $p;
 		} else {

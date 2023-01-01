@@ -40,9 +40,9 @@
 			?>
 	</div>
 
-	<?php if ( get_edit_post_link() ) { ?>
+	<?php if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) { ?>
 		<footer class="entry__part entry__footer">
-			<?php edit_post_link( sprintf( wp_kses( __( 'Edit <span class="screen-reader-text">%s</span>', 'wpgen' ), array( 'span' => array( 'class' => array() ) ) ), get_the_title() ), '<span class="edit-link">', '</span>' ); ?>
+			<a <?php link_classes( 'edit-link' ); ?> href="<?php echo esc_url( get_edit_post_link() ); ?>"><?php esc_html_e( 'Edit', 'wpgen' ); ?></a>
 		</footer>
 	<?php } ?>
 </article>

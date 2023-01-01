@@ -99,8 +99,8 @@ if ( ! function_exists( 'the_gallery' ) ) {
 					$title = get_the_title() . ' ' . $key++;
 				}
 
-				$html .= '<a href="' . esc_url( $image ) . '" class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) ) . '" title="' . esc_attr( $title ) . '">';
-					$html .= '<img src="' . esc_url( $image ) . '" class="masonry-image" alt="' . esc_attr( $title ) . '"/>';
+				$html .= '<a class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) ) . '" href="' . esc_url( $image ) . '" title="' . esc_attr( $title ) . '">';
+					$html .= '<img class="masonry-image" src="' . esc_url( $image ) . '" alt="' . esc_attr( $title ) . '"/>';
 				$html .= '</a>';
 
 			}
@@ -111,7 +111,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 				$html .= '<div class="masonry-caption">';
 				if ( ! empty( $caption_link ) ) {
 					$html .= '<span>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;</span>';
-					$html .= '<a class="link link-color-unborder" href="' . esc_url( $caption_link ) . '">' . esc_html( $caption_text ) . '</a>';
+					$html .= '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( $caption_link ) . '">' . esc_html( $caption_text ) . '</a>';
 				} else {
 					$html .= '<p>&#9400;&nbsp;' . __( 'Photo by', 'wpgen' ) . ':&nbsp;' . esc_html( $caption_text ) . '</p>';
 				}
@@ -156,6 +156,8 @@ if ( ! function_exists( 'the_gallery' ) ) {
 				})
 			});
 		});';
+
+		$magnific_gallery_init = minify_js( $magnific_gallery_init );
 
 		wp_add_inline_script( 'magnific-scripts', $magnific_gallery_init );
 
