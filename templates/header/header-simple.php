@@ -29,7 +29,6 @@
 						<nav id="main-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_html_e( 'Site main menu', 'wpgen' ); ?>">
 
 							<?php
-
 								$args = array(
 									'theme_location' => 'primary',
 									'menu_id'        => 'primary-navigation',
@@ -37,8 +36,7 @@
 								);
 
 								wp_nav_menu( $args );
-
-								?>
+							?>
 
 						</nav>
 

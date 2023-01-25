@@ -153,6 +153,9 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		// Сетка Бутстрап.
 		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( '/assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
 
+		// Icons.
+		wp_enqueue_style( 'icons', get_theme_file_uri( '/assets/css/icons.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/icons.min.css' ) ) );
+
 		// Основные стили. Компиляция галпом. Могут быть переопределены в дочерней.
 		wp_enqueue_style( 'common-styles', get_theme_file_uri( '/assets/css/common.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/common.min.css' ) ) );
 
@@ -173,6 +176,28 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 		wp_register_style( 'magnific-styles', get_theme_file_uri( '/assets/libs/magnific-popup/magnific-popup.min.css' ), array(), filemtime( get_theme_file_path( '/assets/libs/magnific-popup/magnific-popup.min.css' ) ) );
 		wp_register_script( 'magnific-scripts', get_theme_file_uri( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/libs/magnific-popup/jquery.magnific-popup.min.js' ) ), true );
 
+		$magnific_gallery_init = 'jQuery(function($) {
+			$(".popup-gallery").each(function() {
+				$(this).magnificPopup({
+					delegate: "a",
+					type: "image",
+					gallery: {
+						enabled:true
+					},
+					closeOnContentClick: true,
+					mainClass: "mfp-with-zoom",
+					zoom: {
+						enabled: true,
+						duration: 200,
+						easing: "ease-in-out",
+					},
+					preload: [0, 2],
+				})
+			});
+		});';
+
+		// wp_add_inline_script( 'magnific-scripts', minify_js( $magnific_gallery_init ) );
+
 		// Swiper.
 		wp_register_style( 'swiper-styles', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css' );
 		wp_register_script( 'swiper-scripts', 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js', array( 'jquery' ) );
@@ -189,6 +214,17 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 			array(
 				'url'   => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'feedback-handler-nonce' ),
+			)
+		);
+
+		// Register comment form scripts.
+		wp_register_script( 'comments-handler', get_theme_file_uri( '/assets/js/comments-handler.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/comments-handler.min.js' ) ), true );
+		wp_localize_script( 
+			'comments-handler',
+			'comments_handler_obj',
+			array(
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'comments-handler-nonce' ),
 			)
 		);
 
@@ -262,6 +298,27 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 			) );
 		}
 
+		if ( wpgen_options( 'general_footer_top_bar_display' ) ) {
+			register_sidebar( array(
+				'name'          => esc_html__( 'Footer top bar left', 'wpgen' ),
+				'id'            => 'sidebar-footer-top-left',
+				'description'   => esc_html__( 'Footer top sidebar left', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+			register_sidebar( array(
+				'name'          => esc_html__( 'Footer top bar right', 'wpgen' ),
+				'id'            => 'sidebar-footer-top-right',
+				'description'   => esc_html__( 'Footer top sidebar right', 'wpgen' ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h3 class="widget-title">',
+				'after_title'   => '</h3>',
+			) );
+		}
+
 		if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) {
 			register_sidebar( array(
 				'name'          => esc_html__( 'Footer bottom bar left', 'wpgen' ),
@@ -283,7 +340,7 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 			) );
 		}
 
-		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-three-columns', 'footer-four-columns' ), true ) ) {
+		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-simple', 'footer-three-columns', 'footer-four-columns' ), true ) ) {
 			register_sidebar( array(
 				'name'          => esc_html__( 'First footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-one',
@@ -302,6 +359,9 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 				'before_title'  => '<h3 class="widget-title">',
 				'after_title'   => '</h3>',
 			) );
+		}
+
+		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-three-columns', 'footer-four-columns' ), true ) ) {
 			register_sidebar( array(
 				'name'          => esc_html__( 'Third footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-three',

@@ -72,15 +72,15 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 	 *
 	 * @param array $requests       main array with search queries. Default: null.
 	 * @param string $lang          language of response from google api. Default: ru.
-	 * @param int $per_page         number of items on the page. Default: 4.
-	 * @param string $columns_count number of columns. Default: wpgen_options( 'archive_page_columns' ).
+	 * @param int $per_page         number of items on the page. Default: 6.
+	 * @param string $columns_count number of columns. Default: 3.
 	 * @param bool $pagination      output the pagination or not. Default: false.
 	 * @param array $tags           return marks. Default: array( 'main' ).
 	 * @param bool $echo            echo or return output html. Default: true.
 	 *
 	 * @return echo
 	 */
-	function the_youtube_videos( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $echo = true ) {
+	function the_youtube_videos( $requests = null, $lang = null, $per_page = 6, $columns_count = 3, $pagination = false, $tags = array( 'main' ), $echo = true ) {
 
 		if ( is_null( $requests ) && wpgen_options( 'youtube_api_requests' ) ) {
 			$requests = wpgen_options( 'youtube_api_requests' );
@@ -119,18 +119,23 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 			$keys = range( $per_page * ( $page_var - 1) + 1, $per_page * $page_var );
 		}
 
-		if ( is_null( $columns_count ) ) {
-			$columns_count = wpgen_options( 'archive_page_columns' );
-		} else {
-			$columns_count = get_wpgen_count_columns( $columns_count, false );
-		}
+		$columns_count  = get_wpgen_count_columns( $columns_count, false );
+		$post_classes   = array();
+		$post_classes[] = 'post';
+		$post_classes[] = 'post_video';
+		$post_classes[] = 'video';
+		$post_classes   = apply_filters( 'get_youtube_video_post_classes', $post_classes );
 
-		$article_classes   = array();
-		$article_classes[] = 'article-video';
-		$article_classes[] = 'video';
-		$article_classes   = apply_filters( 'get_youtube_video_article_classes', $article_classes );
+		/*// Usage:
+		add_filter( 'get_youtube_video_post_classes', 'my_youtube_video_post_classes' );
+		if ( ! function_exists( 'my_youtube_video_post_classes' ) ) {
+			function my_youtube_video_post_classes( $classes ) {
+				$classes[] = 'elem';
+				return array_unique( (array) $classes );
+			}
+		}*/
 
-		$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) ) . '">';
+		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes() . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach ( $excel_row as $key_c => $excel_col ) {
@@ -150,14 +155,14 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 						$youtube_title = translit( $youtube_title );
 					}
 
-					$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) ) . '">';
-						$html .= '<article class="' . esc_attr( implode( ' ', $article_classes ) ) . '">';
-							$html .= '<a class="video--thmb" href="' . esc_url( $utm ) . '" style="background: url( ' . esc_url( get_youtube_thumbnail( $excel_row[ $names['slug'] ] ) ) . ' ) center/cover no-repeat" aria-hidden="true" tabindex="-1" target="_blank" role="img"></a>';
-							$html .= '<h3 class="video--title h6"><a class="video--link" href="' . esc_url( $utm ) . '" target="_blank">' . esc_html( $youtube_title ) . '</a></h3>';
+					$html .= '<div ' . wpgen_archive_page_columns_classes( $key_d, '', $columns_count, false ) . '>';
+						$html .= '<article class="' . esc_attr( implode( ' ', $post_classes ) ) . '">';
+							$html .= '<a class="video-thumbnail" href="' . esc_url( $utm ) . '" style="background: url( ' . esc_url( get_youtube_thumbnail( $excel_row[ $names['slug'] ] ) ) . ' ) center/cover no-repeat" aria-hidden="true" tabindex="-1" target="_blank" role="img"></a>';
+							$html .= '<h3 class="video-title"><a class="video-link" href="' . esc_url( $utm ) . '" target="_blank">' . esc_html( $youtube_title ) . '</a></h3>';
 							if ( determine_locale() === 'ru_RU' ) {
-								$html .= '<time class="video--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
+								$html .= '<time class="video-date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
 							} else {
-								$html .= '<time class="video--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . gmdate( 'j F Y', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '</time>';
+								$html .= '<time class="video-date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . gmdate( 'j F Y', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '</time>';
 							}
 						$html .= '</article>';
 					$html .= '</div>';
@@ -166,7 +171,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 		}
 		$html .= '</div>';
 
-		$html = apply_filters( 'the_youtube_articles', $html );
+		$html = apply_filters( 'the_youtube_posts', $html );
 
 		$count = count( $excel ) - 1;
 
@@ -189,10 +194,10 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 			$page_nav_keys = range( $start_page_nav, $end_page_nav );
 
 			$html .= '<nav class="elem-nav">';
-				$html .= '<ul class="list-unstyled list-inline elem-nav--list">';
+				$html .= '<ul class="elem-nav__list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -209,26 +214,26 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 
 						if ( $pg === $i ) {
 							$rel     = '';
-							$classes = 'elem-nav--link elem-nav--link-current disabled';
+							$classes = 'elem-nav__link elem-nav__link_current button-disabled';
 						} elseif ( $pg + 1 === $i ) {
 							$rel     = ' rel="next"';
-							$classes = 'elem-nav--link elem-nav--link-next';
+							$classes = 'elem-nav__link elem-nav__link_next';
 						} elseif ( $pg > 1 && $pg - 1 === $i ) {
 							$rel     = ' rel="prev"';
-							$classes = 'elem-nav--link elem-nav--link-prev';
+							$classes = 'elem-nav__link elem-nav__link_prev';
 						} else {
 							$rel     = '';
-							$classes = 'elem-nav--link';
+							$classes = 'elem-nav__link';
 						}
 
-						$html .= '<li class="elem-nav--item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
+						$html .= '<li class="elem-nav__item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
 					}
 
 					$i++;
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';

@@ -120,21 +120,15 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 	/**
 	 * Return HTML feedback form
 	 *
-	 * @param string $form_id       form ID. Default: 'feedback-form'.
-	 * @param string $form_label    form label. Default: 'Simple form'.
-	 * @param string $before_form   html before form. Default: null.
-	 * @param string $after_form    html after form. Default: null.
-	 * @param array $button_classes array classes for send button. Default: get_button_classes().
+	 * @param string $form_id        form ID. Default: 'feedback-form'.
+	 * @param string $form_label     form label. Default: 'Simple form'.
+	 * @param string $button_classes classes for send button. Default: 'form-submit'.
+	 * @param string $before_form    html before form. Default: null.
+	 * @param string $after_form     html after form. Default: null.
 	 *
 	 * @return string
 	 */
-	function get_feedback_form( $form_id = 'feedback-form', $form_label = null, $before_form = null, $after_form = null, $button_classes = null ) {
-
-		if ( is_null( $button_classes ) ) {
-			$button_classes = get_button_classes();
-		}
-
-		$button_classes[] = 'form-submit';
+	function get_feedback_form( $form_id = 'feedback-form', $form_label = null, $button_classes = 'form-submit', $before_form = null, $after_form = null ) {
 
 		if ( is_null( $form_label ) ) {
 			$form_label = __( 'Simple form', 'wpgen' );
@@ -152,30 +146,29 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 		$form_id = get_title_slug( $form_id );
 
 		$html = '<form id="' . esc_attr( $form_id ) . '" class="form ' . esc_attr( $form_id ) . '">
-			<input id="form-name" class="required form-name" type="text" name="form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
-			<input id="form-tel" class="required form-tel" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone?', 'wpgen' ) . '" value="">
+			<input id="form-name" class="form-name required" type="text" name="form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
+			<input id="form-tel" class="form-tel required" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone?', 'wpgen' ) . '" value="">
 
 			<input id="form-anticheck" class="form-anticheck" type="checkbox" name="form-anticheck" style="display: none !important;" value="true" checked="checked">
 			<input id="form-submitted" type="text" name="form-submitted" value="" style="display: none !important;">
 			<input id="form-label" type="hidden" name="form-label" value="' . esc_attr( $form_label ) . '">
 
-			<p class="description small">' . sprintf( wp_kses( __( 'By clicking the button, you consent to the processing of <a class="link link-unborder" href="%s" target="_blank">personal data</a>', 'wpgen' ), $available_tags ), esc_url( get_privacy_policy_url() ) ) .'</p>
+			<p class="form-confirm-text">' . sprintf( wp_kses( __( 'By submitting this form, you confirm that you agree to the storage and processing of your personal data described in our <a class="%s" href="%s" target="_blank">Privacy Policy</a>', 'wpgen' ), $available_tags ), esc_attr( implode( ' ', get_link_classes() ) ), esc_url( get_privacy_policy_url() ) ) .'</p>
 
-			<button id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" type="submit" data-process-text="' . __( 'Sending...', 'wpgen' ) . '" data-complete-text="' . __( 'Sent', 'wpgen' ) . '" data-error-text="' . __( 'Error', 'wpgen' ) . '">' . __( 'Send', 'wpgen' ) . '</button>
-		';
+			<div class="button-set">
+			<button id="form-submit" class="' . esc_attr( implode( ' ', get_button_classes( $button_classes ) ) ) . '" type="submit" data-process-text="' . __( 'Sending...', 'wpgen' ) . '" data-complete-text="' . __( 'Sent', 'wpgen' ) . '" data-error-text="' . __( 'Error', 'wpgen' ) . '">' . __( 'Send', 'wpgen' ) . '</button>';
 
-		if ( wpgen_options( 'other_whatsapp_phone' ) || wpgen_options( 'other_telegram_nick' ) ) {
-			$html .= '<hr>' . __( 'or', 'wpgen' ) . '<hr>';
-			$html .= '<div class="button-set">';
-			if ( wpgen_options( 'other_whatsapp_phone' ) ) {
-				$html .= '<a class="btn btn-whatsapp" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
+			if ( wpgen_options( 'other_whatsapp_phone' ) || wpgen_options( 'other_telegram_chat_link' ) ) {
+				$html .= '<span>' . __( 'or', 'wpgen' ) . '</span>';
+				if ( wpgen_options( 'other_whatsapp_phone' ) ) {
+					$html .= '<a class="button button-whatsapp icon icon_whatsapp" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
+				}
+				if ( wpgen_options( 'other_telegram_chat_link' ) ) {
+					$html .= '<a class="button button-telegram icon icon_telegram" href="' . esc_url( wpgen_options( 'other_telegram_chat_link' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+				}
 			}
-			if ( wpgen_options( 'other_telegram_nick' ) ) {
-				$html .= '<a class="btn btn-telegram" href="' . esc_url( 'https://t.me/' . wpgen_options( 'other_telegram_nick' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
-			}
-			$html .= '</div>';
-		}
 
+		$html .= '</div>';
 		$html .= '</form>';
 
 		// <input type="submit" id="form-submit" class="' . esc_attr( implode( ' ', $button_classes ) ) . '" value="' . __( 'Send', 'wpgen' ) . '">
@@ -230,9 +223,7 @@ function add_popup_form_before_footer() {
 		});
 	});';
 
-	$magnific_popup_form_init = minify_js( $magnific_popup_form_init );
-
-	wp_add_inline_script( 'magnific-scripts', $magnific_popup_form_init );
+	wp_add_inline_script( 'magnific-scripts', minify_js( $magnific_popup_form_init ) );
 
 	$before_form = '<div id="popup" class="mfp-hide popup"><h3>' . __( 'Send request', 'wpgen' ) . '</h3>';
 	$after_form  = '</div>';

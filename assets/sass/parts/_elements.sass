@@ -9,7 +9,6 @@
 		content: ""
 		clear: both
 
-
 .says, .screen-reader-text
 	clip: rect(1px, 1px, 1px, 1px)
 	clip-path: polygon(0 0, 0 0, 0 0, 0 0)
@@ -26,42 +25,6 @@
 		top: 5px
 		width: auto
 		z-index: 100000
-
-@media (min-width: 768px)
-	.text-md-left
-		text-align: left
-	.text-md-right
-		text-align: right
-
-.alignnone
-	margin: 5px 20px 10px 0
-
-.aligncenter
-	display: block
-	margin: 5px auto 10px auto
-	clear: both
-
-.alignright
-	float: right
-	margin: 5px 0 20px 20px
-
-.alignleft
-	float: left
-	margin: 5px 20px 10px 0
-
-a img
-	&.alignright
-		float: right
-		margin: 5px 0 10px 20px
-	&.alignnone
-		margin: 5px 20px 10px 0
-	&.alignleft
-		float: left
-		margin: 5px 20px 10px 0
-	&.aligncenter
-		display: block
-		margin-left: auto
-		margin-right: auto
 
 .gallery
 	margin-bottom: 1rem
@@ -97,26 +60,23 @@ a img
 		font-size: $small-font-size
 		color: $gray-color-dark
 
-
 // #dropdown
-.dropup, .dropdown
-	position: relative
+// .dropup, .dropdown
+// 	position: relative
 
-.dropdown-toggle
-	display: inline-block
-	vertical-align: middle
-	cursor: pointer
-	.dropdown-toggle__icon
-		display: block
-		width: 12px
-		height: 12px
-		background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat
-		transition: $transition
-	&.dropdown-toggled-on
-		.dropdown-toggle__icon
-			transform: rotate(180deg)
-
-
+// .dropdown-toggle
+// 	display: inline-block
+// 	vertical-align: middle
+// 	cursor: pointer
+// 	.dropdown-toggle__icon
+// 		display: block
+// 		width: 12px
+// 		height: 12px
+// 		background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat
+// 		transition: $transition
+// 	&.dropdown-toggled-on
+// 		.dropdown-toggle__icon
+// 			transform: rotate(180deg)
 
 // подсветка атрибута data-title при наведении
 .data-title

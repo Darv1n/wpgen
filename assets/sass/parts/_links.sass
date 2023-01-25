@@ -9,9 +9,9 @@ a
 		color: $link-color-dark
 
 .link
-	color: $gray-color-darken
+	color: $gray-color
 	&:hover, &:focus, &:active
-		color: $text-color
+		color: $gray-color-dark
 .link-border
 	border-bottom: $border-width solid transparent
 	&:hover, &:focus, &:active
@@ -56,6 +56,16 @@ a
 	.link-color-border
 		&:hover, &:focus, &:active
 			border-bottom: $border-width solid $link-color-dark
+
+.link-telegram
+	color: #0088CC
+	&:hover, &:focus, &:active
+		color: darken( #0088CC, 10% )
+
+.link-whatsapp
+	color: #4FCE5D
+	&:hover, &:focus, &:active
+		color: darken( #4FCE5D, 10% )
 
 a.inactive
 	color: inherit

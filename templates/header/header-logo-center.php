@@ -11,12 +11,12 @@
 
 	<div <?php wpgen_container_classes( 'container-header' ); ?>>
 		<div class="row align-items-center">
-			<div class="col-12 col-md-4">
+			<div class="col-12 col-md-4 header-column">
 
 				<?php do_action( 'wpgen_header_left_content' ); ?>
 
 			</div>
-			<div class="col-12 col-md-4">
+			<div class="col-12 col-md-4 header-column">
 
 				<?php do_action( 'wpgen_before_site_branding' ); ?>
 
@@ -25,7 +25,7 @@
 				<?php do_action( 'wpgen_after_site_branding' ); ?>
 
 			</div>
-			<div class="col-12 col-md-4">
+			<div class="col-12 col-md-4 header-column">
 
 				<?php do_action( 'wpgen_header_right_content' ); ?>
 
@@ -50,7 +50,6 @@
 							<nav id="main-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_html_e( 'Site main menu', 'wpgen' ); ?>">
 
 								<?php
-
 									$args = array(
 										'theme_location' => 'primary',
 										'menu_id'        => 'primary-navigation',
@@ -58,8 +57,7 @@
 									);
 
 									wp_nav_menu( $args );
-
-									?>
+								?>
 
 							</nav>
 

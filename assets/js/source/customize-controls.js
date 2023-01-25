@@ -92,7 +92,7 @@
 		wpgen_customizer_checkbox_lock( 'general_scroll_top_display', true, 1 );
 		wpgen_customizer_checkbox_lock( 'single_post_meta_display', true, 5 );
 		wpgen_customizer_checkbox_lock( 'single_post_entry_footer_display', true, 3 );
-		wpgen_customizer_checkbox_lock( 'archive_page_meta_display', true, 4 );
+		wpgen_customizer_checkbox_lock( 'archive_page_meta_display', true, 7 );
 		wpgen_customizer_checkbox_lock( 'archive_page_detail', true, 2 );
 
 /*		wpgen_customizer_checkbox_lock( 'sidebar_display_home', false, 1 );

@@ -11,7 +11,7 @@ add_shortcode( 'current-year', 'wpgen_current_year' ); // [current-year year="20
 add_shortcode( 'current-date', 'wpgen_current_date' ); // [current-date format="j F Y" date="28.01.2020" add_days="1"].
 add_shortcode( 'privacy-link', 'wpgen_privacy_link' ); // [privacy-link font-size="small"].
 add_shortcode( 'wpgen-social-list', 'wpgen_shortcode_social_list' ); // [wpgen-social-list type="links" class="list-inline"].
-add_shortcode( 'wpgen-telegram', 'wpgen_shortcode_telegram' ); // [wpgen-telegram nick="artzolin"].
+add_shortcode( 'wpgen-telegram', 'wpgen_shortcode_telegram' ); // [wpgen-telegram link="t.me//artzolin"].
 add_shortcode( 'wpgen-whatsapp', 'wpgen_shortcode_whatsapp' ); // [wpgen-whatsapp number="+79500463854"].
 add_shortcode( 'wpgen-contacts-list', 'wpgen_shortcode_contact_list' ); // [wpgen-contacts-list].
 add_shortcode( 'wpgen-address', 'wpgen_shortcode_address' ); // [wpgen-address].
@@ -160,8 +160,6 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 		$output = '';
 
 		// Собираем классы ссылки.
-		$classes[] = 'link';
-		$classes[] = 'link-color-unborder';
 		$classes[] = 'privacy_link';
 		if ( $atts['font-size'] !== 'normal' ) {
 			$classes[] = $atts['font-size'];
@@ -170,7 +168,7 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 			$classes[] = $atts['class'];
 		}
 
-		$output .= '<a class="' . esc_attr( implode( ' ', $classes ) ) . '" href="' . esc_url( get_privacy_policy_url() ) . '">' . get_escape_title( $atts['text'] ) . '</a>';
+		$output .= '<a ' . link_classes( $classes, false ) . ' href="' . esc_url( get_privacy_policy_url() ) . '">' . get_escape_title( $atts['text'] ) . '</a>';
 
 		return apply_filters( 'wpgen_current_year', $output );
 	}
@@ -288,7 +286,7 @@ if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 if ( ! function_exists( 'wpgen_shortcode_telegram' ) ) {
 
 	/**
-	 * Add shortcode with telegram link [wpgen-telegram nick="artzolin"]
+	 * Add shortcode with telegram link [wpgen-telegram link="t.me//artzolin"]
 	 *
 	 * @param array $atts shortcode attributes.
 	 *
@@ -298,8 +296,8 @@ if ( ! function_exists( 'wpgen_shortcode_telegram' ) ) {
 
 		// Define a white list of attributes.
 		$atts = shortcode_atts( array(
-			'class' => 'btn btn-telegram',
-			'nick'  => wpgen_options( 'other_telegram_nick' ),
+			'class' => 'button button-telegram icon icon_telegram',
+			'link'  => wpgen_options( 'other_telegram_chat_link' ),
 		), $atts );
 
 		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://t.me/' . $atts['nick'] ) . '">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
@@ -321,11 +319,11 @@ if ( ! function_exists( 'wpgen_shortcode_whatsapp' ) ) {
 
 		// Define a white list of attributes.
 		$atts = shortcode_atts( array(
-			'class'  => 'btn btn-whatsapp',
+			'class'  => 'button button-whatsapp icon icon_whatsapp',
 			'number' => wpgen_options( 'other_whatsapp_phone' ),
 		), $atts );
 
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', $atts['number'] ) ) . '">' . esc_html__( 'Write to Whatsapp', 'wpgen' ) . '</a>';
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', $atts['number'] ) ) . '">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_whatsapp', $output );
 	}

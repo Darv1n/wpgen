@@ -32,8 +32,26 @@ body
 .hidden
 	display: none !important
 
-.relative
-	position: relative
+.transition
+	transition: $transition
+
+.mb
+	margin-bottom: $margin
+
+.primary-font
+	font-family: $primary-font
+	font-weight: $primary-font-weight
+
+.primary-color
+	color: $primary-color
+.secondary-color
+	color: $secondary-color
+.gray-color
+	color: $gray-color
+.text-color
+	color: $text-color
+.white-color
+	color: $white-color
 
 .theme_white
 	background: $white-color
@@ -56,7 +74,7 @@ body
 		background: $text-color
 
 .theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
-	color: $white-color
+	@extend .white-color
 
 //	#Typography
 small, .small
@@ -65,17 +83,12 @@ small, .small
 big, .big, .large
 	font-size: $large-font-size
 
-.primary-font
-	font-family: $primary-font
-	font-weight: $primary-font-weight
-
 .bold
 	font-weight: bold
 		
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
-	margin-bottom: 1rem
-	font-family: $primary-font
-	font-weight: $primary-font-weight
+	@extend .primary-font
+	@extend .mb
 	line-height: 1.2
 	hyphens: none
 
@@ -113,27 +126,20 @@ h4, .h4, h5, .h5
 h6, .h6
 	font-size: $h6
 
-ul, ol, dl
-	margin-bottom: 1rem
+ul, ol, dl, fieldset, hr, address, fieldset, figure
+	@extend .mb
 
-p
-	margin-bottom: 1rem
-	&:last-child
-		margin-bottom: 0
-
-hr, address, fieldset, figure
-	margin-bottom: 1rem
+p:not(:last-child)
+	margin-bottom: $margin
 
 hr
-	margin-top: 1rem
-	margin-bottom: 1rem
+	margin-top: $margin
 	border: 0
 	border-top: 1px solid rgba(0, 0, 0, .1)
 
 fieldset
-	padding: .725rem 1.5rem
+	padding: $gutter*2 $gutter*4
 	border: $border-middle-gray-color
-	margin-bottom: 1rem
 
 img
 	display: block
@@ -141,7 +147,7 @@ img
 	height: auto
 
 svg
-	transition: $transition
+	@extend .transition
 
 code, kbd, pre, samp
 	font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
@@ -181,7 +187,7 @@ kbd kbd
 
 .theme_dark, .theme_black
 	code, kbd
-		color: $text-color
+		@extend .text-color
 
 caption
 	padding-top: .75rem
@@ -200,7 +206,6 @@ caption.caption-title
 	font-family: $primary-font
 	font-weight: $primary-font-weight
 
-
 blockquote
 	position: relative
 	display: block
@@ -216,7 +221,7 @@ blockquote
 		color: $gray-color-dark
 		&::before
 			content: "\2014\00a0"
-	*:last-child
+	> *:last-child
 		margin: 0
 
 .theme_dark, .theme_black
@@ -226,7 +231,7 @@ blockquote
 
 .theme_light
 	blockquote
-		background-color: $white-color
+		@extend .white-color
 
 @media (min-width: 576px)
 	blockquote
@@ -264,8 +269,8 @@ table, .table
 		text-align: center
 
 .wp-block-table
+	@extend .mb
 	overflow-x: auto
-	margin-bottom: 1rem
 	table
 		min-width: 600px
 		margin-bottom: 0
@@ -275,58 +280,42 @@ table, .table
 		color: $gray-color-dark
 
 .wp-caption
-  max-width: 100%
-  overflow: hidden
+	max-width: 100%
+	overflow: hidden
 
 .wp-caption-text
-  padding: $gutter*2
-  text-align: center
-  font-size: $small-font-size
+	padding: $gutter*2
+	text-align: center
+	font-size: $small-font-size
 
 .wp-block-image figcaption
-  text-align: right
-  font-size: $small-font-size
+	text-align: right
+	font-size: $small-font-size
 
 .wp-video
-	margin-bottom: 1rem
+	@extend .mb
 
-.center-text
-  text-align: center
-
-.list-unstyled
-	padding-left: 0
-	list-style: none
-
-.list-inline
-	padding-left: 0
-	list-style: none
-	li
-		display: inline-block
-		&:not(:last-child)
-			margin-right: 0.5rem
-
-.list-inline-item
-	display: inline-block
-
-.list-inline-item:not(:last-child)
-	margin-right: .5rem
+.list
+	&-unstyled, &-inline, &-block
+		padding-left: 0
+		list-style: none
+	&-inline
+		> *
+			display: inline-block
+			&:not(:last-child)
+				margin-right: $gutter*2
+	&-block
+		> *
+			display: block
+			&:not(:last-child)
+				margin-bottom: $gutter*2
 
 .initialism
 	font-size: 90%
 	text-transform: uppercase
 
-.transition
-	transition: $transition
-
-// #Colors
-.primary-color
-	color: $primary-color
-
-.secondary-color
-	color: $secondary-color
-
 a, button, select
 	cursor: pointer
 
 a, button, input, select, textarea
-	transition: $transition
+	@extend .transition

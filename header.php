@@ -22,30 +22,23 @@
 
 <body <?php body_class(); ?>>
 
-<?php wp_body_open(); ?>
+	<?php wp_body_open(); ?>
 
-	<div id="page" class="site">
+	<header id="header" <?php wpgen_header_classes(); ?> aria-label="<?php echo _x( 'Site header', 'aria-label', 'wpgen' ); ?>">
 
-		<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'wpgen' ); ?></a>
+		<?php do_action( 'wp_header_open' ); ?>
 
-		<header id="header" <?php wpgen_header_classes(); ?> role="banner" aria-label="<?php _e( 'Main Site Header', 'wpgen' ); ?>">
+		<?php if ( wpgen_options( 'general_header_top_bar_display' ) ) { ?>
+			<div id="header__top-bar" class="header__top-bar">
+				<div <?php wpgen_container_classes( 'container-header' ); ?>>
 
-			<?php do_action( 'wp_header_open' ); ?>
+					<?php get_template_part( 'templates/header/header-top-bar' ); ?>
 
-			<!-- Header Top Bar -->
-			<?php if ( wpgen_options( 'general_header_top_bar_display' ) ) { ?>
-				<div id="header__top-bar" class="header__top-bar">
-					<div <?php wpgen_container_classes( 'container-header' ); ?>>
-						<div class="row align-items-center">
-							<div class="header__item text-md-left col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-left' ); ?></div>
-							<div class="header__item text-md-right col-12 col-xs-12 col-md-6"><?php dynamic_sidebar( 'sidebar-top-right' ); ?></div>
-						</div>
-					</div>
 				</div>
-			<?php } ?>
+			</div>
+		<?php } ?>
 
-			<?php
-
+		<?php
 			if ( wpgen_options( 'general_header_type' ) === 'header-content' ) {
 				get_template_part( 'templates/header/header-content' );
 			} elseif ( wpgen_options( 'general_header_type' ) === 'header-logo-center' ) {
@@ -53,17 +46,18 @@
 			} else {
 				get_template_part( 'templates/header/header-simple' );
 			}
+		?>
 
-			?>
+		<?php do_action( 'wp_header_close' ); ?>
 
-			<?php do_action( 'wp_header_close' ); ?>
+	</header>
 
-		</header>
-
-		<!-- @hooked wpgen_breadcrumbs - 10 -->
-		<?php do_action( 'before_site_content' ); ?>
-
-		<section id="content" class="site__content">
-
-			<div <?php wpgen_container_classes(); ?>>
-				<div class="row">
+	<?php 
+		/**
+		 * Hook: before_site_content.
+		 *
+		 * @hooked wpgen_breadcrumbs                   - 10
+		 * @hooked wpgen_first_screen (if need)        - 30
+		 * @hooked wpgen_section_content_wrapper_start - 50
+		 */
+		do_action( 'before_site_content' );

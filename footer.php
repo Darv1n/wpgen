@@ -10,22 +10,34 @@
  */
 
 ?>
-			</div><!-- close .row -->
-		</div><!-- close .container -->
-	</section><!-- close .site__content -->
 
-	<?php do_action( 'after_site_content' ); ?>
+<?php
+	/**
+	 * Hook: after_site_content.
+	 *
+	 * @hooked wpgen_section_content_wrapper_end           - 50
+	 * @hooked wpgen_feedback_form_before_footer (if need) - 70
+	 */
+	do_action( 'after_site_content' ); ?>
 
-	<footer id="colophon" <?php wpgen_footer_classes(); ?> role="contentinfo" aria-label="<?php _e( 'Main Site Footer', 'wpgen' ); ?>">
+	<footer id="footer" <?php wpgen_footer_classes(); ?> aria-label="<?php echo _x( 'Site footer', 'aria-label', 'wpgen' ); ?>">
 
 		<?php do_action( 'wp_footer_open' ); ?>
 
-		<!-- Footer Top Bar -->
-		<div class="footer__top-bar">
+		<?php if ( wpgen_options( 'general_footer_top_bar_display' ) ) { ?>
+			<div class="footer__top-bar">
+				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
+
+					<?php get_template_part( 'templates/footer/footer-top-bar' ); ?>
+
+				</div>
+			</div>
+		<?php } ?>
+
+		<div class="footer__middle-bar">
 			<div <?php wpgen_container_classes( 'container-footer' ); ?>>
 
 				<?php
-
 					if ( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
 						get_template_part( 'templates/footer/footer-three-columns' );
 					} elseif ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
@@ -33,20 +45,17 @@
 					} else {
 						get_template_part( 'templates/footer/footer-simple' );
 					}
-
 				?>
 
 			</div>
 		</div>
 
-		<!-- Footer Bottom Bar -->
 		<?php if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) { ?>
 			<div class="footer__bottom-bar">
 				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
-					<div class="row align-items-center">
-						<div class="text-md-left col-12 col-sm-12 col-md-6 footer-column"><?php dynamic_sidebar( 'sidebar-footer-bottom-left' ); ?></div>
-						<div class="text-md-right col-12 col-sm-12 col-md-6 footer-column"><?php dynamic_sidebar( 'sidebar-footer-bottom-right' ); ?></div>
-					</div>
+
+					<?php get_template_part( 'templates/footer/footer-bottom-bar' ); ?>
+
 				</div>
 			</div>
 		<?php } ?>
@@ -54,9 +63,8 @@
 		<?php do_action( 'wp_footer_close' ); ?>
 
 	</footer>
-</div><!-- close .site -->
 
-<?php wp_footer(); ?>
+	<?php wp_footer(); ?>
 
 </body>
 </html>

@@ -1601,7 +1601,6 @@ html
 		-ms-flex-item-align: stretch !important
 		align-self: stretch !important
 
-
 .col-5-th, .col-sm-5th, .col-md-5th, .col-lg-5th, .col-xl-5th
 	position: relative
 	width: 100%
@@ -1653,3 +1652,9 @@ html
 		-ms-flex: 0 0 20%
 		flex: 0 0 20%
 		max-width: 20%
+
+.wp-block-columns
+	@extend .row
+
+.wp-block-column
+	@extend .col

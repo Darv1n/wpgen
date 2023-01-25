@@ -69,7 +69,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'root'  => 'secondaryFont',
 					'style' => get_selected_font(),
 				),
-				'customizer-general-container-width' => array(
+/*				'customizer-general-container-width' => array(
 					'title' => __( 'Container', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerContainer',
@@ -113,7 +113,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'icon-text'        => __( 'Icon + Text', 'wpgen' ),
 						'text'             => __( 'Text', 'wpgen' ),
 					),
-				),
+				),*/
 				'customizer-general-button-type' => array(
 					'title' => __( 'Button type', 'wpgen' ),
 					'type'  => 'customizer',
@@ -366,14 +366,13 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			}*/
 
-		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'btn-wpgen', 'default' ) ) ) . '" type="button" data-text-on="Close WpGen" data-text-off="Open WpGen" data-opener="off">Open WpGen</button>';
+		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
 				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
-					$out .= '<fieldset class="btn-set">';
-						// $out .= '<input id="wpgen-name" type="text" name="name" required>';
-						$out .= '<input id="wpgen-random" type="button" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" value="Random">';
-						$out .= '<input id="wpgen-submit" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) ) . '" data-action="save" value="Save">';
-						$out .= '<input id="wpgen-submit" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) ) . '" data-action="reset" value="Default">';
+					$out .= '<fieldset class="button-set">';
+						$out .= '<input id="wpgen-random" type="button" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" value="' . __( 'Random', 'wpgen' ) . '">';
+						$out .= '<input id="wpgen-save" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) ) . '" data-action="save" value="' . __( 'Save', 'wpgen' ) . '">';
+						$out .= '<input id="wpgen-reset" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) ) . '" data-action="reset" value="' . __( 'Default', 'wpgen' ) . '">';
 					$out .= '</fieldset>';
 
 					foreach ( $elems as $key_e => $elem ) {
@@ -466,7 +465,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 								}
 
 								$out .= '</select>';
-								$out .= '<span class="lock lock-off" data-lock="off"></span>';
+								$out .= '<i class="lock icon icon_lock-on" data-lock="on"></i>';
 							$out .= '</div>';
 						$out .= '</fieldset>';
 					}

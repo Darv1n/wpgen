@@ -31,6 +31,20 @@ if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 		// Sort search results by post_type.
 		if ( $query->is_search ) {
 			$query->set( 'orderby', 'type' );
+			$query->set( 'posts_per_page', 36 );
+		}
+
+		// Sort post by wpgen option.
+		if ( $query->is_archive ) {
+			if ( $query->get( 'post_type' ) ) {
+				$post_type = $query->get( 'post_type' );
+			} else {
+				$post_type = 'post';
+			}
+
+			$query->set( 'posts_per_page', wpgen_options( 'archive_' . $post_type . '_posts_per_page' ) );
+			$query->set( 'order', wpgen_options( 'archive_' . $post_type . '_posts_order' ) );
+			$query->set( 'orderby', wpgen_options( 'archive_' . $post_type . '_posts_orderby' ) );
 		}
 	}
 }
@@ -95,6 +109,19 @@ if ( ! function_exists( 'wpgen_print_counters' ) ) {
 	 */
 	function wpgen_print_counters() {
 
+		if ( wpgen_options( 'other_google_counter' ) ) {
+			echo '<!-- Global site tag (gtag.js) - Google Analytics -->
+					<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_html( wpgen_options( 'other_google_counter' ) ) . '"></script>
+					<script>
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag("js", new Date());
+
+						gtag("config", "' . esc_html( wpgen_options( 'other_google_counter' ) ) . '");
+					</script>' . "\n";
+
+		}
+
 		if ( wpgen_options( 'other_yandex_counter' ) ) {
 			echo '<!-- Yandex.Metrika counter -->
 				<script type="text/javascript" >
@@ -111,35 +138,5 @@ if ( ! function_exists( 'wpgen_print_counters' ) ) {
 				<!-- /Yandex.Metrika counter -->' . "\n";
 
 		}
-
-		if ( wpgen_options( 'other_google_counter' ) ) {
-			echo '<!-- Global site tag (gtag.js) - Google Analytics -->
-					<script async src="https://www.googletagmanager.com/gtag/js?id=' . esc_html( wpgen_options( 'other_google_counter' ) ) . '"></script>
-					<script>
-						window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag("js", new Date());
-
-						gtag("config", "' . esc_html( wpgen_options( 'other_google_counter' ) ) . '");
-					</script>' . "\n";
-
-		}
-
-		if ( wpgen_options( 'other_mailru_counter' ) ) {
-			echo '<!-- Rating Mail.ru counter -->
-					<script type="text/javascript">
-					var _tmr = window._tmr || (window._tmr = []);
-					_tmr.push({id: "' . esc_html( wpgen_options( 'other_mailru_counter' ) ) . '", type: "pageView", start: (new Date()).getTime()});
-					(function (d, w, id) {
-						if (d.getElementById(id)) return;
-						var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
-						ts.src = "https://top-fwz1.mail.ru/js/code.js";
-						var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
-						if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
-					})(document, window, "topmailru-code");
-					</script>
-					<!-- //Rating Mail.ru counter -->' . "\n";
-		}
-
 	}
 }

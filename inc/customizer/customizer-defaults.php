@@ -16,6 +16,14 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	 */
 	function wpgen_options( $control = null ) {
 
+		$args = array(
+			'public'   => true,
+			'_builtin' => false,
+		);
+
+		$post_types = get_post_types( $args );
+		array_unshift( $post_types, 'post' );
+
 		$wpgen_defaults = array(
 			'general_color_scheme'                    => 'white',
 			'general_header_color_scheme'             => 'white',
@@ -36,8 +44,9 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_menu_align'                      => 'right',
 			'general_menu_button_alignment'           => 'right',
 			'general_menu_button_type'                => 'button-icon-text',
-			'general_menu_button_icon_position'       => 'left',
+			'general_menu_button_icon_position'       => 'before',
 
+			'general_footer_top_bar_display'          => false,
 			'general_footer_bottom_bar_display'       => false,
 			'general_footer_type'                     => 'footer-four-columns',
 
@@ -48,7 +57,7 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_scroll_top_button_display'       => true,
 			'general_scroll_top_button_alignment'     => 'right',
 			'general_scroll_top_button_type'          => 'icon-text',
-			'general_scroll_top_button_icon_position' => 'left',
+			'general_scroll_top_button_icon_position' => 'before',
 
 			'general_seo_tags_display'                => true,
 			'general_seo_tags_separator'              => '|',
@@ -67,40 +76,77 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'sidebar_display_error'                   => true,
 			'sidebar_display_author'                  => false,
 
-			'single_post_meta_display'                => true,
-			'single_post_template_type'               => 'one',
-			'single_post_meta_author_display'         => false,
-			'single_post_meta_date_display'           => true,
-			'single_post_meta_cats_display'           => true,
-			'single_post_meta_tags_display'           => false,
-			'single_post_meta_comments_display'       => false,
-			'single_post_meta_time_display'           => true,
-			'single_post_meta_edit_display'           => true,
-			'single_post_date_modified_display'       => false,
-			'single_post_thumbnail_display'           => true,
-			'single_post_entry_footer_display'        => true,
-			'single_post_entry_footer_cats_display'   => false,
-			'single_post_entry_footer_tags_display'   => true,
-			'single_post_post_nav_display'            => false,
-			'single_post_similar_posts_display'       => true,
-			'single_post_similar_posts_orderby'       => 'date',
-			'single_post_similar_posts_count'         => '3',
-
 			'archive_page_columns'                    => 'three',
-			'archive_page_template_type'              => 'tils',
-			'archive_page_pagination'                 => 'numeric',
-			'archive_page_meta_display'               => true,
-			'archive_page_meta_author_display'        => false,
-			'archive_page_meta_date_display'          => true,
-			'archive_page_meta_cats_display'          => false,
-			'archive_page_meta_tags_display'          => false,
-			'archive_page_meta_comments_display'      => false,
-			'archive_page_meta_time_display'          => true,
-			'archive_page_meta_edit_display'          => false,
-			'archive_page_detail'                     => true,
-			'archive_page_detail_button'              => 'button',
-			'archive_page_detail_description'         => 'excerpt',
+			// 'archive_page_template_type'              => 'tils',
+			// 'archive_page_pagination'                 => 'numeric',
+			// 'archive_page_meta_display'               => true,
+			// 'archive_page_meta_author_display'        => false,
+			// 'archive_page_meta_date_display'          => true,
+			// 'archive_page_meta_cats_display'          => false,
+			// 'archive_page_meta_tags_display'          => false,
+			// 'archive_page_meta_comments_display'      => false,
+			// 'archive_page_meta_time_display'          => true,
+			// 'archive_page_meta_edit_display'          => false,
+			// 'archive_page_detail_button'              => 'button',
+			// 'archive_page_detail_description'         => 'excerpt',
+		);
 
+		foreach ( $post_types as $key => $post_type ) {
+
+			$post_type_object  = get_post_type_object( $post_type );
+			$object_taxonomies = get_object_taxonomies( $post_type );
+
+			$wpgen_defaults += array(
+				'single_' . $post_type . '_meta_display'                => true,
+				'single_' . $post_type . '_meta_author_display'         => false,
+				'single_' . $post_type . '_meta_date_display'           => true,
+				'single_' . $post_type . '_meta_date_modified_display'  => false,
+				'single_' . $post_type . '_meta_cats_display'           => true,
+				'single_' . $post_type . '_meta_tags_display'           => false,
+				'single_' . $post_type . '_meta_comments_display'       => false,
+				'single_' . $post_type . '_meta_time_display'           => true,
+				'single_' . $post_type . '_meta_edit_display'           => true,
+
+				'single_' . $post_type . '_template_type'               => 'one',
+				'single_' . $post_type . '_thumbnail_display'           => true,
+				'single_' . $post_type . '_post_nav_display'            => false,
+				'single_' . $post_type . '_entry_footer_display'        => true,
+			);
+
+			if ( $post_type_object->has_archive || ! empty( $object_taxonomies ) ) {
+				$wpgen_defaults += array(
+					'archive_' . $post_type . '_meta_display'          => true,
+					'archive_' . $post_type . '_meta_author_display'   => false,
+					'archive_' . $post_type . '_meta_date_display'     => true,
+					'archive_' . $post_type . '_meta_comments_display' => false,
+					'archive_' . $post_type . '_meta_time_display'     => true,
+					'archive_' . $post_type . '_meta_edit_display'     => false,
+					'archive_' . $post_type . '_columns'               => 'three',
+					'archive_' . $post_type . '_template_type'         => 'tils',
+					'archive_' . $post_type . '_posts_per_page'        => get_option( 'posts_per_page' ),
+					'archive_' . $post_type . '_posts_order'           => 'desc',
+					'archive_' . $post_type . '_posts_orderby'         => 'date',
+					'archive_' . $post_type . '_pagination'            => 'numeric',
+					'archive_' . $post_type . '_detail_button'         => 'button',
+					'archive_' . $post_type . '_detail_description'    => 'excerpt',
+				);
+			}
+
+			if ( $post_type === 'post' ) {
+				$wpgen_defaults += array(
+					'single_post_entry_footer_cats_display' => false,
+					'single_post_entry_footer_tags_display' => true,
+					'single_post_similar_posts_display'     => true,
+					'single_post_similar_posts_order'       => 'desc',
+					'single_post_similar_posts_orderby'     => 'date',
+					'single_post_similar_posts_count'       => 3,
+					'archive_post_meta_cats_display'        => false,
+					'archive_post_meta_tags_display'        => false,
+				);
+			}
+		}
+
+		$wpgen_defaults += array(
 			'other_vkontakte'                         => '',
 			'other_facebook'                          => '',
 			'other_instagram'                         => '',
@@ -110,18 +156,15 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'other_linkedin'                          => '',
 
 			'other_whatsapp_phone'                    => '',
-			'other_telegram_nick'                     => '',
-
+			'other_telegram_chat_link'                => '',
 			'other_address'                           => '',
 			'other_phone'                             => '',
 			'other_email'                             => '',
 
 			'other_yandex_verification'               => '',
 			'other_google_verification'               => '',
-			'other_mailru_verification'               => '',
 			'other_yandex_counter'                    => '',
 			'other_google_counter'                    => '',
-			'other_mailru_counter'                    => '',
 		);
 
 		// Merge child and parent default options.

@@ -50,7 +50,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 	 *
 	 * @param string $folder        root folder path. Default: 'data/'.
 	 * @param array $titles         array with image titles in keys. You can pass path to xlsx file, like 'data/nft.slsx'
-	 * @param string $columns_count number of columns. Default: wpgen_options( 'archive_page_columns' ).
+	 * @param string $columns_count number of columns. Default: 3.
 	 * @param bool $inner           include inner folders. Default: true.
 	 * @param bool $shuffle         mix it up. Default: true.
 	 * @param array $allowed_types  permissible file extensions. Default: array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ).
@@ -60,7 +60,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 	 *
 	 * @return array
 	 */
-	function the_gallery( $folder = 'data/', $titles = array(), $columns_count = null, $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ), $caption_text = null, $caption_link = null, $echo = true ) {
+	function the_gallery( $folder = 'data/', $titles = array(), $columns_count = 3, $inner = true, $shuffle = true, $allowed_types = array( 'jpg', 'png', 'gif', 'jpeg', 'webp' ), $caption_text = null, $caption_link = null, $echo = true ) {
 
 		$images = get_gallery( trailingslashit( $folder ), $inner, $shuffle, $allowed_types );
 
@@ -74,11 +74,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 		}
 
 		// If the number of columns is not passed, we take it from default option. Otherwise we run it through number to string conversion function.
-		if ( is_null( $columns_count ) ) {
-			$columns_count = wpgen_options( 'archive_page_columns' );
-		} else {
-			$columns_count = get_wpgen_count_columns( $columns_count, false );
-		}
+		$columns_count = get_wpgen_count_columns( $columns_count, false );
 
 		$html = '<div class="masonry-container">';
 			$html .= '<div class="row no-gutters masonry-gallery popup-gallery">';
@@ -99,7 +95,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 					$title = get_the_title() . ' ' . $key++;
 				}
 
-				$html .= '<a class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( 'masonry-item', $columns_count ) ) ) . '" href="' . esc_url( $image ) . '" title="' . esc_attr( $title ) . '">';
+				$html .= '<a ' . wpgen_archive_page_columns_classes( $key, 'masonry-item', $columns_count, false ) . ' href="' . esc_url( $image ) . '" title="' . esc_attr( $title ) . '">';
 					$html .= '<img class="masonry-image" src="' . esc_url( $image ) . '" alt="' . esc_attr( $title ) . '"/>';
 				$html .= '</a>';
 
@@ -124,7 +120,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 
 		$masonry_init = 'jQuery(function($) {
 			var $container = $(".masonry-gallery");
-			
+
 			$container.imagesLoaded( function() {
 				$container.masonry({
 					columnWidth: ".masonry-item",
@@ -133,8 +129,9 @@ if ( ! function_exists( 'the_gallery' ) ) {
 			});
 		});';
 
-		wp_add_inline_script( 'masonry', $masonry_init );
+		wp_add_inline_script( 'masonry', minify_js( $masonry_init ) );
 
+		wp_enqueue_style( 'magnific-styles' );
 		wp_enqueue_script( 'magnific-scripts' );
 
 		$magnific_gallery_init = 'jQuery(function($) {
@@ -157,9 +154,7 @@ if ( ! function_exists( 'the_gallery' ) ) {
 			});
 		});';
 
-		$magnific_gallery_init = minify_js( $magnific_gallery_init );
-
-		wp_add_inline_script( 'magnific-scripts', $magnific_gallery_init );
+		wp_add_inline_script( 'magnific-scripts', minify_js( $magnific_gallery_init ) );
 
 		$html = apply_filters( 'the_gallery', $html );
 

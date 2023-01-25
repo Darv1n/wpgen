@@ -9,12 +9,13 @@
 
 ?>
 
-<section class="no-results not-found">
-	<header class="entry__part entry__header">
-		<h2 class="entry__title"><?php esc_html_e( 'Nothing Found', 'wpgen' ); ?></h2>
+<section class="content-area-content no-results">
+
+	<header class="content-area-header">
+		<h2 class="content-area-title"><?php esc_html_e( 'Nothing Found', 'wpgen' ); ?></h2>
 	</header>
 
-	<div class="entry__part entry__content">
+	<div class="no-results-content">
 		<?php if ( is_home() && current_user_can( 'publish_posts' ) ) { ?>
 
 			<?php printf( '<p>' . wp_kses( __( 'Ready to publish your first post? <a href="%1$s">Get started here</a>', 'wpgen' ), array( 'a' => array( 'href' => array() ) ) ) . '</p>', esc_url( admin_url( 'post-new.php' ) ) ); ?>
@@ -33,4 +34,5 @@
 
 		<?php } ?>
 	</div>
+
 </section>

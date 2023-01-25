@@ -42,8 +42,10 @@ if ( ! function_exists( 'external_utm_links_callback' ) ) {
 			$url = $matches[2];
 		} elseif ( isset( $match_parse_url['query'] ) && stripos( $match_parse_url['query'], 'utm_' ) !== false ) {
 			$url = $matches[2];
-		} else {
+		} elseif ( isset( $home_parse_url['host'] ) && isset( $match_parse_url['host'] ) && $home_parse_url['host'] !== $match_parse_url['host'] ) {
 			$url = add_query_arg( array( 'utm_source' => $home_parse_url['host'] ), $matches[2] );
+		} else {
+			$url = $matches[2];
 		}
 
 		return '<a ' . $matches[1] . ' href="' . $url . '" ' . $matches[3] . '>' . $matches[4] . '</a>';

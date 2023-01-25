@@ -267,14 +267,30 @@ function wpgen_customize_register( $wp_customize ) {
 
 
 	// Add sections.
+	$args = array(
+		'public'   => true,
+		'_builtin' => false,
+	);
+
+	$post_types = get_post_types( $args );
+	array_unshift( $post_types, 'post' );
+
 	$sections = array(
 		'general'      => __( 'General options', 'wpgen' ),
 		'sidebar'      => __( 'Sidebar options', 'wpgen' ),
 		'front_page'   => __( 'Front page options', 'wpgen' ),
-		'single_post'  => __( 'Single post options', 'wpgen' ),
 		'archive_page' => __( 'Archive options', 'wpgen' ),
-		'other'        => __( 'Other options', 'wpgen' ),
 	);
+
+	foreach ( $post_types as $key => $post_type ) {
+		$sections['single_' . $post_type] = __( 'Single ' . $post_type . ' options', 'wpgen' );
+	}
+
+	foreach ( $post_types as $key => $post_type ) {
+		$sections['archive_' . $post_type] = __( 'Archive ' . $post_type . ' options', 'wpgen' );
+	}
+
+	$sections['other'] = __( 'Other options', 'wpgen' );
 
 	$priority = 1;
 	foreach ( $sections as $section_name => $section_title ) {

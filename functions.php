@@ -36,6 +36,9 @@ require_once get_template_directory() . '/inc/addons/init-elems.php';
 require_once get_template_directory() . '/inc/addons/tgm/class-tgm-plugin-activation.php';
 require_once get_template_directory() . '/inc/addons/tgm/tgm-setup.php';
 
+// Comments.
+require_once get_template_directory() . '/inc/addons/comments/comments-ajax-handler.php';
+
 // SEO.
 require_once get_template_directory() . '/inc/addons/seo/seo-functions.php';
 require_once get_template_directory() . '/inc/addons/seo/seo-filters.php';
@@ -55,6 +58,7 @@ require_once get_template_directory() . '/inc/addons/wpgen/wpgen-frontend-form.p
 require_once get_template_directory() . '/inc/addons/wpgen/wpgen-ajax-handler.php';
 
 require_once get_template_directory() . '/inc/libs/minifier.php';
+require_once get_template_directory() . '/inc/libs/kama-breadcrumb.php';
 
 // Lib for DOM parsing https://simplehtmldom.sourceforge.io/
 if ( ! class_exists( 'simple_html_dom_node' ) ) {

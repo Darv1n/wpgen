@@ -92,24 +92,6 @@ if ( ! function_exists( 'translit' ) ) {
 	}
 }
 
-if ( ! function_exists( 'array_key_last' ) ) {
-
-	/**
-	 * Callback function array_key_last(), if none exists.
-	 *
-	 * @param array $array array to search for the last key.
-	 *
-	 * @return int
-	 */
-	function array_key_last( $array = array() ) {
-
-		if ( ! is_array( $array ) || empty( $array ) ) {
-			return null;
-		}
-		return array_keys( $array )[ count( $array ) - 1 ];
-	}
-}
-
 if ( ! function_exists( 'array_key_first' ) ) {
 
 	/**
@@ -128,6 +110,24 @@ if ( ! function_exists( 'array_key_first' ) ) {
 			return $key;
 		}
 		return null;
+	}
+}
+
+if ( ! function_exists( 'array_key_last' ) ) {
+
+	/**
+	 * Callback function array_key_last(), if none exists.
+	 *
+	 * @param array $array array to search for the last key.
+	 *
+	 * @return int
+	 */
+	function array_key_last( $array = array() ) {
+
+		if ( ! is_array( $array ) || empty( $array ) ) {
+			return null;
+		}
+		return array_keys( $array )[ count( $array ) - 1 ];
 	}
 }
 
@@ -697,7 +697,7 @@ if ( ! function_exists( 'get_webp_from_folders' ) ) {
 	 *
 	 * @return string
 	 */
-	function get_webp_from_folders( $name, $folder, $folder_webp, $alt = '', $class = 'aspect-ratio', $before = '', $after = '' ) {
+	function get_webp_from_folders( $name, $folder, $folder_webp, $alt = '', $class = 'aspect-ratio' ) {
 
 		$output = '';
 
@@ -728,6 +728,6 @@ if ( ! function_exists( 'get_webp_from_folders' ) ) {
 			}
 		}
 
-		return $before . $output . $after;
+		return $output;
 	}
 }

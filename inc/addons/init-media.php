@@ -61,14 +61,14 @@ if ( ! function_exists( 'the_media' ) ) {
 	 * @param array $requests       main array with search queries. Default: none.
 	 * @param string $lang          language of response from google api. Default: ru.
 	 * @param int $per_page         number of items on the page. Default: 4.
-	 * @param string $columns_count number of columns. Default: wpgen_options( 'archive_page_columns' ).
+	 * @param string $columns_count number of columns. Default: 4.
 	 * @param bool $pagination      output the pagination or not. Default: false.
 	 * @param array $tags           return marks. Default: array( 'main' ).
 	 * @param bool $echo            echo or return output html. Default: true.
 	 *
 	 * @return echo
 	 */
-	function the_media( $requests = null, $lang = null, $per_page = 4, $columns_count = null, $pagination = false, $tags = array( 'main' ), $echo = true ) {
+	function the_media( $requests = null, $lang = null, $per_page = 4, $columns_count = 4, $pagination = false, $tags = array( 'main' ), $echo = true ) {
 
 		if ( is_null( $requests ) ) {
 			$requests = apply_filters( 'get_media_requests', $requests );
@@ -106,19 +106,23 @@ if ( ! function_exists( 'the_media' ) ) {
 			$keys = range( $per_page * ( $page_var - 1) + 1, $per_page * $page_var );
 		}
 
-		if ( is_null( $columns_count ) ) {
-			$columns_count = wpgen_options( 'archive_page_columns' );
-		} else {
-			$columns_count = get_wpgen_count_columns( $columns_count, false );
-		}
+		$columns_count  = get_wpgen_count_columns( $columns_count, false );
+		$post_classes   = array();
+		$post_classes[] = 'post';
+		$post_classes[] = 'post_media';
+		$post_classes[] = 'media';
+		$post_classes   = apply_filters( 'get_media_post_classes', $post_classes );
 
-		$article_classes   = array();
-		$article_classes[] = 'article-media';
-		$article_classes[] = 'media';
-		$article_classes[] = 'elem';
-		$article_classes   = apply_filters( 'get_media__article_classes', $article_classes );
+		/*// Usage:
+		add_filter( 'get_media_post_classes', 'my_media_post_classes' );
+		if ( ! function_exists( 'my_media_post_classes' ) ) {
+			function my_media_post_classes( $classes ) {
+				$classes[] = 'elem';
+				return array_unique( (array) $classes );
+			}
+		}*/
 
-		$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_wrapper_classes() ) ) . '">';
+		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes() . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach ( $excel_row as $key_c => $excel_col ) {
@@ -141,19 +145,19 @@ if ( ! function_exists( 'the_media' ) ) {
 						$media_title = $excel_row[ $names['title'] ];
 					}
 
-					$html .= '<div class="' . esc_attr( implode( ' ', get_wpgen_archive_page_columns_classes( '', $columns_count ) ) ) . '">';
-						$html .= '<article class="' . esc_attr( implode( ' ', $article_classes ) ) . '">';
-							$html .= '<div class="media--source">';
+					$html .= '<div ' . wpgen_archive_page_columns_classes( $key_d, '', $columns_count, false ) . '>';
+						$html .= '<article class="' . esc_attr( implode( ' ', $post_classes ) ) . '">';
+							$html .= '<div class="media-source">';
 								if ( $favicon_url = get_media_favicon( $excel_row[ $names['url'] ] ) ) {
-									$html .= '<img class="media--icon" src="' . esc_url( $favicon_url ) . '" alt="' . esc_attr( $source_name ) . ' icon">';
+									$html .= '<img class="media-icon" src="' . esc_url( $favicon_url ) . '" alt="' . esc_attr( $source_name ) . ' icon">';
 								}
 								$html .= '<p>' . esc_html( $source_name ) . '</p>';
 							$html .= '</div>';
-							$html .= '<h3 class="media--title h6"><a class="media--link" href="' . esc_url( $utm ) . '" target="_blank">' . get_escape_title( $media_title ) . '</a></h3>';
+							$html .= '<h3 class="media-title"><a class="media-link" href="' . esc_url( $utm ) . '" target="_blank">' . get_escape_title( $media_title ) . '</a></h3>';
 							if ( determine_locale() === 'ru_RU' ) {
-								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
+								$html .= '<time class="media-date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . mysql2date( 'j F Y', gmdate( 'Y-m-d', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) ) . '</time>';
 							} else {
-								$html .= '<time class="media--date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . gmdate( 'j F Y', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ). '</time>';
+								$html .= '<time class="media-date" datetime="' . gmdate( 'Y-m-d\TH:i:sP', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ) . '">' . gmdate( 'j F Y', strtotime( esc_attr( $excel_row[ $names['date'] ] ) ) ). '</time>';
 							}
 						$html .= '</article>';
 					$html .= '</div>';
@@ -183,10 +187,10 @@ if ( ! function_exists( 'the_media' ) ) {
 			$page_nav_keys = range( $start_page_nav, $end_page_nav );
 
 			$html .= '<nav class="elem-nav">';
-				$html .= '<ul class="list-unstyled list-inline elem-nav--list">';
+				$html .= '<ul class="elem-nav__list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -203,26 +207,26 @@ if ( ! function_exists( 'the_media' ) ) {
 
 						if ( $pg === $i ) {
 							$rel     = '';
-							$classes = 'elem-nav--link elem-nav--link-current disabled';
+							$classes = 'elem-nav__link elem-nav__link_current button-disabled';
 						} elseif ( $pg + 1 === $i ) {
 							$rel     = ' rel="next"';
-							$classes = 'elem-nav--link elem-nav--link-next';
+							$classes = 'elem-nav__link elem-nav__link_next';
 						} elseif ( $pg > 1 && $pg - 1 === $i ) {
 							$rel     = ' rel="prev"';
-							$classes = 'elem-nav--link elem-nav--link-prev';
+							$classes = 'elem-nav__link elem-nav__link_prev';
 						} else {
 							$rel     = '';
-							$classes = 'elem-nav--link';
+							$classes = 'elem-nav__link';
 						}
 
-						$html .= '<li class="elem-nav--item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
+						$html .= '<li class="elem-nav__item"><a class="' . esc_attr( implode( ' ', get_button_classes( $classes ) ) ) . '" href="' . esc_url( $link ) . '" role="button"' . $rel . '>' . $i . '</a></li>';
 					}
 
 					$i++;
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav--item elem-nav--item-last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav--link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';

@@ -42,8 +42,11 @@ if ( ! function_exists( 'wpgen_body_classes' ) ) {
 			$classes[] = 'error-404';
 		}
 
+		if ( is_front_page() ) {
+			$classes[] = 'front-page';
+		}
+
 		// Adds class with themename.
-		$classes[] = 'theme_' . wp_get_theme()->get( 'Name' );
 		$classes[] = 'theme_' . wpgen_options( 'general_color_scheme' );
 		$classes[] = 'theme_' . wpgen_options( 'general_container_width' );
 
@@ -91,6 +94,9 @@ if ( ! function_exists( 'wpgen_post_classes' ) ) {
 		if ( in_array( 'type-' . get_post_type(), $classes, true ) ) {
 			unset( $classes[ array_search( 'type-' . get_post_type(), $classes ) ] );
 		}
+		if ( in_array( get_post_type(), $classes, true ) ) {
+			unset( $classes[ array_search( get_post_type(), $classes ) ] );
+		}
 		if ( in_array( 'status-' . get_post_status(), $classes, true ) ) {
 			unset( $classes[ array_search( 'status-' . get_post_status(), $classes ) ] );
 		}
@@ -116,12 +122,14 @@ if ( ! function_exists( 'wpgen_post_classes' ) ) {
 			}
 		}
 
-		$classes[] = 'entry';
-		$classes[] = 'article';
+		$classes[] = 'post';
+		$classes[] = 'post_' . get_post_type();
+		$classes[] = get_post_type();
 
 		// Crutch to distinguish single post template from archive template
-		if ( ! in_array( 'article-single', $classes, true ) ) {
-			$classes[] = 'article-archive';
+		if ( ! in_array( 'post_single', $classes, true ) ) {
+			$classes[] = 'post_archive';
+			$classes[] = 'post_' . wpgen_options( 'archive_' . get_post_type() . '_template_type' );
 		}
 
 		$classes = apply_filters( 'wpgen_post_classes', $classes );
@@ -162,7 +170,7 @@ if ( ! function_exists( 'get_wpgen_container_classes' ) ) {
 		if ( ! function_exists( 'my_container_classes' ) ) {
 			function my_container_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -205,7 +213,6 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 
 		// Add elements to array.
 		$classes   = array();
-		$classes[] = 'content-area';
 
 		$classes[] = 'col-12';
 		$classes[] = 'order-1';
@@ -229,6 +236,8 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 			}
 		}
 
+		$classes[] = 'content-area';
+
 		// Check the function has accepted any classes.
 		if ( isset( $class ) && ! empty( $class ) ) {
 			if ( is_array( $class ) ) {
@@ -245,7 +254,7 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 		if ( ! function_exists( 'my_content_area_classes' ) ) {
 			function my_content_area_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -288,7 +297,7 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 
 		// Add elements to array.
 		$classes   = array();
-		$classes[] = 'widget-area';
+
 		$classes[] = 'col-12';
 		$classes[] = 'col-sm-12';
 
@@ -298,6 +307,8 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 			$classes[] = 'col-lg-4';
 			$classes[] = 'col-xl-3';
 		}
+
+		$classes[] = 'widget-area';
 
 		// Check the function has accepted any classes.
 		if ( isset( $class ) && ! empty( $class ) ) {
@@ -315,7 +326,7 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 		if ( ! function_exists( 'my_widget_area_classes' ) ) {
 			function my_widget_area_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -358,7 +369,6 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 
 		// Add elements to array.
 		$classes   = array();
-		$classes[] = 'site__header';
 		$classes[] = 'header';
 
 		if ( has_custom_header() ) {
@@ -396,7 +406,7 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 		if ( ! function_exists( 'my_header_classes' ) ) {
 			function my_header_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -439,7 +449,6 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 
 		// Add elements to array.
 		$classes   = array();
-		$classes[] = 'site__footer';
 		$classes[] = 'footer';
 
 		if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) {
@@ -472,7 +481,7 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 		if ( ! function_exists( 'my_footer_classes' ) ) {
 			function my_footer_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -546,7 +555,7 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 		if ( ! function_exists( 'my_main_menu_classes' ) ) {
 			function my_main_menu_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -589,12 +598,14 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 
 		// Add elements to array.
 		$classes   = array();
-		$classes[] = 'entry__meta';
+		$classes[] = 'post__part';
+		$classes[] = 'post__meta';
+		$classes[] = 'post-meta';
 
-		if ( wpgen_options( 'single_post_template_type' ) === 'one' ) {
-			$classes[] = 'entry__meta_inline';
-		} elseif ( wpgen_options( 'single_post_template_type' ) === 'two' ) {
-			$classes[] = 'entry__meta_list';
+		if ( wpgen_options( 'single_' . get_post_type() . '_template_type' ) === 'one' ) {
+			$classes[] = 'post-meta_inline';
+		} elseif ( wpgen_options( 'single_' . get_post_type() . '_template_type' ) === 'two' ) {
+			$classes[] = 'post-meta_block';
 		}
 
 		// Check the function has accepted any classes.
@@ -613,7 +624,7 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 		if ( ! function_exists( 'my_meta_display_classes' ) ) {
 			function my_meta_display_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -657,6 +668,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 
 		$classes   = array();
 		$classes[] = 'row';
+		$classes[] = 'row-' . get_wpgen_count_columns( wpgen_options( 'archive_post_columns' ) ) . '-col';
 
 		// Check the function has accepted any classes.
 		if ( isset( $class ) && ! empty( $class ) ) {
@@ -674,7 +686,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 		if ( ! function_exists( 'my_archive_page_columns_wrapper_classes' ) ) {
 			function my_archive_page_columns_wrapper_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -717,7 +729,7 @@ if ( ! function_exists( 'get_wpgen_count_columns' ) ) {
 	function get_wpgen_count_columns( $control = null, $int = true ) {
 
 		if ( is_null( $control ) || empty( $control ) ) {
-			$control = wpgen_options( 'archive_page_columns' );
+			$control = wpgen_options( 'archive_' . get_post_type() . '_columns' );
 		}
 
 		$converter = array(
@@ -741,124 +753,29 @@ if ( ! function_exists( 'get_wpgen_count_columns' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wpgen_index_page_columns_classes' ) ) {
-
-	/**
-	 * Get classes for index page columns.
-	 *
-	 * @param string $class         Additional index page columns classes.
-	 * @param string $columns_count Return classes with specified columns.
-	 *
-	 * @return array
-	 */
-	function get_wpgen_index_page_columns_classes( $class = '', $columns_count = null ) {
-
-		// Add elements to array.
-		$classes   = array();
-		$classes[] = 'article-column';
-		$classes[] = 'col-12';
-
-		if ( ! isset( $columns_count ) || is_null( $columns_count ) || empty( $columns_count ) ) {
-			$columns_count = wpgen_options( 'archive_page_columns' );
-		}
-
-		if ( is_int( intval( $columns_count ) ) && intval( $columns_count ) > 0 && intval( $columns_count ) <= 6 ) {
-			$columns_count = get_wpgen_count_columns( $columns_count, false );
-		}
-
-		// Default else is three columns.
-		if ( $columns_count === 'six' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'col-lg-3';
-			$classes[] = 'col-xl-2';
-			$classes[] = 'article-column-6';
-		} elseif ( $columns_count === 'five' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'col-lg-3';
-			$classes[] = 'col-xl-5th';
-			$classes[] = 'article-column-5';
-		} elseif ( $columns_count === 'four' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'col-lg-4';
-			$classes[] = 'col-xl-3';
-			$classes[] = 'article-column-4';
-		} elseif ( $columns_count === 'two' ) {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'article-column-2';
-		} elseif ( $columns_count === 'one' ) {
-			$classes[] = 'col-sm-12';
-			$classes[] = 'article-column-1';
-		} else {
-			$classes[] = 'col-sm-6';
-			$classes[] = 'col-lg-4';
-			$classes[] = 'article-column-3';
-		}
-
-		// Check the function has accepted any classes.
-		if ( isset( $class ) && ! empty( $class ) ) {
-			if ( is_array( $class ) ) {
-				$classes = array_merge( $classes, $class );
-			} elseif ( is_string( $class ) ) {
-				$classes = array_merge( $classes, explode( ' ', $class ) );
-			}
-		}
-
-		$classes = apply_filters( 'get_wpgen_index_page_columns_classes', $classes );
-
-		// Usage:
-		/*add_filter( 'get_wpgen_index_page_columns_classes', 'my_index_page_columns_classes' );
-		if ( ! function_exists( 'my_index_page_columns_classes' ) ) {
-			function my_index_page_columns_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
-	}
-}
-
-if ( ! function_exists( 'wpgen_index_page_columns_classes' ) ) {
-
-	/**
-	 * Display classes for index page columns.
-	 *
-	 * @param string $class         Additional index page columns classes.
-	 * @param string $columns_count Return classes with specified columns.
-	 * @param bool   $echo          Echo or return index page columns classes.
-	 *
-	 * @return string
-	 */
-	function wpgen_index_page_columns_classes( $class = '', $columns_count = null, $echo = true ) {
-
-		$classes = get_wpgen_index_page_columns_classes( $class, $columns_count );
-
-		if ( $echo ) {
-			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
-		} else {
-			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
-		}
-	}
-}
-
 if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 
 	/**
 	 * Get classes for archive page columns.
 	 *
+	 * @param int    $counter       Сolumn counter in loop.
 	 * @param string $class         Additional archive page columns classes.
 	 * @param string $columns_count Return classes with specified columns.
 	 *
 	 * @return array
 	 */
-	function get_wpgen_archive_page_columns_classes( $class = '', $columns_count = null ) {
+	function get_wpgen_archive_page_columns_classes( $counter, $class = '', $columns_count = null ) {
 
 		$classes   = array();
-		$classes[] = 'article-column';
 		$classes[] = 'col-12';
 
 		if ( ! isset( $columns_count ) || is_null( $columns_count ) || empty( $columns_count ) ) {
-			$columns_count = wpgen_options( 'archive_page_columns' );
+			if ( get_post_type() ) {
+				$post_type = get_post_type();
+			} else {
+				$post_type = 'post';
+			}
+			$columns_count = wpgen_options( 'archive_' . $post_type . '_columns' );
 		}
 
 		if ( is_int( intval( $columns_count ) ) && intval( $columns_count ) > 0 && intval( $columns_count ) <= 6 ) {
@@ -870,27 +787,26 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-2';
-			$classes[] = 'article-column-6';
 		} elseif ( $columns_count === 'five' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-3';
 			$classes[] = 'col-xl-5th';
-			$classes[] = 'article-column-5';
 		} elseif ( $columns_count === 'four' ) {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
 			$classes[] = 'col-xl-3';
-			$classes[] = 'article-column-4';
 		} elseif ( $columns_count === 'two' ) {
 			$classes[] = 'col-sm-6';
-			$classes[] = 'article-column-2';
 		} elseif ( $columns_count === 'one' ) {
 			$classes[] = 'col-sm-12';
-			$classes[] = 'article-column-1';
 		} else {
 			$classes[] = 'col-sm-6';
 			$classes[] = 'col-lg-4';
-			$classes[] = 'article-column-3';
+		}
+
+		$classes[] = 'post-col';
+		if ( is_int( $counter ) ) {
+			// $classes[] = 'post-col-' . $counter;
 		}
 
 		// Check the function has accepted any classes.
@@ -902,14 +818,16 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 			}
 		}
 
-		$classes = apply_filters( 'get_wpgen_archive_page_columns_classes', $classes );
+		// vardump( $counter );
+
+		$classes = apply_filters( 'get_wpgen_archive_page_columns_classes', $classes, $counter );
 
 		// Usage:
-		/*add_filter( 'get_wpgen_archive_page_columns_classes', 'my_archive_page_columns_classes' );
+		/*add_filter( 'get_wpgen_archive_page_columns_classes', 'my_archive_page_columns_classes', 10, 2 );
 		if ( ! function_exists( 'my_archive_page_columns_classes' ) ) {
-			function my_archive_page_columns_classes( $classes ) {
+			function my_archive_page_columns_classes( $classes, $counter ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -922,15 +840,16 @@ if ( ! function_exists( 'wpgen_archive_page_columns_classes' ) ) {
 	/**
 	 * Display classes for archive page columns.
 	 *
+	 * @param int    $counter       Сolumn counter in loop.
 	 * @param string $class         Additional archive page columns classes.
 	 * @param string $columns_count Return classes with specified columns.
 	 * @param bool   $echo          Echo or return archive page columns classes.
 	 *
 	 * @return string
 	 */
-	function wpgen_archive_page_columns_classes( $class = '', $columns_count = null, $echo = true ) {
+	function wpgen_archive_page_columns_classes( $counter, $class = '', $columns_count = null, $echo = true ) {
 
-		$classes = get_wpgen_archive_page_columns_classes( $class, $columns_count );
+		$classes = get_wpgen_archive_page_columns_classes( $counter, $class, $columns_count );
 
 		if ( $echo ) {
 			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
@@ -981,7 +900,7 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 		if ( ! function_exists( 'my_button_classes' ) ) {
 			function my_button_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -1044,7 +963,7 @@ if ( ! function_exists( 'get_link_classes' ) ) {
 		if ( ! function_exists( 'my_link_classes' ) ) {
 			function my_link_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 
@@ -1088,7 +1007,13 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 
 		$classes = array();
 
-		if ( wpgen_options( 'archive_page_detail_button' ) === 'button' ) {
+		if ( get_post_type() ) {
+			$post_type = get_post_type();
+		} else {
+			$post_type = 'post';
+		}
+
+		if ( wpgen_options( 'archive_' . $post_type . '_detail_button' ) === 'button' ) {
 			$classes   = get_button_classes( $class, $color );
 			$classes[] = 'button_more';
 		} else {
@@ -1112,7 +1037,7 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 		if ( ! function_exists( 'my_link_more_classes' ) ) {
 			function my_link_more_classes( $classes ) {
 				$classes[] = 'my-class';
-				return array_unique( $classes );
+				return array_unique( (array) $classes );
 			}
 		}*/
 

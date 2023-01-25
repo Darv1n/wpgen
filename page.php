@@ -27,17 +27,18 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 			<?php do_action( 'wpgen_before_article_page' ); ?>
 
-			<?php get_template_part( 'templates/content', 'page' ); ?>
+				<?php get_template_part( 'templates/content', 'page' ); ?>
 
 			<?php do_action( 'wpgen_after_article_page' ); ?>
 
-			<!-- @hooked the_wpgen_post_navigation - 15 -->
-			<?php do_action( 'wpgen_before_comment_form' ); ?>
+			<?php 
+				// @hooked the_wpgen_post_navigation - 15
+				do_action( 'wpgen_before_comment_form' ); ?>
 
-			<!-- If comments are open or we have at least one comment, load up the comment template. -->
-			<?php if ( comments_open() || get_comments_number() ) : ?>
-				<?php comments_template(); ?>
-			<?php endif; ?>
+				<!-- If comments are open or we have at least one comment, load up the comment template. -->
+				<?php if ( comments_open() || get_comments_number() ) : ?>
+					<?php comments_template(); ?>
+				<?php endif; ?>
 
 			<?php do_action( 'wpgen_after_comment_form' ); ?>
 

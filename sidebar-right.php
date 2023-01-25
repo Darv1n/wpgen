@@ -9,7 +9,7 @@
 
 if ( ! is_active_sidebar( 'sidebar-right' ) ) {
 	return;
-} 
+}
 
 ?>
 

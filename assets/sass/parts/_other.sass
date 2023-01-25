@@ -1,90 +1,25 @@
-.breadcrumbs
-	padding: 1.125rem 0
-	*
-		font-size: $small-font-size
-
-// .breadcrumbs_navxt
-// 	.breadcrumbs-item
-// 		&:not(:last-child)
-// 			position: relative
-// 			margin-right: 1rem
-// 			&::before
-// 				position: absolute
-// 				content: '/'
-// 				right: -.75rem
-
-// .breadcrumbs_yoast
-// 	ul, ol
-// 		padding: 0
-// 		margin: 0
-// 		list-style-type: none
-// 		*
-// 			vertical-align: top
-// 		li
-// 			display: inline-block
-// 			&:not(:last-child)
-// 				margin-right: .25rem
-// 			&:not(:first-child)
-// 				margin-left: .25rem
-
 .scroll-top
 	display: none
 	position: fixed
-	bottom: $margin*2
-	cursor: pointer
 	z-index: 9
-	&_button
-		color: $white-color
-	&_icon
-		&::before
-			@include pseudo($left: 1.5rem, $top: 50%, $width: 1rem, $height: 1rem, $background: url(../img/icons/sets/set-default.svg#arrow-down) center/cover no-repeat)
-			transform: translateY(-50%) rotate(180deg)
-			transition: $transition
-		&.scroll-top_solo-icon
-			padding: 1rem
-			&::before
-				left: 50%
-				transform: translate(-50%, -50%) rotate(180deg)
-		&.scroll-top_icon-left
-			padding-left: calc( .5rem + 1rem )
-			&.scroll-top_button:not(.btn-reset)
-				padding-left: calc( 1.25rem + .5rem + 1rem )
-			&.btn-reset
-				&::before
-					left: .25rem
-		&.scroll-top_icon-right
-			padding-right: calc( .25rem + 1rem )
-			&.scroll-top_button:not(.btn-reset)
-				padding-right: calc( 1.5rem + .5rem + 1rem )
-			&::before
-				left: auto
-				right: 1.5rem
-			&.btn-reset
-				&::before
-					right: .25rem
-		&.scroll-top_button:not(.button-empty)
-			&::before
-				filter: invert(100%)
-	&_right
-		right: $margin
+	bottom: $margin
+	margin-bottom: 0
 	&_left
 		left: $margin
-
+	&_right
+		right: $margin
 
 @media (min-width: 992px)
 	.scroll-top
-		&_right
-			right: $margin*2
+		bottom: $margin*2
 		&_left
 			left: $margin*2
+		&_right
+			right: $margin*2
 
-.theme_dark, .theme_black
-	.scroll-top:not(.menu-toggle_button)
-		color: $white-color
-	.scroll-top_icon:not(.menu-toggle_button)
-		&::before
-			filter: invert(100%)
-
+.breadcrumbs
+	*
+		font-size: $small-font-size
 
 .cookie
 	position: fixed
@@ -105,12 +40,11 @@
 		*
 			color: $white-color
 
-
 // #notifications
 .notification
 	display: block
 	padding: $padding
-	margin-bottom: 1rem
+	margin-bottom: $margin
 	max-width: calc( 960px + 3rem )
 	border-radius: $border-radius
 	background-color: $primary-color
@@ -150,7 +84,6 @@
 			&:hover, &:active, &:focus
 				border: $border-middle-gray-color
 
-
 .aspect-ratio
 	position: relative
 	display: block
@@ -168,18 +101,6 @@
 		border-width: 0
 		outline-width: 0
 		object-fit: cover
-
-// #mfp
-.mfp-arrow, .mfp-close
-	padding: 0
-	background: transparent
-	border: none
-	box-shadow: none
-	&:hover, &:focus, &:active, &.active
-		background: transparent
-		border: none
-		box-shadow: none
-
 
 // #masonry
 .masonry-container
@@ -209,7 +130,7 @@
 // Попап-форма
 .popup
 	position: relative
-	padding: $padding
+	padding: $padding*2
 	margin: auto
 	display: block
 	max-width: 720px

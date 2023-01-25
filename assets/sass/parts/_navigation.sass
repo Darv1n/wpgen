@@ -1,6 +1,6 @@
 .post-navigation, .posts-navigation
 	margin-bottom: 2rem
-	&__item_firstious
+	&__item_first
 		text-align: left
 	&__item_last
 		text-align: right
@@ -22,21 +22,9 @@
 
 .posts-navigation
 	&__item
-		padding: .5rem 1rem
 		margin-bottom: .5rem
 		overflow: hidden
 		&:not(:last-child)
 			margin-right: .5rem
-	a.posts-navigation__item
-		position: relative
-		&.posts-navigation__item_first, &.posts-navigation__item_last
+		&_first, &_last
 			color: transparent
-			&::before
-				@include pseudo($top: 50%, $left: 50%, $width: 14px, $height: 14px, $background: url(../img/icons/sets/set-default.svg#arrow-down) center no-repeat)
-				filter: invert(100%)
-		&.posts-navigation__item_first
-			&::before
-				transform: translate(-50%, -50%) rotate(90deg)
-		&.posts-navigation__item_last
-			&::before
-				transform: translate(-50%, -50%) rotate(-90deg)

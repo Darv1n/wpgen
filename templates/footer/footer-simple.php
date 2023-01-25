@@ -5,31 +5,34 @@
  * @package wpgen
  */
 
+if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
+	$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-3' );
+	$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-7' );
+} else {
+	$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-4' );
+	$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-8' );
+}
+
 ?>
 
-<div class="row align-items-center">
-	<div class="col-12 col-sm-4"><?php the_wpgen_site_branding(); ?></div>
-	<div class="col-12 col-sm-8">
-
-		<?php if ( wpgen_options( 'general_menu_display' ) ) { ?>
-			<div class="site__main-menu site__main-menu_type-open site__main-menu-right footer__item">
-				<nav class="main-menu" role="navigation" aria-label="<?php esc_html_e( 'Main menu of the site', 'wpgen' ); ?>">
-
-					<?php
-
-						$args = array(
-							'theme_location' => 'primary',
-							'menu_id'        => 'primary-navigation',
-							'container'      => '',
-						);
-
-						wp_nav_menu( $args );
-
-					?>
-
-				</nav>
-			</div>
-		<?php } ?>
-
+<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
+	<div class="<?php echo esc_attr( implode( ' ', $first_col_classes ) ); ?>">
+		<?php
+			if ( is_active_sidebar( 'sidebar-footer-one' ) ) {
+				dynamic_sidebar( 'sidebar-footer-one' );
+			} else { ?>
+				<div class="widget widget_branding">
+					<?php echo do_shortcode( '[wpgen-logo]' ); ?>
+				</div>
+				<div class="widget widget_search">
+					<?php get_search_form(); ?>
+				</div>
+			<?php }
+		?>
+	</div>
+	<div class="<?php echo esc_attr( implode( ' ', $last_col_classes ) ); ?>">
+		<?php if ( is_active_sidebar( 'sidebar-footer-two' ) ) {
+			dynamic_sidebar( 'sidebar-footer-two' );
+		} ?>
 	</div>
 </div>

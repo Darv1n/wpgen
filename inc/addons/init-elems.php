@@ -27,7 +27,7 @@ if ( ! function_exists( 'the_elems' ) ) {
 
 		$html = '';
 
-		$columns_classes = get_wpgen_archive_page_columns_classes( '', count( $items ) );
+		$columns_classes = get_wpgen_archive_page_columns_classes( null, '', count( $items ) );
 
 		$html .= '<div class="row">';
 			foreach ( $items as $key => $item ) {

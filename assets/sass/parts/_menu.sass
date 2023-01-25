@@ -4,72 +4,10 @@
 		.menu-toggle
 			display: none
 
-// .menu-toggle
-// 	&_text
-// 		padding: .375rem
-// 		display: block
-// 		transition: none
-// 	&__text, &__icon
-// 		display: inline-block
-// 	&__icon
-// 		position: relative
-// 		width: 17px
-// 		height: 17px
-// 		vertical-align: middle
-// 		&::before
-// 			@include pseudo($width: 100%, $background: url(../img/icons/sets/set-default.svg#menu-open) center no-repeat)
-// 			transition: $transition
-// 			opacity: 1
-// 		&::after
-// 			@include pseudo($width: 100%, $background: url(../img/icons/sets/set-default.svg#menu-close) center no-repeat)
-// 			transition: $transition
-// 			opacity: 0
-// 	&.toggled-on
-// 		.menu-toggle__icon
-// 			&::before
-// 				opacity: 0
-// 			&::after
-// 				opacity: 1
-
-
 .menu-toggle
+	position: relative
 	display: block
-	&_button
-		color: $white-color
-		&:hover, &:focus, &:active
-			color: $white-color
-	&_icon
-		position: relative
-		&::before
-			@include pseudo($left: var( --buttonPaddingLeft ), $top: 50%, $width: 1rem, $height: 1rem, $background: url(../img/icons/sets/set-default.svg#menu-open) center no-repeat)
-			transform: translateY(-50%)
-			transition: $transition
-		&.toggled-on
-			&::before
-				background: url(../img/icons/sets/set-default.svg#menu-close) center no-repeat
-		&.menu-toggle_icon-left
-			padding-left: calc( var( --buttonPaddingLeft ) + 1.125rem )
-			&.btn-reset
-				padding-left: 1.5rem
-				&::before
-					left: .25rem
-		&.menu-toggle_icon-right
-			padding-right: calc( var( --buttonPaddingLeft ) + 1.125rem )
-			&::before
-				left: auto
-				right: 1.5rem
-			&.btn-reset
-				padding-right: 1.5rem
-				&::before
-					right: .25rem
-		&.menu-toggle_solo-icon
-			padding: 1rem
-			&::before
-				left: 50%
-				transform: translate(-50%, -50%) rotate(180deg)
-		&.menu-toggle_button:not(.button-empty)
-			&::before
-				filter: invert(100%)
+	z-index: 12
 	&_left
 		text-align: left
 	&_right
@@ -79,41 +17,6 @@
 	&_center
 		text-align: center
 		margin: auto
-
-// если отменить резет кнопки, то эти стили тоже нужно отменять (или нет?)
-.header_dark, .header_black, .theme_dark, .theme_black
-	.menu-toggle:not(.menu-toggle_button)
-		color: $white-color
-		&:hover, &:focus, &:active
-			color: $white-color
-	.menu-toggle_icon:not(.menu-toggle_button)
-		&::before
-			filter: invert(100%)
-
-
-.theme_dark, .theme_black
-	.header_menu_fixed
-		.menu-toggle_text.toggled-on
-			color: $white-color
-
-.header_menu_fixed
-	&.header_white, &.header_light
-		.menu-toggle:not(.menu-toggle_button)
-			color: $text-color
-			&:hover, &:focus, &:active
-				color: $text-color
-	&.header_dark, &.header_black, &.theme_dark, &.theme_black, &.header_menu-dark, &.header_menu-black
-		.menu-toggle:not(.menu-toggle_button)
-			color: $white-color
-		.menu-toggle_icon:not(.menu-toggle_button)
-			&::before
-				filter: invert(100%)
-	&.header_menu-dark, &.header_menu-black
-		.menu-toggle_icon:not(.menu-toggle_button):not(.toggled-on)
-			&::before
-				filter: invert(100%)
-
-
 
 // #Menu
 .main-menu
@@ -146,8 +49,6 @@
 		text-decoration: none
 		color: $link-color-dark
 
-
-
 .header_logo-center
 	.menu-toggle
 		margin: auto
@@ -177,41 +78,6 @@
 	.menu
 		padding: .25rem .5rem
 		overflow-y: auto
-
-
-// выравнивание кнопки
-.header_simple
-	.menu-toggle
-		position: relative
-		//position: absolute
-		//right: 0
-		//z-index: 11
-	&.header_menu_relative
-		.menu-toggle
-			//top: 1rem // костыль, мы не можем посчитать высоту хедера, чтобы выровнить кнопку
-	&.header_menu_fixed
-		//position: relative
-	&.header_menu_absolute, &.header_menu_fixed
-		.menu-toggle
-			//top: 1rem // костыль, мы не можем посчитать высоту хедера, чтобы выровнить кнопку
-			//top: 50%
-			//transform: translateY(-50%)
-
-
-// выравнивание текста
-// .main-menu.main-menu-right
-// 	.menu-toggle
-// 		margin-right: 0
-// 		margin-left: auto
-// 	.menu-item
-// 		text-align: right
-// .main-menu.main-menu-center
-// 	.menu-toggle
-// 		margin: auto
-
-
-
-
 
 .header_menu_absolute, .header_menu_fixed
 	.main-menu.main-menu-burgered
@@ -243,26 +109,17 @@
 				left: auto
 				right: 0
 
-
 .header_menu_absolute
 	.main-menu.main-menu-burgered
 		.main-navigation
 			max-width: 540px
-
 
 .header_menu_fixed
 	.main-menu-burgered
 		position: absolute
 		left: 0
 		padding: .25rem .5rem
-	.main-menu-center
-		.main-menu
-			//left: 50%
-			//transform: translateX(-50%)
 	.main-menu-right
-		.main-menu
-			//left: auto
-			//right: 0
 		.menu-toggle
 			margin-left: auto
 	&.header_simple
@@ -290,10 +147,7 @@
 			.current-menu-item a
 				color: $link-color-dark
 
-
-
-
-// цвета (вся эта хуйня сработает только для absolute, потому что для fixed класс с цветом не выводится)
+// Цвета (вся эта хуйня сработает только для absolute, потому что для fixed класс с цветом не выводится)
 .header_menu_absolute
 	.main-menu.main-menu-burgered
 		&.main-menu-dark, &.main-menu-black
@@ -356,9 +210,6 @@
 		.dropdown-toggle__icon
 			filter: invert(100%) // темный контейнер меню - белая стрелка
 
-
-
-
 .header_menu_fixed
 	&.header_dark, &.header_black
 		.main-menu.main-menu-burgered
@@ -399,13 +250,6 @@
 				background: $text-color
 				.menu-item:not(:last-child)
 					border-bottom: $border-width solid $bg-color-dark
-
-
-
-
-
-
-
 
 @media (min-width: 992px)
 	.main-menu.main-menu_type-open

@@ -1,0 +1,587 @@
+@import "components/_mixins"
+@import "_common-vars"
+
+// Icon Items
+.icon
+	position: relative
+	padding-left: calc( 1.125rem + .125rem + .25rem )
+	&::before
+		@include pseudo( $left: .125rem, $top: 50%, $width: 1.125rem, $height: 1rem )
+		transform: translateY( -50% )
+		transition: $transition
+	&_top
+		&::before
+			top: .125rem
+			transform: translateY( 0% )
+	&_after
+		padding-left: 0
+		padding-right: 1.5rem
+		&::before
+			left: auto
+			right: .125rem
+	&_white
+		&::before
+			filter: invert(100%)
+	&_gray
+		&::before
+			filter: invert(50%)
+	&_square, &_rounded
+		padding-left: calc( 1.125rem + .75rem + .375rem )
+		&::before
+			left: .375rem
+		&::after
+			@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+			border: 2px solid $text-color
+			border-radius: $border-radius
+			transform: translateY( -50% )
+			transition: $transition
+		&.icon_white
+			&::after
+				filter: invert(100%)
+		&.icon_gray
+			&::after
+				filter: invert(50%)
+		&.icon_top
+			&::before
+				top: .4375rem
+			&::after
+				top: 0
+				transform: translateY( 0% )
+	&_rounded
+		&::after
+			border-radius: 50%
+	&_0
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#0 ) center/cover no-repeat
+	&_1
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#1 ) center/cover no-repeat
+	&_2
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#2 ) center/cover no-repeat
+	&_3
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#3 ) center/cover no-repeat
+	&_4
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#4 ) center/cover no-repeat
+	&_5
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#5 ) center/cover no-repeat
+	&_6
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#6 ) center/cover no-repeat
+	&_7
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#7 ) center/cover no-repeat
+	&_8
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#8 ) center/cover no-repeat
+	&_9
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#9 ) center/cover no-repeat
+	&_align-center
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#align-center ) center/cover no-repeat
+	&_align-justify
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#align-justify ) center/cover no-repeat
+	&_align-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#align-left ) center/cover no-repeat
+	&_align-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#align-right ) center/cover no-repeat
+	&_angle-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angle-down ) center/cover no-repeat
+	&_angle-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angle-left ) center/cover no-repeat
+	&_align-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#align-right ) center/cover no-repeat
+	&_angle-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angle-up ) center/cover no-repeat
+	&_angles-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angles-down ) center/cover no-repeat
+	&_angles-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angles-left ) center/cover no-repeat
+	&_angles-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angles-right ) center/cover no-repeat
+	&_angles-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#angles-up ) center/cover no-repeat
+	&_arrow-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-down ) center/cover no-repeat
+	&_arrow-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-left ) center/cover no-repeat
+	&_arrow-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-right ) center/cover no-repeat
+	&_arrow-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-up ) center/cover no-repeat
+	&_arrow-down-long
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-down-long ) center/cover no-repeat
+	&_arrow-left-long
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-left-long ) center/cover no-repeat
+	&_arrow-right-long
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-right-long ) center/cover no-repeat
+	&_arrow-up-long
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-up-long ) center/cover no-repeat
+	&_arrow-down-arrow-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-down-arrow-up ) center/cover no-repeat
+	&_arrow-up-arrow-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#arrow-up-arrow-down ) center/cover no-repeat
+	&_badge
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#badge ) center/cover no-repeat
+	&_badge-check
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#badge-check ) center/cover no-repeat
+	&_badge-percent
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#badge-percent ) center/cover no-repeat
+	&_bag-shopping
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bag-shopping ) center/cover no-repeat
+	&_ban
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#ban ) center/cover no-repeat
+	&_bars
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bars ) center/cover no-repeat
+	&_bars-filter
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bars-filter ) center/cover no-repeat
+	&_bars-sort
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bars-sort ) center/cover no-repeat
+	&_basket-shopping
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#basket-shopping ) center/cover no-repeat
+	&_bell
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bell ) center/cover no-repeat
+	&_bell-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bell-slash ) center/cover no-repeat
+	&_bookmark
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bookmark ) center/cover no-repeat
+	&_bookmark-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bookmark-slash ) center/cover no-repeat
+	&_calendar
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#calendar ) center/cover no-repeat
+	&_calendar-check
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#calendar-check ) center/cover no-repeat
+	&_calendar-days
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#calendar-days ) center/cover no-repeat
+	&_calendar-lines
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#calendar-lines ) center/cover no-repeat
+	&_camera
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#camera ) center/cover no-repeat
+	&_caret-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#caret-down ) center/cover no-repeat
+	&_caret-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#caret-left ) center/cover no-repeat
+	&_caret-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#caret-right ) center/cover no-repeat
+	&_caret-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#caret-up ) center/cover no-repeat
+	&_cart-arrow-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#cart-arrow-down ) center/cover no-repeat
+	&_cart-shopping
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#cart-shopping ) center/cover no-repeat
+	&_check
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#check ) center/cover no-repeat
+	&_chevron-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevron-down ) center/cover no-repeat
+	&_chevron-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevron-left ) center/cover no-repeat
+	&_chevron-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevron-right ) center/cover no-repeat
+	&_chevron-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevron-up ) center/cover no-repeat
+	&_chevrons-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevrons-down ) center/cover no-repeat
+	&_chevrons-left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevrons-left ) center/cover no-repeat
+	&_chevrons-right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevrons-right ) center/cover no-repeat
+	&_chevrons-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#chevrons-up ) center/cover no-repeat
+	&_clock
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#clock ) center/cover no-repeat
+	&_clone
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#clone ) center/cover no-repeat
+	&_code
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#code ) center/cover no-repeat
+	&_comment
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#comment ) center/cover no-repeat
+	&_comment-dots
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#comment-dots ) center/cover no-repeat
+	&_comment-lines
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#comment-lines ) center/cover no-repeat
+	&_comment-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#comment-slash ) center/cover no-repeat
+	&_copy
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#copy ) center/cover no-repeat
+	&_copyright
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#copyright ) center/cover no-repeat
+	&_down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#down ) center/cover no-repeat
+	&_left
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#left ) center/cover no-repeat
+	&_right
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#right ) center/cover no-repeat
+	&_up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#up ) center/cover no-repeat
+	&_dollar-sign
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#dollar-sign ) center/cover no-repeat
+	&_download
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#download ) center/cover no-repeat
+	&_ellipsis
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#ellipsis ) center/cover no-repeat
+	&_ellipsis-stroke
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#ellipsis-stroke ) center/cover no-repeat
+	&_ellipsis-stroke-vertical
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#ellipsis-stroke-vertical ) center/cover no-repeat
+	&_ellipsis-vertical
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#ellipsis-vertical ) center/cover no-repeat
+	&_envelope
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#envelope ) center/cover no-repeat
+	&_exclamation
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#exclamation ) center/cover no-repeat
+	&_eye
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#eye ) center/cover no-repeat
+	&_eye-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#eye-slash ) center/cover no-repeat
+	&_folder
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#folder ) center/cover no-repeat
+	&_folder-open
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#folder-open ) center/cover no-repeat
+	&_globe
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#globe ) center/cover no-repeat
+	&_grid
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#grid ) center/cover no-repeat
+	&_hashtag
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#hashtag ) center/cover no-repeat
+	&_headset
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#headset ) center/cover no-repeat
+	&_heart
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#heart ) center/cover no-repeat
+	&_house
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#house ) center/cover no-repeat
+	&_image
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#image ) center/cover no-repeat
+	&_inbox-in
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#inbox-in ) center/cover no-repeat
+	&_inbox-out
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#inbox-out ) center/cover no-repeat
+	&_info
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#info ) center/cover no-repeat
+	&_language
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#language ) center/cover no-repeat
+	&_link
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#link ) center/cover no-repeat
+	&_link-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#link-slash ) center/cover no-repeat
+	&_list
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#list ) center/cover no-repeat
+	&_loader
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#loader ) center/cover no-repeat
+	&_location
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#location ) center/cover no-repeat
+	&_location-dot
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#location-dot ) center/cover no-repeat
+	&_location-dot-slash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#location-dot-slash ) center/cover no-repeat
+	&_lock-off
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#lock ) center/cover no-repeat
+	&_lock-on
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#lock-open ) center/cover no-repeat
+	&_magnifying-glass
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#magnifying-glass ) center/cover no-repeat
+	&_map
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#map ) center/cover no-repeat
+	&_map-location
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#map-location ) center/cover no-repeat
+	&_map-location-dot
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#map-location-dot ) center/cover no-repeat
+	&_pen
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#pen ) center/cover no-repeat
+	&_pen-to-square
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#pen-to-square ) center/cover no-repeat
+	&_phone
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#phone ) center/cover no-repeat
+	&_print
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#print ) center/cover no-repeat
+	&_question
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#question ) center/cover no-repeat
+	&_reply
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#reply ) center/cover no-repeat
+	&_share
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#share ) center/cover no-repeat
+	&_sort
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#sort ) center/cover no-repeat
+	&_sort-down
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#sort-down ) center/cover no-repeat
+	&_sort-up
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#sort-up ) center/cover no-repeat
+	&_star
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#star ) center/cover no-repeat
+	&_star-sharp
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#star-sharp ) center/cover no-repeat
+	&_tag
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#tag ) center/cover no-repeat
+	&_tags
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#tags ) center/cover no-repeat
+	&_toggle-off
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#toggle-off ) center/cover no-repeat
+	&_toggle-on
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#toggle-on ) center/cover no-repeat
+	&_trash
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#trash ) center/cover no-repeat
+	&_triangle-exclamation
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#triangle-exclamation ) center/cover no-repeat
+	&_unlock
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#unlock ) center/cover no-repeat
+	&_upload
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#upload ) center/cover no-repeat
+	&_user
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#user ) center/cover no-repeat
+	&_xmark
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#xmark ) center/cover no-repeat
+
+.icon
+	&_behance
+		&::before
+			background: url( ../img/icons/sets/social.svg#behance ) center/cover no-repeat
+	&_facebook
+		&::before
+			background: url( ../img/icons/sets/social.svg#facebook ) center/cover no-repeat
+	&_instagram
+		&::before
+			background: url( ../img/icons/sets/social.svg#instagram ) center/cover no-repeat
+	&_linkedin
+		&::before
+			background: url( ../img/icons/sets/social.svg#linkedin ) center/cover no-repeat
+	&_odnoklassniki
+		&::before
+			background: url( ../img/icons/sets/social.svg#odnoklassniki ) center/cover no-repeat
+	&_pinterest
+		&::before
+			background: url( ../img/icons/sets/social.svg#pinterest ) center/cover no-repeat
+	&_soundcloud
+		&::before
+			background: url( ../img/icons/sets/social.svg#soundcloud ) center/cover no-repeat
+	&_telegram
+		&::before
+			background: url( ../img/icons/sets/social.svg#telegram ) center/cover no-repeat
+	&_tiktok
+		&::before
+			background: url( ../img/icons/sets/social.svg#tiktok ) center/cover no-repeat
+	&_twitch
+		&::before
+			background: url( ../img/icons/sets/social.svg#twitch ) center/cover no-repeat
+	&_twitter
+		&::before
+			background: url( ../img/icons/sets/social.svg#twitter ) center/cover no-repeat
+	&_viber
+		&::before
+			background: url( ../img/icons/sets/social.svg#viber ) center/cover no-repeat
+	&_vimeo
+		&::before
+			background: url( ../img/icons/sets/social.svg#vimeo ) center/cover no-repeat
+	&_vk
+		&::before
+			background: url( ../img/icons/sets/social.svg#vk ) center/cover no-repeat
+	&_whatsapp
+		&::before
+			background: url( ../img/icons/sets/social.svg#whatsapp ) center/cover no-repeat
+	&_wordpress
+		&::before
+			background: url( ../img/icons/sets/social.svg#wordpress ) center/cover no-repeat
+
+.menu-toggle
+	&.icon_menu, > .icon_menu
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#bars ) center/cover no-repeat
+	&.toggled-on
+		&.icon_menu, > .icon_menu
+			&::before
+				background: url( ../img/icons/sets/fa-regular.svg#xmark ) center/cover no-repeat
+
+i.icon
+	display: block
+	width: 1.125rem
+	height: 1rem
+	padding-left: 0
+	&::before
+		left: 0
+
+button.icon, .button.icon
+	&.button-primary, &.button-secondary, &.button-gradient, &.button-slide, &.button-whatsapp, &.button-telegram
+		&::before
+			filter: invert(100%)
+	&.button-empty
+		&:hover, &:focus, &:active, &.active
+			&::before
+				filter: invert(100%)
+button, .button
+	&.button-primary, &.button-secondary, &.button-gradient, &.button-slide, &.button-whatsapp, &.button-telegram
+		> .icon
+			&::before
+				filter: invert(100%)
+	&.button-empty
+		&:hover, &:focus, &:active, &.active
+			> .icon
+				&::before
+					filter: invert(100%)
+
+button, .button
+	&.icon
+		padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+		&::before
+			left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+		&_after
+			padding-left: calc( var( --buttonPaddingLeft ) )
+			padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+			&::before
+				left: auto
+				right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+		&_center
+			padding-left: var( --buttonPaddingLeft )
+			&::before
+				top: 50%
+				left: 50%
+				transform: translate( -50%, -50% )
+
+@media( min-width: 576px )
+	button, .button
+		&.icon
+			padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+			&::before
+				left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+			&_after
+				padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
+				padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+				&::before
+					right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+			&_center
+				padding-left: var( --buttonPaddingLeft )
+				&::before
+					top: 50%
+					left: 50%
+					transform: translate( -50%, -50% )
+
+.theme_dark, .theme_black
+	.icon:not(button)
+		&::before
+			filter: invert(100%)

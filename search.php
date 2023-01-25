@@ -13,33 +13,70 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
-	<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
+<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
-		<?php if ( have_posts() ) : ?>
+	<?php if ( have_posts() ) : ?>
 
-			<header class="entry__header">
-				<h1 class="entry__title">
-					<?php printf( __( 'Search Results for: %s', 'wpgen' ), '<span>' . get_search_query() . '</span>' ); ?>
-				</h1>
-			</header>
+		<header class="content-area-header" aria-label="<?php echo _x( 'Search page header', 'aria-label', 'wpgen' ); ?>">
+			<h1 class="content-area-title">
+				<?php printf( __( 'Search Results for: %s', 'wpgen' ), '<span>' . get_search_query() . '</span>' ); ?>
+			</h1>
+		</header>
 
-			<!-- Start the Loop -->
-			<?php while ( have_posts() ) : ?>
-				<?php the_post(); ?>
+		<section class="content-area-content" aria-label="<?php echo _x( 'Search page content', 'aria-label', 'wpgen' ); ?>">
 
-				<?php get_template_part( 'templates/archive/archive-simple' ); ?>
+			<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 
-			<?php endwhile; ?>
+				<?php while ( have_posts() ) : ?>
+					<?php the_post(); ?>
 
+					<?php $post_type_object = get_post_type_object( get_post_type() ); ?>
+
+					<?php if ( ! isset( $post_type_current ) ) : ?>
+						<div <?php wpgen_archive_page_columns_classes( '', 1 ); ?>>
+							<h2 class="post-type-title h4"><?php _e( 'Post type:' ) ?> <?php echo esc_html( $post_type_object->name ); ?></h2>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( isset( $post_type_current ) && $post_type_current !== get_post_type() ) : ?>
+						</div>
+						<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
+							<div <?php wpgen_archive_page_columns_classes( '', 1 ); ?>>
+								<h2 class="post-type-title h4"><?php _e( 'Post type:' ) ?> <?php echo esc_html( $post_type_object->name ); ?></h2>
+							</div>
+					<?php endif; ?>
+
+					<?php $post_type_current = get_post_type(); ?>
+
+					<div <?php wpgen_archive_page_columns_classes(); ?>>
+
+						<?php
+							// Get a template with a post type, if there is one in the theme.
+							if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
+								get_template_part( 'templates/archive/archive-' . get_post_type() );
+							} else {
+								get_template_part( 'templates/archive/archive', wpgen_options( 'archive_' . $post_type_current . '_template_type' ) );
+							}
+						?>
+
+					</div>
+
+				<?php endwhile; ?>
+
+			</div>
+		</section>
+
+		<footer class="content-area-footer" aria-label="<?php echo _x( 'Search page footer', 'aria-label', 'wpgen' ); ?>">
 			<?php the_wpgen_posts_navigation(); ?>
+		</footer>
 
-		<?php else : ?>
+	<?php else : ?>
 
-			<?php get_template_part( 'templates/content', 'none' ); ?>
+		<?php get_template_part( 'templates/content', 'none' ); ?>
 
-		<?php endif; ?>
+	<?php endif; ?>
 
-	</main>
+</main>
 
 <?php
 

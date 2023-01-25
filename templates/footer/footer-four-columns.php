@@ -7,7 +7,7 @@
 
 ?>
 
-<div class="row">
+<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 	<div class="col-12 col-sm-6 col-md-3 footer-column">
 		<?php
 			if ( is_active_sidebar( 'sidebar-footer-one' ) ) {

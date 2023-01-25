@@ -25,37 +25,38 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 		<?php if ( have_posts() ) : ?>
 
 			<?php if ( is_home() && ! is_front_page() ) { ?>
-				<header>
-					<h1 class="entry__title screen-reader-text"><?php single_post_title(); ?></h1>
+				<header class="content-area-header" aria-label="<?php echo _x( 'Archive page header', 'aria-label', 'wpgen' ); ?>">
+					<h1 class="content-area-title"><?php single_post_title(); ?></h1>
 				</header>
 			<?php } ?>
 
-			<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
+			<section class="content-area-content" aria-label="<?php echo _x( 'Archive page content', 'aria-label', 'wpgen' ); ?>">
+				<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 
-				<!-- Start the Loop -->
-				<?php while ( have_posts() ) : ?>
-					<?php the_post(); ?>
+					<?php while ( have_posts() ) : ?>
+						<?php the_post(); ?>
 
-					<div <?php wpgen_archive_page_columns_classes(); ?>>
+						<div <?php wpgen_archive_page_columns_classes(); ?>>
 
-						<?php
+							<?php
+								// Get a template with a post type, if there is one in the theme.
+								if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
+									get_template_part( 'templates/archive/archive-' . get_post_type() );
+								} else {
+									get_template_part( 'templates/archive/archive', wpgen_options( 'archive_' . get_post_type() . '_template_type' ) );
+								}
+							?>
 
-							// Get a template with a post type, if there is one in the theme.
-							if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
-								get_template_part( 'templates/archive/archive-' . get_post_type() );
-							} else {
-								get_template_part( 'templates/archive/archive', wpgen_options( 'archive_page_template_type' ) );
-							}
+						</div>
 
-						?>
+					<?php endwhile; ?>
 
-					</div>
+				</div>
+			</section>
 
-				<?php endwhile; ?>
-
-			</div>
-
-			<?php the_wpgen_posts_navigation(); ?>
+			<footer class="content-area-footer" aria-label="<?php echo _x( 'Archive page footer', 'aria-label', 'wpgen' ); ?>">
+				<?php the_wpgen_posts_navigation(); ?>
+			</footer>
 
 		<?php else : ?>
 

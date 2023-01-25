@@ -1,314 +1,273 @@
-// #Content
+// #logo
+.logo
+	position: relative
+	display: block
+	> *
+		display: block
+	&__title
+		margin-bottom: $gutter
+		font-size: $h1
+		line-height: $h1
+	&__description
+		margin-bottom: 0 !important
+		font-size: $medium-font-size
+		line-height: $medium-font-size
+		color: $gray-color-dark
+
+a.logo
+	color: inherit
+	text-decoration: none
+	&:hover, &:focus, &:active
+		color: inherit
+
+.custom-logo
+	width: auto
+	max-height: 86px
+
+.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
+	.logo
+		&__title, &__description
+			@extend .white-color
+
+// #header, footer, content
+.section
+	position: relative
+	padding: $margin-section 0
+	&-title
+		@extend .mb
+	&_content, &_breadcrumbs
+		padding: $margin 0
+
+.front-page 
+	.section_content
+		padding: 0
+	.content-area
+		> .section
+			margin-bottom: 0
+
+.content-area
+	@extend .mb
+	&-title
+		margin-bottom: 0
+	> * 
+		&:not(:last-child)
+			@extend .mb
+
 .header, .footer
+	position: relative
 	*
 		hyphens: none
 	h1, h2, h3, h4, h5, h6, p
-		margin-bottom: .5rem
-
-.header
-	ul, ol
-		&:last-child
-			margin-bottom: 0
-
-.footer
-	.btn, .button
-		margin-bottom: 1rem
-
-.entry__content
-	p, blockquote	
-		max-width: calc( 960px + 3rem )
-	h1, h2, h3, h4, h5, h6, ul, ol, dl
-		margin-bottom: 1rem
-	h2
-		margin-top: 2rem
-	h3
-		margin-top: 1.5rem
-	h5
-		margin-top: 1rem
-	h4
-		margin-top: .75rem
-	h6
-		margin-top: .5rem
-	*:first-child
-		margin-top: 0 !important
-	ul, ol
-		li
-			max-width: 960px
-		li:not(:last-child)
-			margin-bottom: .5rem
-	ul, ol
-		ul, ol
-			margin-bottom: 0
-	.btn, .button
-		margin-bottom: 1rem
-
-
-@media (min-width: 992px)
-	.entry__content
-		h2
-			margin-top: 2.25rem
-		h3
-			margin-top: 1.75rem
-		h5
-			margin-top: 1.25rem
-		h4
-			margin-top: 1rem
-		h6
-			margin-top: .75rem
-
-// #Site-branding
-.site-branding
-	margin-right: 1rem
-	.custom-logo-link
-		display: block
-		.custom-logo
-			width: auto
-			max-height: 86px
+		margin-bottom: $margin/2
 	&__item
-		position: relative
-		display: inline-block
-	&__title
-		font-size: 2.5rem
-		line-height: 2.5rem
-	&__description
-		margin-bottom: 0 !important
-		font-size: $small-font-size
-		line-height: 1rem
-		color: $gray-color-dark
-	a.site-branding__item
-		color: inherit
-		text-decoration: none
-		&:hover, &:focus, &:active
-			color: inherit
-
-.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
-	.site-branding
-		&__title, &__description
-			color: $white-color
-
-
-
-
-
-.site
-	position: relative
-	&__content
-		padding: 1rem 0
-		overflow: hidden
-
-.content-area, .widget-area
-	margin-bottom: 2rem
-
-.header__item, .footer__item
-	display: block
-	margin-bottom: .5rem
-	vertical-align: middle
-	ul li
-		display: inline-block
-		margin-right: $margin
-		&:last-child
-			margin-right: 0
-
-
+		display: block
+		margin-bottom: $margin/2
+		vertical-align: middle
+		ul 
+			li
+			display: inline-block
+			&:not(:last-child)
+				margin-right: $margin
+	&_light
+		background: $bg-color-lighten
+	&_dark
+		background: $bg-color-darken
+	&_black
+		background: $text-color
 
 .header
-	&_background-image
-		.header__middle-bar
-			background-size: cover !important
-			min-height: 320px
-	&_logo-center
-		.site-branding
-			text-align: center
-			.custom-logo-link
-				display: inline-block
+	ul, ol
+		&:last-child
+			margin-bottom: 0
 	&__top-bar
 		font-size: $small-font-size
 	&__top-bar, &__middle-bar, &__bottom-bar
-		padding: .5rem 0
+		padding: $margin/2 0
+	&_background-image
+		.header__middle-bar
+			min-height: 320px
+	&_simple
+		.logo
+			margin-right: $margin
+	&_logo-center
+		.logo
+			text-align: center
+		.custom-logo-link
+			display: inline-block
 	&_top-bar-active
 		.header__middle-bar
-			padding-top: .5rem
+			padding-top: $margin/2
 
-
-
-// #Footer
 .footer
-	position: relative
-	.widget, .footer-column, .social-list, .contacts-list, .copyright
-		margin-bottom: 1rem
-	.site-branding
-		margin-right: 0
-	&__top-bar
-		padding-top: 4rem
-		padding-bottom: 2rem
+	padding-top: $margin-section
+	.btn, .button, .widget, .footer-column, .social-list, .contacts-list, .copyright
+		@extend .mb
+	&__middle-bar
+		padding-top: $margin*2
+		padding-bottom: $margin
 	&__bottom-bar
-		padding-top: 1.5rem
+		padding-top: $margin
 		background-color: $gray-color-light
 		.widget
-			margin-bottom: .5rem !important
+			margin-bottom: $margin/2
 	&_bottom-bar-active 
-		.footer__top-bar
-			margin-bottom: 1rem
+		.footer__middle-bar
+			@extend .mb
+	&_light
+		.footer__bottom-bar
+			background: $bg-color-light
+	&_dark
+		.footer__bottom-bar
+			background: $bg-color-dark
+	&_black
+		.footer__bottom-bar
+			background: $bg-color-darken
 
-.header_light, .footer_light
-	background: $bg-color-lighten
-
-.footer_light, .theme_light
+.theme_light
 	.footer__bottom-bar
 		background: $bg-color-light
-
-.header_dark, .footer_dark
-	background: $bg-color-darken
-
-.footer_dark, .theme_dark
+.theme_dark
 	.footer__bottom-bar
 		background: $bg-color-dark
-
-.header_black, .footer_black
-	background: $text-color
-
-.footer_black, .theme_black
+.theme_black
 	.footer__bottom-bar
 		background: $bg-color-darken
 
-// #Meta
-.entry__meta
-	margin-bottom: 1rem
-	&_inline
-		.meta
-			.meta__item
-				display: inline-block
-				vertical-align: top
-				&:not(:last-child)
-					margin-right: 1rem
-	&_list
-		.meta
-			.meta__item
-				display: block
-				&:not(:last-child)
-					margin-bottom: $gutter*2
-					margin-right: 0
-	.entry__date
-		&-modified
-			padding-left: $gutter
-			color: $gray-color-dark
+@media (min-width: 768px)
+	.header__top-bar .header-column,
+	.footer__bottom-bar .footer-column
+		&:last-child
+			text-align: right
 
-.meta
-	list-style-type: none
-	padding-left: 0
-	margin-bottom: 0
-	&__item
-		position: relative
-		padding-left: 19px
-		font-size: $small-font-size
-		vertical-align: middle
-		&.meta__item_author
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#user) center no-repeat)
-		&.meta__item_date
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#calendar) center no-repeat)
-		&.meta__item_category, &.meta__item_tag
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#folder) center no-repeat)
-		&.meta__item_comments-count
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#comment) center no-repeat)
-		&.meta__item_edit
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#edit) center no-repeat)
-		&.meta__item_time
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#time) center no-repeat)
-		&.meta__item_views-count
-			&::before
-				@include pseudo($width: 15px, $background: url(../img/icons/sets/set-default.svg#eye) center no-repeat)
+// #post
+.post-col
+	margin-bottom: $margin/2
 
-.theme_dark, .theme_black
-	.meta__item
-		&::before
-			filter: invert(100%)
-		
+.row-1-col
+	.post-col
+		margin-bottom: 0
 
-			
-
-
-// #Post #Article #Archives
-.section-title
-	margin-bottom: 1rem
-
-.entry
+.post
 	position: relative
 	display: block
 	width: 100%
-	&__part
-		display: block
-		width: 100%
-		&:not(:last-child)
-			margin-bottom: .5rem
-	&__title
-		margin-bottom: 0
+	@extend .mb
+	&-header
+		> *
+			margin-bottom: $gutter
+			&:last-child
+				margin-bottom: 0
+	&-content
+		*:first-child
+			margin-top: 0 !important
+		p, blockquote
+			max-width: calc( 960px + 3rem )
+		h1, h2, h3, h4, h5, h6, ul, ol, dl
+			margin-bottom: $margin
+		h2
+			margin-top: $gutter*5
+		h3
+			margin-top: $gutter*4
+		h4
+			margin-top: $gutter*3
+		h5
+			margin-top: $gutter*2
+		h6
+			margin-top: $gutter
+		ul, ol
+			li
+				max-width: 960px
+				&:not(:last-child)
+					margin-bottom: $margin/2
+		ul, ol
+			ul, ol
+				margin-bottom: 0
+		.btn, .button
+			@extend .mb
+	&-meta
+		@extend .list-inline
+		&__item
+			margin-bottom: $gutter
+			font-size: $small-font-size
+		&_block
+			> *
+				display: block
+				&:not(:last-child)
+					margin-right: 0
+					margin-bottom: $gutter*2
+	&-date
+		&-modified
+			padding-left: $gutter
+			color: $gray-color-dark
+	&-footer
+		&__item
+			display: block
+			&:not(:last-child)
+				margin-bottom: $gutter*2
+		&__list, &__tags, &__cats
+			@extend .list-inline
+	&.post_single
+		> *
+			&:not(:last-child)
+				@extend .mb
+	&.post_archive
+		.post-title
+			font-size: $h4
+		.post-meta
+			margin-bottom: $gutter
+	&.post_tils
+		> *
+			&:not(:last-child)
+				margin-bottom: $gutter*2
+	&.post_list
+		> * > *
+			&:not(:last-child)
+				margin-bottom: $gutter*2
+		> * > * > *
+			&:not(:last-child)
+				margin-bottom: $gutter*2
+	&.post_banner
+		a.post-thumbnail
+			padding-bottom: 140%
+		.post-meta, .post-header
+			position: absolute
+			left: .5rem
+			padding: .5rem
+			margin-bottom: 0
+			background: $white-color
+			max-width: calc( 100% - 1rem )
+		.post-meta
+			top: .5rem
+		.post-header
+			bottom: .5rem
+		.post-title
+			font-size: $h5
 
-.entry.article-single
-	margin-bottom: 2rem
-
-.entry.article-archive
-	height: 100%
-	.meta, .entry__excerpt p, .link-more
-		margin-bottom: 0
-
-.attachment-post-thumbnail
-	max-height: 550px
-	width: auto
-
-.article-footer
-	&__item
-		display: block
-		margin-bottom: 1rem
-
-.post-categories, .post-tags
-	list-style-type: none
-	padding: 0
-	margin: 0
-	li
-		display: inline-block
-		margin-bottom: $gutter
-		&:not(:last-child)
-			margin-right: $gutter
-
-.single
-	.content-area
-		.post
-			margin-bottom: 3rem
-		.similar-posts
-			position: relative
-			margin-bottom: 1rem
-			.post
-				margin-bottom: 1rem
 
 
-.article-column
-	margin-bottom: 2rem
 
-.archive-title
-	margin-bottom: 1rem
+@media ( min-width: 768px )
+	.post
+		&.post_list
+			> * > *
+				&:not(:last-child)
+					margin-bottom: 0
 
-.post-thumbnail-bg
-	background-size: cover !important
+@media ( min-width: 992px )
+	.post
+		&-content
+			h2
+				margin-top: $gutter*6
+			h3
+				margin-top: $gutter*5
+			h4
+				margin-top: $gutter*4
+			h5
+				margin-top: $gutter*3
+			h6
+				margin-top: $gutter*2
+
+a.post-thumbnail
+	display: block
 	padding-bottom: 66.66%
-
-.article-template_banners
-	.entry__part
-		margin-bottom: 0
-	.entry__meta, .entry__header
-		position: absolute
-		left: $gutter*2
-		padding: $gutter*2
-		background-color: $white-color
-	.entry__meta
-		top: $gutter*2
-	.entry__header
-		bottom: $gutter*2
-	.entry__title
-		font-size: $h5
 
