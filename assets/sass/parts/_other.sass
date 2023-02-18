@@ -28,10 +28,22 @@
 	right: 0
 	z-index: 1000
 	background-color: $white-color
-	padding: 1rem 0 !important
+	padding: $margin/2 0
 	border-top: $border-width solid $gray-color-light
-	.button
-		margin-bottom: 0
+	.container
+		position: relative
+	&__text
+		font-size: $small-font-size
+		margin-bottom: 0 !important
+	&__action
+		position: absolute
+		top: 50%
+		right: 0
+		cursor: pointer
+		transform: translateY( -50% )
+		&:hover, &:focus, &:active
+			.icon
+				filter: invert(50%)
 
 .theme_dark, .footer_dark, .theme_black, .footer_black
 	.cookie
@@ -102,7 +114,7 @@
 		outline-width: 0
 		object-fit: cover
 
-// #masonry
+// #masonry.
 .masonry-container
 	margin-right: -$gutter
 	margin-left: -$gutter
@@ -127,7 +139,7 @@
 			display: inline-block
 			font-size: $small-font-size
 
-// Попап-форма
+// #popup.
 .popup
 	position: relative
 	padding: $padding*2
@@ -138,3 +150,18 @@
 	&-form
 		margin-bottom: 0
 
+// #elem.
+.elem
+	height: 100%
+	padding: $elem-padding
+	background: $elem-bg-color
+	color: $elem-text-color
+	border: $elem-bd-width solid $elem-bd-color
+	border-radius: $elem-bd-radius
+	box-shadow: $box-shadow
+
+a.elem
+	display: block
+	&:hover
+		border-color: $elem-bd-color-hover
+		box-shadow: $box-shadow-hover

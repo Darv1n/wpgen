@@ -72,7 +72,7 @@ jQuery( document ).ready( function( $ ) {
 	initMainNavigation( $( '#main-menu' ) );
 
 	function initCookieAcceper( cookieAccepter ) {
-		var button = cookieAccepter.find( '#cookie_action' );
+		var button = cookieAccepter.find( '#cookie-action' );
 
 		if ( cookieAccepter.length === 1 ) {
 			if ( null === localStorage.getItem( 'cookieAccept' ) || 'off' === localStorage.getItem( 'cookieAccept' ) ) {

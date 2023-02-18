@@ -185,6 +185,44 @@ if ( ! function_exists( 'shuffle_assoc' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kses_available_tags' ) ) {
+
+	/**
+	 * Available tags for wp_kses() function.
+	 *
+	 * @return array
+	 */
+	function kses_available_tags() {
+
+		$available_tags = array(
+			'p'      => array(
+				'class' => array(),
+			),
+			'span'   => array(
+				'class' => array(),
+			),
+			'b'      => array(),
+			'i'      => array(),
+			'strong' => array(),
+			'a'      => array(
+				'href'   => array(),
+				'class'  => array(),
+				'target' => array(),
+			),
+			'ul'     => array(),
+			'ol'     => array(),
+			'li'     => array(),
+			'dl'     => array(),
+			'dt'     => array(),
+			'dd'     => array(),
+			'code'   => array(),
+			'pre'    => array(),
+		);
+
+		return apply_filters( 'kses_available_tags', $available_tags );
+	}
+}
+
 if ( ! function_exists( 'get_curl_content' ) ) {
 
 	/**
@@ -267,6 +305,7 @@ if ( ! function_exists( 'save_remote_file' ) ) {
 		if ( ! file_exists( $file_path ) ) {
 			$external_html = get_curl_content( $file_link, $file_name );
 			if ( $external_html !== false ) {
+				$external_html     = apply_filters( 'save_remote_file', $external_html );
 				$file_put_contents = file_put_contents( $file_path, $external_html, LOCK_EX );
 				if ( $file_put_contents === false ) {
 					vardump( 'Возникла ошибка при парсинге файла ' . $file_name . '.' . $ext . ' (ссылка ' . $file_link . ')' );

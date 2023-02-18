@@ -475,22 +475,14 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 	 */
 	function wpgen_cookie_accepter() {
 
-		$output = '';
+		$home_parse_url = wp_parse_url( get_home_url() );
+		$output         = '';
 
 		if ( ! is_user_logged_in() && wpgen_options( 'general_cookie_display' ) ) {
 			$output .= '<div id="cookie" class="cookie" style="display: none">';
 				$output .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
-					$output .= '<div class="row align-items-center">';
-						$output .= '<div class="col-12 col-lg-8 cookie__message">';
-							$output .= '<p class="small">' . __( 'We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. <br>By clicking «Accept», you consent to the use of ALL the cookies', 'wpgen' ) . '</p>';
-						$output .= '</div>';
-						$output .= '<div class="col-12 col-lg-2 cookie__privacy">';
-							$output .= '<p><a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_privacy_policy_url() ) . '" tabindex="0">' . esc_html__( 'Cookie settings', 'wpgen' ) . '</a></p>';
-						$output .= '</div>';
-						$output .= '<div class="col-12 col-lg-2 cookie__confirm">';
-							$output .= '<button id="cookie_action" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '">' . esc_html__( 'Accept', 'wpgen' ) . '</button>';
-						$output .= '</div>';
-					$output .= '</div>';
+					$output .= sprintf( wp_kses( '<p class="cookie__text">' . __( 'By continuing to use %s, you agree to the use of cookies. More information can be found in the <a class="%s" href="%s" target="_blank">Privacy Policy</a>' .  '</p>', 'wpgen' ), kses_available_tags() ), $home_parse_url['host'], esc_attr( implode( ' ', get_link_classes() ) ), esc_url( get_privacy_policy_url() ) );
+					$output .= '<span id="cookie-action" class="cookie__action" role="button"><i class="icon icon_xmark"></i></span>';
 				$output .= '</div>';
 			$output .= '</div>';
 		}

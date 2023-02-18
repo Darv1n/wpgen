@@ -764,7 +764,7 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 	 *
 	 * @return array
 	 */
-	function get_wpgen_archive_page_columns_classes( $counter, $class = '', $columns_count = null ) {
+	function get_wpgen_archive_page_columns_classes( $counter = null, $class = '', $columns_count = null ) {
 
 		$classes   = array();
 		$classes[] = 'col-12';
@@ -847,7 +847,7 @@ if ( ! function_exists( 'wpgen_archive_page_columns_classes' ) ) {
 	 *
 	 * @return string
 	 */
-	function wpgen_archive_page_columns_classes( $counter, $class = '', $columns_count = null, $echo = true ) {
+	function wpgen_archive_page_columns_classes( $counter = null, $class = '', $columns_count = null, $echo = true ) {
 
 		$classes = get_wpgen_archive_page_columns_classes( $counter, $class, $columns_count );
 

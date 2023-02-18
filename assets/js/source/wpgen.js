@@ -3,9 +3,7 @@ jQuery(document).ready(function ($) {
 	// Клик по кнопке открытия/закрытия формы.
 	$( '#footer' ).on( 'click', '#wpgen-btn', function(e) {
 
-		e.preventDefault();
-
-		var popup  = $('#wpgen-popup');
+		var popup  = $( '#wpgen-popup' );
 		var opener = $(this).attr( 'data-opener' );
 		
 		if ( opener === 'off' ) {
@@ -16,6 +14,8 @@ jQuery(document).ready(function ($) {
 
 		localStorage.setItem( 'wpgenOpener', newOpener );
 		formOpener( newOpener );
+
+		e.preventDefault();
 	});
 
 	// Если есть значение в localStorage.
@@ -27,10 +27,10 @@ jQuery(document).ready(function ($) {
 	// Функция открытия/закрытия формы.
 	function formOpener( newOpener ) {
 
-		var newText = $('#wpgen-btn').attr( 'data-text-' + newOpener );
+		var newText = $( '#wpgen-btn' ).attr( 'data-text-' + newOpener );
 
-		$('#wpgen-btn').attr( 'data-opener', newOpener ).html( newText );
-		$('#wpgen-popup').attr( 'data-opener', newOpener );
+		$( '#wpgen-btn' ).attr( 'data-opener', newOpener ).html( newText );
+		$( '#wpgen-popup' ).attr( 'data-opener', newOpener );
 	}
 
 	// Сохраняем название проекта в localStorage.
@@ -51,13 +51,13 @@ jQuery(document).ready(function ($) {
 	// }
 
 	// Указываем цвет кнопок в атрибутах (нужно для корректной работы wpgen)
-	$.each(['.button', '.btn'], function( index, value ) {
+	$.each([ '.button', '.btn' ], function( index, value ) {
 		$( value ).each( function() {
 
 			var btn = $(this);
 			var classes = $(this).attr( 'class' );
 
-			$.each(['secondary', 'gray'], function( index, value ) {
+			$.each([ 'secondary', 'gray' ], function( index, value ) {
 				if ( classes.includes( value ) ) {
 					btn.attr( 'data-color', value );
 				}
@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
 			// Аттрибут по умолчанию.
 			btn.attr( 'data-type', 'common' );
 
-			$.each(['empty', 'gradient', 'slide'], function( index, value ) {
+			$.each([ 'empty', 'gradient', 'slide' ], function( index, value ) {
 				if ( classes.includes( value ) ) {
 					btn.attr( 'data-type', value );
 				}
@@ -102,7 +102,7 @@ jQuery(document).ready(function ($) {
 				var selectedOption = selector.find(':selected');
 
 				var type = selector.data( 'type' );
-				//var influence = selector.data( 'influence' );
+				// var influence = selector.data( 'influence' );
 				var currentValue = selector.data( 'value' );
 				var root = selector.data( 'root' );
 
@@ -120,17 +120,17 @@ jQuery(document).ready(function ($) {
 					var colorSaturate = selectedOption.data('color-saturate');
 
 					// общие 
-					obj[root + 'ColorDark'] = wpgen_value[selectedOption.data( 'dark' )];
-					obj[root + 'ColorDarken'] = wpgen_value[selectedOption.data( 'darken' )];
-					obj[root + 'Color'] = wpgen_value[selectedOption.data( 'color' )];
+					obj[root + 'ColorDark']    = wpgen_value[selectedOption.data( 'dark' )];
+					obj[root + 'ColorDarken']  = wpgen_value[selectedOption.data( 'darken' )];
+					obj[root + 'Color']        = wpgen_value[selectedOption.data( 'color' )];
 					obj[root + 'ColorLighten'] = wpgen_value[selectedOption.data( 'lighten' )];
-					obj[root + 'ColorLight'] = wpgen_value[selectedOption.data( 'light' )];
+					obj[root + 'ColorLight']   = wpgen_value[selectedOption.data( 'light' )];
 
 					// console.log( root + 'Color' );
 					// console.log( selectedOption.data( 'color' ) );
 
 					// Цвет текста.
-					if ( $.inArray( value.name, ['general-primary-color', 'general-secondary-color'] ) !== -1 ) {
+					if ( $.inArray( value.name, [ 'general-primary-color', 'general-secondary-color' ] ) !== -1 ) {
 						var elemColorStyle = getOppositeColorStyleBySaturate( selectedOption.data('color-saturate') );
 						if ( elemColorStyle == 'white') {
 							obj[root + 'ColorText'] = wpgen_value[$( '#general-bg-color' ).find(':selected').data('white')];
@@ -142,8 +142,8 @@ jQuery(document).ready(function ($) {
 					// Цвет ссылок
 					var linkColorName = $( '#general-link-color' ).find(':selected').val();
 					if ( linkColorName == root ) {
-						obj['linkColorDark'] = wpgen_value[colorName + '-600'];
-						obj['linkColor'] = wpgen_value[colorName + '-500'];
+						obj['linkColorDark']  = wpgen_value[colorName + '-600'];
+						obj['linkColor']      = wpgen_value[colorName + '-500'];
 						obj['linkColorLight'] = wpgen_value[colorName + '-400'];
 					}
 
@@ -151,13 +151,12 @@ jQuery(document).ready(function ($) {
 
 					// Фоновые цвета.
 					if ( value.name == 'general-bg-color' ) {
-						obj['bgColorDark'] = wpgen_value[selectedOption.data('bg-dark')];
-						obj['bgColorDarken'] = wpgen_value[selectedOption.data('bg-darken')];
+						obj['bgColorDark']    = wpgen_value[selectedOption.data('bg-dark')];
+						obj['bgColorDarken']  = wpgen_value[selectedOption.data('bg-darken')];
 						obj['bgColorLighten'] = wpgen_value[selectedOption.data('bg-lighten')];
-						obj['bgColorLight'] = wpgen_value[selectedOption.data('bg-light')];
-
-						obj['whiteColor'] = wpgen_value[selectedOption.data('white')];
-						obj['textColor'] = wpgen_value[selectedOption.data('black')];
+						obj['bgColorLight']   = wpgen_value[selectedOption.data('bg-light')];
+						obj['whiteColor']     = wpgen_value[selectedOption.data('white')];
+						obj['textColor']      = wpgen_value[selectedOption.data('black')];
 
 						// Добавляем классы в body.
 						var themeStyle = getStyleBySaturate( colorSaturate );
@@ -272,7 +271,6 @@ jQuery(document).ready(function ($) {
 
 							});
 						});
-
 					}
 
 					// Тип меню.
@@ -363,9 +361,9 @@ jQuery(document).ready(function ($) {
 
 		});
 
-		obj['allertColor'] = '#F9423A';
+		obj['allertColor']  = '#F9423A';
 		obj['warningColor'] = '#F3EA5D';
-		obj['acceptColor'] = '#79D97C';
+		obj['acceptColor']  = '#79D97C';
 
 		setRootString( obj );
 
@@ -379,7 +377,6 @@ jQuery(document).ready(function ($) {
 		// $( '#wpgen-root' ).empty().text( getRootString( obj ) );
 
 		console.log( obj );
-
 	}
 
 	// Функция принимает массив с рут-стилямы, выводит их строкой в теге style#wpgen-root.
@@ -394,9 +391,7 @@ jQuery(document).ready(function ($) {
 		rootString = ':root {' + rootString + '}';
 
 		$( '#wpgen-root' ).empty().text( rootString );
-
 	}
-
 
 	function getStyleBySaturate( saturate ) {
 		if ( $.inArray( parseInt(saturate), [800, 900] ) !== -1 ) {
@@ -460,13 +455,7 @@ jQuery(document).ready(function ($) {
 				$( name ).addClass( value + themeStyle );
 			});
 		});
-
 	}
-
-
-
-
-
 
 	function getOppositeSaturate( saturate ) {
 
@@ -485,9 +474,6 @@ jQuery(document).ready(function ($) {
 
 		return obj[saturate];
 	}
-
-
-
 
 	// Проверяем установленные замки.
 	var wpgenLocks = localStorage.getItem( 'wpgenLocks' );
@@ -512,8 +498,6 @@ jQuery(document).ready(function ($) {
 	// Клик замка.
 	$( '#wpgen-form' ).on( 'click', '.lock', function(e) {
 
-		e.preventDefault();
-
 		var id = $(this).prev().attr('id');
 		var value = $(this).attr( 'data-lock' );
 
@@ -527,6 +511,8 @@ jQuery(document).ready(function ($) {
 
 		wpgenLocks[id] = newValue;
 		localStorage.setItem( 'wpgenLocks', JSON.stringify( wpgenLocks ) );
+
+		e.preventDefault();
 	});
 
 	// Смена селектора.
@@ -535,13 +521,10 @@ jQuery(document).ready(function ($) {
 		var form = $(e.target).closest( '#wpgen-form' );
 
 		formDataSaver( form.serializeArray() );
-
 	});
 
 	// Клик рандома.
 	$( '#footer' ).on( 'click', '#wpgen-random', function(e) {
-
-		e.preventDefault();
 
 		$( '#wpgen-form .selector' ).each(function () {
 			var options = $(this).children( 'option' );
@@ -558,14 +541,11 @@ jQuery(document).ready(function ($) {
 		formDataSaver( form.serializeArray() );
 		console.log( form.serializeArray() );
 
+		e.preventDefault();
 	});
-
-
 
 	// Клик сохранения и сброса данных.
 	$( '#footer' ).on( 'click', '.wpgen-action', function(e) {
-
-		e.preventDefault();
 
 		var form = $(e.target).closest( '#wpgen-form' );
 		var type = $(e.target).attr( 'data-action' );
@@ -573,42 +553,35 @@ jQuery(document).ready(function ($) {
 		if ( type === 'reset' ) {
 			$( '.selector' ).each(function () {
 				var sDefault = $(this).attr( 'data-default' );
-				console.log( sDefault );
+				// console.log( sDefault );
 				$(this).val( sDefault );
 			});
 		}
 
 		if ( ! form.hasClass( 'submited' ) ) {
-
-			// Отправляем запрос Ajax в WordPress.
 			$.ajax({
 				type: 'POST',
-				url: ajax_wpgen_obj.url, // Путь к файлу admin-ajax.php
-				// Создаем объект, содержащий параметры отправки.
+				url: ajax_wpgen_obj.url,
 				data: {
-					'action': 'ajax_wpgen', // Событие к которому будем обращаться.
+					'action': 'wpgen_form_action', // Событие к которому будем обращаться.
 					'content': form.serialize(), // Передаём значения формы.
 					'type': type, // Передаём атрибут формы.
 					'security': ajax_wpgen_obj.nonce, // Используем nonce для защиты.
 				},
 				beforeSend: function () {
-					form.addClass( 'submited' );
 					// console.log( 'beforeSend' );
+					form.addClass( 'submited' );
 				},
 				complete: function () {
-					form.removeClass( 'submited' );
 					// console.log( 'complete' );
+					form.removeClass( 'submited' );
 				},
 				success: function (response) {
 					// console.log( 'success' );
-					console.log( response.data );
+					// console.log( response.data );
 					if ( response.success && type === 'reset' ) {
-						// setRootString( response.data );
 						console.log( form.serializeArray() );
 						formDataSaver( form.serializeArray() );
-
-						// $( '#wpgen-root' ).empty().text(response.success);
-						// $( '#skill-common-styles-css' ).attr( 'href', response.data );
 					} else {
 
 					}
@@ -623,14 +596,8 @@ jQuery(document).ready(function ($) {
 					}
 				}
 			})
-			// Выполнять после каждого Ajax запроса
-			//.always(function() { })
-			// Функция для работы с обработанными данными
-			//.done(function(data) { })
-			// Читать ошибки будем в консоли если что-то пойдет не по плану
-			/*.fail(function(errorThrown) {
-				console.log( errorThrown );
-			});*/
 		}
+
+		e.preventDefault();
 	});
 });

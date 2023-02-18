@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'wp_ajax_wpgen_handler', 'ajax_wpgen_callback' );
-add_action( 'wp_ajax_nopriv_wpgen_handler', 'ajax_wpgen_callback' );
+add_action( 'wp_ajax_wpgen_form_action', 'ajax_wpgen_form_callback' );
+add_action( 'wp_ajax_nopriv_wpgen_form_action', 'ajax_wpgen_form_callback' );
 
 /**
  * Ajax callback wpgen form.
  */
-function ajax_wpgen_callback() {
+function ajax_wpgen_form_callback() {
 
 	// $_POST = wp_unslash( array_map( 'esc_attr', $_POST ) ); // Cleaning array.
 

@@ -23,6 +23,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 		<?php do_action( 'wpgen_before_index_page' ); ?>
 
 		<?php if ( have_posts() ) : ?>
+			<?php $i = 0; ?>
 
 			<?php if ( is_home() && ! is_front_page() ) { ?>
 				<header class="content-area-header" aria-label="<?php echo _x( 'Archive page header', 'aria-label', 'wpgen' ); ?>">
@@ -36,7 +37,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 					<?php while ( have_posts() ) : ?>
 						<?php the_post(); ?>
 
-						<div <?php wpgen_archive_page_columns_classes(); ?>>
+						<div <?php wpgen_archive_page_columns_classes( $i ); ?>>
 
 							<?php
 								// Get a template with a post type, if there is one in the theme.
