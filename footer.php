@@ -27,9 +27,7 @@
 		<?php if ( wpgen_options( 'general_footer_top_bar_display' ) ) { ?>
 			<div class="footer__top-bar">
 				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
-
 					<?php get_template_part( 'templates/footer/footer-top-bar' ); ?>
-
 				</div>
 			</div>
 		<?php } ?>
@@ -53,9 +51,7 @@
 		<?php if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) { ?>
 			<div class="footer__bottom-bar">
 				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
-
 					<?php get_template_part( 'templates/footer/footer-bottom-bar' ); ?>
-
 				</div>
 			</div>
 		<?php } ?>

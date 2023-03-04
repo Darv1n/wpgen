@@ -32,7 +32,8 @@ a.logo
 // #header, footer, content
 .section
 	position: relative
-	padding: $margin-section 0
+	padding-top: $margin*3
+	padding-bottom: $margin*2
 	&-title
 		@extend .mb
 	&_content, &_breadcrumbs
@@ -141,7 +142,7 @@ a.logo
 
 // #post
 .post-col
-	margin-bottom: $margin/2
+	margin-bottom: $bootstrap-gutter*2
 
 .row-1-col
 	.post-col
@@ -211,6 +212,7 @@ a.logo
 			&:not(:last-child)
 				@extend .mb
 	&.post_archive
+		margin-bottom: 0
 		.post-title
 			font-size: $h4
 		.post-meta

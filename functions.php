@@ -55,6 +55,7 @@ require_once get_template_directory() . '/inc/addons/seo/seo-filters.php';
 require_once get_template_directory() . '/inc/addons/seo/seo-actions.php';
 
 // Comments.
+require_once get_template_directory() . '/inc/addons/comments/comments-functions.php';
 require_once get_template_directory() . '/inc/addons/comments/comments-ajax-handler.php';
 
 require_once get_template_directory() . '/inc/libs/minifier.php';

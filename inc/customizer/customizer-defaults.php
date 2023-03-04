@@ -77,18 +77,6 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'sidebar_display_author'                  => false,
 
 			'archive_page_columns'                    => 'three',
-			// 'archive_page_template_type'              => 'tils',
-			// 'archive_page_pagination'                 => 'numeric',
-			// 'archive_page_meta_display'               => true,
-			// 'archive_page_meta_author_display'        => false,
-			// 'archive_page_meta_date_display'          => true,
-			// 'archive_page_meta_cats_display'          => false,
-			// 'archive_page_meta_tags_display'          => false,
-			// 'archive_page_meta_comments_display'      => false,
-			// 'archive_page_meta_time_display'          => true,
-			// 'archive_page_meta_edit_display'          => false,
-			// 'archive_page_detail_button'              => 'button',
-			// 'archive_page_detail_description'         => 'excerpt',
 		);
 
 		foreach ( $post_types as $key => $post_type ) {
@@ -184,8 +172,7 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	}
 }
 
-/*
-// Usage:
+/*// Usage:
 add_filter( 'wpgen_filter_options', 'child_theme_filter_options' );
 function child_theme_filter_options( $wpgen_defaults ) {
 
@@ -198,5 +185,4 @@ function child_theme_filter_options( $wpgen_defaults ) {
 
 	return $wpgen_defaults;
 
-}
-*/
+}*/

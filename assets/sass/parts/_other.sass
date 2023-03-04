@@ -70,7 +70,6 @@
 	&.notification_accept
 		background-color: $accept-color
 
-
 // #social-list
 .social-list
 	margin: 0
@@ -150,7 +149,7 @@
 	&-form
 		margin-bottom: 0
 
-// #elem.
+// Elems.
 .elem
 	height: 100%
 	padding: $elem-padding
@@ -165,3 +164,21 @@ a.elem
 	&:hover
 		border-color: $elem-bd-color-hover
 		box-shadow: $box-shadow-hover
+
+.elem-nav
+	margin-top: $gutter
+	&__list
+		@extend .list-inline
+		margin-bottom: $gutter !important
+	&__link
+		margin-bottom: 0 !important
+	&__item
+		margin-bottom: $gutter
+		overflow: hidden
+		&:not(:last-child)
+			margin-right: $gutter*2
+		&_first, &_last
+			a
+				color: transparent
+				&:hover, &:focus, &:active
+					color: transparent

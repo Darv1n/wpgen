@@ -196,18 +196,18 @@ if ( ! function_exists( 'kses_available_tags' ) ) {
 
 		$available_tags = array(
 			'p'      => array(
-				'class' => array(),
+				'class' => true,
 			),
 			'span'   => array(
-				'class' => array(),
+				'class' => true,
 			),
 			'b'      => array(),
 			'i'      => array(),
 			'strong' => array(),
 			'a'      => array(
-				'href'   => array(),
-				'class'  => array(),
-				'target' => array(),
+				'href'   => true,
+				'class'  => true,
+				'target' => true,
 			),
 			'ul'     => array(),
 			'ol'     => array(),
@@ -305,7 +305,7 @@ if ( ! function_exists( 'save_remote_file' ) ) {
 		if ( ! file_exists( $file_path ) ) {
 			$external_html = get_curl_content( $file_link, $file_name );
 			if ( $external_html !== false ) {
-				$external_html     = apply_filters( 'save_remote_file', $external_html );
+				$external_html     = apply_filters( 'save_remote_file', $external_html, $file_link );
 				$file_put_contents = file_put_contents( $file_path, $external_html, LOCK_EX );
 				if ( $file_put_contents === false ) {
 					vardump( 'Возникла ошибка при парсинге файла ' . $file_name . '.' . $ext . ' (ссылка ' . $file_link . ')' );
@@ -315,8 +315,8 @@ if ( ! function_exists( 'save_remote_file' ) ) {
 				usleep( (int) $sleep );
 			} else {
 				vardump( 'Хуевый ответ от функции get_curl_content() (ссылка ' . $file_link . ')' );
-			} // end if false != $external_html
-		} // end if !file_exists( $file_path )
+			}
+		}
 
 		return $file_path;
 	}
@@ -345,6 +345,38 @@ if ( ! function_exists( 'get_escape_title' ) ) {
 		$string = trim( $string );
 
 		return $string;
+	}
+}
+
+if ( ! function_exists( 'get_post_nesting_level' ) ) {
+
+	/**
+	 * Returns the nesting post level of type 'page'.
+	 *
+	 * @param int $post_id Post ID. Default = global $post.
+	 * @param int $level   Output nesting level. Default 0.
+	 *
+	 * @return int
+	 */
+	function get_post_nesting_level( $post_id = null, $level = 0 ) {
+
+		if ( is_null( $post_id ) ) {
+			global $post;
+			$post_id = $post->ID;
+		} else {
+			$post = get_post( $post_id );
+		}
+
+		if ( ! get_post_status( $post_id ) ) {
+			return false;
+		}
+
+		if ( $post->post_parent !== 0 ) {
+			$level++;
+			get_post_nesting_level( $post->post_parent, $level );
+		} else {
+			return (int) $level;
+		}
 	}
 }
 

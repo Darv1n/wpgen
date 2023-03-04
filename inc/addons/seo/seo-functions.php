@@ -233,16 +233,14 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 		// Merge child and parent default options.
 		$seo_defaults = apply_filters( 'wpgen_seo_filter_options', $seo_defaults );
 
-		/*
-		// Usage:
+		/*// Usage:
 		add_filter( 'wpgen_seo_filter_options', 'source_wpgen_seo_filter_options' );
 		function source_wpgen_seo_filter_options( $seo_defaults ) {
 
 			$seo_defaults['meta']['type'] = 'website';
 
 			return $seo_defaults;
-		}
-		*/
+		}*/
 
 		// Return controls.
 		if ( is_null( $control ) ) {

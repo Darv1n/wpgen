@@ -582,7 +582,7 @@ if ( ! function_exists( 'get_wpgen_post_navigation' ) ) {
 	}
 }
 
-add_action( 'wpgen_before_comment_form', 'the_wpgen_post_navigation', 15 );
+add_action( 'wpgen_after_article_post', 'the_wpgen_post_navigation', 15 );
 if ( ! function_exists( 'the_wpgen_post_navigation' ) ) {
 
 	/**
@@ -656,7 +656,7 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 					} else {
 
 						if ( $paged === $i ) {
-							$classes = 'button-small posts-navigation__item posts-navigation__item_current';
+							$classes = 'button-small button-disabled posts-navigation__item posts-navigation__item_current';
 						} elseif ( $paged + 1 === $i ) {
 							$rel     = ' rel="next"';
 							$classes = 'button-small posts-navigation__item posts-navigation__item_next';
@@ -820,7 +820,7 @@ if ( ! function_exists( 'the_wpgen_entry_footer' ) ) {
 	}
 }
 
-add_action( 'wpgen_after_comment_form', 'the_wpgen_similar_posts', 15 );
+add_action( 'wpgen_after_article_post', 'the_wpgen_similar_posts', 25 );
 if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
 	/**

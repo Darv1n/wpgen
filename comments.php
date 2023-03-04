@@ -133,48 +133,59 @@ if ( ! function_exists( 'wpgen_comments_list' ) ) {
 
 	<?php } ?>
 
-	<?php if ( comments_open() ) { ?>
-		<?php comment_form(); ?>
+	<?php if ( comments_open() ) {
 
-		<?php
+		global $post;
+		$post_id       = $post->ID;
+		$commenter     = wp_get_current_commenter();
+		$user          = wp_get_current_user();
+		$user_identity = $user->exists() ? $user->display_name : '';
+		$req           = get_option( 'require_name_email' );
+		$span_req      = $req ? ' <span class="required">*</span>' : '';
+		$aria_req      = $req ? ' required="required"' : '';
+		$html5         = 'html5';
+		$commenter     = wp_get_current_commenter();
 
-			$available_tags = array(
-				'b' => array(),
-				'a' => array(
-					'href'   => array(),
-					'target' => array(),
-					'class'  => array(),
-				),
-			);
+		var_dump( $commenter );
 
-		?>
+		$args = array(
+			'fields'              => array(
+				'author' => '<div class="col-12 col-lg-6 comment-form-author">
+					<label for="author">' . __( 'Name' ) . $span_req . '</label>
+					<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" autocomplete="name"' . $aria_req . '/>
+				</div>',
+				'email'  => '<div class="col-12 col-lg-6 comment-form-email">
+					<label for="email">' . __( 'Email' ) . $span_req . '</label>
+					<input id="email" name="email" type="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" autocomplete="email" aria-describedby="email-notes"' . $aria_req . '/>
+				</div>',
+				'cookies' => '<div class="col-12 comment-form-cookies-consent">
+					<input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" checked="checked"/>
+					<label for="wp-comment-cookies-consent">' . __( 'Save my name, email, and website in this browser for the next time I comment.' ) . '</label>
+				</div>',
+			),
+			'class_form'           => 'row comment-form',
+			'comment_field'        => '<div class="col-12 comment-form-comment">
+				<label for="comment">' . _x( 'Comment', 'wpgen' ) . '<span class="required">*</span></label>
+				<textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required" maxlength="65525" spellcheck="true"></textarea>
+			</div>',
+			'must_log_in'          => '<div class="col-12 must-log-in">' .
+				 sprintf( __( 'You must be <a href="%s">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '
+			 </div>',
+			'logged_in_as'         => '<div class="col-12 logged-in-as">' .
+				 sprintf( __( '<a href="%1$s" aria-label="Logged in as %2$s. Edit your profile.">Logged in as %2$s</a>. <a href="%3$s">Log out?</a>' ), get_edit_user_link(), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '
+			 </div>',
+			'comment_notes_after'  => '',
+			'comment_notes_before' => '<div class="col-12 comment-notes">
+				<span id="email-notes">' . __( 'Your email address will not be published.' ) . '</span>
+			</div>',
+			'submit_field'         => '<div class="col-12 form-submit">%1$s %2$s</div>',
+			'class_submit'         => 'submit icon icon_envelope',
+			'title_reply'          => esc_html__( 'Leave a Reply', 'wpgen' ),
+			'label_submit'         => esc_html__( 'Post Comment', 'wpgen' )
+		);
 
-		<form id="comment-form" class="form comment-form">
-
-			<h2 class="form-title"><?php _e( 'Add a comment', 'wpgen' ); ?></h2>
-
-			<textarea id="comment" name="form-comment" class="form-comment required" rows="5" cols="50" placeholder="<?php _e( 'Your comment (required)', 'wpgen' ); ?>" required></textarea>
-
-			<div class="row">
-				<div class="col-12 col-lg-6">
-					<input id="form-name" class="form-name" type="text" name="form-name" placeholder="<?php _e( 'Your name (not required)', 'wpgen' ); ?>" value="">
-				</div>
-				<div class="col-12 col-lg-6">
-					<input id="form-email" class="form-email" type="email" name="form-email" placeholder="<?php _e( 'E-mail (not required)', 'wpgen' ); ?>" value="">
-				</div>
-			</div>
-
-			<input id="form-anticheck" class="form-anticheck" type="checkbox" name="form-anticheck" style="display: none !important;" value="true" checked="checked">
-			<input id="form-submitted" type="text" name="form-submitted" value="" style="display: none !important;">
-
-			<p class="form-confirm-text"><?php echo sprintf( wp_kses( __( 'By submitting this form, you confirm that you agree to the storage and processing of your personal data described in our <a class="%s" href="%s" target="_blank">Privacy Policy</a>', 'wpgen' ), $available_tags ), esc_attr( implode( ' ', get_link_classes() ) ), esc_url( get_privacy_policy_url() ) ); ?></p>
-
-			<button id="comment-form-submit" <?php button_classes(); ?> type="submit" data-default-text="<?php _e( 'Post comment', 'wpgen' ); ?>" data-processing-text="<?php _e( 'Sending...', 'wpgen' ); ?>"><?php _e( 'Post comment', 'wpgen' ); ?></button>
-		</form>
-
-		<?php wp_enqueue_script( 'comments-handler' ); ?>
-
-	<?php } else { ?>
+		comment_form( $args );
+	} else { ?>
 		<div class="no-comments">
 			<p><?php _e( 'Comments are closed', 'wpgen' ); ?></p>
 		</div>

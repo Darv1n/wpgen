@@ -31,18 +31,18 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 					}
 				?>
 
-			<?php do_action( 'wpgen_after_article_post' ); ?>
-
 			<?php
 				// @hooked the_wpgen_post_navigation - 15
-				do_action( 'wpgen_before_comment_form' ); ?>
+				// @hooked the_wpgen_similar_posts   - 25
+				do_action( 'wpgen_after_article_post' ); ?>
+
+			<?php do_action( 'wpgen_before_comment_form' ); ?>
 
 				<!-- If comments are open or we have at least one comment, load up the comment template -->
 				<?php if ( comments_open() || get_comments_number() ) : ?>
 					<?php comments_template(); ?>
 				<?php endif; ?>
 
-			<!-- @hooked the_wpgen_similar_posts - 15 -->
 			<?php do_action( 'wpgen_after_comment_form' ); ?>
 
 		<?php endwhile; ?>

@@ -107,8 +107,10 @@ if ( ! function_exists( 'the_media' ) ) {
 		}
 
 		$columns_count  = get_wpgen_count_columns( $columns_count, false );
+
 		$post_classes   = array();
 		$post_classes[] = 'post';
+		$post_classes[] = 'post_archive';
 		$post_classes[] = 'post_media';
 		$post_classes[] = 'media';
 		$post_classes   = apply_filters( 'get_media_post_classes', $post_classes );
@@ -122,7 +124,7 @@ if ( ! function_exists( 'the_media' ) ) {
 			}
 		}*/
 
-		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes() . '>';
+		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes( '', false ) . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach ( $excel_row as $key_c => $excel_col ) {
@@ -190,7 +192,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				$html .= '<ul class="elem-nav__list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_center icon_chevron-left' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -226,7 +228,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_center icon_chevron-right' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';

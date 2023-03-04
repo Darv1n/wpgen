@@ -122,6 +122,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 		$columns_count  = get_wpgen_count_columns( $columns_count, false );
 		$post_classes   = array();
 		$post_classes[] = 'post';
+		$post_classes[] = 'post_archive';
 		$post_classes[] = 'post_video';
 		$post_classes[] = 'video';
 		$post_classes   = apply_filters( 'get_youtube_video_post_classes', $post_classes );
@@ -135,7 +136,7 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 			}
 		}*/
 
-		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes() . '>';
+		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes( '', false ) . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
 				foreach ( $excel_row as $key_c => $excel_col ) {
