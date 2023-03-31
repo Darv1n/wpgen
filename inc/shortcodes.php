@@ -5,6 +5,10 @@
  * @package wpgen
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_shortcode( 'wpgen-logo', 'get_wpgen_site_branding' ); // [wpgen-logo].
 add_shortcode( 'wpgen-copyright', 'wpgen_shortcode_copyright' ); // [wpgen-copyright year="2016" display="rights" text="Zolin Digital" link="https://zolin.digital/" font-size="small"].
 add_shortcode( 'current-year', 'wpgen_current_year' ); // [current-year year="2019"].
@@ -188,94 +192,46 @@ if ( ! function_exists( 'wpgen_shortcode_social_list' ) ) {
 		// Define a white list of attributes.
 		$atts = shortcode_atts( array(
 			'class'	=> '',
-			'type'  => 'icons',
+			'type'  => 'icons-rounded',
 		), $atts );
 
 		// Собираем классы списка.
 		$classes[] = 'social-list';
 		$classes[] = 'social-list_' . $atts['type'];
+		if ( $atts['type'] === 'links' ) {
+			$classes[] = 'social-list_block';
+		} else {
+			$classes[] = 'social-list_inline';
+		}
 		if ( $atts['class'] ) {
 			$classes[] = $atts['class'];
 		}
 
+		$socials = array( 'vkontakte', 'facebook', 'instagram', 'youtube', 'twitter', 'telegram', 'linkedin' );
+
 		// Собираем HTML.
 		$output = '<ul class="' . esc_attr( implode( ' ', $classes ) ) . '">';
-			if ( wpgen_options( 'other_vkontakte' ) ) {
-				$output .= '<li class="social-list__item social-list__item_vk">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_vkontakte' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Vkontakte';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/vk.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_facebook' ) ) {
-				$output .= '<li class="social-list__item social-list__item_fb">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_facebook' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Facebook';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/facebook.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_instagram' ) ) {
-				$output .= '<li class="social-list__item social-list__item_ig">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_instagram' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Instagram';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/instagram.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_youtube' ) ) {
-				$output .= '<li class="social-list__item social-list__item_yt">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_youtube' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Youtube';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/youtube.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_twitter' ) ) {
-				$output .= '<li class="social-list__item social-list__item_tw">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_twitter' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Twitter';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/twitter.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_telegram' ) ) {
-				$output .= '<li class="social-list__item social-list__item_tg">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_telegram' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'Telegram';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/telegram-plane.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'other_linkedin' ) ) {
-				$output .= '<li class="social-list__item social-list__item_in">';
-					$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'social-list__link' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_linkedin' ) ) . '" target="_blank" rel="noopener noreferrer external">';
-						if ( $atts['type'] === 'links' ) {
-							$output .= 'LinkedIn';
-						} else {
-							$output .= file_get_contents( get_theme_file_uri( '/assets/img/icons/social/linkedin.svg' ) );
-						}
-					$output .= '</a>';
-				$output .= '</li>';
+			foreach ( $socials as $key => $social ) {
+				if ( wpgen_options( 'other_' . $social ) ) {
+
+					if ( $atts['type'] === 'icons' ) {
+						$link_classes = 'social-list__link icon icon_' . $social;
+					} elseif ( $atts['type'] === 'icons-rounded' ) {
+						$link_classes = 'social-list__link icon icon_rounded icon_' . $social;
+					} elseif ( $atts['type'] === 'icons-squared' ) {
+						$link_classes = 'social-list__link icon icon_squared icon_' . $social;
+					} else {
+						$link_classes = implode( ' ', get_link_classes( 'social-list__link' ) );
+					}
+
+					$output .= '<li class="social-list__item">';
+						$output .= '<a class="' . esc_attr( $link_classes ) . '" href="' . esc_url( wpgen_options( 'other_' . $social ) ) . '" target="_blank" rel="noopener noreferrer external">';
+							if ( $atts['type'] === 'links' ) {
+								$output .= mb_ucfirst( $social );
+							}
+						$output .= '</a>';
+					$output .= '</li>';
+				}
 			}
 		$output .= '</ul>';
 

@@ -4,53 +4,68 @@
 // Icon Items
 .icon
 	position: relative
-	padding-left: calc( 1.125rem + .125rem + .25rem )
+	display: block
+	width: 1.125rem
+	height: 1rem
 	transition: $transition
 	&::before
-		@include pseudo( $left: .125rem, $top: 50%, $width: 1.125rem, $height: 1rem )
-		transform: translateY( -50% )
+		@include pseudo( $left: 50%, $top: 50%, $width: 1.125rem, $height: 1rem )
+		transform: translate( -50%, -50% )
 		transition: $transition
+	&_before, &_after
+		width: auto
+		height: auto
+		&::before
+			transform: translateY( -50% )
+	&_before
+		padding-left: calc( 1.125rem + .125rem + .25rem )
+		&::before
+			left: .125rem
+	&_after
+		padding-right: calc( 1.125rem + .125rem + .25rem )
+		&::before
+			right: .125rem
 	&_top
 		&::before
 			top: .125rem
 			transform: translateY( 0% )
-	&_after
-		padding-left: 0
-		padding-right: 1.5rem
-		&::before
-			left: auto
-			right: .125rem
 	&_white
 		&::before
 			filter: invert(100%)
 	&_gray
 		&::before
 			filter: invert(50%)
-	&_square, &_rounded
-		padding-left: calc( 1.125rem + .75rem + .375rem )
-		&::before
-			left: .375rem
+	&_squared, &_rounded
+		padding: .75rem
+		margin-right: .375rem
 		&::after
-			@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
-			border: 2px solid $text-color
+			@include pseudo( $left: 50%, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+			border: 2px solid $white-color
 			border-radius: $border-radius
-			transform: translateY( -50% )
+			transform: translate( -50%, -50% )
 			transition: $transition
-		&.icon_white
-			&::after
-				filter: invert(100%)
-		&.icon_gray
-			&::after
-				filter: invert(50%)
-		&.icon_top
+	&_before, &_after
+		&_squared, &_rounded
+			padding-left: calc( 1.125rem + .75rem + .375rem )
 			&::before
-				top: .4375rem
+				left: .375rem
 			&::after
-				top: 0
-				transform: translateY( 0% )
+				@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+				border: 2px solid $text-color
+				border-radius: $border-radius
+				transform: translateY( -50% )
+				transition: $transition
+			&.icon_top
+				&::before
+					top: .4375rem
+				&::after
+					top: 0
+					transform: translateY( 0% )
 	&_rounded
 		&::after
 			border-radius: 50%
+
+.icon
 	&_0
 		&::before
 			background: url( ../img/icons/sets/fa-regular.svg#0 ) center/cover no-repeat
@@ -500,15 +515,18 @@
 	&_vimeo
 		&::before
 			background: url( ../img/icons/sets/social.svg#vimeo ) center/cover no-repeat
-	&_vk
+	&_vkontakte
 		&::before
-			background: url( ../img/icons/sets/social.svg#vk ) center/cover no-repeat
+			background: url( ../img/icons/sets/social.svg#vkontakte ) center/cover no-repeat
 	&_whatsapp
 		&::before
 			background: url( ../img/icons/sets/social.svg#whatsapp ) center/cover no-repeat
 	&_wordpress
 		&::before
 			background: url( ../img/icons/sets/social.svg#wordpress ) center/cover no-repeat
+	&_youtube
+		&::before
+			background: url( ../img/icons/sets/social.svg#youtube ) center/cover no-repeat
 
 .menu-toggle
 	&.icon_menu, > .icon_menu
@@ -550,21 +568,18 @@ button, .button
 
 button, .button
 	&.icon
+		width: auto
+		height: auto
 		padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
 		&::before
 			left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+			transform: translateY( -50% )
 		&_after
 			padding-left: calc( var( --buttonPaddingLeft ) )
 			padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
 			&::before
 				left: auto
 				right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-		&_center
-			padding-left: var( --buttonPaddingLeft )
-			&::before
-				top: 50%
-				left: 50%
-				transform: translate( -50%, -50% )
 
 @media( min-width: 576px )
 	button, .button
@@ -578,12 +593,6 @@ button, .button
 				&::before
 					left: auto
 					right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-			&_center
-				padding-left: var( --buttonPaddingLeft )
-				&::before
-					top: 50%
-					left: 50%
-					transform: translate( -50%, -50% )
 
 .theme_dark, .theme_black
 	.icon:not(button)

@@ -84,13 +84,13 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 	function get_wpgen_post_meta_list( $output = '' ) {
 
 		if ( wpgen_options( 'single_' . get_post_type() . '_meta_author_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_user">';
+			$output .= '<li class="post-meta__item icon icon_before icon_user">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'single_' . get_post_type() . '_meta_date_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_calendar">';
+			$output .= '<li class="post-meta__item icon icon_before icon_calendar">';
 				$output .= '<time class="post-date post-date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
 				if ( wpgen_options( 'single_' . get_post_type() . '_meta_date_modified_display' ) && get_the_modified_date( 'j M, Y' ) !== get_the_date( 'j M, Y' ) ) {
 					$output .= '<time class="post-date post-date-modified data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Modified Date', 'wpgen' ) ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
@@ -100,7 +100,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 
 		if ( get_post_type() === 'post' ) {
 			if ( wpgen_options( 'single_' . get_post_type() . '_meta_cats_display' ) && has_category() ) {
-				$output .= '<li class="post-meta__item icon icon_folder">';
+				$output .= '<li class="post-meta__item icon icon_before icon_folder">';
 					$categories = get_the_category();
 					foreach ( $categories as $key => $category ) {
 						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $category->term_id, $category->taxonomy ) ) . '">' . esc_html( $category->name ) . '</a>';
@@ -109,7 +109,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 				$output .= '</li>';
 			}
 			if ( wpgen_options( 'single_' . get_post_type() . '_meta_tags_display' ) && has_tag() ) {
-				$output .= '<li class="post-meta__item icon icon_tag">';
+				$output .= '<li class="post-meta__item icon icon_before icon_tag">';
 					$tags = get_the_tags();
 					foreach ( $tags as $key => $tag ) {
 						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $tag->term_id, $tag->taxonomy ) ) . '">' . esc_html( $tag->name ) . '</a>';
@@ -120,13 +120,13 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 		}
 
 		if ( wpgen_options( 'single_' . get_post_type() . '_meta_time_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
+			$output .= '<li class="post-meta__item icon icon_before icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
 				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'single_' . get_post_type() . '_meta_comments_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_comment">';
+			$output .= '<li class="post-meta__item icon icon_before icon_comment">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
@@ -135,7 +135,7 @@ if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
 		$output = apply_filters( 'get_wpgen_post_meta_list', $output );
 
 		if ( wpgen_options( 'single_' . get_post_type() . '_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="post-meta__item icon icon_pen">';
+			$output .= '<li class="post-meta__item icon icon_before icon_pen">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
 		}
@@ -183,38 +183,38 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 	function get_wpgen_archive_meta_list( $output = '' ) {
 
 		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_author_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_user">';
+			$output .= '<li class="post-meta__item icon icon_before icon_user">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_date_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_calendar">';
+			$output .= '<li class="post-meta__item icon icon_before icon_calendar">';
 				$output .= '<time class="post-date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
 			$output .= '</li>';
 		}
 
 		if ( get_post_type() === 'post' ) {
 			if ( wpgen_options( 'archive_' . get_post_type() . '_meta_cats_display' ) && has_category() ) {
-				$output .= '<li class="post-meta__item icon icon_folder">';
+				$output .= '<li class="post-meta__item icon icon_before icon_folder">';
 					$output .= get_the_category_list( ', ' );
 				$output .= '</li>';
 			}
 			if ( wpgen_options( 'archive_' . get_post_type() . '_meta_tags_display' ) && has_tag() ) {
-				$output .= '<li class="post-meta__item icon icon_tag">';
+				$output .= '<li class="post-meta__item icon icon_before icon_tag">';
 					$output .= get_the_tag_list( '', ', ' );
 				$output .= '</li>';
 			}
 		}
 
 		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
-			$output .= '<li class="post-meta__item icon icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
+			$output .= '<li class="post-meta__item icon icon_before icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
 				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
 			$output .= '</li>';
 		}
 
 		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_comments_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_comment">';
+			$output .= '<li class="post-meta__item icon icon_before icon_comment">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
 			$output .= '</li>';
 		}
@@ -223,7 +223,7 @@ if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
 		$output = apply_filters( 'get_wpgen_archive_meta_list', $output );
 
 		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="post-meta__item icon icon_pen-to-square">';
+			$output .= '<li class="post-meta__item icon icon_before icon_pen-to-square">';
 				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
 			$output .= '</li>';
 		}

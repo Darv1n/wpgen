@@ -351,32 +351,53 @@ if ( ! function_exists( 'get_escape_title' ) ) {
 if ( ! function_exists( 'get_post_nesting_level' ) ) {
 
 	/**
-	 * Returns the nesting post level of type 'page'.
+	 * Returns the nesting post level of type like 'page'.
 	 *
 	 * @param int $post_id Post ID. Default = global $post.
-	 * @param int $level   Output nesting level. Default 0.
 	 *
 	 * @return int
 	 */
-	function get_post_nesting_level( $post_id = null, $level = 0 ) {
+	function get_post_nesting_level( $post_id = null ) {
 
-		if ( is_null( $post_id ) ) {
+		if ( is_null( $page_id ) ) {
 			global $post;
 			$post_id = $post->ID;
-		} else {
-			$post = get_post( $post_id );
 		}
 
-		if ( ! get_post_status( $post_id ) ) {
+		$ancestors = get_ancestors( $post_id, get_post_type() );
+
+		if ( ! is_array( $ancestors ) ) {
 			return false;
 		}
 
-		if ( $post->post_parent !== 0 ) {
-			$level++;
-			get_post_nesting_level( $post->post_parent, $level );
-		} else {
-			return (int) $level;
+		return count( $ancestors );
+	}
+}
+
+if ( ! function_exists( 'get_nesting_level' ) ) {
+
+	/**
+	 * Returns the nesting term level.
+	 *
+	 * @param int $object_id     ID.
+	 * @param int $object_type   category, page, post.
+	 * @param int $resource_type post_type or taxonomy.
+	 *
+	 * @return int
+	 */
+	function get_nesting_level( $object_id = null, $object_type = null, $resource_type = '' ) {
+
+		if ( is_null( $object_id ) || is_null( $object_type ) ) {
+			return false;
 		}
+
+		$ancestors = get_ancestors( $object_id, $object_type, $resource_type );
+
+		if ( ! is_array( $ancestors ) ) {
+			return false;
+		}
+
+		return count( $ancestors );
 	}
 }
 
@@ -395,7 +416,8 @@ if ( ! function_exists( 'get_title_slug' ) ) {
 			return false;
 		}
 
-		$string = urldecode( sanitize_title( $string ) );
+		$string = sanitize_title( $string );
+		$string = urldecode( $string );
 		$string = preg_replace( '/([^a-z\d\-\_])/', '', $string );
 
 		return $string;

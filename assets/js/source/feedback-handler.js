@@ -6,10 +6,10 @@ jQuery(document).ready(function ($) {
 		$( '#form-label' ).val(data);
 	});
 
-	var form = $( '.form' );
+	var form = $( '#feedback-form' );
 
 	// Отправка формы.
-	form.on( 'click', '.form-submit', function (e) {
+	form.on( 'click', '#form-submit', function (e) {
 
 		e.preventDefault();
 		var _this = $( e.target );

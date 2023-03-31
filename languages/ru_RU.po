@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-02-20 04:03+0400\n"
-"PO-Revision-Date: 2023-02-21 18:32+0400\n"
+"POT-Creation-Date: 2023-03-08 02:24+0400\n"
+"PO-Revision-Date: 2023-03-08 02:35+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -73,42 +73,54 @@ msgstr "Предыдущие комментарии"
 msgid "New comments"
 msgstr "Новые комментарии"
 
-#: comments.php:154
-msgid "Add a comment"
-msgstr "Добавить комментарий"
+#: comments.php:152 inc/addons/init-form.php:43
+msgid "Name"
+msgstr "Имя"
 
-#: comments.php:156
-msgid "Your comment (required)"
-msgstr "Ваш комментарий (обязательно)"
+#: comments.php:156 inc/customizer/customizer-controls.php:378
+msgid "Email"
+msgstr "Почта"
 
-#: comments.php:160
-msgid "Your name (not required)"
-msgstr "Ваше имя (не обязательно)"
+#: comments.php:161
+msgid ""
+"Save my name, email, and website in this browser for the next time I comment."
+msgstr ""
+"Сохранить мое имя, электронную почту и веб-сайт в этом браузере для "
+"следующего комментария."
 
-#: comments.php:163
-msgid "E-mail (not required)"
-msgstr "E-mail (не обязательно)"
+#: comments.php:166
+msgid "Comment"
+msgstr "Комментари1"
 
-#: comments.php:170 inc/addons/init-form.php:156
+#: comments.php:170
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+"Вы должны быть <<a href=\"%s\">авторизованны</a> чтобы оставить комментарий."
+
+#: comments.php:173
 #, php-format
 msgid ""
-"By submitting this form, you confirm that you agree to the storage and "
-"processing of your personal data described in our <a class=\"%s\" "
-"href=\"%s\" target=\"_blank\">Privacy Policy</a>"
+"<a href=\"%1$s\" aria-label=\"Logged in as %2$s. Edit your profile.\">Logged "
+"in as %2$s</a>. <a href=\"%3$s\">Log out?</a>"
 msgstr ""
-"Отправляя эту форму, вы соглашаетесь с условиями хранения и обработки ваших "
-"персональных данных, описанными в нашей <a class=\"%s\" href=\"%s\" "
-"target=\"_blank\">Политике конфиденциальности</a>"
+"<a href=\"%1$s\" aria-label=\"Вошел в систему как %2$s. Отредактируйте свой "
+"профиль.\">Вошел в систему как %2$s</a>. <a href=\"%3$s\">Выйти из системы?</"
+"a>"
 
-#: comments.php:172
-msgid "Post comment"
-msgstr "Отправить комментарий"
+#: comments.php:177
+msgid "Your email address will not be published."
+msgstr "Ваш адрес электронной почты не будет опубликован."
 
-#: comments.php:172 inc/addons/init-form.php:159
-msgid "Sending..."
-msgstr "Отправка..."
+#: comments.php:181
+msgid "Leave a Reply"
+msgstr "Ответить"
 
-#: comments.php:179
+#: comments.php:182
+msgid "Post Comment"
+msgstr "Опубликовать"
+
+#: comments.php:188
 msgid "Comments are closed"
 msgstr "Комментарии закрыты"
 
@@ -131,10 +143,6 @@ msgstr ""
 #: inc/addons/init-form.php:41
 msgid "Please enter your name"
 msgstr "Пожалуйста, введите ваше имя"
-
-#: inc/addons/init-form.php:43
-msgid "Name"
-msgstr "Имя"
 
 #: inc/addons/init-form.php:49
 msgid "Please enter a phone number"
@@ -184,6 +192,21 @@ msgstr "Как вас зовут?"
 msgid "What is your phone?"
 msgstr "Ваш номер телефона"
 
+#: inc/addons/init-form.php:156
+#, php-format
+msgid ""
+"By submitting this form, you confirm that you agree to the storage and "
+"processing of your personal data described in our <a class=\"%s\" "
+"href=\"%s\" target=\"_blank\">Privacy Policy</a>"
+msgstr ""
+"Отправляя эту форму, вы соглашаетесь с условиями хранения и обработки ваших "
+"персональных данных, описанными в нашей <a class=\"%s\" href=\"%s\" "
+"target=\"_blank\">Политике конфиденциальности</a>"
+
+#: inc/addons/init-form.php:159
+msgid "Sending..."
+msgstr "Отправка..."
+
 #: inc/addons/init-form.php:159
 msgid "Sent"
 msgstr "Отправлено"
@@ -201,10 +224,8 @@ msgid "or"
 msgstr "или"
 
 #: inc/addons/init-form.php:164 inc/shortcodes.php:326
-#, fuzzy
-#| msgid "Write to Whatsapp"
 msgid "Write to WhatsApp"
-msgstr "Написать в Whatsapp"
+msgstr "Написать в WhatsApp"
 
 #: inc/addons/init-form.php:167 inc/shortcodes.php:303
 msgid "Write to Telegram"
@@ -864,16 +885,12 @@ msgid "900 (50 for a dark theme)"
 msgstr ""
 
 #: inc/addons/wpgen/wpgen-frontend-form.php:369
-#, fuzzy
-#| msgid "Close"
 msgid "Close WpGen"
-msgstr "Закрытый"
+msgstr "Закрыть WpGen"
 
 #: inc/addons/wpgen/wpgen-frontend-form.php:369
-#, fuzzy
-#| msgid "Open"
 msgid "Open WpGen"
-msgstr "Открытый"
+msgstr "Открыть WpGen"
 
 #: inc/addons/wpgen/wpgen-frontend-form.php:373
 msgid "Random"
@@ -881,7 +898,7 @@ msgstr "Случайно"
 
 #: inc/addons/wpgen/wpgen-frontend-form.php:374
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: inc/addons/wpgen/wpgen-frontend-form.php:375
 #: inc/customizer/customizer-controls.php:144
@@ -1045,11 +1062,11 @@ msgstr "Футер четыре колонки"
 
 #: inc/customizer/customizer-controls.php:113
 msgid "Before"
-msgstr ""
+msgstr "До"
 
 #: inc/customizer/customizer-controls.php:114
 msgid "After"
-msgstr ""
+msgstr "После"
 
 #: inc/customizer/customizer-controls.php:118
 #: inc/customizer/customizer-controls.php:128
@@ -1151,46 +1168,36 @@ msgstr ""
 "Этот чекбокс активирует форму WpGen во фронтенде для администратора сайта"
 
 #: inc/customizer/customizer-controls.php:171
-#, fuzzy
-#| msgid ""
-#| "This checkbox displays two sidebars at the header of the site. They are "
-#| "adds in the widget section options"
 msgid ""
 "This checkbox displays two sidebars before the header of the site. They are "
 "adds in the widget section options"
 msgstr ""
-"Этот чекбокс включает два сайдбара в хедере сайта. Они редактируются в "
-"разделе Внешний вид-> Виджеты"
+"Этот чекбокс отображает два сайдбара перед хедером сайта. Они добавляются в "
+"опциях раздела виджетов"
 
 #: inc/customizer/customizer-controls.php:172
-#, fuzzy
-#| msgid ""
-#| "This checkbox displays two sidebars at the footer of the site. They are "
-#| "adds in the widget section options"
 msgid ""
 "This checkbox displays two sidebars before the footer of the site. They are "
 "adds in the widget section options"
 msgstr ""
-"Этот чекбокс включает два сайдбара в футере сайта. Они редактируются в "
-"разделе Внешний вид-> Виджеты"
+"Этот чекбокс включает два сайдбара перед футером сайта. Они добавляются в "
+"опциях раздела виджетов"
 
 #: inc/customizer/customizer-controls.php:173
-#, fuzzy
-#| msgid ""
-#| "This checkbox displays two sidebars at the footer of the site. They are "
-#| "adds in the widget section options"
 msgid ""
 "This checkbox displays two sidebars after the footer of the site. They are "
 "adds in the widget section options"
 msgstr ""
-"Этот чекбокс включает два сайдбара в футере сайта. Они редактируются в "
-"разделе Внешний вид-> Виджеты"
+"Этот чекбокс включает два сайдбара после футера сайта. Они добавляются в "
+"опциях раздела виджетов"
 
 #: inc/customizer/customizer-controls.php:174
 msgid ""
 "Add basic seo tags? Note: if you use any seo plugin, you should turn off "
 "this option"
 msgstr ""
+"Добавить основные seo теги? Примечание: если вы используете какой-либо seo "
+"плагин, вам следует отключить эту опцию"
 
 #: inc/customizer/customizer-controls.php:175
 msgid "Comments block hide/display"
@@ -1338,10 +1345,8 @@ msgid "Select menu button type"
 msgstr "Выберите тип кнопки меню"
 
 #: inc/customizer/customizer-controls.php:216
-#, fuzzy
-#| msgid "Select menu position"
 msgid "Select menu button icon position"
-msgstr "Выберите позицию меню"
+msgstr "Выберите положение иконки кнопки меню"
 
 #: inc/customizer/customizer-controls.php:218
 msgid "Footer"
@@ -1392,10 +1397,8 @@ msgid "Select scroll top button type"
 msgstr "Выберите тип кнопки «наверх»"
 
 #: inc/customizer/customizer-controls.php:233
-#, fuzzy
-#| msgid "Select scroll top button alignment"
 msgid "Select scroll top button icon position"
-msgstr "Выберите выравнивание кнопки «наверх»"
+msgstr "Выберите выравнивание иконки кнопки «наверх»"
 
 #: inc/customizer/customizer-controls.php:235
 msgid "SEO"
@@ -1467,34 +1470,28 @@ msgstr ""
 
 #: inc/customizer/customizer-controls.php:264
 msgid "By date"
-msgstr ""
+msgstr "По дате"
 
 #: inc/customizer/customizer-controls.php:265
-#, fuzzy
-#| msgid "Modified Date"
 msgid "By modified date"
-msgstr "Дата изменения"
+msgstr "По дате изменения"
 
 #: inc/customizer/customizer-controls.php:266
 msgid "By title"
-msgstr ""
+msgstr "По заголовку"
 
 #: inc/customizer/customizer-controls.php:267
-#, fuzzy
-#| msgid "Random"
 msgid "By random"
 msgstr "Случайно"
 
 #: inc/customizer/customizer-controls.php:272
 msgid "By menu order"
-msgstr ""
+msgstr "По параметру menu_order"
 
 #: inc/customizer/customizer-controls.php:278
 #: inc/customizer/customizer-controls.php:299
-#, fuzzy
-#| msgid "General options"
 msgid "Meta options"
-msgstr "Основные настройки"
+msgstr ""
 
 #: inc/customizer/customizer-controls.php:279
 #: inc/customizer/customizer-controls.php:300
@@ -1512,10 +1509,8 @@ msgid "Meta publish date display"
 msgstr ""
 
 #: inc/customizer/customizer-controls.php:282
-#, fuzzy
-#| msgid "Modified Date"
 msgid "Meta modified date display"
-msgstr "Дата изменения"
+msgstr ""
 
 #: inc/customizer/customizer-controls.php:283
 #: inc/customizer/customizer-controls.php:308
@@ -1560,33 +1555,25 @@ msgid "Prev/next post navigation display"
 msgstr ""
 
 #: inc/customizer/customizer-controls.php:293
-#, fuzzy
-#| msgid "Cookie display"
 msgid "Entry footer display"
-msgstr "Отображение Cookie"
+msgstr ""
 
 #: inc/customizer/customizer-controls.php:319
-#, fuzzy
-#| msgid "General options"
 msgid "Main options"
 msgstr "Основные настройки"
 
 #: inc/customizer/customizer-controls.php:320
 msgid "Select columns of posts"
-msgstr ""
+msgstr "Выберите количество колонок постов"
 
 #: inc/customizer/customizer-controls.php:322
-#, fuzzy
-#| msgid "Select footer type"
 msgid "Select posts per pare"
-msgstr "Выберите тип футера"
+msgstr ""
 
 #: inc/customizer/customizer-controls.php:323
 #: inc/customizer/customizer-controls.php:337
-#, fuzzy
-#| msgid "Select position"
 msgid "Select posts order"
-msgstr "Выбрать позицию"
+msgstr "Выберите порядок сортировки"
 
 #: inc/customizer/customizer-controls.php:324
 #: inc/customizer/customizer-controls.php:338
@@ -1606,10 +1593,8 @@ msgid "Entry footer cats display"
 msgstr ""
 
 #: inc/customizer/customizer-controls.php:335
-#, fuzzy
-#| msgid "Seo meta tags display"
 msgid "Entry footer tags display"
-msgstr "Отображение SEO-метатегов"
+msgstr ""
 
 #: inc/customizer/customizer-controls.php:336
 msgid "Similar posts display"
@@ -1659,19 +1644,13 @@ msgstr "Список контактов"
 msgid "Address"
 msgstr "Адрес"
 
-#: inc/customizer/customizer-controls.php:378
-msgid "Email"
-msgstr "Почта"
-
 #: inc/customizer/customizer-controls.php:379
 msgid "Whatsapp phone"
 msgstr "Телефон в Whatsapp"
 
 #: inc/customizer/customizer-controls.php:380
-#, fuzzy
-#| msgid "Telegram link"
 msgid "Telegram chat link"
-msgstr "Ссылка Телеграм"
+msgstr "Ссылка на чат Telegram"
 
 #: inc/customizer/customizer-controls.php:382
 msgid "Verifications and counters"
@@ -1708,10 +1687,8 @@ msgid "Single "
 msgstr ""
 
 #: inc/customizer/customizer.php:290
-#, fuzzy
-#| msgid "Archives:"
 msgid "Archive "
-msgstr "Архивы:"
+msgstr "Архивы"
 
 #: inc/customizer/customizer.php:293
 msgid "Other options"
@@ -1754,26 +1731,20 @@ msgid "Header top sidebar right"
 msgstr ""
 
 #: inc/setup.php:303
-#, fuzzy
-#| msgid "Footer Simple"
 msgid "Footer top bar left"
-msgstr "Футер простой"
+msgstr ""
 
 #: inc/setup.php:305
-#, fuzzy
-#| msgid "First footer sidebar"
 msgid "Footer top sidebar left"
-msgstr "Футер первая колонка"
+msgstr ""
 
 #: inc/setup.php:312
 msgid "Footer top bar right"
 msgstr ""
 
 #: inc/setup.php:314
-#, fuzzy
-#| msgid "First footer sidebar"
 msgid "Footer top sidebar right"
-msgstr "Футер первая колонка"
+msgstr ""
 
 #: inc/setup.php:324
 msgid "Footer bottom bar left"
@@ -1841,28 +1812,22 @@ msgid "Comments"
 msgstr "Комментарии"
 
 #: inc/template-parts.php:270
-#, fuzzy
-#| msgid "Content"
 msgid "Content section"
-msgstr "Контент"
+msgstr "Секция с контентом"
 
 #: inc/template-parts.php:460
 msgid "Scroll up"
 msgstr "Наверх"
 
 #: inc/template-parts.php:484
-#, fuzzy, php-format
-#| msgid ""
-#| "By submitting this form, you confirm that you agree to the storage and "
-#| "processing of your personal data described in our <a class=\"%s\" "
-#| "href=\"%s\" target=\"_blank\">Privacy Policy</a>"
+#, php-format
 msgid ""
 "By continuing to use %s, you agree to the use of cookies. More information "
 "can be found in the <a class=\"%s\" href=\"%s\" target=\"_blank\">Privacy "
 "Policy</a></p>"
 msgstr ""
-"Отправляя эту форму, вы соглашаетесь с условиями хранения и обработки ваших "
-"персональных данных, описанными в нашей <a class=\"%s\" href=\"%s\" "
+"Продолжая использовать сайт %s, вы соглашаетесь с использованием файлов "
+"cookie. Более подробную информацию можно найти в <a class=\"%s\" href=\"%s\" "
 "target=\"_blank\">Политике конфиденциальности</a>"
 
 #: inc/template-parts.php:640
@@ -1895,7 +1860,7 @@ msgstr "Похожие посты"
 
 #: search.php:20
 msgid "Search page header"
-msgstr ""
+msgstr "Хедер страницы поиска"
 
 #: search.php:22
 #, php-format
@@ -1974,24 +1939,20 @@ msgid "Site main menu"
 msgstr "Главное меню сайта"
 
 #: templates/single/single-one.php:12 templates/single/single-two.php:12
-#, fuzzy
-#| msgid "Site header"
 msgid "Post header"
-msgstr "Хедер сайта"
+msgstr "Хедер записи"
 
 #: templates/single/single-one.php:16 templates/single/single-two.php:20
 msgid "Post meta information"
-msgstr ""
+msgstr "Мета-информация записи"
 
 #: templates/single/single-one.php:23 templates/single/single-two.php:29
 msgid "Post thumbnail"
-msgstr ""
+msgstr "Изображение записи"
 
 #: templates/single/single-one.php:28 templates/single/single-two.php:34
-#, fuzzy
-#| msgid "Post comment"
 msgid "Post content"
-msgstr "Отправить комментарий"
+msgstr "Контент записи"
 
 #: templates/single/single-one.php:32 templates/single/single-two.php:38
 #, php-format
@@ -1999,10 +1960,20 @@ msgid "Continue reading <span class=\"screen-reader-text\">\"%s\"</span>"
 msgstr "Продолжить чтение<span class=\"screen-reader-text\">\"%s\"</span>"
 
 #: templates/single/single-one.php:39 templates/single/single-two.php:45
-#, fuzzy
-#| msgid "Site footer"
 msgid "Post footer"
-msgstr "Футер сайта"
+msgstr "Футер записи"
+
+#~ msgid "Add a comment"
+#~ msgstr "Добавить комментарий"
+
+#~ msgid "Your comment (required)"
+#~ msgstr "Ваш комментарий (обязательно)"
+
+#~ msgid "Your name (not required)"
+#~ msgstr "Ваше имя (не обязательно)"
+
+#~ msgid "E-mail (not required)"
+#~ msgstr "E-mail (не обязательно)"
 
 #, php-format
 #~ msgid "%1$s in %2$s"

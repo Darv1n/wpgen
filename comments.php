@@ -146,8 +146,6 @@ if ( ! function_exists( 'wpgen_comments_list' ) ) {
 		$html5         = 'html5';
 		$commenter     = wp_get_current_commenter();
 
-		var_dump( $commenter );
-
 		$args = array(
 			'fields'              => array(
 				'author' => '<div class="col-12 col-lg-6 comment-form-author">

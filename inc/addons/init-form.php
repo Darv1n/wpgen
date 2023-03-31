@@ -178,7 +178,7 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 		$html = apply_filters( 'get_feedback_form', $html );
 
 		wp_enqueue_script( 'jquery-form' );
-		wp_enqueue_script( 'handler-form' );
+		wp_enqueue_script( 'feedback-handler' );
 
 		return $html;
 	}

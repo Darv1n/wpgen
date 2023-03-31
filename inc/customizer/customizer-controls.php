@@ -319,7 +319,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 					'options_title'         => array( 'tab_title', __( 'Main options', 'wpgen' ), '' ),
 					'columns'               => array( 'select_control', __( 'Select columns of posts', 'wpgen' ), $archive_page_columns_description, $archive_page_columns_select ),
 					'template_type'         => array( 'select_control', __( 'Select template type', 'wpgen' ), $archive_page_template_type_description, $archive_page_template_type_select ),
-					'posts_per_page'        => array( 'number_control', __( 'Select posts per pare', 'wpgen' ), array( 'step' => '1' ) ),
+					'posts_per_page'        => array( 'number_control', __( 'Select posts per page', 'wpgen' ), array( 'step' => '1' ) ),
 					'posts_order'           => array( 'select_control', __( 'Select posts order', 'wpgen' ), '', $archive_page_order_select ),
 					'posts_orderby'         => array( 'select_control', __( 'Select posts orderby', 'wpgen' ), '', $archive_page_orderby_select ),
 					'pagination'            => array( 'select_control', __( 'Post Pagination', 'wpgen' ), '', $archive_page_pagination_select ),

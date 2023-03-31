@@ -44,7 +44,7 @@ if ( ! function_exists( 'add_kama_postviews_post_meta_list' ) ) {
 		$output = '';
 
 		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) ) {
-			$output .= '<li class="post-meta__item icon icon_eye data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '">';
+			$output .= '<li class="post-meta__item icon icon_before icon_eye data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '">';
 				$output .= get_fresh_kap_views( get_the_ID(), 'post' );
 			$output .= '</li>';
 		}
