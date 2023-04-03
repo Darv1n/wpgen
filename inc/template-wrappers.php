@@ -387,7 +387,10 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 			$classes[] = 'header_simple';
 		}
 
-		$classes[] = 'header_' . wpgen_options( 'general_header_color_scheme' );
+		if ( is_admin_bar_showing() ) {
+			$classes[] = 'is_wpadminbar';
+		}
+
 		$classes[] = 'header_menu_' . wpgen_options( 'general_menu_position' );
 
 		// Check the function has accepted any classes.
@@ -463,8 +466,6 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 			$classes[] = 'footer_four-columns';
 		}
 
-		$classes[] = 'footer_' . wpgen_options( 'general_color_scheme' );
-
 		// Check the function has accepted any classes.
 		if ( isset( $class ) && ! empty( $class ) ) {
 			if ( is_array( $class ) ) {
@@ -532,12 +533,13 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 			$classes[] = 'main-menu_type-close';
 		}
 
-		$classes[] = 'main-menu-' . wpgen_options( 'general_menu_position' );
-		if ( wpgen_options( 'general_menu_position' ) === 'absolute' ) {
-			// эта костыльная хуйня, потому что при fixed css даются хедеру и там слишком сложные условия из-за этого класса, когда меню 'absolute'.
-			$classes[] = 'main-menu-' . wpgen_options( 'general_menu_color_scheme' );
+		if ( wpgen_options( 'general_header_type' ) === 'header-simple' ) {
+			$classes[] = 'main-menu_right';
+		} else {
+			$classes[] = 'main-menu_' . wpgen_options( 'general_menu_align' );
 		}
-		$classes[] = 'main-menu-' . wpgen_options( 'general_menu_align' );
+
+		$classes[] = 'main-menu_' . wpgen_options( 'general_menu_position' );
 
 		// Check the function has accepted any classes.
 		if ( isset( $class ) && ! empty( $class ) ) {
@@ -871,17 +873,18 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 	 */
 	function get_button_classes( $class = '', $color = 'primary' ) {
 
+		$color_scheme = wpgen_options( 'general_color_scheme' );
+		$button_type  = wpgen_options( 'general_button_type' );
+
 		// Add elements to array.
 		$classes   = array();
 		$classes[] = 'button';
 
-		if ( wpgen_options( 'general_button_type' ) === 'common' ) {
+		if ( $button_type === 'common' ) {
 			$classes[] = 'button-' . $color;
-		} elseif ( wpgen_options( 'general_button_type' ) === 'empty' ) {
-			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
 		} else {
-			$classes[] = 'button-' . wpgen_options( 'general_button_type' );
-			$classes[] = 'button-' . wpgen_options( 'general_button_type' ) . '-' . $color;
+			$classes[] = 'button-' . $button_type;
+			$classes[] = 'button-' . $button_type . '-' . $color;
 		}
 
 		// Check the function has accepted any classes.
@@ -890,6 +893,15 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 				$classes = array_merge( $classes, $class );
 			} elseif ( is_string( $class ) ) {
 				$classes = array_merge( $classes, explode( ' ', $class ) );
+			}
+		}
+
+		if ( in_array( 'icon', $classes, true ) ) {
+
+			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+				$classes[] = 'icon_black';
+			} else {
+				$classes[] = 'icon_white';
 			}
 		}
 

@@ -1,7 +1,23 @@
 \::-moz-selection, ::selection
-	background: $primary-color
+	background: $primary-color-500
 	color: $button-text-color
 	text-shadow: none
+
+\::-webkit-scrollbar
+	width: 10px
+
+\::-webkit-scrollbar-track
+	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, .3 )
+	-webkit-border-radius: 10px
+	border-radius: 10px
+
+\::-webkit-scrollbar-thumb
+	-webkit-border-radius: 10px
+	border-radius: 10px
+	background: rgba( $primary-color-500, 1 )
+	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, .5 )
+	&:window-inactive
+		background: rgba( $primary-color-500, .5 )
 
 body
 	position: relative
@@ -10,24 +26,9 @@ body
 	font-family: $text-font
 	font-size: $medium-font-size
 	line-height: $line-height
-	color: $text-color
-	overflow: hidden
-
-\::-webkit-scrollbar
-	width: 10px
-
-\::-webkit-scrollbar-track
-	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, 0.3 )
-	-webkit-border-radius: 10px
-	border-radius: 10px
-
-\::-webkit-scrollbar-thumb
-	-webkit-border-radius: 10px
-	border-radius: 10px
-	background: rgba( $primary-color, 1 )
-	-webkit-box-shadow: inset 0 0 6px rgba( 0, 0, 0, 0.5 )
-	&:window-inactive
-		background: rgba( $primary-color, 0.5 )
+	background: $primary-bg-color
+	color: $primary-text-color
+	overflow-x: hidden
 
 .hidden
 	display: none !important
@@ -43,38 +44,22 @@ body
 	font-weight: $primary-font-weight
 
 .primary-color
-	color: $primary-color
+	color: $primary-color-500
+
 .secondary-color
-	color: $secondary-color
+	color: $secondary-color-500
+
 .gray-color
-	color: $gray-color
-.text-color
-	color: $text-color
+	color: $gray-color-500
+
 .white-color
 	color: $white-color
 
-.theme_white
-	background: $white-color
-	.bg-color
-		background: $white-color
+.text-color
+	color: $primary-text-color
 
-.theme_light
-	background: $bg-color-lighten
-	.bg-color
-		background: $bg-color-lighten
-
-.theme_dark
-	background: $bg-color-darken
-	.bg-color
-		background: $bg-color-darken
-
-.theme_black
-	background: $text-color
-	.bg-color
-		background: $text-color
-
-.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
-	@extend .white-color
+.error-color
+	color: $error-color
 
 //	#Typography
 small, .small
@@ -136,7 +121,12 @@ hr
 
 fieldset
 	padding: $gutter*2 $gutter*4
-	border: $border-middle-gray-color
+
+fieldset, legend
+	border: $elem-bd-width solid $elem-bd-color
+	border-radius: $elem-bd-radius
+	background: $primary-bg-color
+	color: $primary-text-color
 
 img
 	display: block
@@ -174,17 +164,14 @@ kbd
 	padding: .2rem .4rem
 	font-size: .875rem
 	background-color: #f1f1f1
-	border: $border-middle-gray-color
+	border: $border-width solid $gray-color-500
 	border-radius: .2rem
 
 kbd kbd
 	padding: 0
 	font-size: 100%
 	font-weight: bold
-
-.theme_dark, .theme_black
-	code, kbd
-		@extend .text-color
+	color: $primary-text-color
 
 caption
 	padding-top: .75rem
@@ -199,7 +186,7 @@ caption.caption-title
 	caption-side: top
 	text-align: left
 	font-size: $h3
-	color: $text-color
+	color: $primary-text-color
 	font-family: $primary-font
 	font-weight: $primary-font-weight
 
@@ -209,13 +196,13 @@ blockquote
 	margin-left: 2.5rem
 	margin-bottom: 1rem
 	padding: 1.5rem
-	background-color: $gray-color-light
-	border-left: $bold-border-width solid $primary-color
+	background-color: $gray-color-300
+	border-left: $bold-border-width solid $primary-color-500
 	cite
 		display: block
 		text-align: right
 		font-style: italic
-		color: $gray-color-dark
+		color: $primary-gray-color
 		&::before
 			content: "\2014\00a0"
 	> *:last-child
@@ -223,8 +210,8 @@ blockquote
 
 .theme_dark, .theme_black
 	blockquote
-		background-color: $gray-color-light
-		color: $text-color
+		background-color: $gray-color-300
+		color: $primary-text-color
 
 .theme_light
 	blockquote
@@ -243,15 +230,15 @@ table, .table
 	td, th
 		padding: .375rem .75rem
 		vertical-align: middle
-		border-top: 1px solid $gray-color-lighten
+		border-top: 1px solid $primary-bd-color-hover
 	thead th
-		background: $gray-color-lighten
-		color: $text-color
+		background: $primary-bd-color-hover
+		color: $primary-text-color
 		font-weight: bold
-		border-bottom: 2px solid $gray-color-lighten
+		border-bottom: 2px solid $primary-bd-color-hover
 		hyphens: none
 	tbody
-		border-top: 2px solid $gray-color-lighten
+		border-top: 2px solid $primary-bd-color-hover
 
 
 @media (min-width: 576px)
@@ -274,7 +261,7 @@ table, .table
 	figcaption
 		text-align: right
 		font-style: italic
-		color: $gray-color-dark
+		color: $primary-gray-color
 
 .wp-caption
 	max-width: 100%

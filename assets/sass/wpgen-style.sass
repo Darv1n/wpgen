@@ -1,15 +1,13 @@
 @import "_common-vars"
+@import "components/_mixins"
 
-.wpgen-popup
+.wpgen-popup, .button-wpgen
 	position: fixed
 	top: 32px
-	right: 0
 	z-index: 999
 
-body
-	overflow: visibility
-
 .wpgen-popup
+	right: 0
 	max-width: 220px
 	max-height: 100vh
 	overflow-y: scroll
@@ -20,33 +18,19 @@ body
 	&[data-opener="on"]
 		transform: translateX(0)
 
-.theme_white
-	.wpgen-popup
-		background: $white-color
-
-.theme_light
-	.wpgen-popup
-		background: $bg-color-lighten
-
-.theme_dark
-	.wpgen-popup
-		background: $bg-color-darken
-
-.theme_black
-	.wpgen-popup
-		background: $text-color
-
-.wpgen-form
-	position: relative
-	overflow: visibility
-
 .button-wpgen
-	position: fixed
-	top: 32px
 	&[data-opener="off"]
 		right: 0
 	&[data-opener="on"]
 		right: 220px
+
+.wpgen-form
+	position: relative
+	overflow: visibility
+	&::after
+		@include pseudo( $left: auto, $right: 0, $width: 50%, $background: $primary-bg-color )
+		border: $elem-bd-width solid $elem-bd-color
+		z-index: -1
 
 .form-option
 	position: relative

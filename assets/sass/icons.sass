@@ -12,6 +12,7 @@
 		@include pseudo( $left: 50%, $top: 50%, $width: 1.125rem, $height: 1rem )
 		transform: translate( -50%, -50% )
 		transition: $transition
+		filter: $svg-filter
 	&_before, &_after
 		width: auto
 		height: auto
@@ -29,41 +30,44 @@
 		&::before
 			top: .125rem
 			transform: translateY( 0% )
+	&_black
+		&::before
+			filter: invert(0%)
 	&_white
 		&::before
 			filter: invert(100%)
 	&_gray
 		&::before
 			filter: invert(50%)
-	&_squared, &_rounded
-		padding: .75rem
-		margin-right: .375rem
-		&::after
-			@include pseudo( $left: 50%, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
-			border: 2px solid $white-color
-			border-radius: $border-radius
-			transform: translate( -50%, -50% )
-			transition: $transition
-	&_before, &_after
-		&_squared, &_rounded
-			padding-left: calc( 1.125rem + .75rem + .375rem )
-			&::before
-				left: .375rem
-			&::after
-				@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
-				border: 2px solid $text-color
-				border-radius: $border-radius
-				transform: translateY( -50% )
-				transition: $transition
-			&.icon_top
-				&::before
-					top: .4375rem
-				&::after
-					top: 0
-					transform: translateY( 0% )
-	&_rounded
-		&::after
-			border-radius: 50%
+	// &_squared, &_rounded
+	// 	padding: .75rem
+	// 	margin-right: .375rem
+	// 	&::after
+	// 		@include pseudo( $left: 50%, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+	// 		border: 2px solid $white-color
+	// 		border-radius: $border-radius
+	// 		transform: translate( -50%, -50% )
+	// 		transition: $transition
+	// &_before, &_after
+	// 	&_squared, &_rounded
+	// 		padding-left: calc( 1.125rem + .75rem + .375rem )
+	// 		&::before
+	// 			left: .375rem
+	// 		&::after
+	// 			@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+	// 			border: 2px solid $text-color
+	// 			border-radius: $border-radius
+	// 			transform: translateY( -50% )
+	// 			transition: $transition
+	// 		&.icon_top
+	// 			&::before
+	// 				top: .4375rem
+	// 			&::after
+	// 				top: 0
+	// 				transform: translateY( 0% )
+	// &_rounded
+	// 	&::after
+	// 		border-radius: 50%
 
 .icon
 	&_0
@@ -444,6 +448,9 @@
 	&_star-sharp
 		&::before
 			background: url( ../img/icons/sets/fa-regular.svg#star-sharp ) center/cover no-repeat
+	&_shuffle
+		&::before
+			background: url( ../img/icons/sets/fa-regular.svg#shuffle ) center/cover no-repeat
 	&_tag
 		&::before
 			background: url( ../img/icons/sets/fa-regular.svg#tag ) center/cover no-repeat
@@ -537,64 +544,58 @@
 			&::before
 				background: url( ../img/icons/sets/fa-regular.svg#xmark ) center/cover no-repeat
 
-i.icon
-	display: block
-	width: 1.125rem
-	height: 1rem
-	padding-left: 0
-	&::before
-		left: 0
-		width: 100%
-		height: 100%
-
-button.icon, .button.icon
-	&.button-primary, &.button-secondary, &.button-gradient, &.button-slide, &.button-whatsapp, &.button-telegram
-		&::before
-			filter: invert(100%)
-	&.button-empty
-		&:hover, &:focus, &:active, &.active
-			&::before
-				filter: invert(100%)
-button, .button
-	&.button-primary, &.button-secondary, &.button-gradient, &.button-slide, &.button-whatsapp, &.button-telegram
-		> .icon
-			&::before
-				filter: invert(100%)
-	&.button-empty
-		&:hover, &:focus, &:active, &.active
-			> .icon
-				&::before
-					filter: invert(100%)
-
 button, .button
 	&.icon
 		width: auto
 		height: auto
-		padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
-		&::before
-			left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-			transform: translateY( -50% )
-		&_after
-			padding-left: calc( var( --buttonPaddingLeft ) )
-			padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+		&.button-squared
+			padding: $small-button-padding-top $small-button-padding-top
+		&.button-reset
+			padding: 0
+		&:not(.button-squared):not(.icon_center)
+			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
 			&::before
-				left: auto
-				right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+				left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+				transform: translateY( -50% )
+			&.icon_after
+				padding-left: calc( var( --buttonPaddingLeft ) )
+				padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+				&::before
+					left: auto
+					right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+			&.button-reset
+				padding-left: calc( 1rem + .125rem )
+				&::before
+					left: -.125rem
+				&.icon_after
+					padding-left: 0
+					padding-right: calc( 1rem + .125rem )
+					&::before
+						left: auto
+						right: -.125rem
 
 @media( min-width: 576px )
 	button, .button
 		&.icon
-			padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
-			&::before
-				left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-			&_after
-				padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
-				padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+			&.button-squared
+				padding: $button-padding-top $button-padding-top
+			&.button-reset
+				padding: 0
+			&:not(.button-squared):not(.icon_center)
+				padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
 				&::before
-					left: auto
-					right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-
-.theme_dark, .theme_black
-	.icon:not(button)
-		&::before
-			filter: invert(100%)
+					left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+				&.icon_after
+					padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
+					padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+					&::before
+						left: auto
+						right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+				&.button-reset
+					padding-left: calc( 1rem + .25rem )
+					&::before
+						left: -.25rem
+					&.icon_after
+						padding-right: calc( 1rem + .25rem )
+						&::before
+							right: -.25rem

@@ -31,7 +31,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 			<?php do_action( 'wpgen_after_article_page' ); ?>
 
-			<?php 
+			<?php
 				// @hooked the_wpgen_post_navigation - 15
 				do_action( 'wpgen_before_comment_form' ); ?>
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="screen-reader-text"><?php _e( 'Search:', 'wpgen' ); ?></span>
 		<input type="search" class="search-field" placeholder="<?php _e( 'Search...', 'wpgen' ); ?>" value="<?php echo get_search_query(); ?>" name="s" title="<?php _e( 'Search for', 'wpgen' ); ?>" />
 	</label>
-	<button <?php button_classes( 'search-submit' ); ?> type="submit" value="<?php _e( 'Search', 'wpgen' ); ?>">
-		<i class="icon icon_magnifying-glass"></i>
+	<button <?php button_classes( 'search-submit icon icon_magnifying-glass icon_center' ); ?> type="submit" value="<?php _e( 'Search', 'wpgen' ); ?>">
+		<i class="icon"></i>
 	</button>
 </form>

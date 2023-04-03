@@ -27,9 +27,9 @@
 	left: 0
 	right: 0
 	z-index: 1000
-	background-color: $white-color
+	background-color: $primary-bg-color
 	padding: $margin/2 0
-	border-top: $border-width solid $gray-color-light
+	border-top: $border-width solid $primary-bd-color
 	.container
 		position: relative
 	&__text
@@ -45,29 +45,22 @@
 			.icon
 				filter: invert(50%)
 
-.theme_dark, .footer_dark, .theme_black, .footer_black
-	.cookie
-		background-color: $bg-color-darken
-		border-top: $border-width solid $bg-color-dark
-		*
-			color: $white-color
-
 // #notifications
 .notification
 	display: block
-	padding: $padding
-	margin-bottom: $margin
-	max-width: calc( 960px + 3rem )
+	margin-bottom: $gutter*2
+	padding: $gutter $gutter*2
+	max-width: inherit
 	border-radius: $border-radius
-	background-color: $primary-color
+	background-color: $primary-bg-color-hover
 	hyphens: none
 	p:last-child
 		margin-bottom: 0
-	&.notification_allert
+	&_allert
 		background-color: $allert-color
-	&.notification_warning
+	&_warning
 		background-color: $warning-color
-	&.notification_accept
+	&_accept
 		background-color: $accept-color
 
 // #social-list
@@ -76,25 +69,6 @@
 		@extend .list-block
 	&_inline
 		@extend .list-inline
-
-// .social-list.social-list_icons
-// 	.social-list__item:not(:last-child)
-// 		margin-right: $gutter
-// 	.social-list__item
-// 		display: inline-block
-// 		vertical-align: top
-// 		.social-list__link
-// 			position: relative
-// 			display: block
-// 			width: 42px
-// 			height: 42px
-// 			padding: 8px
-// 			color: $text-color
-// 			background-color: $white-color
-// 			border: $border-light-gray-color
-// 			border-radius: 50%
-// 			&:hover, &:active, &:focus
-// 				border: $border-middle-gray-color
 
 .aspect-ratio
 	position: relative
@@ -127,12 +101,12 @@
 			bottom: 0
 			left: $gutter
 			padding: $padding/2
-			color: $text-color
+			color: $primary-text-color
 			background-color: $white-color
 			transition: $transition
 		&:hover
 			.caption
-				background-color: $bg-color-darken
+				background-color: $gray-color-800
 	.masonry-caption
 		text-align: right
 		*

@@ -3,11 +3,13 @@ form
 	*
 		hyphens: none
 		outline: none
-	label
-		margin-bottom: $margin/2
-	input, select, textarea
+	label, input, select, textarea
 		@extend .mb
 		max-width: 480px
+	label
+		input
+			margin-bottom: $gutter
+			display: block
 	textarea
 		min-height: 140px
 
@@ -30,11 +32,11 @@ input[type="datetime-local"],
 input[type="color"],
 	padding: $input-padding
 	width: 100%
-	border: $border-width solid $input-bd-color
+	border: $button-bd-width solid $primary-bd-color
 	border-radius: $button-bd-radius
 	box-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0)
 	&:focus, &:focus-visible
-		border: $border-width solid $elem-bd-color-hover
+		border: $button-bd-width solid $primary-bd-color-hover
 		box-shadow: 0px 5px 15px -7px rgba(0, 0, 0, .1)
 		outline: none
 
@@ -48,8 +50,8 @@ input[type="submit"]
 	font-size: $medium-font-size
 	font-family: inherit
 	color: $button-text-color
-	background: $primary-color
-	border: $border-width solid $primary-color
+	background: $primary-color-500
+	border: $button-bd-width solid $primary-color-500
 	border-radius: $button-bd-radius
 	box-shadow: $button-shadow
 	line-height: $line-height
@@ -65,46 +67,22 @@ input[type="submit"]
 		box-shadow: $button-shadow-hover
 		text-decoration: none
 	&:hover
-		background-color: $primary-color-lighten
-		border: $border-width solid $primary-color-lighten
+		background: $primary-color-400
+		border: $button-bd-width solid $primary-color-400
 	&:focus, &:active, &.active
-		background-color: $primary-color-darken
-		border: $border-width solid $primary-color-darken
+		background: $primary-color-600
+		border: $button-bd-width solid $primary-color-600
 
 .button
-	&-square
-		padding: $small-button-padding-top $small-button-padding-top
 	&-secondary
-		background: $secondary-color
-		border: $border-secondary-color
+		background: $secondary-color-500
+		border: $button-bd-width solid $secondary-color-500
 		&:hover
-			background-color: $secondary-color-lighten
-			border: $border-width solid $secondary-color-lighten
+			background: $secondary-color-400
+			border: $button-bd-width solid $secondary-color-400
 		&:focus, &:active, &.active
-			background-color: $secondary-color-darken
-			border: $border-width solid $secondary-color-darken
-	&-empty
-		background: transparent
-		border: $border-width solid $primary-color
-		&:hover
-			background-color: $primary-color-lighten
-			border: $border-width solid $primary-color-lighten
-		&:focus, &:active, &.active
-			background-color: $primary-color-darken
-			border: $border-width solid $primary-color-darken
-	&-default, &-gray
-		background: $gray-color-lighten
-		border: $border-width solid $gray-color-lighten
-		color: $text-color
-		&:hover, &:focus, &:active, &.active
-			color: $text-color
-		&:hover
-			background-color: $gray-color-light
-			border: $border-width solid $gray-color-light
-		&:focus, &:active, &.active
-			color: $white-color
-			background-color: $gray-color
-			border: $border-width solid $gray-color
+			background: $secondary-color-600
+			border: $button-bd-width solid $secondary-color-600
 
 @media( min-width: 576px )
 	button,
@@ -115,18 +93,32 @@ input[type="submit"]
 		padding: $button-padding-top $button-padding-left
 	.button-small
 		padding: $small-button-padding-top $small-button-padding-left
-	.button-square
-		padding: $button-padding-top $button-padding-top
 
-.theme_white, .theme_light, .theme_elems_white .elem, .theme_elems_light .elem
-	.button-empty
-		color: $text-color
-		&:hover, &:focus, &:active, &.active
-			color: $button-text-color
+.button-empty, .button-default, .button-gray
+	color: $primary-gray-color
+	background: $primary-bg-color
+	border: $button-bd-width solid $primary-bd-color
+	&:hover, &:focus, &:active, &.active
+		color: $primary-gray-color-hover
+		background: $primary-bg-color-hover
+		border: $button-bd-width solid $primary-bd-color-hover
+	&-primary
+		border: $button-bd-width solid $primary-color-500
+		&:focus, &:active, &.active
+			border: $button-bd-width solid $primary-color-600
+		&:hover
+			border: $button-bd-width solid $primary-color-400
+	&-secondary
+		border: $button-bd-width solid $secondary-color-500
+		&:focus, &:active, &.active
+			border: $button-bd-width solid $secondary-color-600
+		&:hover
+			border: $button-bd-width solid $secondary-color-400
 
 .button-gradient
 	position: relative
 	z-index: 1
+	color: $button-text-color
 	background: $primary-gradient
 	border: none
 	overflow: hidden
@@ -136,6 +128,7 @@ input[type="submit"]
 		transition: $transition
 		z-index: -1
 	&:hover, &:focus, &:active, &.active
+		color: $button-text-color-hover
 		border: none
 	&:hover
 		&::after
@@ -144,7 +137,7 @@ input[type="submit"]
 		background: $secondary-gradient
 		&::after
 			@include pseudo( $background: $secondary-gradient-reflect )
-	&-gray
+	&-default, &-gray
 		background: $gray-gradient
 		&::after
 			@include pseudo( $background: $gray-gradient-reflect )
@@ -152,42 +145,41 @@ input[type="submit"]
 .button-slide
 	position: relative
 	z-index: 1
-	background: $primary-color
+	color: $button-text-color
+	background: $primary-color-500
 	border: none
 	overflow: hidden
 	&::after
-		@include pseudo( $background: $secondary-color )
+		@include pseudo( $background: $secondary-color-500 )
 		transform: translateX(-100%)
 		transition: $transition
 		z-index: -1
 	&:hover, &:focus, &:active, &.active
+		color: $button-text-color-hover
 		border: none
 	&:hover
 		&::after
 			transform: translateX(0)
 	&-secondary
-		background: $secondary-color
+		background: $secondary-color-500
 		&::after
-			@include pseudo( $background: $primary-color )
-	&-gray
-		background: $gray-color-lighten
-		color: $text-color
+			@include pseudo( $background: $primary-color-500 )
+	&-default, &-gray
+		background: $gray-color-400
 		&::after
-			@include pseudo( $background: $gray-color-darken )
-		&:hover
-			color: $white-color !important
+			@include pseudo( $background: $gray-color-600 )
 
 .button
 	&-disabled, [disabled]
-		background: $gray-color-lighten
-		border: $border-width solid $gray-color-lighten
-		color: $text-color
+		background: $gray-color-400
+		border: $button-bd-width solid $gray-color-400
+		color: $primary-text-color
 		cursor: not-allowed
 		box-shadow: none
 		&:hover, &:focus, &:active
-			background: $gray-color-lighten
-			border: $border-width solid $gray-color-lighten
-			color: $text-color
+			background: $gray-color-400
+			border: $button-bd-width solid $gray-color-400
+			color: $primary-text-color
 			box-shadow: none
 		&.button-slide, &.button-gradient
 			border: none
@@ -203,23 +195,23 @@ input[type="submit"]
 
 .button-telegram
 	background: #0088CC
-	border: $border-width solid #0088CC
+	border: $button-bd-width solid #0088CC
 	&:hover
 		background: lighten( #0088CC, 10% )
-		border: $border-width solid lighten( #0088CC, 10% )
+		border: $button-bd-width solid lighten( #0088CC, 10% )
 	&:focus, &:active
 		background: darken( #0088CC, 10% )
-		border: $border-width solid darken( #0088CC, 10% )
+		border: $button-bd-width solid darken( #0088CC, 10% )
 
 .button-whatsapp
 	background: #4FCE5D
-	border: $border-width solid #4FCE5D
+	border: $button-bd-width solid #4FCE5D
 	&:hover
 		background: lighten( #4FCE5D, 10% )
-		border: $border-width solid lighten( #4FCE5D, 10% )
+		border: $button-bd-width solid lighten( #4FCE5D, 10% )
 	&:focus, &:active
 		background: darken( #4FCE5D, 10% )
-		border: $border-width solid darken( #4FCE5D, 10% )
+		border: $button-bd-width solid darken( #4FCE5D, 10% )
 
 .search-form
 	position: relative
@@ -238,7 +230,7 @@ input[type="submit"]
 
 .button-reset
 	padding: 0
-	color: initial
+	color: $text-color
 	background: transparent
 	border: none
 	box-shadow: none
@@ -246,4 +238,4 @@ input[type="submit"]
 		background: transparent
 		border: none
 		box-shadow: none
-		color: initial
+		color: $text-color

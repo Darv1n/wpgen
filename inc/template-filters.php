@@ -179,7 +179,34 @@ if ( ! function_exists( 'remove_nav_menu_item_id' ) ) {
 	 * @return string
 	 */
 	function remove_nav_menu_item_id( $id, $item, $args ) {
-	    return '';
+		return '';
+	}
+}
+
+add_filter( 'wp_nav_menu_objects', 'level_nav_menu_item_class' );
+if ( ! function_exists( 'level_nav_menu_item_class' ) ) {
+
+	/**
+	 * Function for `wp_nav_menu_objects` filter-hook.
+	 * 
+	 * @param array    $sorted_menu_items The menu items, sorted by each menu item's menu order.
+	 * @param stdClass $args              An object containing wp_nav_menu() arguments.
+	 *
+	 * @return array
+	 */
+	function level_nav_menu_item_class( $menu ) {
+		$level = 1;
+		$stack = array('0');
+		foreach ( $menu as $key => $item ) {
+			while ( $item->menu_item_parent != array_pop( $stack ) ) {
+				$level--;
+			}
+			$level++;
+			$stack[] = $item->menu_item_parent;
+			$stack[] = $item->ID;
+			$menu[ $key ]->classes[] = 'level-'. ( $level - 1 );
+		}
+		return $menu;
 	}
 }
 
@@ -199,7 +226,7 @@ if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
 	function remove_nav_menu_item_class( $classes, $item, $args ) {
 
 		foreach ( $classes as $key => $class ) {
-			if ( ! in_array( $class, array( 'menu-item', 'current-menu-item' ), true ) ) {
+			if ( ! in_array( $class, array( 'menu-item', 'current-menu-item', 'menu-item-has-children', 'level-1' ), true ) ) {
 				unset( $classes[ $key ] ); 
 			}
 		}

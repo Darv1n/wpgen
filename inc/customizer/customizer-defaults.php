@@ -25,11 +25,7 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 		array_unshift( $post_types, 'post' );
 
 		$wpgen_defaults = array(
-			'general_color_scheme'                    => 'white',
-			'general_header_color_scheme'             => 'white',
-			'general_menu_color_scheme'               => 'white',
-			'general_footer_color_scheme'             => 'white',
-
+			'general_color_scheme'                    => 'light',
 			'general_wpgen_active'                    => true,
 			'general_container_width'                 => 'average',
 			'general_content_width'                   => 'wide',

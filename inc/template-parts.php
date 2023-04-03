@@ -346,51 +346,39 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 		$classes          = array();
 		$menu_button_type = wpgen_options( 'general_menu_button_type' );
 
-/*		if ( $menu_button_type === 'button-icon-text' ) {
-			$classes[] = 'menu-toggle_button';
-			$classes[] = 'menu-toggle_icon';
-		} elseif ( $menu_button_type === 'button-icon' ) {
-			$classes[] = 'menu-toggle_button';
-			$classes[] = 'menu-toggle_icon';
-			$classes[] = 'menu-toggle_solo-icon';
-		} elseif ( $menu_button_type === 'button-text' ) {
-			$classes[] = 'menu-toggle_button';
-		} elseif ( $menu_button_type === 'icon' ) {
-			$classes[] = 'menu-toggle_icon';
-			$classes[] = 'menu-toggle_solo-icon';
-		} elseif ( $menu_button_type === 'icon-text' ) {
-			$classes[] = 'menu-toggle_icon';
-			$classes[] = 'menu-toggle_text';
-		} else {
-			$classes[] = 'menu-toggle_text';
-		}*/
-
-		if ( in_array( $menu_button_type, array( 'button-icon-text', 'icon-text', ), true ) ) {
+		// Если есть иконка.
+		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
 			$classes[] = 'icon';
 			$classes[] = 'icon_menu';
-			$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
-		} elseif( $menu_button_type === 'button-icon' ) {
-			$classes[] = 'button-square';
+
+			// Квадрат, если нет текста
+			if ( in_array( $menu_button_type, array( 'button-icon', 'icon' ), true ) ) {
+				$classes[] = 'button-squared';
+			} else {
+				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
+			}
 		}
 
-		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true )  ) {
+		// Если есть кнопка.
+		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
 			$classes = get_button_classes( $classes );
 		} else {
 			$classes[] = 'button-reset';
 		}
 
-		// // Иконка справа/слева.
-		// if ( in_array( $menu_button_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
-		// 	$classes[] = 'menu-toggle_icon-' . wpgen_options( 'general_menu_button_icon_position' );
-		// }
-
 		$classes[] = 'menu-toggle';
-		$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
+
+		if ( wpgen_options( 'general_header_type' ) === 'header-simple' ) {
+			$classes[] = 'menu-toggle_right';
+		} else {
+			$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
+		}
+
 		$classes   = apply_filters( 'get_menu_toggle_button_classes', $classes );
 
 		$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
 			if ( in_array( $menu_button_type, array( 'icon', 'button-icon' ), true ) ) {
-				$output .= '<i class="icon icon_menu"></i>';
+				$output .= '<i class="icon"></i>';
 			} else {
 				$output .= esc_html__( 'Menu', 'wpgen' );
 			}
@@ -435,15 +423,21 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 		if ( wpgen_options( 'general_scroll_top_button_display' ) ) {
 			$scroll_top_type = wpgen_options( 'general_scroll_top_button_type' );
 
-			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'icon-text', ), true ) ) {
+			// Если есть иконка.
+			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
 				$classes[] = 'icon';
 				$classes[] = 'icon_arrow-up';
-				$classes[] = 'icon_' . wpgen_options( 'general_scroll_top_button_icon_position' );
-			} elseif( $scroll_top_type === 'button-icon' ) {
-				$classes[] = 'button-square';
+
+				// Квадрат, если нет текста
+				if ( in_array( $scroll_top_type, array( 'button-icon', 'icon' ), true ) ) {
+					$classes[] = 'button-squared';
+				} else {
+					$classes[] = 'icon_' . wpgen_options( 'general_scroll_top_button_icon_position' );
+				}
 			}
 
-			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true )  ) {
+			// Если есть кнопка.
+			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
 				$classes = get_button_classes( $classes );
 			} else {
 				$classes[] = 'button-reset';
@@ -454,11 +448,11 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 			$classes   = apply_filters( 'get_scroll_top_button_classes', $classes );
 
 			$output .= '<button id="scroll-top" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
-			if ( in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
-				$output .= '<i class="icon icon_arrow-up"></i>';
-			} else {
-				$output .= esc_html__( 'Scroll up', 'wpgen' );
-			}
+				if ( in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
+					$output .= '<i class="icon"></i>';
+				} else {
+					$output .= esc_html__( 'Scroll up', 'wpgen' );
+				}
 			$output .= '</button>';
 		}
 

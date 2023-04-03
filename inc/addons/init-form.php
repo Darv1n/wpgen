@@ -146,8 +146,14 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 		$form_id = get_title_slug( $form_id );
 
 		$html = '<form id="' . esc_attr( $form_id ) . '" class="form ' . esc_attr( $form_id ) . '">
-			<input id="form-name" class="form-name required" type="text" name="form-name" placeholder="' . __( 'What is your name?', 'wpgen' ) . '" value="">
-			<input id="form-tel" class="form-tel required" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone?', 'wpgen' ) . '" value="">
+
+			<label class="form-label" for="form-name">
+				<input id="form-name" class="form-input required" type="text" name="form-name" placeholder="' . __( 'What is your name? (required)', 'wpgen' ) . '" value="">
+			</label>
+
+			<label class="form-label" for="form-tel">
+				<input id="form-tel" class="form-input required" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone? (required)', 'wpgen' ) . '" value="">
+			</label>
 
 			<input id="form-anticheck" class="form-anticheck" type="checkbox" name="form-anticheck" style="display: none !important;" value="true" checked="checked">
 			<input id="form-submitted" type="text" name="form-submitted" value="" style="display: none !important;">

@@ -469,7 +469,11 @@ if ( ! function_exists( 'get_explode_part' ) ) {
 
 		$array = array_map( 'trim', explode( $separator, $string ) );
 
-		return $array[ $num ];
+		if ( isset( $array[ $num ] ) ) {
+			return $array[ $num ];
+		} else {
+			return false;
+		}
 	}
 }
 

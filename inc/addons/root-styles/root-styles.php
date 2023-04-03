@@ -20,16 +20,22 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 	 */
 	function get_root_styles( $control = null ) {
 
-		$root_styles   = array();
-		$root_defaults = get_root_defaults();
+		$root_styles    = array();
+		$root_defaults  = get_root_defaults();
+		$saturate_array = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 );
 
 		foreach ( $root_defaults as $key => $root_default ) {
-
-			if ( in_array( $key, array( 'primaryFont', 'secondaryFont' ), true ) ) {
+			if ( in_array( $key, array( 'primary-color', 'secondary-color', 'gray-color' ), true ) ) {
+				foreach ( $saturate_array as $key_s => $saturate_value ) {
+					$root_styles[ $key . '-' . $saturate_value ] = get_selected_value( $root_default . '-' . $saturate_value );
+				}
+			} elseif ( in_array( $key, array( 'primaryFont', 'secondaryFont' ), true ) ) {
 				$root_styles[ $key ] = get_selected_font( $root_default );
 			} elseif ( $key === 'btnSize' ) {
 				$root_styles['buttonPaddingTop']  = explode( ' ', get_selected_value( $root_default ) )[0];
 				$root_styles['buttonPaddingLeft'] = explode( ' ', get_selected_value( $root_default ) )[1];
+			} elseif ( $key === 'svg-filter' ) {
+				$root_styles[ $key ] = $root_default;
 			} else {
 				$root_styles[ $key ] = get_selected_value( $root_default );
 			}

@@ -49,51 +49,59 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			return array();
 		}
 
-		// Colors.
-		$gpc  = explode( '-', $data['general-primary-color'] )[0];
-		$gpcs = explode( '-', $data['general-primary-color'] )[1];
-		$gsc  = explode( '-', $data['general-secondary-color'] )[0];
-		$gscs = explode( '-', $data['general-secondary-color'] )[1];
-		$gbc  = explode( '-', $data['general-bg-color'] )[0];
-		$gbcs = explode( '-', $data['general-bg-color'] )[1];
+		$root_wpgen     = array();
+		$saturate_array = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 );
 
-		$theme_style = get_opposite_color_style_by_saturate( $gbcs );
+		if ( isset( $data['general-primary-color'] ) && isset( $data['general-secondary-color'] ) && isset( $data['general-gray-color'] ) ) {
+			foreach ( $saturate_array as $key => $saturate_value ) {
+				$root_wpgen += array(
+					'primary-color-' . $saturate_value   => get_selected_value( $data['general-primary-color'] . '-' . $saturate_value ),
+					'secondary-color-' . $saturate_value => get_selected_value( $data['general-secondary-color'] . '-' . $saturate_value ),
+					'gray-color-' . $saturate_value      => get_selected_value( $data['general-gray-color'] . '-' . $saturate_value ),
+				);
+			}
 
-		$grayColorDark    = $gbc . '-700';
-		$grayColorDarken  = $gbc . '-600';
-		$grayColor        = $gbc . '-500';
-		$grayColorLighten = $gbc . '-400';
-		$grayColorLight   = $gbc . '-300';
+			if ( isset( $data['elem-bg-saturate'] ) ) {
+				$root_wpgen += array(
+					'white-color' => get_selected_value( $data['general-gray-color'] . '-50' ),
+					'elemBgColor' => get_selected_value( $data['general-gray-color'] . '-' . $data['elem-bg-saturate'] ),
+				);
 
-		$root_wpgen = array(
-			'primaryColorDark'      => get_selected_value( $gpc . '-' . ( (int) $gpcs + 200 ) ),
-			'primaryColorDarken'    => get_selected_value( $gpc . '-' . ( (int) $gpcs + 100 ) ),
-			'primaryColor'          => get_selected_value( $data['general-primary-color'] ),
-			'primaryColorLighten'   => get_selected_value( $gpc . '-' . ( (int) $gpcs - 100 ) ),
-			'primaryColorLight'     => get_selected_value( $gpc . '-' . ( (int) $gpcs - 200 ) ),
-
-			'secondaryColorDark'    => get_selected_value( $gsc . '-' . ( (int) $gscs + 200 ) ),
-			'secondaryColorDarken'  => get_selected_value( $gsc . '-' . ( (int) $gscs + 100 ) ),
-			'secondaryColor'        => get_selected_value( $data['general-secondary-color'] ),
-			'secondaryColorLighten' => get_selected_value( $gsc . '-' . ( (int) $gscs - 100 ) ),
-			'secondaryColorLight'   => get_selected_value( $gsc . '-' . ( (int) $gscs - 200 ) ),
-
-			'grayColorDark'         => get_selected_value( $grayColorDark ),
-			'grayColorDarken'       => get_selected_value( $grayColorDarken ),
-			'grayColor'             => get_selected_value( $grayColor ),
-			'grayColorLighten'      => get_selected_value( $grayColorLighten ),
-			'grayColorLight'        => get_selected_value( $grayColorLight ),
-
-			'bgColorDark'           => get_selected_value( $gbc . '-800' ),
-			'bgColorDarken'         => get_selected_value( $gbc . '-900' ),
-			'bgColorLighten'        => get_selected_value( $gbc . '-300' ),
-			'bgColorLight'          => get_selected_value( $gbc . '-400' ),
-
-			'whiteColor'            => get_selected_value( $gbc . '-50' ),
-			'textColor'             => get_selected_value( $gbc . '-900' ),
-
-			'elemBgColor'           => get_selected_value( $gbc . '-' . $data['elem-bg-saturate'] ),
-		);
+				if ( wpgen_options( 'general_color_scheme' ) === 'black' ) {
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-700' );
+					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-300' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-50' );
+				} elseif ( wpgen_options( 'general_color_scheme' ) === 'dark' ) {
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-700' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-300' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-50' );
+				} elseif ( wpgen_options( 'general_color_scheme' ) === 'light' ) {
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-300' );
+					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-300' );
+					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-400' );
+					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-500' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-600' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-900' );
+				} else {
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-50' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-300' );
+					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-400' );
+					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-500' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-600' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-900' );
+				}
+			}
+		}
 
 		// Fonts.
 		if ( isset( $data['primary-font'] ) ) {
@@ -108,10 +116,8 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 		if ( isset( $data['general-link-color'] ) ) {
 			if ( $data['general-link-color'] === 'blue' ) {
 				$link_color = $data['general-link-color'];
-			} elseif ( $data['general-link-color'] === 'gray' ) {
-				$link_color = explode( '-', $data['general-bg-color'] )[0];
 			} else {
-				$link_color = explode( '-', $data[ 'general-' . $data['general-link-color'] . '-color' ] )[0];
+				$link_color = $data['general-' . $data['general-link-color'] . '-color'];
 			}
 
 			$root_wpgen['linkColorDark']  = get_selected_value( $link_color . '-600' );
@@ -122,9 +128,9 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 		// Elements text color.
 		if ( isset( $data['elem-bg-saturate'] ) ) {
 			if ( get_opposite_color_style_by_saturate( $data['elem-bg-saturate'] ) === 'white' ) {
-				$root_wpgen['elemTextColor'] = get_selected_value( $gbc . '-50' );
+				$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-50' );
 			} else {
-				$root_wpgen['elemTextColor'] = get_selected_value( $gbc . '-900' );
+				$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-900' );
 			}
 		}
 
@@ -135,7 +141,12 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			$root_wpgen['buttonPaddingLeft'] = explode( ' ', $btn_size )[1];
 		}
 
-		// Button bordering radius.
+		// Button border width.
+		if ( isset( $data['btn-bd-width'] ) ) {
+			$root_wpgen['btnBdWidth'] = get_selected_value( $data['btn-bd-width'] );
+		}
+
+		// Button border radius.
 		if ( isset( $data['btn-bd-radius'] ) ) {
 			$root_wpgen['btnBdRadius'] = get_selected_value( $data['btn-bd-radius'] );
 		}
@@ -158,7 +169,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 
 		// Elements border color.
 		if ( isset( $data['elem-bd-color'] ) ) {
-			$root_wpgen['elemBdColor'] = get_selected_value( explode( '-', $data[ 'general-' . $data['elem-bd-color'] . '-color' ] )[0] . '-' . $data['elem-bd-color-saturate'] );
+			$root_wpgen['elemBdColor'] = get_selected_value( $data[ 'general-' . $data['elem-bd-color'] . '-color' ] . '-' . $data['elem-bd-color-saturate'] );
 		}
 
 		// Elements border radius.
@@ -169,9 +180,9 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 		// Elements border color hover.
 		if ( isset( $data['elem-bd-color-saturate'] ) ) {
 			if ( get_opposite_color_style_by_saturate( $data['elem-bd-color-saturate'] ) === 'white' ) {
-				$root_wpgen['elemBdColorHover'] = get_selected_value( explode( '-', $data[ 'general-' . $data['elem-bd-color'] . '-color' ] )[0] . '-' . get_prev_saturate( $data['elem-bd-color-saturate'] ) );
+				$root_wpgen['elemBdColorHover'] = get_selected_value( $data[ 'general-' . $data['elem-bd-color'] . '-color' ] . '-' . get_prev_saturate( $data['elem-bd-color-saturate'] ) );
 			} else {
-				$root_wpgen['elemBdColorHover'] = get_selected_value( explode( '-', $data[ 'general-' . $data['elem-bd-color'] . '-color' ] )[0] . '-' . get_next_saturate( $data['elem-bd-color-saturate'] ) );
+				$root_wpgen['elemBdColorHover'] = get_selected_value( $data[ 'general-' . $data['elem-bd-color'] . '-color' ] . '-' . get_next_saturate( $data['elem-bd-color-saturate'] ) );
 			}
 		}
 

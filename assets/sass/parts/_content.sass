@@ -12,22 +12,17 @@
 		margin-bottom: 0 !important
 		font-size: $medium-font-size
 		line-height: $medium-font-size
-		color: $gray-color-dark
+		color: $primary-gray-color
 
 a.logo
-	color: inherit
+	color: $text-color
 	text-decoration: none
 	&:hover, &:focus, &:active
-		color: inherit
+		color: $text-color
 
 .custom-logo
 	width: auto
 	max-height: 86px
-
-.theme_dark, .header_dark, .footer_dark, .theme_black, .header_black, .footer_black
-	.logo
-		&__title, &__description
-			@extend .white-color
 
 // #header, footer, content
 .section
@@ -38,6 +33,15 @@ a.logo
 		@extend .mb
 	&_content, &_breadcrumbs
 		padding: $margin 0
+	&-primary, &-secondary
+		color: $primary-text-color
+		background: $primary-bg-color
+		border: $border-width solid $primary-bd-color
+		.gray-color
+			color: $primary-gray-color
+	&-secondary
+		background: $primary-bg-color-hover
+		border: $border-width solid $primary-bd-color-hover
 
 .front-page 
 	.section_content
@@ -69,12 +73,6 @@ a.logo
 			display: inline-block
 			&:not(:last-child)
 				margin-right: $margin
-	&_light
-		background: $bg-color-lighten
-	&_dark
-		background: $bg-color-darken
-	&_black
-		background: $text-color
 
 .header
 	ul, ol
@@ -108,35 +106,15 @@ a.logo
 		padding-bottom: $margin
 	&__bottom-bar
 		padding-top: $margin
-		background-color: $gray-color-light
+		background-color: $primary-bg-color-hover
 		.widget
 			margin-bottom: $margin/2
 	&_bottom-bar-active 
 		.footer__middle-bar
 			@extend .mb
-	&_light
-		.footer__bottom-bar
-			background: $bg-color-light
-	&_dark
-		.footer__bottom-bar
-			background: $bg-color-dark
-	&_black
-		.footer__bottom-bar
-			background: $bg-color-darken
-
-.theme_light
-	.footer__bottom-bar
-		background: $bg-color-light
-.theme_dark
-	.footer__bottom-bar
-		background: $bg-color-dark
-.theme_black
-	.footer__bottom-bar
-		background: $bg-color-darken
 
 @media (min-width: 768px)
-	.header__top-bar .header-column,
-	.footer__bottom-bar .footer-column
+	.header__top-bar .header-column, .footer__bottom-bar .footer-column
 		&:last-child
 			text-align: right
 
@@ -199,7 +177,7 @@ a.logo
 	&-date
 		&-modified
 			padding-left: $gutter
-			color: $gray-color-dark
+			color: $primary-gray-color
 	&-footer
 		&__item
 			display: block
@@ -245,9 +223,6 @@ a.logo
 		.post-title
 			font-size: $h5
 
-
-
-
 @media ( min-width: 768px )
 	.post
 		&.post_list
@@ -272,4 +247,3 @@ a.logo
 a.post-thumbnail
 	display: block
 	padding-bottom: 66.66%
-

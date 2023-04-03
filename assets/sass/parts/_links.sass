@@ -9,50 +9,56 @@ a
 		color: $link-color-dark
 
 .link
-	color: $gray-color
+	color: $primary-gray-color
 	&:hover, &:focus, &:active
-		color: $gray-color-dark
+		color: $primary-gray-color-hover
+
 .link-border
 	border-bottom: $border-width solid transparent
 	&:hover, &:focus, &:active
-		border-bottom: $border-width solid $text-color
+		border-bottom: $border-width solid $primary-text-color
+
 .link-unborder
-	border-bottom: $border-width solid $gray-color-darken
+	border-bottom: $border-width solid $gray-color-600
 	&:hover, &:focus, &:active
 		border-bottom: $border-width solid transparent
+
 .link-color-border
 	border-bottom: $border-width solid transparent
 	&:hover, &:focus, &:active
 		border-bottom: $border-width solid $link-color-dark
+
 .link-color-unborder
 	border-bottom: $border-width solid $link-color
 	&:hover, &:focus, &:active
 		border-bottom: $border-width solid transparent
 
 .theme_dark, .theme_black, .theme_elems_dark .elem, .theme_elems_black .elem
-	.link
-		color: $gray-color-lighten
-		&:hover, &:focus, &:active
-			color: $white-color
 	.link-border
 		&:hover, &:focus, &:active
 			border-bottom: $border-width solid $white-color
 	.link-unborder
-		border-bottom: $border-width solid $gray-color-lighten
+		border-bottom: $border-width solid $gray-color-400
 	.link-color-border
 		&:hover, &:focus, &:active
 			border-bottom: $border-width solid $link-color-light
 
+.theme_elems_dark .elem, .theme_elems_black .elem
+	.link
+		color: $gray-color-400
+		&:hover, &:focus, &:active
+			color: $white-color
+
 .theme_elems_white .elem, .theme_elems_light .elem
 	.link
-		color: $gray-color-darken
+		color: $gray-color-600
 		&:hover, &:focus, &:active
-			color: $text-color
+			color: $primary-text-color
 	.link-border
 		&:hover, &:focus, &:active
-			border-bottom: $border-width solid $text-color
+			border-bottom: $border-width solid $primary-text-color
 	.link-unborder
-		border-bottom: $border-width solid $gray-color-darken
+		border-bottom: $border-width solid $gray-color-600
 	.link-color-border
 		&:hover, &:focus, &:active
 			border-bottom: $border-width solid $link-color-dark

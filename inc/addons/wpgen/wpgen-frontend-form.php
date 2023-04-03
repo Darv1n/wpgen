@@ -29,13 +29,13 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				'customizer-general-menu-position'    => wpgen_options( 'general_menu_position' ),
 				'customizer-general-menu-button-type' => wpgen_options( 'general_menu_button_type' ),
 				'customizer-general-button-type'      => wpgen_options( 'general_button_type' ),
+				'customizer-general-color-scheme'     => wpgen_options( 'general_color_scheme' ),
 				'general-link-color'                  => 'primary',
-				'general-primary-color'               => get_root_defaults( 'primaryColor' ),
-				'general-secondary-color'             => get_root_defaults( 'secondaryColor' ),
-				'general-bg-color'                    => get_root_defaults( 'grayColor' ),
-				'elem-bg-saturate'                    => get_explode_part( get_root_defaults( 'elemBgColor' ), 1, '-' ),
+				'general-primary-color'               => get_root_defaults( 'primary-color' ),
+				'general-secondary-color'             => get_root_defaults( 'secondary-color' ),
+				'general-gray-color'                  => get_root_defaults( 'gray-color' ),
+				'elem-bg-saturate'                    => get_explode_part( get_root_defaults( 'elemBgSaturate' ), 1, '-' ),
 				'elem-bd-color-saturate'              => get_explode_part( get_root_defaults( 'elemBdColor' ), 1, '-' ),
-				'input-bd-color-saturate'             => get_explode_part( get_root_defaults( 'inputBdColor' ), 1, '-' ),
 			);
 
 			// Rebuild options via root_options and wpgen_options.
@@ -43,6 +43,8 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 			if ( $root_options ) {
 				$defaults = wp_parse_args( $root_options, $defaults );
 			}
+
+			// vardump( $defaults );
 
 			$wpgen_options = get_option( 'wpgen_options', false );
 			if ( $wpgen_options ) {
@@ -114,15 +116,98 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'text'             => __( 'Text', 'wpgen' ),
 					),
 				),*/
+				'customizer-general-color-scheme' => array(
+					'title' => __( 'Color Scheme', 'wpgen' ),
+					'type'  => 'customizer',
+					'root'  => 'customizerColorScheme',
+					'style' => array(
+						'white' => 'White',
+						'light' => 'Light',
+						'dark'  => 'Dark',
+						'black' => 'Black',
+					),
+				),
+				'general-primary-color' => array(
+					'title'    => __( 'Primary color', 'wpgen' ),
+					'type'     => 'color',
+					'root'     => 'primary',
+					'style'    => array(
+						'red'     => 'Red',
+						'orange'  => 'Orange',
+						'amber'   => 'Amber',
+						'yellow'  => 'Yellow',
+						'lime'    => 'Lime',
+						'green'   => 'Green',
+						'emerald' => 'Emerald',
+						'teal'    => 'Teal',
+						'cyan'    => 'Cyan',
+						'sky'     => 'Sky',
+						'blue'    => 'Blue',
+						'indigo'  => 'Indigo',
+						'violet'  => 'Violet',
+						'purple'  => 'Purple',
+						'fuchsia' => 'Fuchsia',
+						'pink'    => 'Pink',
+						'rose'    => 'Rose',
+					),
+				),
+				'general-secondary-color' => array(
+					'title'    => __( 'Secondary color', 'wpgen' ),
+					'type'     => 'color',
+					'root'     => 'secondary',
+					'style'    => array(
+						'red'     => 'Red',
+						'orange'  => 'Orange',
+						'amber'   => 'Amber',
+						'yellow'  => 'Yellow',
+						'lime'    => 'Lime',
+						'green'   => 'Green',
+						'emerald' => 'Emerald',
+						'teal'    => 'Teal',
+						'cyan'    => 'Cyan',
+						'sky'     => 'Sky',
+						'blue'    => 'Blue',
+						'indigo'  => 'Indigo',
+						'violet'  => 'Violet',
+						'purple'  => 'Purple',
+						'fuchsia' => 'Fuchsia',
+						'pink'    => 'Pink',
+						'rose'    => 'Rose',
+					),
+				),
+				'general-gray-color' => array(
+					'title'    => __( 'Gray color', 'wpgen' ),
+					'type'     => 'color',
+					'root'     => 'gray',
+					'style'    => array(
+						'slate'   => 'Slate',
+						'gray'    => 'Gray',
+						'zinc'    => 'Zinc',
+						'neutral' => 'Neutral',
+						'stone'   => 'Stone',
+					),
+				),
+				'general-link-color' => array(
+					'title'   => __( 'Link color', 'wpgen' ),
+					'type'    => 'color',
+					'root'    => 'linkColor',
+					'style'   => array(
+						'primary'   => 'Primary',
+						'secondary' => 'Secondary',
+						'blue'      => 'Blue',
+						'gray'      => 'Gray',
+					),
+					'default' => 'primary',
+				),
 				'customizer-general-button-type' => array(
 					'title' => __( 'Button type', 'wpgen' ),
 					'type'  => 'customizer',
 					'root'  => 'customizerButtonType',
 					'style' => array(
-						'common'   => __( 'Common', 'wpgen' ),
-						'empty'    => __( 'Empty', 'wpgen' ),
-						'gradient' => __( 'Gradient', 'wpgen' ),
-						'slide'    => __( 'Slide', 'wpgen' ),
+						'common'   => 'Common',
+						'empty'    => 'Empty',
+						'gradient' => 'Gradient',
+						'slide'    => 'Slide',
 					),
 				),
 				'btn-size' => array(
@@ -138,85 +223,37 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'btn-xl' => 'btn-xl',
 					),
 				),
-				'general-link-color' => array(
-					'title'   => __( 'Link color', 'wpgen' ),
-					'type'    => 'elem',
-					'root'    => 'linkColor',
-					'style'   => array(
-						'primary'   => __( 'primary', 'wpgen' ),
-						'secondary' => __( 'secondary', 'wpgen' ),
-						'blue'      => __( 'blue', 'wpgen' ),
-						'gray'      => __( 'gray', 'wpgen' ),
-					),
-					'default' => 'primary',
-				),
-				'general-primary-color' => array(
-					'title'    => __( 'Primary color', 'wpgen' ),
-					'type'     => 'color',
-					'root'     => 'primary',
-					'saturate' => 'mini',
-					'style'    => array(
-						'red'     => __( 'red', 'wpgen' ),
-						'orange'  => __( 'orange', 'wpgen' ),
-						'amber'   => __( 'amber', 'wpgen' ),
-						'yellow'  => __( 'yellow', 'wpgen' ),
-						'lime'    => __( 'lime', 'wpgen' ),
-						'green'   => __( 'green', 'wpgen' ),
-						'emerald' => __( 'emerald', 'wpgen' ),
-						'teal'    => __( 'teal', 'wpgen' ),
-						'cyan'    => __( 'cyan', 'wpgen' ),
-						'sky'     => __( 'sky', 'wpgen' ),
-						'blue'    => __( 'blue', 'wpgen' ),
-						'indigo'  => __( 'indigo', 'wpgen' ),
-						'violet'  => __( 'violet', 'wpgen' ),
-						'purple'  => __( 'purple', 'wpgen' ),
-						'fuchsia' => __( 'fuchsia', 'wpgen' ),
-						'pink'    => __( 'pink', 'wpgen' ),
-						'rose'    => __( 'rose', 'wpgen' ),
+				'btn-bd-width' => array(
+					'title' => __( 'Button border width', 'wpgen' ),
+					'type'  => 'form',
+					'root'  => 'btnBdWidth',
+					'style' => array(
+						'border'      => 'border',
+						'border-2'    => 'border-2',
+						'border-4'    => 'border-4',
+						'border-8'    => 'border-8',
 					),
 				),
-				'general-secondary-color' => array(
-					'title'    => __( 'Secondary color', 'wpgen' ),
-					'type'     => 'color',
-					'root'     => 'secondary',
-					'saturate' => 'mini',
-					'style'    => array(
-						'red'     => __( 'red', 'wpgen' ),
-						'orange'  => __( 'orange', 'wpgen' ),
-						'amber'   => __( 'amber', 'wpgen' ),
-						'yellow'  => __( 'yellow', 'wpgen' ),
-						'lime'    => __( 'lime', 'wpgen' ),
-						'green'   => __( 'green', 'wpgen' ),
-						'emerald' => __( 'emerald', 'wpgen' ),
-						'teal'    => __( 'teal', 'wpgen' ),
-						'cyan'    => __( 'cyan', 'wpgen' ),
-						'sky'     => __( 'sky', 'wpgen' ),
-						'blue'    => __( 'blue', 'wpgen' ),
-						'indigo'  => __( 'indigo', 'wpgen' ),
-						'violet'  => __( 'violet', 'wpgen' ),
-						'purple'  => __( 'purple', 'wpgen' ),
-						'fuchsia' => __( 'fuchsia', 'wpgen' ),
-						'pink'    => __( 'pink', 'wpgen' ),
-						'rose'    => __( 'rose', 'wpgen' ),
-					),
-				),
-				'general-bg-color' => array(
-					'title'    => __( 'Color scheme', 'wpgen' ),
-					'type'     => 'color',
-					'root'     => 'gray',
-					'saturate' => 'saturate',
-					'style'    => array(
-						'slate'   => __( 'slate', 'wpgen' ),
-						'gray'    => __( 'gray', 'wpgen' ),
-						'zinc'    => __( 'zinc', 'wpgen' ),
-						'neutral' => __( 'neutral', 'wpgen' ),
-						'stone'   => __( 'stone', 'wpgen' ),
+				'btn-bd-radius' => array(
+					'title' => __( 'Button border radius', 'wpgen' ),
+					'type'  => 'form',
+					'root'  => 'btnBdRadius',
+					'style' => array(
+						'rounded-none' => 'rounded-none',
+						'rounded-sm'   => 'rounded-sm',
+						'rounded'      => 'rounded',
+						'rounded-md'   => 'rounded-md',
+						'rounded-lg'   => 'rounded-lg',
+						'rounded-xl'   => 'rounded-xl',
+						'rounded-2xl'  => 'rounded-2xl',
+						'rounded-3xl'  => 'rounded-3xl',
+						'rounded-4xl'  => 'rounded-4xl',
 					),
 				),
 				'elem-bg-saturate' => array(
 					'title' => __( 'Background of inactive elements', 'wpgen' ),
 					'type'  => 'elem',
-					'root'  => 'elemBgColor',
+					'root'  => 'elemBgSaturate',
 					'style' => array(
 						'50'  => '50',
 						'100' => '100',
@@ -244,6 +281,22 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'p-6' => 'p-6',
 					),
 				),
+				'elem-shadow' => array(
+					'title' => __( 'Shadow elements', 'wpgen' ),
+					'type'  => 'elem',
+					'root'  => 'elemShadow',
+					'style' => array(
+						'shadow-none'  => 'shadow-none',
+						'shadow-sm'    => 'shadow-sm',
+						'shadow'       => 'shadow',
+						'shadow-md'    => 'shadow-md',
+						'shadow-lg'    => 'shadow-lg',
+						'shadow-xl'    => 'shadow-xl',
+						'shadow-2xl'   => 'shadow-2xl',
+						'shadow-inner' => 'shadow-inner',
+						'shadow-none'  => 'shadow-none',
+					),
+				),
 				'elem-bd-width' => array(
 					'title' => __( 'Width of border elements', 'wpgen' ),
 					'type'  => 'elem',
@@ -256,17 +309,16 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'border-8'    => 'border-8',
 					),
 				),
-
 				'elem-bd-color' => array(
 					'title'   => __( 'Color of border elements', 'wpgen' ),
 					'type'    => 'elem',
 					'root'    => 'elemBdColor',
 					'style'   => array(
-						'primary'   => __( 'primary', 'wpgen' ),
-						'secondary' => __( 'secondary', 'wpgen' ),
-						'bg'        => __( 'gray', 'wpgen' ),
+						'primary'   => 'primary',
+						'secondary' => 'secondary',
+						'bg'        => 'gray',
 					),
-					'help'    => __( 'To disable the border-none option in the previous paragraph', 'wpgen' ),
+					// 'help'    => __( 'To disable the border-none option in the previous paragraph', 'wpgen' ),
 					'default' => 'primary',
 				),
 				'elem-bd-color-saturate' => array(
@@ -286,22 +338,6 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'900' => '900',
 					),
 				),
-				'elem-shadow' => array(
-					'title' => __( 'Shadow elements', 'wpgen' ),
-					'type'  => 'elem',
-					'root'  => 'elemShadow',
-					'style' => array(
-						'shadow-none'  => 'shadow-none',
-						'shadow-sm'    => 'shadow-sm',
-						'shadow'       => 'shadow',
-						'shadow-md'    => 'shadow-md',
-						'shadow-lg'    => 'shadow-lg',
-						'shadow-xl'    => 'shadow-xl',
-						'shadow-2xl'   => 'shadow-2xl',
-						'shadow-inner' => 'shadow-inner',
-						'shadow-none'  => 'shadow-none',
-					),
-				),
 				'elem-bd-radius' => array(
 					'title' => __( 'Elements border radius', 'wpgen' ),
 					'type'  => 'elem',
@@ -316,39 +352,6 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'rounded-2xl'  => 'rounded-2xl',
 						'rounded-3xl'  => 'rounded-3xl',
 						'rounded-4xl'  => 'rounded-4xl',
-					),
-				),
-				'btn-bd-radius' => array(
-					'title' => __( 'Buttons border radius', 'wpgen' ),
-					'type'  => 'form',
-					'root'  => 'btnBdRadius',
-					'style' => array(
-						'rounded-none' => 'rounded-none',
-						'rounded-sm'   => 'rounded-sm',
-						'rounded'      => 'rounded',
-						'rounded-md'   => 'rounded-md',
-						'rounded-lg'   => 'rounded-lg',
-						'rounded-xl'   => 'rounded-xl',
-						'rounded-2xl'  => 'rounded-2xl',
-						'rounded-3xl'  => 'rounded-3xl',
-						'rounded-4xl'  => 'rounded-4xl',
-					),
-				),
-				'input-bd-color-saturate' => array(
-					'title' => __( 'Border color saturate of input elements', 'wpgen' ),
-					'type'  => 'form',
-					'root'  => 'inputBdColorSaturate',
-					'style' => array(
-						'50'  => __( '50 (900 for a dark theme)', 'wpgen' ),
-						'100' => __( '100 (800 for a dark theme)', 'wpgen' ),
-						'200' => __( '200 (700 for a dark theme)', 'wpgen' ),
-						'300' => __( '300 (600 for a dark theme)', 'wpgen' ),
-						'400' => __( '400 (500 for a dark theme)', 'wpgen' ),
-						'500' => __( '500 (400 for a dark theme)', 'wpgen' ),
-						'600' => __( '600 (300 for a dark theme)', 'wpgen' ),
-						'700' => __( '700 (200 for a dark theme)', 'wpgen' ),
-						'800' => __( '800 (100 for a dark theme)', 'wpgen' ),
-						'900' => __( '900 (50 for a dark theme)', 'wpgen' ),
 					),
 				),
 			);
@@ -366,13 +369,13 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			}*/
 
-		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';
+		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen icon icon_pen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
 				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
 					$out .= '<fieldset class="button-set">';
-						$out .= '<input id="wpgen-random" type="button" class="' . esc_attr( implode( ' ', get_button_classes() ) ) . '" value="' . __( 'Random', 'wpgen' ) . '">';
-						$out .= '<input id="wpgen-save" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'secondary' ) ) ) . '" data-action="save" value="' . __( 'Save', 'wpgen' ) . '">';
-						$out .= '<input id="wpgen-reset" type="submit" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action', 'default' ) ) ) . '" data-action="reset" value="' . __( 'Default', 'wpgen' ) . '">';
+						$out .= '<button id="wpgen-random" class="' . esc_attr( implode( ' ', get_button_classes( 'icon icon_shuffle' ) ) ) . '">' . __( 'Random', 'wpgen' ) . '</button>';
+						$out .= '<button id="wpgen-save" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action icon icon_download', 'secondary' ) ) ) . '" data-action="save">' . __( 'Save', 'wpgen' ) . '</button>';
+						$out .= '<button id="wpgen-reset" class="' . esc_attr( implode( ' ', get_button_classes( 'wpgen-action icon icon_trash', 'default' ) ) ) . '" data-action="reset">' . __( 'Default', 'wpgen' ) . '</button>';
 					$out .= '</fieldset>';
 
 					foreach ( $elems as $key_e => $elem ) {
@@ -393,74 +396,10 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 								$out .= '<select id="' . $key_e . '" name="' . $key_e . '" class="selector" data-value="' . $first_key . '" data-type="' . $elem['type'] . '" data-root="' . $elem['root'] . '" data-default="' . $default . '">';
 
 								foreach ( $elem['style'] as $key_c => $value ) {
-
-									if ( $elem['type'] === 'color' ) {
-
-										if ( $elem['saturate'] === 'mini' ) {
-											$array = $saturate_array_mini;
-										} else {
-											$array = $saturate_array;
-										}
-
-										foreach ( $array as $key => $saturate ) {
-
-											$color_name = $value . '-' . $saturate;
-											$rgb_array  = array();
-
-											$rgb_array['color-name']     = $value;
-											$rgb_array['color-saturate'] = $saturate;
-
-											$rgb_array['dark']    = $value . '-' . ( (int) $saturate + 200 );
-											$rgb_array['darken']  = $value . '-' . ( (int) $saturate + 100 );
-											$rgb_array['color']   = $value . '-' . ( (int) $saturate );
-											$rgb_array['lighten'] = $value . '-' . ( (int) $saturate - 100 );
-											$rgb_array['light']   = $value . '-' . ( (int) $saturate - 200 );
-
-											if ( $key_e === 'general-bg-color' ) {
-												if ( (int) $saturate < 500 ) {
-													$rgb_array['dark']    = $value . '-700';
-													$rgb_array['darken']  = $value . '-600';
-													$rgb_array['color']   = $value . '-500';
-													$rgb_array['lighten'] = $value . '-400';
-													$rgb_array['light']   = $value . '-300';
-												} else {
-													$rgb_array['dark']    = $value . '-600';
-													$rgb_array['darken']  = $value . '-500';
-													$rgb_array['color']   = $value . '-400';
-													$rgb_array['lighten'] = $value . '-300';
-													$rgb_array['light']   = $value . '-200';
-												}
-
-												$rgb_array['bg-dark']    = $value . '-800';
-												$rgb_array['bg-darken']  = $value . '-900';
-												$rgb_array['bg-lighten'] = $value . '-300';
-												$rgb_array['bg-light']   = $value . '-400';
-
-												$rgb_array['white'] = $value . '-50';
-												$rgb_array['black'] = $value . '-900';
-
-											}
-
-											$color_data_array = array();
-											foreach ( $rgb_array as $key_r => $rgb_value ) {
-												$color_data_array[] = 'data-' . $key_r . '="' . $rgb_value . '"';
-											}
-
-											$color_data_string = implode( ' ', $color_data_array );
-
-											if ( $default === $color_name ) {
-												$out .= '<option value="' . $color_name . '" ' . $color_data_string . ' selected>' . $color_name . '</option>';
-											} else {
-												$out .= '<option value="' . $color_name . '" ' . $color_data_string . '>' . $color_name . '</option>';
-											}
-										}
+									if ( $default === $key_c ) {
+										$out .= '<option value="' . $key_c . '" selected>' . $value . '</option>';
 									} else {
-
-										if ( $default == $key_c ) {
-											$out .= '<option value="' . $key_c . '" selected>' . $value . '</option>';
-										} else {
-											$out .= '<option value="' . $key_c . '">' . $value . '</option>';
-										}
+										$out .= '<option value="' . $key_c . '">' . $value . '</option>';
 									}
 								}
 

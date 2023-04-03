@@ -64,7 +64,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 		);
 
 		$general_menu_position_select = array(
-			'relative' => __( 'Relative', 'wpgen' ),
 			'absolute' => __( 'Absolute', 'wpgen' ),
 			'fixed'    => __( 'Fixed', 'wpgen' ),
 		);
@@ -202,13 +201,11 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 
 			'header_title'                    => array( 'tab_title', __( 'Header', 'wpgen' ), '' ),
 			'header_top_bar_display'          => array( 'checkbox_control', __( 'Top bar display', 'wpgen' ), $general_header_top_bar_description ),
-			'header_color_scheme'             => array( 'select_control', __( 'Header color scheme', 'wpgen' ), '', $general_color_scheme_select ),
 			'header_type'                     => array( 'select_control', __( 'Select header type', 'wpgen' ), '', $general_header_type_select ),
 
 			'menu_title'                      => array( 'tab_title', __( 'Menu', 'wpgen' ), '' ),
 			'menu_display'                    => array( 'checkbox_control', __( 'Menu display', 'wpgen' ), '' ),
 			'menu_type'                       => array( 'select_control', __( 'Select menu type', 'wpgen' ), '', $general_menu_type_select ),
-			'menu_color_scheme'               => array( 'select_control', __( 'Menu color scheme', 'wpgen' ), '', $general_color_scheme_select ),
 			'menu_position'                   => array( 'select_control', __( 'Select menu position', 'wpgen' ), $general_menu_position_description, $general_menu_position_select ),
 			'menu_align'                      => array( 'select_control', __( 'Select menu alignment', 'wpgen' ), $general_menu_align_description, $general_menu_align_select ),
 			'menu_button_alignment'           => array( 'select_control', __( 'Select menu button alignment', 'wpgen' ), '', $general_menu_button_align_select ),
@@ -218,7 +215,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'footer_title'                    => array( 'tab_title', __( 'Footer', 'wpgen' ), '' ),
 			'footer_top_bar_display'          => array( 'checkbox_control', __( 'Top bar display', 'wpgen' ), $general_footer_top_bar_description ),
 			'footer_bottom_bar_display'       => array( 'checkbox_control', __( 'Bottom bar display', 'wpgen' ), $general_footer_bottom_bar_description ),
-			'footer_color_scheme'             => array( 'select_control', __( 'Footer color scheme', 'wpgen' ), '', $general_color_scheme_select ),
 			'footer_type'                     => array( 'select_control', __( 'Select footer type', 'wpgen' ), '', $general_footer_type_select ),
 
 			'breadcrumbs_title'               => array( 'tab_title', __( 'Breadcrumbs', 'wpgen' ), '' ),

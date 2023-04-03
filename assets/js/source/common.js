@@ -16,8 +16,8 @@ jQuery( document ).ready( function( $ ) {
 	function initMainNavigation( menuContainer ) {
 
 		var mainNavigation = menuContainer.find( '.main-navigation' );
-		var menuToggle = $( '#menu-toggle' );
-		var header = $( '#masthead' );
+			menuToggle     = $( '#menu-toggle' );
+			header         = $( '#header' );
 
 		menuToggle.click( function() {
 			$( this ).add( mainNavigation ).toggleClass( 'toggled-on' );
@@ -27,11 +27,9 @@ jQuery( document ).ready( function( $ ) {
 
 		// Init dropdown toggle for sub menu.
 		var dropdownToggle = $( '<span />', {
-			'class': 'dropdown-toggle',
+			'class': 'sub-menu-toggle icon icon_caret-down',
 			'aria-expanded': false,
-		} ).append( $( '<span />', {
-			'class': 'dropdown-toggle__icon'
-		} ) );
+		} );
 
 		var subMenu = mainNavigation.find( '.sub-menu' );
 
@@ -39,11 +37,11 @@ jQuery( document ).ready( function( $ ) {
 		subMenu.attr( 'aria-expanded', 'false' );
 		dropdownToggle.attr( 'aria-haspopup', 'true' );
 		dropdownToggle.attr( 'aria-expanded', 'false' );
-		
-		mainNavigation.find( '.dropdown-toggle' ).click( function() {
-			$( this ).toggleClass( 'dropdown-toggled-on' );
+
+		mainNavigation.find( '.sub-menu-toggle' ).click( function() {
+			$( this ).toggleClass( 'toggled-on' );
 			$( this ).next( '.sub-menu' ).slideToggle( 'fast' );
-			$( this ).next( '.sub-menu' ).toggleClass( 'dropdown-toggled-on' );
+			$( this ).next( '.sub-menu' ).toggleClass( 'toggled-on' );
 			$( this ).next( '.sub-menu' ).attr( 'aria-expanded', $( this ).next( '.sub-menu'  ).attr( 'aria-expanded' ) === 'false' ? 'true' : 'false' );
 			$( this ).attr( 'aria-expanded', $( this ).next( '.sub-menu'  ).attr( 'aria-expanded' ) === 'false' ? 'true' : 'false' );
 		} );
@@ -54,11 +52,11 @@ jQuery( document ).ready( function( $ ) {
 				menuToggle.attr( 'aria-controls', 'primary-menu' );
 				menuToggle.attr( 'aria-expanded', 'false' );
 				mainNavigation.attr( 'aria-expanded', 'false' );
-				menuContainer.addClass( 'main-menu-burgered' );
+				menuContainer.addClass( 'main-menu_burgered' );
 			} else {
 				menuToggle.attr( 'aria-expanded', 'true' );
 				mainNavigation.attr( 'aria-expanded', 'true' );
-				menuContainer.removeClass( 'main-menu-burgered' );
+				menuContainer.removeClass( 'main-menu_burgered' );
 			}
 		}
 
@@ -91,10 +89,6 @@ jQuery( document ).ready( function( $ ) {
 		}
 	}
 	initCookieAcceper( $( '#cookie' ) );
-
-
-
-
 
 	// Find all YouTube videos.
 /*	var $allVideos = $("iframe[src^='https://www.youtube.com']"),
