@@ -535,67 +535,80 @@
 		&::before
 			background: url( ../img/icons/sets/social.svg#youtube ) center/cover no-repeat
 
-.menu-toggle
-	&.icon_menu, > .icon_menu
-		&::before
-			background: url( ../img/icons/sets/fa-regular.svg#bars ) center/cover no-repeat
-	&.toggled-on
-		&.icon_menu, > .icon_menu
-			&::before
-				background: url( ../img/icons/sets/fa-regular.svg#xmark ) center/cover no-repeat
-
 button, .button
 	&.icon
 		width: auto
 		height: auto
-		&.button-squared
-			padding: $small-button-padding-top $small-button-padding-top
-		&.button-reset
-			padding: 0
-		&:not(.button-squared):not(.icon_center)
-			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
-			&::before
-				left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-				transform: translateY( -50% )
-			&.icon_after
-				padding-left: calc( var( --buttonPaddingLeft ) )
-				padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
-				&::before
-					left: auto
-					right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-			&.button-reset
-				padding-left: calc( 1rem + .125rem )
-				&::before
-					left: -.125rem
-				&.icon_after
-					padding-left: 0
-					padding-right: calc( 1rem + .125rem )
-					&::before
-						left: auto
-						right: -.125rem
+	&.icon_before
+		padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .125rem )
+		&::before
+			left: var( --buttonPaddingLeft )
+	&.icon_after
+		padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .125rem )
+		&::before
+			left: auto
+			right: var( --buttonPaddingLeft )
 
 @media( min-width: 576px )
 	button, .button
-		&.icon
-			&.button-squared
-				padding: $button-padding-top $button-padding-top
-			&.button-reset
-				padding: 0
-			&:not(.button-squared):not(.icon_center)
-				padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
-				&::before
-					left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-				&.icon_after
-					padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
-					padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
-					&::before
-						left: auto
-						right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-				&.button-reset
-					padding-left: calc( 1rem + .25rem )
-					&::before
-						left: -.25rem
-					&.icon_after
-						padding-right: calc( 1rem + .25rem )
-						&::before
-							right: -.25rem
+		&.icon_before
+			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .25rem )
+		&.icon_after
+			padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .25rem )
+
+
+// button, .button
+// 	&.icon
+// 		width: auto
+// 		height: auto
+// 		&.button-squared
+// 			padding: $small-button-padding-top $small-button-padding-top
+// 		&.button-reset
+// 			padding: 0
+// 		&:not(.button-squared):not(.icon_center)
+// 			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+// 			&::before
+// 				left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+// 				transform: translateY( -50% )
+// 			&.icon_after
+// 				padding-left: calc( var( --buttonPaddingLeft ) )
+// 				padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
+// 				&::before
+// 					left: auto
+// 					right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
+// 			&.button-reset
+// 				padding-left: calc( 1rem + .125rem )
+// 				&::before
+// 					left: -.125rem
+// 				&.icon_after
+// 					padding-left: 0
+// 					padding-right: calc( 1rem + .125rem )
+// 					&::before
+// 						left: auto
+// 						right: -.125rem
+
+// @media( min-width: 576px )
+// 	button, .button
+// 		&.icon
+// 			&.button-squared
+// 				padding: $button-padding-top $button-padding-top
+// 			&.button-reset
+// 				padding: 0
+// 			&:not(.button-squared):not(.icon_center)
+// 				padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+// 				&::before
+// 					left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+// 				&.icon_after
+// 					padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
+// 					padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
+// 					&::before
+// 						left: auto
+// 						right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
+// 				&.button-reset
+// 					padding-left: calc( 1rem + .25rem )
+// 					&::before
+// 						left: -.25rem
+// 					&.icon_after
+// 						padding-right: calc( 1rem + .25rem )
+// 						&::before
+// 							right: -.25rem

@@ -898,10 +898,23 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 
 		if ( in_array( 'icon', $classes, true ) ) {
 
+			if ( ! in_array( 'icon_center', $classes, true ) ) {
+				$classes[] = 'icon_' . wpgen_options( 'general_button_icon_position' );
+			}
+
 			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
 				$classes[] = 'icon_black';
 			} else {
 				$classes[] = 'icon_white';
+			}
+		}
+
+		// Удаляем все классы icon, если в опции стоит запрет.
+		if ( ! wpgen_options( 'general_button_icon' ) ) {
+			foreach ( $classes as $key => $class ) {
+				if ( stripos( $class, 'icon' ) !== false ) {
+					unset( $classes[ $key ] );
+				}
 			}
 		}
 
@@ -1026,11 +1039,12 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 		}
 
 		if ( wpgen_options( 'archive_' . $post_type . '_detail_button' ) === 'button' ) {
-			$classes   = get_button_classes( $class, $color );
-			$classes[] = 'button_more';
+			$classes[] = 'icon';
+			$classes[] = 'icon_arrow-right';
+			$classes   = get_button_classes( $classes, $color );
 		} else {
-			$classes   = get_link_classes( $class );
 			$classes[] = 'link_more';
+			$classes   = get_link_classes( $classes );
 		}
 
 		// Check the function has accepted any classes.

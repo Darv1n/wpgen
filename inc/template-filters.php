@@ -235,6 +235,17 @@ if ( ! function_exists( 'remove_nav_menu_item_class' ) ) {
 	}
 }
 
+add_filter(
+    'nav_menu_item_args',
+    function( $args, $item, $depth ) {
+        $args->item_id = $item->ID;
+
+        return $args;
+    },
+    10,
+    3
+);
+
 add_filter( 'the_title', 'wpgen_search_highlight' );
 add_filter( 'the_content', 'wpgen_search_highlight' );
 add_filter( 'the_excerpt', 'wpgen_search_highlight' );

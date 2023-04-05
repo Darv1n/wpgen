@@ -345,25 +345,36 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 		$output           = '';
 		$classes          = array();
 		$menu_button_type = wpgen_options( 'general_menu_button_type' );
-
-		// Если есть иконка.
-		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
-			$classes[] = 'icon';
-			$classes[] = 'icon_menu';
-
-			// Квадрат, если нет текста
-			if ( in_array( $menu_button_type, array( 'button-icon', 'icon' ), true ) ) {
-				$classes[] = 'button-squared';
-			} else {
-				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
-			}
-		}
+		$button_type      = wpgen_options( 'general_button_type' );
+		$color_scheme     = wpgen_options( 'general_color_scheme' );
 
 		// Если есть кнопка.
 		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
 			$classes = get_button_classes( $classes );
 		} else {
 			$classes[] = 'button-reset';
+		}
+
+		// Квадрат, если нет текста
+		if ( in_array( $menu_button_type, array( 'button-icon', 'icon' ), true ) ) {
+			$classes[] = 'button_squared';
+		}
+
+		// Если есть иконка.
+		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
+			$classes[] = 'toggle-icon';
+			$classes[] = 'icon';
+			$classes[] = 'icon_bars';
+
+			if ( in_array( $menu_button_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
+				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
+			}
+
+			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+				$classes[] = 'icon_black';
+			} else {
+				$classes[] = 'icon_white';
+			}
 		}
 
 		$classes[] = 'menu-toggle';
@@ -374,9 +385,14 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 			$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
 		}
 
-		$classes   = apply_filters( 'get_menu_toggle_button_classes', $classes );
+		$classes = apply_filters( 'get_menu_toggle_button_classes', $classes );
+		$classes = array_unique( $classes );
 
-		$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+		if ( in_array( 'toggle-icon', $classes, true ) ) {
+			$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '" data-icon-on="icon_xmark" data-icon-off="icon_bars">';
+		} else {
+			$output .= '<button id="menu-toggle" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+		}
 			if ( in_array( $menu_button_type, array( 'icon', 'button-icon' ), true ) ) {
 				$output .= '<i class="icon"></i>';
 			} else {
@@ -418,29 +434,40 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 	function wpgen_scroll_top() {
 
 		$output  = '';
-		$classes = array();
 
 		if ( wpgen_options( 'general_scroll_top_button_display' ) ) {
+			$classes         = array();
 			$scroll_top_type = wpgen_options( 'general_scroll_top_button_type' );
-
-			// Если есть иконка.
-			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
-				$classes[] = 'icon';
-				$classes[] = 'icon_arrow-up';
-
-				// Квадрат, если нет текста
-				if ( in_array( $scroll_top_type, array( 'button-icon', 'icon' ), true ) ) {
-					$classes[] = 'button-squared';
-				} else {
-					$classes[] = 'icon_' . wpgen_options( 'general_scroll_top_button_icon_position' );
-				}
-			}
+			$button_type     = wpgen_options( 'general_button_type' );
+			$color_scheme    = wpgen_options( 'general_color_scheme' );
 
 			// Если есть кнопка.
 			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
 				$classes = get_button_classes( $classes );
 			} else {
 				$classes[] = 'button-reset';
+			}
+
+			// Квадрат, если нет текста
+			if ( in_array( $scroll_top_type, array( 'button-icon', 'icon' ), true ) ) {
+				$classes[] = 'button_squared';
+			}
+
+			// Если есть иконка.
+			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
+				$classes[] = 'toggle-icon';
+				$classes[] = 'icon';
+				$classes[] = 'icon_arrow-up';
+
+				if ( in_array( $scroll_top_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
+					$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
+				}
+
+				if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+					$classes[] = 'icon_black';
+				} else {
+					$classes[] = 'icon_white';
+				}
 			}
 
 			$classes[] = 'scroll-top';

@@ -20,6 +20,14 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		// Make theme available for translation.
 		load_theme_textdomain( 'wpgen', get_template_directory() . '/languages' );
 
+		// This theme uses wp_nav_menu() in one location.
+		register_nav_menus( array(
+			'primary' => esc_html__( 'Primary', 'wpgen' ),
+		) );
+
+		// Set the content width in pixels, based on the theme's design and stylesheet.
+		$GLOBALS['content_width'] = apply_filters( 'wpgen_content_width', 960 );
+
 		// Add default posts and comments RSS feed links to <head>.
 		add_theme_support( 'automatic-feed-links' );
 
@@ -29,21 +37,8 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		// Enable support for Post Thumbnails on posts and pages.
 		add_theme_support( 'post-thumbnails' );
 
-		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus( array(
-			'primary' => esc_html__( 'Primary', 'wpgen' ),
-		) );
-
 		// Switch default core markup for search form, comment form, and comments.
-		add_theme_support( 'html5', array(
-			'search-form',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'caption',
-			'script',
-			'style',
-		) );
+		add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'script', 'style' ) );
 
 		// Add support post formats.
 		add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
@@ -56,9 +51,6 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		// Set the content width in pixels, based on the theme's design and stylesheet.
-		$GLOBALS['content_width'] = apply_filters( 'wpgen_content_width', 960 );
 
 		// Add support for core custom logo.
 		add_theme_support( 'custom-logo', array(
@@ -104,6 +96,10 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		add_filter( 'the_generator', '__return_empty_string' );
 		remove_action( 'wp_head', 'wp_generator' );
 
+		// Отключение embed.js
+		remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+		remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
 		// Удаляем фиды.
 		remove_action( 'wp_head', 'feed_links', 2 ); // ссылки основных фидов (записи, комментарии, лента новостей).
 		remove_action( 'wp_head', 'feed_links_extra', 3 ); // ссылки на доп. фиды (на рубрики, теги, таксономии).
@@ -144,7 +140,7 @@ add_action( 'wp_enqueue_scripts', 'wpgen_scripts' );
 if ( ! function_exists( 'wpgen_scripts' ) ) {
 
 	/**
-	 * Connecting general styles and scripts.
+	 * Enqueue scripts and styles.
 	 */
 	function wpgen_scripts() {
 		// Стандартный файл стилей с инфой о теме. Не используется для css из-за не удобной компиляции.

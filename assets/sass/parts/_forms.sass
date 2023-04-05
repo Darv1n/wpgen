@@ -83,6 +83,8 @@ input[type="submit"]
 		&:focus, &:active, &.active
 			background: $secondary-color-600
 			border: $button-bd-width solid $secondary-color-600
+	&_squared
+		padding: $small-button-padding-top $small-button-padding-top
 
 @media( min-width: 576px )
 	button,
@@ -91,7 +93,9 @@ input[type="submit"]
 	input[type="reset"],
 	input[type="submit"]
 		padding: $button-padding-top $button-padding-left
-	.button-small
+	.button_squared
+		padding: $button-padding-top $button-padding-top
+	.button_small
 		padding: $small-button-padding-top $small-button-padding-left
 
 .button-empty, .button-default, .button-gray
@@ -129,6 +133,7 @@ input[type="submit"]
 		z-index: -1
 	&:hover, &:focus, &:active, &.active
 		color: $button-text-color-hover
+		background: $primary-gradient
 		border: none
 	&:hover
 		&::after
@@ -216,17 +221,19 @@ input[type="submit"]
 .search-form
 	position: relative
 	max-width: 480px
-	label
-		margin-bottom: 0
 	input[type="search"]
 		padding-right: 90px
 		width: 100%
 		margin-bottom: 0
-	.search-submit
+	&__label
+		margin-bottom: 0
+	&__submit
 		position: absolute
 		top: 0
 		right: 0
 		z-index: 2
+		height: 100% !important
+		width: 90px !important
 
 .button-reset
 	padding: 0

@@ -30,6 +30,8 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'general_container_width'                 => 'average',
 			'general_content_width'                   => 'wide',
 			'general_button_type'                     => 'common',
+			'general_button_icon'                     => true,
+			'general_button_icon_position'            => 'before',
 
 			'general_header_top_bar_display'          => false,
 			'general_header_type'                     => 'header-simple',

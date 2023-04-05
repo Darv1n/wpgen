@@ -155,6 +155,14 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 				<input id="form-tel" class="form-input required" type="tel" name="form-tel" inputmode="numeric" placeholder="' . __( 'What is your phone? (required)', 'wpgen' ) . '" value="">
 			</label>
 
+			<label class="form-label" for="form-property-address">
+				<input id="form-property-address" class="form-input" type="text" name="form-property-address" placeholder="' . __( 'What is your property address? (optional)', 'wpgen' ) . '" value="">
+			</label>
+
+			<label class="form-label" for="form-message">
+				<textarea id="form-message" class="form-textarea" name="form-message" rows="5" cols="33" placeholder="' . __( 'For your questions or comments (optional)', 'wpgen' ) . '" value=""></textarea>
+			</label>
+
 			<input id="form-anticheck" class="form-anticheck" type="checkbox" name="form-anticheck" style="display: none !important;" value="true" checked="checked">
 			<input id="form-submitted" type="text" name="form-submitted" value="" style="display: none !important;">
 			<input id="form-label" type="hidden" name="form-label" value="' . esc_attr( $form_label ) . '">

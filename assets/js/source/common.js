@@ -1,5 +1,17 @@
 jQuery( document ).ready( function( $ ) {
 
+	$(document).on( 'click', '.toggle-icon', function (e) {
+
+		var icon_on  = $( this ).data( 'icon-on' );
+		    icon_off = $( this ).data( 'icon-off' );
+
+		if ( $( this ).hasClass( icon_off ) ) {
+			$( this ).removeClass( icon_off ).addClass( icon_on );
+		} else if ( $( this ).hasClass( icon_on ) ) {
+			$( this ).removeClass( icon_on ).addClass( icon_off );
+		}
+	});
+
 	$( '.scroll-top' ).on( 'click', function() {
 		$( 'html, body' ).animate( { scrollTop : 0 }, 800 );
 		return false;
@@ -27,8 +39,10 @@ jQuery( document ).ready( function( $ ) {
 
 		// Init dropdown toggle for sub menu.
 		var dropdownToggle = $( '<span />', {
-			'class': 'sub-menu-toggle icon icon_caret-down',
+			'class': 'sub-menu-toggle toggle-icon icon icon_caret-down',
 			'aria-expanded': false,
+			'data-icon-on': 'icon_caret-up',
+			'data-icon-off': 'icon_caret-down',
 		} );
 
 		var subMenu = mainNavigation.find( '.sub-menu' );

@@ -198,6 +198,8 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'container_width'                 => array( 'select_control', __( 'Select container width', 'wpgen' ), $general_container_width_description, $general_container_width_select ),
 			'content_width'                   => array( 'select_control', __( 'Select content width', 'wpgen' ), $general_content_width_description, $general_content_width_select ),
 			'button_type'                     => array( 'select_control', __( 'Select button type', 'wpgen' ), '', $general_button_type_select ),
+			'button_icon'                     => array( 'checkbox_control', __( 'Button icons', 'wpgen' ), '', '' ),
+			'button_icon_position'            => array( 'select_control', __( 'Select button icon position', 'wpgen' ), '', $alignment_pseudo_select ),
 
 			'header_title'                    => array( 'tab_title', __( 'Header', 'wpgen' ), '' ),
 			'header_top_bar_display'          => array( 'checkbox_control', __( 'Top bar display', 'wpgen' ), $general_header_top_bar_description ),
