@@ -30,7 +30,7 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			'white-color'     => 'slate-50',
 
 			'elemBgColor'     => 'slate-200',
-			'elemTextColor'   => 'slate-900',
+			'elemTextColor'   => 'slate-950',
 			'elemPadding'     => 'p-3',
 			'elemShadow'      => 'shadow-md',
 			'elemShadowHover' => 'shadow-lg',
@@ -45,21 +45,21 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 		);
 
 		if ( wpgen_options( 'general_color_scheme' ) === 'black' ) {
-			$root_defaults['primary-bg-color']         = 'slate-900';
-			$root_defaults['primary-bg-color-hover']   = 'slate-800';
+			$root_defaults['primary-bg-color']         = 'slate-950';
+			$root_defaults['primary-bg-color-hover']   = 'slate-900';
 			$root_defaults['primary-bd-color']         = 'slate-800';
 			$root_defaults['primary-bd-color-hover']   = 'slate-700';
 			$root_defaults['primary-gray-color']       = 'slate-300';
-			$root_defaults['primary-gray-color-hover'] = 'slate-200';
+			$root_defaults['primary-gray-color-hover'] = 'slate-400';
 			$root_defaults['primary-text-color']       = 'slate-50';
 			$root_defaults['svg-filter']               = 'invert(100%)';
 		} elseif ( wpgen_options( 'general_color_scheme' ) === 'dark' ) {
-			$root_defaults['primary-bg-color']         = 'slate-700';
-			$root_defaults['primary-bg-color-hover']   = 'slate-800';
-			$root_defaults['primary-bd-color']         = 'slate-800';
-			$root_defaults['primary-bd-color-hover']   = 'slate-900';
+			$root_defaults['primary-bg-color']         = 'slate-800';
+			$root_defaults['primary-bg-color-hover']   = 'slate-900';
+			$root_defaults['primary-bd-color']         = 'slate-900';
+			$root_defaults['primary-bd-color-hover']   = 'slate-950';
 			$root_defaults['primary-gray-color']       = 'slate-300';
-			$root_defaults['primary-gray-color-hover'] = 'slate-200';
+			$root_defaults['primary-gray-color-hover'] = 'slate-400';
 			$root_defaults['primary-text-color']       = 'slate-50';
 			$root_defaults['svg-filter']               = 'invert(100%)';
 		} elseif ( wpgen_options( 'general_color_scheme' ) === 'light' ) {
@@ -69,7 +69,7 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			$root_defaults['primary-bd-color-hover']   = 'slate-400';
 			$root_defaults['primary-gray-color']       = 'slate-500';
 			$root_defaults['primary-gray-color-hover'] = 'slate-600';
-			$root_defaults['primary-text-color']       = 'slate-900';
+			$root_defaults['primary-text-color']       = 'slate-950';
 			$root_defaults['svg-filter']               = 'invert(0%)';
 		} else {
 			$root_defaults['primary-bg-color']         = 'slate-50';
@@ -78,7 +78,7 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			$root_defaults['primary-bd-color-hover']   = 'slate-400';
 			$root_defaults['primary-gray-color']       = 'slate-500';
 			$root_defaults['primary-gray-color-hover'] = 'slate-600';
-			$root_defaults['primary-text-color']       = 'slate-900';
+			$root_defaults['primary-text-color']       = 'slate-950';
 			$root_defaults['svg-filter']               = 'invert(0%)';
 		}
 

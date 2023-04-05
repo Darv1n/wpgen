@@ -51,7 +51,7 @@ if ( ! function_exists( 'wpgen_enqueue_fonts' ) ) {
 			$fonts['secondary'] = get_root_styles( 'secondaryFont' );
 		}
 
-		if ( ! is_wpgen_active() && $fonts['primary'] === $fonts['secondary'] ) {
+		if ( $fonts['primary'] === $fonts['secondary'] ) {
 			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );
 		} else {
 			wp_enqueue_style( 'primary-font', '//fonts.googleapis.com/css2?family=' . str_replace( '\'', '', str_replace( ' ', '+', $fonts['primary'] ) ) . ':wght@400;700&display=swap', array(), '1.0.0' );

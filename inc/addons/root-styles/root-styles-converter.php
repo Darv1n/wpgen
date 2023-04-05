@@ -102,11 +102,11 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'border-8'     => '8px',
 
 			'rounded-none' => '0px',
-			'rounded-sm'   => '0.125rem',
-			'rounded'      => '0.25rem',
-			'rounded-md'   => '0.375rem',
-			'rounded-lg'   => '0.5rem',
-			'rounded-xl'   => '0.75rem',
+			'rounded-sm'   => '.125rem',
+			'rounded'      => '.25rem',
+			'rounded-md'   => '.375rem',
+			'rounded-lg'   => '.5rem',
+			'rounded-xl'   => '.75rem',
 			'rounded-2xl'  => '1rem',
 			'rounded-3xl'  => '1.25rem',
 			'rounded-4xl'  => '1.5rem',
@@ -127,16 +127,17 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'btn-xl'       => '.875rem 1.875rem',
 
 			'shadow-none'  => '0 0 #0000',
-			'shadow-sm'    => '0 1px 2px 0 rgba( 0, 0, 0, 0.15 )',
-			'shadow'       => '0 1px 3px 0 rgba( 0, 0, 0, 0.15 ), 0 1px 2px -1px rgba( 0, 0, 0, 0.15 )',
-			'shadow-md'    => '0 4px 6px -1px rgba( 0, 0, 0, 0.15 ), 0 2px 4px -2px rgba( 0, 0, 0, 0.15 )',
-			'shadow-lg'    => '0 10px 15px -3px rgba( 0, 0, 0, 0.15 ), 0 4px 6px -4px rgba( 0, 0, 0, 0.15 )',
-			'shadow-xl'    => '0 20px 25px -5px rgba( 0, 0, 0, 0.15 ), 0 8px 10px -6px rgba( 0, 0, 0, 0.15 )',
-			'shadow-2xl'   => '0 25px 50px -12px rgba( 0, 0, 0, 0.15 )',
-			'shadow-inner' => 'inset 0 2px 4px 0 rgba( 0, 0, 0, 0.15 )',
+			'shadow-sm'    => '0 1px 2px 0 rgba( 0, 0, 0, .15 )',
+			'shadow'       => '0 1px 3px 0 rgba( 0, 0, 0, .15 ), 0 1px 2px -1px rgba( 0, 0, 0, .15 )',
+			'shadow-md'    => '0 4px 6px -1px rgba( 0, 0, 0, .15 ), 0 2px 4px -2px rgba( 0, 0, 0, .15 )',
+			'shadow-lg'    => '0 10px 15px -3px rgba( 0, 0, 0, .15 ), 0 4px 6px -4px rgba( 0, 0, 0, .15 )',
+			'shadow-xl'    => '0 20px 25px -5px rgba( 0, 0, 0, .15 ), 0 8px 10px -6px rgba( 0, 0, 0, .15 )',
+			'shadow-2xl'   => '0 25px 50px -12px rgba( 0, 0, 0, .15 )',
+			'shadow-inner' => 'inset 0 2px 4px 0 rgba( 0, 0, 0, .15 )',
 
 			'black'        => RGBtoHEX( 'rgb(0, 0, 0)' ),
 			'white'        => RGBtoHEX( 'rgb(255, 255, 255)' ),
+
 			'slate-50'     => RGBtoHEX( 'rgb(248, 250, 252)' ),
 			'slate-100'    => RGBtoHEX( 'rgb(241, 245, 249)' ),
 			'slate-200'    => RGBtoHEX( 'rgb(226, 232, 240)' ),
@@ -147,6 +148,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'slate-700'    => RGBtoHEX( 'rgb(51, 65, 85)' ),
 			'slate-800'    => RGBtoHEX( 'rgb(30, 41, 59)' ),
 			'slate-900'    => RGBtoHEX( 'rgb(15, 23, 42)' ),
+			'slate-950'    => RGBtoHEX( 'rgb(2, 6, 23)' ),
+
 			'gray-50'      => RGBtoHEX( 'rgb(249, 250, 251)' ),
 			'gray-100'     => RGBtoHEX( 'rgb(243, 244, 246)' ),
 			'gray-200'     => RGBtoHEX( 'rgb(229, 231, 235)' ),
@@ -157,6 +160,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'gray-700'     => RGBtoHEX( 'rgb(55, 65, 81)' ),
 			'gray-800'     => RGBtoHEX( 'rgb(31, 41, 55)' ),
 			'gray-900'     => RGBtoHEX( 'rgb(17, 24, 39)' ),
+			'gray-950'     => RGBtoHEX( 'rgb(3, 7, 18)' ),
+
 			'zinc-50'      => RGBtoHEX( 'rgb(250, 250, 250)' ),
 			'zinc-100'     => RGBtoHEX( 'rgb(244, 244, 245)' ),
 			'zinc-200'     => RGBtoHEX( 'rgb(228, 228, 231)' ),
@@ -167,6 +172,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'zinc-700'     => RGBtoHEX( 'rgb(63, 63, 70)' ),
 			'zinc-800'     => RGBtoHEX( 'rgb(39, 39, 42)' ),
 			'zinc-900'     => RGBtoHEX( 'rgb(24, 24, 27)' ),
+			'zinc-950'     => RGBtoHEX( 'rgb(9, 9, 11)' ),
+
 			'neutral-50'   => RGBtoHEX( 'rgb(250, 250, 250)' ),
 			'neutral-100'  => RGBtoHEX( 'rgb(245, 245, 245)' ),
 			'neutral-200'  => RGBtoHEX( 'rgb(229, 229, 229)' ),
@@ -177,6 +184,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'neutral-700'  => RGBtoHEX( 'rgb(64, 64, 64)' ),
 			'neutral-800'  => RGBtoHEX( 'rgb(38, 38, 38)' ),
 			'neutral-900'  => RGBtoHEX( 'rgb(23, 23, 23)' ),
+			'neutral-950'  => RGBtoHEX( 'rgb(10, 10, 10)' ),
+
 			'stone-50'     => RGBtoHEX( 'rgb(250, 250, 249)' ),
 			'stone-100'    => RGBtoHEX( 'rgb(245, 245, 244)' ),
 			'stone-200'    => RGBtoHEX( 'rgb(231, 229, 228)' ),
@@ -187,6 +196,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'stone-700'    => RGBtoHEX( 'rgb(68, 64, 60)' ),
 			'stone-800'    => RGBtoHEX( 'rgb(41, 37, 36)' ),
 			'stone-900'    => RGBtoHEX( 'rgb(28, 25, 23)' ),
+			'stone-950'    => RGBtoHEX( 'rgb(12, 10, 9)' ),
+
 			'red-50'       => RGBtoHEX( 'rgb(254, 242, 242)' ),
 			'red-100'      => RGBtoHEX( 'rgb(254, 226, 226)' ),
 			'red-200'      => RGBtoHEX( 'rgb(254, 202, 202)' ),
@@ -197,6 +208,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'red-700'      => RGBtoHEX( 'rgb(185, 28, 28)' ),
 			'red-800'      => RGBtoHEX( 'rgb(153, 27, 27)' ),
 			'red-900'      => RGBtoHEX( 'rgb(127, 29, 29)' ),
+			'red-950'      => RGBtoHEX( 'rgb(69, 10, 10)' ),
+
 			'orange-50'    => RGBtoHEX( 'rgb(255, 247, 237)' ),
 			'orange-100'   => RGBtoHEX( 'rgb(255, 237, 213)' ),
 			'orange-200'   => RGBtoHEX( 'rgb(254, 215, 170)' ),
@@ -207,6 +220,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'orange-700'   => RGBtoHEX( 'rgb(194, 65, 12)' ),
 			'orange-800'   => RGBtoHEX( 'rgb(154, 52, 18)' ),
 			'orange-900'   => RGBtoHEX( 'rgb(124, 45, 18)' ),
+			'orange-950'   => RGBtoHEX( 'rgb(67, 20, 7)' ),
+
 			'amber-50'     => RGBtoHEX( 'rgb(255, 251, 235)' ),
 			'amber-100'    => RGBtoHEX( 'rgb(254, 243, 199)' ),
 			'amber-200'    => RGBtoHEX( 'rgb(253, 230, 138)' ),
@@ -217,6 +232,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'amber-700'    => RGBtoHEX( 'rgb(180, 83, 9)' ),
 			'amber-800'    => RGBtoHEX( 'rgb(146, 64, 14)' ),
 			'amber-900'    => RGBtoHEX( 'rgb(120, 53, 15)' ),
+			'amber-950'    => RGBtoHEX( 'rgb(69, 26, 3)' ),
+
 			'yellow-50'    => RGBtoHEX( 'rgb(254, 252, 232)' ),
 			'yellow-100'   => RGBtoHEX( 'rgb(254, 249, 195)' ),
 			'yellow-200'   => RGBtoHEX( 'rgb(254, 240, 138)' ),
@@ -227,6 +244,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'yellow-700'   => RGBtoHEX( 'rgb(161, 98, 7)' ),
 			'yellow-800'   => RGBtoHEX( 'rgb(133, 77, 14)' ),
 			'yellow-900'   => RGBtoHEX( 'rgb(113, 63, 18)' ),
+			'yellow-950'   => RGBtoHEX( 'rgb(66, 32, 6)' ),
+
 			'lime-50'      => RGBtoHEX( 'rgb(247, 254, 231)' ),
 			'lime-100'     => RGBtoHEX( 'rgb(236, 252, 203)' ),
 			'lime-200'     => RGBtoHEX( 'rgb(217, 249, 157)' ),
@@ -237,6 +256,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'lime-700'     => RGBtoHEX( 'rgb(77, 124, 15)' ),
 			'lime-800'     => RGBtoHEX( 'rgb(63, 98, 18)' ),
 			'lime-900'     => RGBtoHEX( 'rgb(54, 83, 20)' ),
+			'lime-950'     => RGBtoHEX( 'rgb(26, 46, 5)' ),
+
 			'green-50'     => RGBtoHEX( 'rgb(240, 253, 244)' ),
 			'green-100'    => RGBtoHEX( 'rgb(220, 252, 231)' ),
 			'green-200'    => RGBtoHEX( 'rgb(187, 247, 208)' ),
@@ -247,6 +268,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'green-700'    => RGBtoHEX( 'rgb(21, 128, 61)' ),
 			'green-800'    => RGBtoHEX( 'rgb(22, 101, 52)' ),
 			'green-900'    => RGBtoHEX( 'rgb(20, 83, 45)' ),
+			'green-950'    => RGBtoHEX( 'rgb(5, 46, 22)' ),
+
 			'emerald-50'   => RGBtoHEX( 'rgb(236, 253, 245)' ),
 			'emerald-100'  => RGBtoHEX( 'rgb(209, 250, 229)' ),
 			'emerald-200'  => RGBtoHEX( 'rgb(167, 243, 208)' ),
@@ -257,6 +280,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'emerald-700'  => RGBtoHEX( 'rgb(4, 120, 87)' ),
 			'emerald-800'  => RGBtoHEX( 'rgb(6, 95, 70)' ),
 			'emerald-900'  => RGBtoHEX( 'rgb(6, 78, 59)' ),
+			'emerald-950'  => RGBtoHEX( 'rgb(2, 44, 34)' ),
+
 			'teal-50'      => RGBtoHEX( 'rgb(240, 253, 250)' ),
 			'teal-100'     => RGBtoHEX( 'rgb(204, 251, 241)' ),
 			'teal-200'     => RGBtoHEX( 'rgb(153, 246, 228)' ),
@@ -267,6 +292,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'teal-700'     => RGBtoHEX( 'rgb(15, 118, 110)' ),
 			'teal-800'     => RGBtoHEX( 'rgb(17, 94, 89)' ),
 			'teal-900'     => RGBtoHEX( 'rgb(19, 78, 74)' ),
+			'teal-950'     => RGBtoHEX( 'rgb(4, 47, 46)' ),
+
 			'cyan-50'      => RGBtoHEX( 'rgb(236, 254, 255)' ),
 			'cyan-100'     => RGBtoHEX( 'rgb(207, 250, 254)' ),
 			'cyan-200'     => RGBtoHEX( 'rgb(165, 243, 252)' ),
@@ -277,6 +304,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'cyan-700'     => RGBtoHEX( 'rgb(14, 116, 144)' ),
 			'cyan-800'     => RGBtoHEX( 'rgb(21, 94, 117)' ),
 			'cyan-900'     => RGBtoHEX( 'rgb(22, 78, 99)' ),
+			'cyan-950'     => RGBtoHEX( 'rgb(8, 51, 68)' ),
+
 			'sky-50'       => RGBtoHEX( 'rgb(240, 249, 255)' ),
 			'sky-100'      => RGBtoHEX( 'rgb(224, 242, 254)' ),
 			'sky-200'      => RGBtoHEX( 'rgb(186, 230, 253)' ),
@@ -287,6 +316,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'sky-700'      => RGBtoHEX( 'rgb(3, 105, 161)' ),
 			'sky-800'      => RGBtoHEX( 'rgb(7, 89, 133)' ),
 			'sky-900'      => RGBtoHEX( 'rgb(12, 74, 110)' ),
+			'sky-950'      => RGBtoHEX( 'rgb(8, 47, 73)' ),
+
 			'blue-50'      => RGBtoHEX( 'rgb(239, 246, 255)' ),
 			'blue-100'     => RGBtoHEX( 'rgb(219, 234, 254)' ),
 			'blue-200'     => RGBtoHEX( 'rgb(191, 219, 254)' ),
@@ -297,6 +328,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'blue-700'     => RGBtoHEX( 'rgb(29, 78, 216)' ),
 			'blue-800'     => RGBtoHEX( 'rgb(30, 64, 175)' ),
 			'blue-900'     => RGBtoHEX( 'rgb(30, 58, 138)' ),
+			'blue-950'     => RGBtoHEX( 'rgb(23, 37, 84)' ),
+
 			'indigo-50'    => RGBtoHEX( 'rgb(238, 242, 255)' ),
 			'indigo-100'   => RGBtoHEX( 'rgb(224, 231, 255)' ),
 			'indigo-200'   => RGBtoHEX( 'rgb(199, 210, 254)' ),
@@ -307,6 +340,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'indigo-700'   => RGBtoHEX( 'rgb(67, 56, 202)' ),
 			'indigo-800'   => RGBtoHEX( 'rgb(55, 48, 163)' ),
 			'indigo-900'   => RGBtoHEX( 'rgb(49, 46, 129)' ),
+			'indigo-950'   => RGBtoHEX( 'rgb(30, 27, 75)' ),
+
 			'violet-50'    => RGBtoHEX( 'rgb(245, 243, 255)' ),
 			'violet-100'   => RGBtoHEX( 'rgb(237, 233, 254)' ),
 			'violet-200'   => RGBtoHEX( 'rgb(221, 214, 254)' ),
@@ -317,6 +352,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'violet-700'   => RGBtoHEX( 'rgb(109, 40, 217)' ),
 			'violet-800'   => RGBtoHEX( 'rgb(91, 33, 182)' ),
 			'violet-900'   => RGBtoHEX( 'rgb(76, 29, 149)' ),
+			'violet-950'   => RGBtoHEX( 'rgb(46, 16, 101)' ),
+
 			'purple-50'    => RGBtoHEX( 'rgb(250, 245, 255)' ),
 			'purple-100'   => RGBtoHEX( 'rgb(243, 232, 255)' ),
 			'purple-200'   => RGBtoHEX( 'rgb(233, 213, 255)' ),
@@ -327,6 +364,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'purple-700'   => RGBtoHEX( 'rgb(126, 34, 206)' ),
 			'purple-800'   => RGBtoHEX( 'rgb(107, 33, 168)' ),
 			'purple-900'   => RGBtoHEX( 'rgb(88, 28, 135)' ),
+			'purple-950'   => RGBtoHEX( 'rgb(59, 7, 100)' ),
+
 			'fuchsia-50'   => RGBtoHEX( 'rgb(253, 244, 255)' ),
 			'fuchsia-100'  => RGBtoHEX( 'rgb(250, 232, 255)' ),
 			'fuchsia-200'  => RGBtoHEX( 'rgb(245, 208, 254)' ),
@@ -337,6 +376,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'fuchsia-700'  => RGBtoHEX( 'rgb(162, 28, 175)' ),
 			'fuchsia-800'  => RGBtoHEX( 'rgb(134, 25, 143)' ),
 			'fuchsia-900'  => RGBtoHEX( 'rgb(112, 26, 117)' ),
+			'fuchsia-950'  => RGBtoHEX( 'rgb(74, 4, 78)' ),
+
 			'pink-50'      => RGBtoHEX( 'rgb(253, 242, 248)' ),
 			'pink-100'     => RGBtoHEX( 'rgb(252, 231, 243)' ),
 			'pink-200'     => RGBtoHEX( 'rgb(251, 207, 232)' ),
@@ -347,6 +388,8 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'pink-700'     => RGBtoHEX( 'rgb(190, 24, 93)' ),
 			'pink-800'     => RGBtoHEX( 'rgb(157, 23, 77)' ),
 			'pink-900'     => RGBtoHEX( 'rgb(131, 24, 67)' ),
+			'pink-950'     => RGBtoHEX( 'rgb(80, 7, 36)' ),
+
 			'rose-50'      => RGBtoHEX( 'rgb(255, 241, 242)' ),
 			'rose-100'     => RGBtoHEX( 'rgb(255, 228, 230)' ),
 			'rose-200'     => RGBtoHEX( 'rgb(254, 205, 211)' ),
@@ -357,6 +400,7 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'rose-700'     => RGBtoHEX( 'rgb(190, 18, 60)' ),
 			'rose-800'     => RGBtoHEX( 'rgb(159, 18, 57)' ),
 			'rose-900'     => RGBtoHEX( 'rgb(136, 19, 55)' ),
+			'rose-950'     => RGBtoHEX( 'rgb(76, 5, 25)' ),
 		);
 
 		$converter = apply_filters( 'get_selected_value', $converter );

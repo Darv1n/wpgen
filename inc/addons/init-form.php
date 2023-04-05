@@ -64,7 +64,7 @@ if ( ! function_exists( 'ajax_feedback_form_callback' ) ) {
 			if ( $form_field['type'] === 'email' ) {
 
 				if ( isset( $data[ $form_field_id ] ) && ! empty( $data[ $form_field_id ] ) ) {
-					if ( ! preg_match( '/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,8}$/i', $data[ $form_field_id ] ) ) {
+					if ( ! is_email( $data[ $form_field_id ] ) ) {
 						$errors[ $form_field_id ] = __( 'Email address is incorrect', 'wpgen' );
 					} else {
 						$message[ $form_field['title'] ] = sanitize_email( $data[ $form_field_id ] );

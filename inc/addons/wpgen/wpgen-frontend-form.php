@@ -19,8 +19,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 		if ( is_wpgen_active() ) {
 
-			$saturate_array      = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 );
-			$saturate_array_mini = array( 400, 500, 600 );
+			$saturate_array = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950 );
 
 			// Write default options and overwrite them with the settings.
 			$defaults = array(
@@ -265,6 +264,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'700' => '700',
 						'800' => '800',
 						'900' => '900',
+						'950' => '950',
 					),
 				),
 				'elem-padding' => array(
@@ -336,6 +336,7 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 						'700' => '700',
 						'800' => '800',
 						'900' => '900',
+						'950' => '950',
 					),
 				),
 				'elem-bd-radius' => array(
@@ -366,9 +367,38 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					unset( $elems['customizer-archive-page-columns'] );
 
 					return $elems;
-
 				}
 			}*/
+
+			/*// Usage: add gray colorized options to wpgen frontend form.
+			add_filter( 'wpgen_frontend_form_options', 'add_wpgen_frontend_form_gray_colorized_options' );
+			if ( ! function_exists( 'add_wpgen_frontend_form_gray_colorized_options' ) ) {
+				function add_wpgen_frontend_form_gray_colorized_options( $elems ) {
+
+					$elems['general-gray-color']['style'] += array(
+						'red'     => 'Red',
+						'orange'  => 'Orange',
+						'amber'   => 'Amber',
+						'yellow'  => 'Yellow',
+						'lime'    => 'Lime',
+						'green'   => 'Green',
+						'emerald' => 'Emerald',
+						'teal'    => 'Teal',
+						'cyan'    => 'Cyan',
+						'sky'     => 'Sky',
+						'blue'    => 'Blue',
+						'indigo'  => 'Indigo',
+						'violet'  => 'Violet',
+						'purple'  => 'Purple',
+						'fuchsia' => 'Fuchsia',
+						'pink'    => 'Pink',
+						'rose'    => 'Rose',
+					);
+
+					return $elems;
+				}
+			}*/
+
 
 		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen icon icon_pen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';

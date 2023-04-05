@@ -9,6 +9,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_filter( 'query_vars', 'wpgen_add_query_vars' );
+if ( ! function_exists( 'wpgen_add_query_vars' ) ) {
+
+	/**
+	 * Function for query_vars filter-hook.
+	 * 
+	 * @param array $public_query_vars The array of allowed query variable names.
+	 *
+	 * @return array
+	 */
+	function wpgen_add_query_vars( $qvars ) {
+
+		$qvars[] = 'wpgen';
+
+		return array_unique( $qvars );
+	}
+}
+
 add_filter( 'get_root_styles', 'wpgen_get_root_styles', 30 );
 if ( ! function_exists( 'wpgen_get_root_styles' ) ) {
 
@@ -68,20 +86,20 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 				);
 
 				if ( wpgen_options( 'general_color_scheme' ) === 'black' ) {
-					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-900' );
-					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-950' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-900' );
 					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-800' );
 					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-700' );
 					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-300' );
-					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-400' );
 					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-50' );
 				} elseif ( wpgen_options( 'general_color_scheme' ) === 'dark' ) {
-					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-700' );
-					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-800' );
-					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-800' );
-					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-800' );
+					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-bd-color']         = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-950' );
 					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-300' );
-					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-200' );
+					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-400' );
 					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-50' );
 				} elseif ( wpgen_options( 'general_color_scheme' ) === 'light' ) {
 					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-200' );
@@ -90,7 +108,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-400' );
 					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-500' );
 					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-600' );
-					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-950' );
 				} else {
 					$root_wpgen['primary-bg-color']         = get_selected_value( $data['general-gray-color'] . '-50' );
 					$root_wpgen['primary-bg-color-hover']   = get_selected_value( $data['general-gray-color'] . '-200' );
@@ -98,7 +116,7 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 					$root_wpgen['primary-bd-color-hover']   = get_selected_value( $data['general-gray-color'] . '-400' );
 					$root_wpgen['primary-gray-color']       = get_selected_value( $data['general-gray-color'] . '-500' );
 					$root_wpgen['primary-gray-color-hover'] = get_selected_value( $data['general-gray-color'] . '-600' );
-					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-900' );
+					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-950' );
 				}
 			}
 		}

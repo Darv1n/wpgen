@@ -111,7 +111,7 @@ jQuery(document).ready(function ($) {
 					} else {
 
 						// Общие значения.
-						$.each( [ 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 ], function( i, v ) {
+						$.each( [ 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950 ], function( i, v ) {
 							obj[ root + '-color-' + v ]  = wpgen_value[ currentValue + '-' + v ];
 						});
 					}
@@ -124,21 +124,21 @@ jQuery(document).ready(function ($) {
 
 						// Бэграунд и цвет текста в зависимости от цветовой схемы.
 						if ( colorSheme === 'black' ) {
-							obj['primary-bg-color']         = wpgen_value[ currentValue + '-900' ];
-							obj['primary-bg-color-hover']   = wpgen_value[ currentValue + '-800' ];
+							obj['primary-bg-color']         = wpgen_value[ currentValue + '-950' ];
+							obj['primary-bg-color-hover']   = wpgen_value[ currentValue + '-900' ];
 							obj['primary-bd-color']         = wpgen_value[ currentValue + '-800' ];
 							obj['primary-bd-color-hover']   = wpgen_value[ currentValue + '-700' ];
 							obj['primary-gray-color']       = wpgen_value[ currentValue + '-300' ];
-							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-200' ];
+							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-400' ];
 							obj['primary-text-color']       = wpgen_value[ currentValue + '-50' ];
 							obj['svg-filter']               = 'invert(100%)';
 						} else if ( colorSheme === 'dark' ) {
-							obj['primary-bg-color']         = wpgen_value[ currentValue + '-700' ];
-							obj['primary-bg-color-hover']   = wpgen_value[ currentValue + '-800' ];
-							obj['primary-bd-color']         = wpgen_value[ currentValue + '-800' ];
-							obj['primary-bd-color-hover']   = wpgen_value[ currentValue + '-900' ];
+							obj['primary-bg-color']         = wpgen_value[ currentValue + '-800' ];
+							obj['primary-bg-color-hover']   = wpgen_value[ currentValue + '-900' ];
+							obj['primary-bd-color']         = wpgen_value[ currentValue + '-900' ];
+							obj['primary-bd-color-hover']   = wpgen_value[ currentValue + '-950' ];
 							obj['primary-gray-color']       = wpgen_value[ currentValue + '-300' ];
-							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-200' ];
+							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-400' ];
 							obj['primary-text-color']       = wpgen_value[ currentValue + '-50' ];
 							obj['svg-filter']               = 'invert(100%)';
 						} else if ( colorSheme === 'light' ) {
@@ -148,7 +148,7 @@ jQuery(document).ready(function ($) {
 							obj['primary-bd-color-hover']   = wpgen_value[ currentValue + '-400' ];
 							obj['primary-gray-color']       = wpgen_value[ currentValue + '-500' ];
 							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-600' ];
-							obj['primary-text-color']       = wpgen_value[ currentValue + '-900' ];
+							obj['primary-text-color']       = wpgen_value[ currentValue + '-950' ];
 							obj['svg-filter']               = 'invert(0%)';
 						} else {
 							obj['primary-bg-color']         = wpgen_value[ currentValue + '-50' ];
@@ -157,7 +157,7 @@ jQuery(document).ready(function ($) {
 							obj['primary-bd-color-hover']   = wpgen_value[ currentValue + '-400' ];
 							obj['primary-gray-color']       = wpgen_value[ currentValue + '-500' ];
 							obj['primary-gray-color-hover'] = wpgen_value[ currentValue + '-600' ];
-							obj['primary-text-color']       = wpgen_value[ currentValue + '-900' ];
+							obj['primary-text-color']       = wpgen_value[ currentValue + '-950' ];
 							obj['svg-filter']               = 'invert(0%)';
 						}
 					}
@@ -355,11 +355,11 @@ jQuery(document).ready(function ($) {
 	}
 
 	function getStyleBySaturate( saturate ) {
-		if ( $.inArray( parseInt( saturate ), [800, 900] ) !== -1 ) {
+		if ( $.inArray( parseInt( saturate ), [ 800, 900, 950 ] ) !== -1 ) {
 			var style = 'black';
-		} else if ( $.inArray( parseInt( saturate ), [500, 600, 700] ) !== -1 ) {
+		} else if ( $.inArray( parseInt( saturate ), [ 500, 600, 700 ] ) !== -1 ) {
 			var style = 'dark';
-		} else if ( $.inArray( parseInt( saturate ), [200, 300, 400] ) !== -1 ) {
+		} else if ( $.inArray( parseInt( saturate ), [ 200, 300, 400 ] ) !== -1 ) {
 			var style = 'light';
 		} else {
 			var style = 'white';
@@ -368,7 +368,7 @@ jQuery(document).ready(function ($) {
 	}
 
 	function getOppositeColorStyleBySaturate( saturate ) {
-		if ( $.inArray( parseInt(saturate), [500, 600, 700, 800, 900] ) !== -1 ) {
+		if ( $.inArray( parseInt(saturate), [ 500, 600, 700, 800, 900, 950 ] ) !== -1 ) {
 			var style = 'white';
 		} else {
 			var style = 'black';
@@ -378,10 +378,10 @@ jQuery(document).ready(function ($) {
 
 	function getNextSaturate( saturate ) {
 
-		if ( parseInt( saturate ) === 50 ) {
+		if ( parseInt( saturate ) === 50 || parseInt( saturate ) === 900 ) {
 			value = parseInt( saturate ) + 50;
-		} else if ( parseInt( saturate ) === 900 ) {
-			value = parseInt( saturate ) - 100;
+		} else if ( parseInt( saturate ) === 950 ) {
+			value = parseInt( saturate ) - 50;
 		} else {
 			value = parseInt( saturate ) + 100;
 		}
@@ -391,7 +391,7 @@ jQuery(document).ready(function ($) {
 
 	function getPrevSaturate( saturate ) {
 
-		if ( parseInt( saturate ) === 100 ) {
+		if ( parseInt( saturate ) === 100 || parseInt( saturate ) === 950 ) {
 			value = parseInt( saturate ) - 50;
 		} else if ( parseInt( saturate ) === 50 ) {
 			value = parseInt( saturate ) + 50;
@@ -421,16 +421,17 @@ jQuery(document).ready(function ($) {
 	function getOppositeSaturate( saturate ) {
 
 		var obj = {
-			'50': '900',
-			'100': '800',
-			'200': '700',
-			'300': '600',
-			'400': '500',
-			'500': '400',
-			'600': '300',
-			'700': '200',
-			'800': '100',
-			'900': '50',
+			'50': '950',
+			'100': '900',
+			'200': '800',
+			'300': '700',
+			'400': '600',
+			'500': '500',
+			'600': '400',
+			'700': '300',
+			'800': '200',
+			'900': '100',
+			'950': '50',
 		};
 
 		return obj[ saturate ];

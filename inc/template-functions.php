@@ -34,25 +34,34 @@ if ( ! function_exists( 'is_wpgen_active' ) ) {
 	 */
 	function is_wpgen_active() {
 
+		if ( wpgen_options( 'general_wpgen_active' ) ) {
+			$control = true;
+		}
+
+		if ( is_admin() || is_customize_preview() || ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
+			$control = false;
+		}
+
+		if ( get_query_var( 'wpgen', 'inactive' ) === 'active' ) {
+			$control = true;
+		}
+
+		return (bool) apply_filters( 'is_wpgen_active', $control );
+	}
+}
+
+/*// Usage: change is wpgen active.
+add_filter( 'is_wpgen_active', 'change_is_wpgen_active' );
+if ( ! function_exists( 'change_is_wpgen_active' ) ) {
+	function change_is_wpgen_active( $control ) {
+
 		if ( preg_replace( '/^(http[s]?):\/\//', '', get_home_url() ) === 'wpgen.zolin.digital' ) {
 			return true;
 		}
 
-		if ( is_admin() || is_customize_preview() ) {
-			return false;
-		}
-
-		if ( ! is_user_logged_in() && ! current_user_can( 'manage_options' ) ) {
-			return false;
-		}
-
-		if ( wpgen_options( 'general_wpgen_active' ) ) {
-			return true;
-		}
-
-		return false;
+		return $control;
 	}
-}
+}*/
 
 if ( ! function_exists( 'array_key_first' ) ) {
 
@@ -68,9 +77,11 @@ if ( ! function_exists( 'array_key_first' ) ) {
 		if ( ! is_array( $array ) || empty( $array ) ) {
 			return null;
 		}
+
 		foreach ( $array as $key => $unused ) {
 			return $key;
 		}
+
 		return null;
 	}
 }
@@ -89,6 +100,7 @@ if ( ! function_exists( 'array_key_last' ) ) {
 		if ( ! is_array( $array ) || empty( $array ) ) {
 			return null;
 		}
+
 		return array_keys( $array )[ count( $array ) - 1 ];
 	}
 }

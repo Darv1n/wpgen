@@ -24,7 +24,7 @@ if ( ! function_exists( 'get_style_by_saturate' ) ) {
 			return false;
 		}
 
-		if ( in_array( (int) $saturation, array( 800, 900 ), true ) ) {
+		if ( in_array( (int) $saturation, array( 800, 900, 950 ), true ) ) {
 			$theme_style = 'black';
 		} elseif ( in_array( (int) $saturation, array( 500, 600, 700 ), true ) ) {
 			$theme_style = 'dark';
@@ -53,7 +53,7 @@ if ( ! function_exists( 'get_color_style_by_saturate' ) ) {
 			return false;
 		}
 
-		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900 ), true ) ) {
+		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900, 950 ), true ) ) {
 			$theme_style = 'black';
 		} else {
 			$theme_style = 'white';
@@ -78,7 +78,7 @@ if ( ! function_exists( 'get_opposite_color_style_by_saturate' ) ) {
 			return false;
 		}
 
-		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900 ), true ) ) {
+		if ( in_array( (int) $saturation, array( 500, 600, 700, 800, 900, 950 ), true ) ) {
 			$theme_style = 'white';
 		} else {
 			$theme_style = 'black';
@@ -103,10 +103,10 @@ if ( ! function_exists( 'get_next_saturate' ) ) {
 			return false;
 		}
 
-		if ( (int) $saturation === 50 ) {
+		if ( (int) $saturation === 50 || (int) $saturation === 900 ) {
 			$value = (int) $saturation + 50;
-		} elseif ( (int) $saturation === 900 ) {
-			$value = (int) $saturation - 100;
+		} elseif ( (int) $saturation === 950 ) {
+			$value = (int) $saturation - 50;
 		} else {
 			$value = (int) $saturation + 100;
 		}
@@ -130,7 +130,7 @@ if ( ! function_exists( 'get_prev_saturate' ) ) {
 			return false;
 		}
 
-		if ( (int) $saturation === 100 ) {
+		if ( (int) $saturation === 100 || (int) $saturation === 950 ) {
 			$value = (int) $saturation - 50;
 		} elseif ( (int) $saturation === 50 ) {
 			$value = (int) $saturation + 50;

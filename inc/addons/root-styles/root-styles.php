@@ -22,7 +22,7 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 
 		$root_styles    = array();
 		$root_defaults  = get_root_defaults();
-		$saturate_array = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 );
+		$saturate_array = array( 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950 );
 
 		foreach ( $root_defaults as $key => $root_default ) {
 			if ( in_array( $key, array( 'primary-color', 'secondary-color', 'gray-color' ), true ) ) {
