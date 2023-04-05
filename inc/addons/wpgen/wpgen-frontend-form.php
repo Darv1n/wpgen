@@ -356,17 +356,18 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 				),
 			);
 
-			$elems = apply_filters( 'wpgen_form_options', $elems );
+			$elems = apply_filters( 'wpgen_frontend_form_options', $elems );
 
-			/*
-			// Usage:
-			add_filter( 'wpgen_form_options', 'child_theme_wpgen_form_options' );
-			function child_theme_wpgen_form_options( $elems ) {
+			/*// Usage: change wpgen form options.
+			add_filter( 'wpgen_frontend_form_options', 'change_wpgen_frontend_form_options' );
+			if ( ! function_exists( 'change_wpgen_frontend_form_options' ) ) {
+				function change_wpgen_frontend_form_options( $elems ) {
 
-				unset( $elems['customizer-archive-page-columns'] );
+					unset( $elems['customizer-archive-page-columns'] );
 
-				return $elems;
+					return $elems;
 
+				}
 			}*/
 
 		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen icon icon_pen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';

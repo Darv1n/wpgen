@@ -540,75 +540,23 @@ button, .button
 		width: auto
 		height: auto
 	&.icon_before
-		padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .125rem )
+		padding-left: calc( var( --buttonPaddingLeft ) + 1.125rem + .25rem )
 		&::before
-			left: var( --buttonPaddingLeft )
+			left: calc( var( --buttonPaddingLeft ) + .125rem )
 	&.icon_after
-		padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .125rem )
+		padding-right: calc( var( --buttonPaddingLeft ) + 1.125rem + .25rem )
 		&::before
 			left: auto
-			right: var( --buttonPaddingLeft )
+			right: calc( var( --buttonPaddingLeft ) + .125rem )
 
 @media( min-width: 576px )
 	button, .button
 		&.icon_before
-			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .25rem )
+			padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1.125rem + .25rem )
+			&::before
+				left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) )
 		&.icon_after
-			padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1.125rem + .25rem )
+			padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1.125rem + .25rem )
+			&::before
+				right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) )
 
-
-// button, .button
-// 	&.icon
-// 		width: auto
-// 		height: auto
-// 		&.button-squared
-// 			padding: $small-button-padding-top $small-button-padding-top
-// 		&.button-reset
-// 			padding: 0
-// 		&:not(.button-squared):not(.icon_center)
-// 			padding-left: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
-// 			&::before
-// 				left: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-// 				transform: translateY( -50% )
-// 			&.icon_after
-// 				padding-left: calc( var( --buttonPaddingLeft ) )
-// 				padding-right: calc( ( var( --buttonPaddingLeft ) ) + 1rem + .125rem )
-// 				&::before
-// 					left: auto
-// 					right: calc( ( var( --buttonPaddingLeft ) ) - .125rem )
-// 			&.button-reset
-// 				padding-left: calc( 1rem + .125rem )
-// 				&::before
-// 					left: -.125rem
-// 				&.icon_after
-// 					padding-left: 0
-// 					padding-right: calc( 1rem + .125rem )
-// 					&::before
-// 						left: auto
-// 						right: -.125rem
-
-// @media( min-width: 576px )
-// 	button, .button
-// 		&.icon
-// 			&.button-squared
-// 				padding: $button-padding-top $button-padding-top
-// 			&.button-reset
-// 				padding: 0
-// 			&:not(.button-squared):not(.icon_center)
-// 				padding-left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
-// 				&::before
-// 					left: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-// 				&.icon_after
-// 					padding-left: calc( var( --buttonPaddingLeft ) * 1.25 )
-// 					padding-right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) + 1rem + .25rem )
-// 					&::before
-// 						left: auto
-// 						right: calc( ( var( --buttonPaddingLeft ) * 1.25 ) - .25rem )
-// 				&.button-reset
-// 					padding-left: calc( 1rem + .25rem )
-// 					&::before
-// 						left: -.25rem
-// 					&.icon_after
-// 						padding-right: calc( 1rem + .25rem )
-// 						&::before
-// 							right: -.25rem

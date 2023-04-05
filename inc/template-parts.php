@@ -276,10 +276,10 @@ if ( ! function_exists( 'wpgen_section_content_wrapper_start' ) ) {
 	}
 }
 
-// Usage:
-/*add_filter( 'wpgen_section_content_wrapper_start', 'my_section_content_wrapper_start' );
-if ( ! function_exists( 'my_section_content_wrapper_start' ) ) {
-	function my_section_content_wrapper_start( $output ) {
+/*// Usage: change wpgen section content wrapper start.
+add_filter( 'wpgen_section_content_wrapper_start', 'change_wpgen_section_content_wrapper_start' );
+if ( ! function_exists( 'change_wpgen_section_content_wrapper_start' ) ) {
+	function change_wpgen_section_content_wrapper_start( $output ) {
 
 		if ( is_front_page() ) {
 			return '';
@@ -306,10 +306,10 @@ if ( ! function_exists( 'wpgen_section_content_wrapper_end' ) ) {
 	}
 }
 
-// Usage:
-/*add_filter( 'wpgen_section_content_wrapper_end', 'my_section_content_wrapper_end' );
-if ( ! function_exists( 'my_section_content_wrapper_end' ) ) {
-	function my_section_content_wrapper_end( $output ) {
+/*// Usage: change section content wrapper end.
+add_filter( 'wpgen_section_content_wrapper_end', 'change_section_content_wrapper_end' );
+if ( ! function_exists( 'change_section_content_wrapper_end' ) ) {
+	function change_section_content_wrapper_end( $output ) {
 
 		if ( is_front_page() ) {
 			return '';
@@ -319,8 +319,8 @@ if ( ! function_exists( 'my_section_content_wrapper_end' ) ) {
 	}
 }*/
 
-// Usage:
-/*add_filter( 'wpgen_section_content_wrapper_start', 'remove_front_page_section_content_wrapper' );
+/*// Usage: remove front page section content wrapper.
+add_filter( 'wpgen_section_content_wrapper_start', 'remove_front_page_section_content_wrapper' );
 add_filter( 'wpgen_section_content_wrapper_end', 'remove_front_page_section_content_wrapper' );
 if ( ! function_exists( 'remove_front_page_section_content_wrapper' ) ) {
 	function remove_front_page_section_content_wrapper( $output ) {
@@ -332,7 +332,6 @@ if ( ! function_exists( 'remove_front_page_section_content_wrapper' ) ) {
 		return $output;
 	}
 }*/
-
 
 add_action( 'wpgen_before_main_navigation', 'wpgen_menu_toggle', 10 );
 if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
@@ -405,10 +404,10 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 	}
 }
 
-// Usage:
-/*add_filter( 'wpgen_menu_toggle', 'my_menu_toggle' );
-if ( ! function_exists( 'my_menu_toggle' ) ) {
-	function my_menu_toggle( $output ) {
+/*// Usage: change wpgen menu toggle.
+add_filter( 'wpgen_menu_toggle', 'change_wpgen_menu_toggle' );
+if ( ! function_exists( 'change_wpgen_menu_toggle' ) ) {
+	function change_wpgen_menu_toggle( $output ) {
 
 		$output = '';
 

@@ -385,7 +385,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 		);
 
 		// Merge child and parent controls.
-		$wpgen_controls = apply_filters( 'wpgen_filter_controls', $wpgen_controls );
+		$wpgen_controls = apply_filters( 'get_wpgen_customizer_controls', $wpgen_controls );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
@@ -398,13 +398,13 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 	}
 }
 
-/*
-// Usage:
-add_filter( 'wpgen_filter_controls', 'child_theme_filter_controls' );
-function child_theme_filter_controls( $wpgen_controls ) {
+/*// Usage: change get wpgen customizer controls.
+add_filter( 'get_wpgen_customizer_controls', 'change_get_wpgen_customizer_controls' );
+if ( ! function_exists( 'change_get_wpgen_customizer_controls' ) ) {
+	function change_get_wpgen_customizer_controls( $wpgen_controls ) {
 
-	$wpgen_controls['other']['new_control'] = array( 'checkbox_control', __( 'New checkbox control', 'wpgen' ), '' );
+		$wpgen_controls['other']['new_control'] = array( 'checkbox_control', __( 'New checkbox control', 'wpgen' ), '' );
 
-	return $wpgen_controls;
-}
-*/
+		return $wpgen_controls;
+	}
+}*/

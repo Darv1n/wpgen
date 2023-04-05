@@ -42,7 +42,7 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 		}
 
 		// Merge child and parent default options.
-		$root_styles = apply_filters( 'root_styles_filter_options', $root_styles );
+		$root_styles = apply_filters( 'get_root_styles', $root_styles );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
@@ -55,16 +55,16 @@ if ( ! function_exists( 'get_root_styles' ) ) {
 	}
 }
 
-/*
-// Usage:
-add_filter( 'root_styles_filter_options', 'source_root_styles_filter_options', 15 );
-function source_root_styles_filter_options( $root_styles ) {
+/*// Usage: change root styles.
+add_filter( 'get_root_styles', 'change_root_styles', 15 );
+if ( ! function_exists( 'change_root_styles' ) ) {
+	function change_root_styles( $root_styles ) {
 
-	$source_styles = array(
-		'primaryFont'   => '\'Jost\'',
-		'secondaryFont' => '\'Jost\'',
-	);
+		$source_styles = array(
+			'primaryFont'   => '\'Jost\'',
+			'secondaryFont' => '\'Jost\'',
+		);
 
-	return wp_parse_args( $source_styles, $root_styles );
-}
-*/
+		return wp_parse_args( $source_styles, $root_styles );
+	}
+}*/

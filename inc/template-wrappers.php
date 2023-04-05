@@ -165,10 +165,10 @@ if ( ! function_exists( 'get_wpgen_container_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_container_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_container_classes', 'my_container_classes' );
-		if ( ! function_exists( 'my_container_classes' ) ) {
-			function my_container_classes( $classes ) {
+		/*// Usage: change get wpgen container classes.
+		add_filter( 'get_wpgen_container_classes', 'change_get_wpgen_container_classes' );
+		if ( ! function_exists( 'change_get_wpgen_container_classes' ) ) {
+			function change_get_wpgen_container_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -249,10 +249,10 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_content_area_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_content_area_classes', 'my_content_area_classes' );
-		if ( ! function_exists( 'my_content_area_classes' ) ) {
-			function my_content_area_classes( $classes ) {
+		/*// Usage: change get wpgen content area_classes.
+		add_filter( 'get_wpgen_content_area_classes', 'change_get_wpgen_content_area_classes' );
+		if ( ! function_exists( 'change_get_wpgen_content_area_classes' ) ) {
+			function change_get_wpgen_content_area_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -321,10 +321,10 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_widget_area_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_widget_area_classes', 'my_widget_area_classes' );
-		if ( ! function_exists( 'my_widget_area_classes' ) ) {
-			function my_widget_area_classes( $classes ) {
+		/*// Usage: change get wpgen widget area classes.
+		add_filter( 'get_wpgen_widget_area_classes', 'change_get_wpgen_widget_area_classes' );
+		if ( ! function_exists( 'change_get_wpgen_widget_area_classes' ) ) {
+			function change_get_wpgen_widget_area_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -404,10 +404,10 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_header_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_header_classes', 'my_header_classes' );
-		if ( ! function_exists( 'my_header_classes' ) ) {
-			function my_header_classes( $classes ) {
+		/*// Usage: change get wpgen header classes.
+		add_filter( 'get_wpgen_header_classes', 'change_get_wpgen_header_classes' );
+		if ( ! function_exists( 'change_get_wpgen_header_classes' ) ) {
+			function change_get_wpgen_header_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -477,10 +477,10 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_footer_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_footer_classes', 'my_footer_classes' );
-		if ( ! function_exists( 'my_footer_classes' ) ) {
-			function my_footer_classes( $classes ) {
+		/*// Usage: change get wpgen footer classes.
+		add_filter( 'get_wpgen_footer_classes', 'change_get_wpgen_footer_classes' );
+		if ( ! function_exists( 'change_get_wpgen_footer_classes' ) ) {
+			function change_get_wpgen_footer_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -552,10 +552,10 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_main_menu_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_main_menu_classes', 'my_main_menu_classes' );
-		if ( ! function_exists( 'my_main_menu_classes' ) ) {
-			function my_main_menu_classes( $classes ) {
+		/*// Usage: change get wpgen main menu classes.
+		add_filter( 'get_wpgen_main_menu_classes', 'change_get_wpgen_main_menu_classes' );
+		if ( ! function_exists( 'change_get_wpgen_main_menu_classes' ) ) {
+			function change_get_wpgen_main_menu_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -621,10 +621,10 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_meta_display_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_meta_display_classes', 'my_meta_display_classes' );
-		if ( ! function_exists( 'my_meta_display_classes' ) ) {
-			function my_meta_display_classes( $classes ) {
+		/*// Usage: change get wpgen meta display classes.
+		add_filter( 'get_wpgen_meta_display_classes', 'change_get_wpgen_meta_display_classes' );
+		if ( ! function_exists( 'change_get_wpgen_meta_display_classes' ) ) {
+			function change_get_wpgen_meta_display_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -683,10 +683,10 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_archive_page_columns_wrapper_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_archive_page_columns_wrapper_classes', 'my_archive_page_columns_wrapper_classes' );
-		if ( ! function_exists( 'my_archive_page_columns_wrapper_classes' ) ) {
-			function my_archive_page_columns_wrapper_classes( $classes ) {
+		// Usage: change get wpgen archive page columns wrapper classes.
+		/*add_filter( 'get_wpgen_archive_page_columns_wrapper_classes', 'change_get_wpgen_archive_page_columns_wrapper_classes' );
+		if ( ! function_exists( 'change_get_wpgen_archive_page_columns_wrapper_classes' ) ) {
+			function change_get_wpgen_archive_page_columns_wrapper_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -820,14 +820,12 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 			}
 		}
 
-		// vardump( $counter );
-
 		$classes = apply_filters( 'get_wpgen_archive_page_columns_classes', $classes, $counter );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_archive_page_columns_classes', 'my_archive_page_columns_classes', 10, 2 );
-		if ( ! function_exists( 'my_archive_page_columns_classes' ) ) {
-			function my_archive_page_columns_classes( $classes, $counter ) {
+		/*// Usage: change get wpgen archive page columns classes.
+		add_filter( 'get_wpgen_archive_page_columns_classes', 'change_get_wpgen_archive_page_columns_classes', 10, 2 );
+		if ( ! function_exists( 'change_get_wpgen_archive_page_columns_classes' ) ) {
+			function change_get_wpgen_archive_page_columns_classes( $classes, $counter ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -920,10 +918,10 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 
 		$classes = apply_filters( 'get_button_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_button_classes', 'my_button_classes' );
-		if ( ! function_exists( 'my_button_classes' ) ) {
-			function my_button_classes( $classes ) {
+		/*// Usage: change get button classes.
+		add_filter( 'get_button_classes', 'change_get_button_classes' );
+		if ( ! function_exists( 'change_get_button_classes' ) ) {
+			function change_get_button_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -983,10 +981,10 @@ if ( ! function_exists( 'get_link_classes' ) ) {
 
 		$classes = apply_filters( 'get_link_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_link_classes', 'my_link_classes' );
-		if ( ! function_exists( 'my_link_classes' ) ) {
-			function my_link_classes( $classes ) {
+		/*// Usage: change get link classes.
+		add_filter( 'get_link_classes', 'change_get_link_classes' );
+		if ( ! function_exists( 'change_get_link_classes' ) ) {
+			function change_get_link_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}
@@ -1058,10 +1056,10 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 
 		$classes = apply_filters( 'get_wpgen_link_more_classes', $classes );
 
-		// Usage:
-		/*add_filter( 'get_wpgen_link_more_classes', 'my_link_more_classes' );
-		if ( ! function_exists( 'my_link_more_classes' ) ) {
-			function my_link_more_classes( $classes ) {
+		/*// Usage: change get wpgen link more classes.
+		add_filter( 'get_wpgen_link_more_classes', 'change_get_wpgen_link_more_classes' );
+		if ( ! function_exists( 'change_get_wpgen_link_more_classes' ) ) {
+			function change_get_wpgen_link_more_classes( $classes ) {
 				$classes[] = 'my-class';
 				return array_unique( (array) $classes );
 			}

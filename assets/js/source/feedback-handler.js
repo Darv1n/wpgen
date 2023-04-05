@@ -47,8 +47,8 @@ jQuery(document).ready(function ($) {
 					} else {
 						_this.data( 'error-text' );
 						$.each( response.data, function ( key, val ) {
-							$( '.form-' + key ).addClass( 'error' );
-							$( '.form-' + key ).after( '<span class="notification notification_warning notification_warning_' + key + ' transition">' + val + '</span>' );
+							form.find( '#' + key ).addClass( 'error' );
+							form.find( '#' + key ).after( '<span class="notification notification_warning notification_warning_' + key + ' transition">' + val + '</span>' );
 						});
 					}
 				},

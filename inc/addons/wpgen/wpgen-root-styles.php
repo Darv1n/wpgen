@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'root_styles_filter_options', 'wpgen_root_styles_filter_options', 30 );
-if ( ! function_exists( 'wpgen_root_styles_filter_options' ) ) {
+add_filter( 'get_root_styles', 'wpgen_get_root_styles', 30 );
+if ( ! function_exists( 'wpgen_get_root_styles' ) ) {
 
 	/**
 	 * Filter options in get_root_styles() function.
@@ -19,7 +19,7 @@ if ( ! function_exists( 'wpgen_root_styles_filter_options' ) ) {
 	 *
 	 * @return void
 	 */
-	function wpgen_root_styles_filter_options( $root_styles ) {
+	function wpgen_get_root_styles( $root_styles ) {
 
 		$wpgen_styles = get_wpgen_root_style();
 

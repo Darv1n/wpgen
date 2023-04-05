@@ -127,10 +127,10 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 		$post_classes[] = 'video';
 		$post_classes   = apply_filters( 'get_youtube_video_post_classes', $post_classes );
 
-		/*// Usage:
-		add_filter( 'get_youtube_video_post_classes', 'my_youtube_video_post_classes' );
-		if ( ! function_exists( 'my_youtube_video_post_classes' ) ) {
-			function my_youtube_video_post_classes( $classes ) {
+		/*// Usage: change youtube video post classes.
+		add_filter( 'get_youtube_video_post_classes', 'change_youtube_video_post_classes' );
+		if ( ! function_exists( 'change_youtube_video_post_classes' ) ) {
+			function change_youtube_video_post_classes( $classes ) {
 				$classes[] = 'elem';
 				return array_unique( (array) $classes );
 			}

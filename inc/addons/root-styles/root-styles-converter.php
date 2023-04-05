@@ -63,17 +63,19 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 	}
 }
 
-/*// Usage:
-add_filter( 'get_selected_font', 'source_get_selected_font' );
-function source_get_selected_font( $default_fonts ) {
+/*// Usage: change selected font.
+add_filter( 'get_selected_font', 'change_selected_font' );
+if ( ! function_exists( 'change_selected_font' ) ) {
+	function change_selected_font( $default_fonts ) {
 
-	$source_fonts = array(
-		'forum' => __( 'Forum', 'wpgen'),
-	);
+		$source_fonts = array(
+			'forum' => __( 'Forum', 'wpgen'),
+		);
 
-	$default_fonts = wp_parse_args( $source_fonts, $default_fonts );
+		$default_fonts = wp_parse_args( $source_fonts, $default_fonts );
 
-	return $default_fonts;
+		return $default_fonts;
+	}
 }*/
 
 if ( ! function_exists( 'get_selected_value' ) ) {
@@ -383,17 +385,17 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 	}
 }
 
-/*
-//Usage:
-add_filter( 'get_selected_value', 'source_get_selected_value' );
-function source_get_selected_value( $default_values ) {
+/*// Usage: change selected value.
+add_filter( 'get_selected_value', 'change_selected_value' );
+if ( ! function_exists( 'change_selected_value' ) ) {
+	function change_selected_value( $default_values ) {
 
-	$source_values = array(
-		'neutral-900'  => '#000',
-	);
+		$source_values = array(
+			'neutral-900'  => '#000',
+		);
 
-	$default_fonts = wp_parse_args( $source_values, $default_values );
+		$default_fonts = wp_parse_args( $source_values, $default_values );
 
-	return $default_fonts;
-}
-*/
+		return $default_fonts;
+	}
+}*/

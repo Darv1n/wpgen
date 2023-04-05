@@ -82,7 +82,7 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			$root_defaults['svg-filter']               = 'invert(0%)';
 		}
 
-		$root_defaults = apply_filters( 'root_defaults_filter_options', $root_defaults );
+		$root_defaults = apply_filters( 'get_root_defaults', $root_defaults );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
@@ -95,16 +95,16 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 	}
 }
 
-/*
-// Usage:
-add_filter( 'root_defaults_filter_options', 'source_root_defaults_filter_options', 15 );
-function source_root_defaults_filter_options( $root_styles ) {
+/*// Usage: change root defaults.
+add_filter( 'get_root_defaults', 'change_root_defaults', 15 );
+if ( ! function_exists( 'change_root_defaults' ) ) {
+	function change_root_defaults( $root_styles ) {
 
-	$source_styles = array(
-		'primaryFont'   => 'jost',
-		'secondaryFont' => 'jost',
-	);
+		$source_styles = array(
+			'primaryFont'   => 'jost',
+			'secondaryFont' => 'jost',
+		);
 
-	return wp_parse_args( $source_styles, $root_styles );
-}
-*/
+		return wp_parse_args( $source_styles, $root_styles );
+	}
+}*/

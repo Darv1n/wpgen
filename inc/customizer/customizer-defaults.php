@@ -154,7 +154,7 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 		);
 
 		// Merge child and parent default options.
-		$wpgen_defaults = apply_filters( 'wpgen_filter_options', $wpgen_defaults );
+		$wpgen_defaults = apply_filters( 'wpgen_options', $wpgen_defaults );
 
 		// Merge defaults and theme options.
 		$wpgen_defaults = wp_parse_args( get_option( 'wpgen_options' ), $wpgen_defaults );
@@ -170,17 +170,19 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	}
 }
 
-/*// Usage:
-add_filter( 'wpgen_filter_options', 'child_theme_filter_options' );
-function child_theme_filter_options( $wpgen_defaults ) {
+/*// Usage: change wpgen options.
+add_filter( 'wpgen_options', 'change_wpgen_options' );
+if ( ! function_exists( 'change_wpgen_options' ) ) {
+	function change_wpgen_options( $wpgen_defaults ) {
 
-	$child_theme_defaults = array(
-		'general_menu_position' => 'right',
-		'general_test'          => false,
-	);
+		$child_theme_defaults = array(
+			'general_menu_position' => 'right',
+			'general_test'          => false,
+		);
 
-	$wpgen_defaults = wp_parse_args( $child_theme_defaults, $wpgen_defaults );
+		$wpgen_defaults = wp_parse_args( $child_theme_defaults, $wpgen_defaults );
 
-	return $wpgen_defaults;
+		return $wpgen_defaults;
 
+	}
 }*/
