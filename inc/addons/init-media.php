@@ -115,12 +115,12 @@ if ( ! function_exists( 'the_media' ) ) {
 		$post_classes[] = 'media';
 		$post_classes   = apply_filters( 'get_media_post_classes', $post_classes );
 
-		/*// Usage:
+		/*// Usage: change media post classes.
 		add_filter( 'get_media_post_classes', 'my_media_post_classes' );
 		if ( ! function_exists( 'my_media_post_classes' ) ) {
 			function my_media_post_classes( $classes ) {
-				$classes[] = 'elem';
-				return array_unique( (array) $classes );
+				$classes = get_elem_classes( $classes );
+				return $classes;
 			}
 		}*/
 
@@ -192,7 +192,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				$html .= '<ul class="elem-nav__list">';
 
 				if ( (int) get_query_var( 'pg', 1 ) > 3 ) {
-					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_chevron-left' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_first"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_center icon_chevron-left' ) ) ) . '" href="' . esc_url( $current_link ) . '" role="button">-1</a></li>';
 				}
 
 				while ( $i <= $ceil ) {
@@ -228,7 +228,7 @@ if ( ! function_exists( 'the_media' ) ) {
 				}
 
 				if ( $ceil > 3 && (int) get_query_var( 'pg', 1 ) < $ceil - 2 ) {
-					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_chevron-right' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
+					$html .= '<li class="elem-nav__item elem-nav__item_last"><a class="' . esc_attr( implode( ' ', get_button_classes( 'elem-nav__link icon icon_center icon_chevron-right' ) ) ) . '" href="' . esc_url( add_query_arg( array( 'pg' => $ceil ), $current_link ) ) . '" role="button">+1</a></li>';
 				}
 
 				$html .= '</ul>';
@@ -324,7 +324,7 @@ if ( ! function_exists( 'get_media' ) ) {
 
 						if ( ! in_array( $title, $titles, true ) ) {
 							$titles[] = $title;
-							$excel[]  = array( $main_tag, wp_strip_all_tags( $item->pubDate ), $title, wp_strip_all_tags( $item->link ), wp_strip_all_tags( $item->source ) );
+							$excel[]  = array( $main_tag, wp_strip_all_tags( (string) $item->pubDate ), $title, wp_strip_all_tags( (string) $item->link ), wp_strip_all_tags( (string) $item->source ) );
 						}
 					}
 				}

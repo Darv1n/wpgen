@@ -39,35 +39,34 @@
 	&_gray
 		&::before
 			filter: invert(50%)
-	// &_squared, &_rounded
-	// 	padding: .75rem
-	// 	margin-right: .375rem
-	// 	&::after
-	// 		@include pseudo( $left: 50%, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
-	// 		border: 2px solid $white-color
-	// 		border-radius: $border-radius
-	// 		transform: translate( -50%, -50% )
-	// 		transition: $transition
-	// &_before, &_after
-	// 	&_squared, &_rounded
-	// 		padding-left: calc( 1.125rem + .75rem + .375rem )
-	// 		&::before
-	// 			left: .375rem
-	// 		&::after
-	// 			@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
-	// 			border: 2px solid $text-color
-	// 			border-radius: $border-radius
-	// 			transform: translateY( -50% )
-	// 			transition: $transition
-	// 		&.icon_top
-	// 			&::before
-	// 				top: .4375rem
-	// 			&::after
-	// 				top: 0
-	// 				transform: translateY( 0% )
-	// &_rounded
-	// 	&::after
-	// 		border-radius: 50%
+	&_squared, &_rounded
+		padding: .75rem
+		&::after
+			@include pseudo( $left: 50%, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+			border: 2px solid $text-color
+			border-radius: $border-radius
+			transform: translate( -50%, -50% )
+			transition: $transition
+	&_before, &_after
+		&_squared, &_rounded
+			padding-left: calc( 1.125rem + .75rem + .375rem )
+			&::before
+				left: .375rem
+			&::after
+				@include pseudo( $left: 0, $top: 50%, $width: calc( 1.125rem + .75rem ), $height: calc( 1.125rem + .75rem ) )
+				border: 2px solid $text-color
+				border-radius: $border-radius
+				transform: translateY( -50% )
+				transition: $transition
+			&.icon_top
+				&::before
+					top: .4375rem
+				&::after
+					top: 0
+					transform: translateY( 0% )
+	&_rounded
+		&::after
+			border-radius: 50%
 
 .icon
 	&_0

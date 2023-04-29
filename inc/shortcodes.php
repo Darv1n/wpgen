@@ -165,14 +165,11 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 
 		// Собираем классы ссылки.
 		$classes[] = 'privacy_link';
-		if ( $atts['font-size'] !== 'normal' ) {
-			$classes[] = $atts['font-size'];
-		}
 		if ( $atts['class'] ) {
 			$classes[] = $atts['class'];
 		}
 
-		$output .= '<a ' . link_classes( $classes, false ) . ' href="' . esc_url( get_privacy_policy_url() ) . '">' . get_escape_title( $atts['text'] ) . '</a>';
+		$output .= '<p class="' . esc_attr( $atts['font-size'] ) . '"><a ' . link_classes( $classes, false ) . ' href="' . esc_url( get_privacy_policy_url() ) . '">' . get_escape_title( $atts['text'] ) . '</a></p>';
 
 		return apply_filters( 'wpgen_current_year', $output );
 	}

@@ -50,17 +50,6 @@ if ( ! function_exists( 'wpgen_body_classes' ) ) {
 		$classes[] = 'theme_' . wpgen_options( 'general_color_scheme' );
 		$classes[] = 'theme_' . wpgen_options( 'general_container_width' );
 
-		// Color background elements.
-		$values                 = array_flip( get_selected_value() );
-		$elem_bg_color          = get_root_styles( 'elemBgColor' );
-		$elem_bg_color_value    = $values[ $elem_bg_color ];
-		$elem_bg_color_saturate = preg_replace( '/\D+/', '', $elem_bg_color_value );
-		$elem_bg_color_style    = get_style_by_saturate( $elem_bg_color_saturate );
-
-		if ( $elem_bg_color_style ) {
-			$classes[] = 'theme_elems_' . $elem_bg_color_style;
-		}
-
 		return array_unique( (array) $classes );
 	}
 }
@@ -1000,7 +989,7 @@ if ( ! function_exists( 'link_classes' ) ) {
 	 * Display classes for links.
 	 *
 	 * @param string $class Additional link classes.
-	 * @param bool   $echo  Echo or return container classes.
+	 * @param bool   $echo  Echo or return link classes.
 	 *
 	 * @return string
 	 */
@@ -1083,6 +1072,68 @@ if ( ! function_exists( 'wpgen_link_more_classes' ) ) {
 	function wpgen_link_more_classes( $class = '', $color = 'primary', $echo = true ) {
 
 		$classes = get_wpgen_link_more_classes( $class, $color );
+
+		if ( $echo ) {
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		} else {
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		}
+	}
+}
+
+if ( ! function_exists( 'get_elem_classes' ) ) {
+
+	/**
+	 * Get classes for elems.
+	 *
+	 * @param string $class Elem classes.
+	 *
+	 * @return array
+	 */
+	function get_elem_classes( $class = '' ) {
+
+		// Add elements to array.
+		$classes   = array();
+		$classes[] = 'elem';
+		$classes[] = 'elem_' . wpgen_options( 'general_color_scheme' );
+
+		// Check the function has accepted any classes.
+		if ( isset( $class ) && ! empty( $class ) ) {
+			if ( is_array( $class ) ) {
+				$classes = array_merge( $classes, $class );
+			} elseif ( is_string( $class ) ) {
+				$classes = array_merge( $classes, explode( ' ', $class ) );
+			}
+		}
+
+		$classes = apply_filters( 'get_elem_classes', $classes );
+
+		/*// Usage: change get elem classes.
+		add_filter( 'get_elem_classes', 'change_get_elem_classes' );
+		if ( ! function_exists( 'change_get_elem_classes' ) ) {
+			function change_get_elem_classes( $classes ) {
+				$classes[] = 'my-class';
+				return array_unique( (array) $classes );
+			}
+		}*/
+
+		return array_unique( (array) $classes );
+	}
+}
+
+if ( ! function_exists( 'elem_classes' ) ) {
+
+	/**
+	 * Display classes for elems.
+	 *
+	 * @param string $class Additional elem classes.
+	 * @param bool   $echo  Echo or return elem classes.
+	 *
+	 * @return string
+	 */
+	function elem_classes( $class = '', $echo = true ) {
+
+		$classes = get_elem_classes( $class );
 
 		if ( $echo ) {
 			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';

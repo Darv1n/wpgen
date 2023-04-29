@@ -119,6 +119,15 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 					$root_wpgen['primary-text-color']       = get_selected_value( $data['general-gray-color'] . '-950' );
 				}
 			}
+
+			// Elements text color.
+			if ( isset( $data['elem-bg-saturate'] ) ) {
+				if ( get_opposite_color_style_by_saturate( $data['elem-bg-saturate'] ) === 'white' ) {
+					$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-50' );
+				} else {
+					$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-900' );
+				}
+			}
 		}
 
 		// Fonts.
@@ -141,15 +150,6 @@ if ( ! function_exists( 'get_wpgen_root_style' ) ) {
 			$root_wpgen['linkColorDark']  = get_selected_value( $link_color . '-600' );
 			$root_wpgen['linkColor']      = get_selected_value( $link_color . '-500' );
 			$root_wpgen['linkColorLight'] = get_selected_value( $link_color . '-400' );
-		}
-
-		// Elements text color.
-		if ( isset( $data['elem-bg-saturate'] ) ) {
-			if ( get_opposite_color_style_by_saturate( $data['elem-bg-saturate'] ) === 'white' ) {
-				$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-50' );
-			} else {
-				$root_wpgen['elemTextColor'] = get_selected_value( $data['general-gray-color'] . '-900' );
-			}
 		}
 
 		// Button size.
