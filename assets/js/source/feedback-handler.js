@@ -1,28 +1,35 @@
+/**
+ * Frontend contact form handler
+ *
+ * Setup js scripts - /inc/setup.php
+ * Form handler     - /inc/addons/init-form.php
+ */
+
 jQuery(document).ready(function ($) {
 
-	// При клике устанавливаем кнопку, с которой идет вызов popup.
+	// When popup button is clicked, we set its name to the form (to know from which form the message came)
 	$( '.popup-button' ).click( function () {
 		var data  = $(this).data( 'name' );
-		$( '#form-label' ).val(data);
+		$( '#form-label' ).val( data );
 	});
 
 	var form = $( '#feedback-form' );
 
-	// Отправка формы.
+	// Form Submitting.
 	form.on( 'click', '#form-submit', function (e) {
 
 		e.preventDefault();
 		var _this = $( e.target );
 
-		// Отправляем запрос Ajax в WordPress.
+		// Ajax request.
 		if ( ! form.hasClass( 'submited' ) ) {
 			$.ajax({
 				type: 'POST',
-				url: feedback_handler_obj.url, // Путь к файлу admin-ajax.php
+				url: feedback_handler_obj.url, // ajax url (set in /inc/setup.php).
 				data: {
-					'action': 'feedback_form_action', // Событие к которому будем обращаться.
-					'content': form.serialize(), // Передаём значения формы.
-					// 'security': feedback_handler_obj.nonce, // Используем nonce для защиты.
+					'action': 'feedback_form_action', // php event handler (/inc/addons/init-form.php).
+					'content': form.serialize(), // form values.
+					// 'security': feedback_handler_obj.nonce, // ajax nonce (set in /inc/setup.php).
 				},
 				beforeSend: function () {
 					_this.data( 'process-text' );
@@ -35,7 +42,6 @@ jQuery(document).ready(function ($) {
 					form.trigger( 'reset' ).removeClass( 'submited' );
 				},
 				success: function ( response ) {
-					console.log( 'success' );
 					console.log( response.data );
 					if ( response.success ) {
 						form.after( '<div class="notification notification_accept transition">' + response.data + '</div>' );

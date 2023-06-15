@@ -123,13 +123,13 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-		// удаляем "Рубрика: ", "Метка: " и т.д. из заголовка архива.
+		// Удаляем "Рубрика: ", "Метка: " и т.д. из заголовка архива.
 		add_filter( 'get_the_archive_title', function( $title ) {
 			$title = wp_strip_all_tags( $title ); // удаляем лишний span.
 			return preg_replace( '~^[^:]+: ~', '', $title );
 		} );
 
-		// убираем ссылку на https://ru.wordpress.org/ в авторизации.
+		// Убираем ссылку на https://ru.wordpress.org/ в авторизации.
 		add_filter( 'login_headerurl', function() {
 			return home_url(); // или любой другой адрес.
 		} );
@@ -229,7 +229,7 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 
 			wp_enqueue_style( 'wpgen-styles', get_theme_file_uri( '/assets/css/wpgen-style.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/wpgen-style.min.css' ) ) );
 
-			wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( '/assets/js/source/wpgen.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/source/wpgen.js' ) ), true );
+			wp_enqueue_script( 'ajax-wpgen', get_theme_file_uri( '/assets/js/wpgen.min.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/wpgen.min.js' ) ), true );
 
 			// Используем функцию wp_localize_script для передачи переменных в JS скрипт.
 			wp_localize_script(

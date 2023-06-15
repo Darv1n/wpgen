@@ -34,7 +34,7 @@ if ( ! function_exists( 'is_wpgen_active' ) ) {
 	 */
 	function is_wpgen_active() {
 
-		if ( wpgen_options( 'general_wpgen_active' ) ) {
+		if ( wpgen_options( 'general_wpgen_active' ) || get_query_var( 'wpgen', false ) ) {
 			$control = true;
 		}
 

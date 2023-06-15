@@ -1,6 +1,16 @@
+/**
+ * Frontend wpgen form handler.
+ *
+ * Setup js scripts          - /inc/setup.php
+ * Form handler              - /inc/addons/wpgen/wpgen-ajax-handler.php
+ * Frontend form             - /inc/addons/wpgen/wpgen-frontend-form.php
+ * Filter customizer options - /inc/addons/wpgen/wpgen-customizer.php
+ * Filter root options       - /inc/addons/wpgen/wpgen-root-styles.php
+ */
+
 jQuery(document).ready(function ($) {
 
-	// Клик по кнопке открытия/закрытия формы.
+	// Click button to open/close the wpgen form.
 	$( '#footer' ).on( 'click', '#wpgen-btn', function(e) {
 
 		var popup  = $( '#wpgen-popup' );
@@ -18,13 +28,13 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 	});
 
-	// Если есть значение в localStorage.
+	// If isset on/off value in localStorage.
 	var wpgenOpener = localStorage.getItem( 'wpgenOpener' );
-	if ( null !== wpgenOpener ) {
+	if ( wpgenOpener !== null ) {
 		formOpener( wpgenOpener );
 	}
 
-	// Функция открытия/закрытия формы.
+	// Open/close form function.
 	function formOpener( newOpener ) {
 
 		var newText = $( '#wpgen-btn' ).attr( 'data-text-' + newOpener );
@@ -33,18 +43,18 @@ jQuery(document).ready(function ($) {
 		$( '#wpgen-popup' ).attr( 'data-opener', newOpener );
 	}
 
-	// Сохраняем название проекта в localStorage.
+	// Save project name in localStorage.
 	$( '#wpgen-name' ).change(function() {
 		localStorage.setItem( 'wpgenName', $(this).val() );
 	});
 
-	// Добавляем название в input из localStorage.
+	// Add title to input from localStorage.
 	var wpgenName = localStorage.getItem( 'wpgenName' );
-	if ( null !== wpgenName ) {
+	if ( wpgenName !== null ) {
 		$( '#wpgen-name' ).val(wpgenName);
 	}
 
-	// Указываем цвет кнопок в атрибутах (нужно для корректной работы wpgen)
+	// Specifies the color of the buttons in the attributes (necessary for the correct operation of pwgen)
 	$.each([ '.button', '.btn' ], function( index, value ) {
 		$( value ).each( function() {
 
@@ -57,7 +67,7 @@ jQuery(document).ready(function ($) {
 				}
 			});
 
-			// Аттрибут по умолчанию.
+			// Default attribute.
 			btn.attr( 'data-type', 'common' );
 
 			$.each([ 'empty', 'gradient', 'slide' ], function( index, value ) {
@@ -68,7 +78,7 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	// Основная функция.
+	// Main function.
 	function formDataSaver( data ) {
 
 		localStorage.setItem( 'wpgenData', JSON.stringify( data ) );
@@ -77,8 +87,6 @@ jQuery(document).ready(function ($) {
 		var obj = {};
 
 		$.each( data, function( index, value ) {
-			// console.log( value.name );
-			// console.log( value.value );
 
 			var selector = $( '#' + value.name );
 
@@ -91,12 +99,12 @@ jQuery(document).ready(function ($) {
 					currentValue   = selector.data( 'value' );
 					root           = selector.data( 'root' );
 
-				// Основные цвета.
+				// Primary colors.
 				if ( type === 'color' ) {
 
 					if ( root === 'linkColor' ) {
 
-						// Цвет ссылок.
+						// Link colors.
 						if ( currentValue === 'blue' ) {
 							obj['linkColorDark']  = wpgen_value['blue-600'];
 							obj['linkColor']      = wpgen_value['blue-500'];
@@ -110,7 +118,7 @@ jQuery(document).ready(function ($) {
 						}
 					} else {
 
-						// Общие значения.
+						// General values.
 						$.each( [ 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950 ], function( i, v ) {
 							obj[ root + '-color-' + v ]  = wpgen_value[ currentValue + '-' + v ];
 						});
@@ -119,10 +127,10 @@ jQuery(document).ready(function ($) {
 					if ( root === 'gray' ) {
 						var colorSheme = $( '#customizer-general-color-scheme' ).find(':selected').val();
 
-						// Белый цвет.
+						// White color.
 						obj['whiteColor'] = wpgen_value[ currentValue + '-50' ];
 
-						// Бэграунд и цвет текста в зависимости от цветовой схемы.
+						// Background and text color depending on the color scheme.
 						if ( colorSheme === 'black' ) {
 							obj['primary-bg-color']         = wpgen_value[ currentValue + '-950' ];
 							obj['primary-bg-color-hover']   = wpgen_value[ currentValue + '-900' ];
@@ -167,10 +175,10 @@ jQuery(document).ready(function ($) {
 					if ( root === 'elemBgSaturate' ) {
 						var elemColorName  = $( '#general-gray-color' ).find(':selected').val();
 
-						// Фоновый цвет элементов.
+						// Elems background color.
 						obj['elemBgColor'] = wpgen_value[ elemColorName + '-' + currentValue ];
 
-						// Цвет текста фоновых элементов.
+						// Elems text color.
 						var elemColorStyle = getOppositeColorStyleBySaturate( currentValue );
 						if ( elemColorStyle === 'white' ) {
 							obj['elemTextColor'] = wpgen_value[ elemColorName + '-50' ];
@@ -184,23 +192,23 @@ jQuery(document).ready(function ($) {
 							elemBdColorStyle = getOppositeColorStyleBySaturate( currentValue );
 							elemColorName    = $( '#general-' + elemBdColorName + '-color' ).find(':selected').val();
 
-							// Цвет бордера элементов.
+							// Elems border color.
 							obj['elemBdColor'] = wpgen_value[ elemColorName + '-' + currentValue ];
 
-							// Цвет ховеров бордера элементов.
+							// Elems border hover color.
 							if ( elemBdColorStyle === 'white' ) {
 								obj['elemBdColorHover'] = wpgen_value[ elemColorName + '-' + getPrevSaturate( currentValue ) ];
 							} else {
 								obj['elemBdColorHover'] = wpgen_value[ elemColorName + '-' + getNextSaturate( currentValue ) ];
 							}
 					} else if ( root === 'elemBdColor' ) {
-						// Ничего не делаем, потому что работаем с этим значением выше.
+						// We do nothing, because we are working with this value above.
 					} else {
-						// Остальные значения, которые конвертируются напрямую.
+						// Other values that are converted directly.
 						obj[ root ] = wpgen_value[ currentValue ];
 					}
 
-					// Тень ховеров.
+					// Elems shadow hover color.
 					if ( root === 'elemShadow' ) {
 						obj['elemShadowHover'] = wpgen_value[ currentValue ].replace( '0.15', '0.25' );
 					}
@@ -209,11 +217,11 @@ jQuery(document).ready(function ($) {
 
 					if ( root === 'btnSize' ) {
 
-						// Размер кнопок.
+						// Button size.
 						obj['buttonPaddingTop'] = wpgen_value[ currentValue ].split(' ')[0];
 						obj['buttonPaddingLeft'] = wpgen_value[ currentValue ].split(' ')[1];
 					} else {
-						// Остальные значения, которые конвертируются напрямую.
+						// Other values that are converted directly.
 						obj[ root ] = wpgen_value[ currentValue ];
 					}
 				} else if ( type === 'typography' ) {
@@ -232,11 +240,11 @@ jQuery(document).ready(function ($) {
 
 					} else if ( root === 'customizerContainer' ) {
 
-						// Ширина контента.
+						// Content width.
 						$( '.container' ).removeClass().addClass( 'container container-' + currentValue );
 					} else if ( root === 'customizerColumns' ) {
 
-						// Кол-во колонок.
+						// Columns number.
 						if ( currentValue === 'three' ) {
 							$( '.article-column' ).removeClass().addClass( 'article-column col-12 col-sm-6 col-lg-4 article-column-3' );
 						}
@@ -251,7 +259,7 @@ jQuery(document).ready(function ($) {
 						}
 					} else if ( root === 'customizerButtonType' ) {
 
-						// Тип кнопок.
+						// Button type.
 						$.each(['button', 'btn'], function( index, value ) {
 							$( '.' + value ).each( function() {
 
@@ -279,7 +287,7 @@ jQuery(document).ready(function ($) {
 						});
 					} else if ( root === 'customizerMenuPosition' ) {
 
-						// Тип меню.
+						// Menu type.
 						var json = [ 
 							{ 'header': 'header_menu_' },
 							{ '#main-menu': 'main-menu-' },
@@ -293,7 +301,7 @@ jQuery(document).ready(function ($) {
 						});
 					} else if ( root === 'customizerMenuButtonType' ) {
 
-						// Кнопка меню.
+						// Menu button.
 						$( '.menu-toggle' ).empty();
 
 						if ( currentValue === 'button-icon-text' ) {
@@ -319,7 +327,7 @@ jQuery(document).ready(function ($) {
 						}
 					}
 				} else {
-					console.log( root ); // печатаем, если что-то осталось.
+					console.log( root ); // print if there is anything left.
 				}
 
 			} // end if selector.length !== 0
@@ -328,19 +336,10 @@ jQuery(document).ready(function ($) {
 
 		setRootString( obj );
 
-		// var rootString = '';
-
-		// $.each(obj, function( index, value ) {
-		// 	rootString = rootString + '--' + index + ': ' + value + ';';
-		// });
-
-		// rootString = ':root {' + rootString + '}';
-		// $( '#wpgen-root' ).empty().text( getRootString( obj ) );
-
-		console.log( obj );
+		// console.log( obj );
 	}
 
-	// Функция принимает массив с рут-стилямы, выводит их строкой в теге style#wpgen-root.
+	// The function takes an array with root styles, outputs them as a string in the style#wpgen-root tag.
 	function setRootString( obj ) {
 
 		var rootString = '';
@@ -437,7 +436,7 @@ jQuery(document).ready(function ($) {
 		return obj[ saturate ];
 	}
 
-	// Проверяем установленные замки.
+	// Checking locks.
 	var wpgenLocks = localStorage.getItem( 'wpgenLocks' );
 
 	if ( wpgenLocks === null ) {
@@ -457,7 +456,7 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
-	// Клик замка.
+	// Click lock.
 	$( '#wpgen-form' ).on( 'click', '.lock', function(e) {
 
 		var id = $(this).prev().attr('id');
@@ -477,7 +476,7 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 	});
 
-	// Смена селектора.
+	// Selector change.
 	$( '.selector' ).change( function(e) { 
 
 		var form = $(e.target).closest( '#wpgen-form' );
@@ -485,7 +484,7 @@ jQuery(document).ready(function ($) {
 		formDataSaver( form.serializeArray() );
 	});
 
-	// Клик рандома.
+	// Click the button "Random".
 	$( '#footer' ).on( 'click', '#wpgen-random', function(e) {
 
 		$( '#wpgen-form .selector' ).each(function () {
@@ -505,7 +504,7 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 	});
 
-	// Клик сохранения и сброса данных.
+	// Click "Save" or "Reset" button.
 	$( '#footer' ).on( 'click', '.wpgen-action', function(e) {
 
 		var form = $(e.target).closest( '#wpgen-form' );
@@ -521,12 +520,12 @@ jQuery(document).ready(function ($) {
 		if ( ! form.hasClass( 'submited' ) ) {
 			$.ajax({
 				type: 'POST',
-				url: ajax_wpgen_obj.url,
+				url: ajax_wpgen_obj.url, // ajax url (set in /inc/setup.php).
 				data: {
-					'action': 'wpgen_form_action', // Событие к которому будем обращаться.
-					'content': form.serialize(), // Передаём значения формы.
-					'type': type, // Передаём атрибут формы.
-					'security': ajax_wpgen_obj.nonce, // Используем nonce для защиты.
+					'action': 'wpgen_form_action', // php event handler (/inc/addons/wpgen/wpgen-ajax-handler.php).
+					'content': form.serialize(), // form values.
+					'type': type, // form attribute.
+					// 'security': ajax_wpgen_obj.nonce, // ajax nonce (set in /inc/setup.php).
 				},
 				beforeSend: function () {
 					form.addClass( 'submited' );
@@ -535,7 +534,6 @@ jQuery(document).ready(function ($) {
 					form.removeClass( 'submited' );
 				},
 				success: function ( response ) {
-					// console.log( 'success' );
 					// console.log( response.data );
 					if ( response.success && type === 'reset' ) {
 						formDataSaver( form.serializeArray() );

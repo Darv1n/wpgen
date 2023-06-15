@@ -346,10 +346,11 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 		$menu_button_type = wpgen_options( 'general_menu_button_type' );
 		$button_type      = wpgen_options( 'general_button_type' );
 		$color_scheme     = wpgen_options( 'general_color_scheme' );
+		$button_color    = 'primary'; // default color. TODO: add filter?
 
 		// Если есть кнопка.
 		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
-			$classes = get_button_classes( $classes );
+			$classes = get_button_classes( $classes, $button_color );
 		} else {
 			$classes[] = 'button-reset';
 		}
@@ -369,7 +370,7 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
 			}
 
-			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $button_color, array( 'gray', 'default' ), true ) ) ) ) {
 				$classes[] = 'icon_black';
 			} else {
 				$classes[] = 'icon_white';
@@ -439,10 +440,11 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 			$scroll_top_type = wpgen_options( 'general_scroll_top_button_type' );
 			$button_type     = wpgen_options( 'general_button_type' );
 			$color_scheme    = wpgen_options( 'general_color_scheme' );
+			$button_color    = 'primary'; // default color. TODO: add filter?
 
 			// Если есть кнопка.
 			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
-				$classes = get_button_classes( $classes );
+				$classes = get_button_classes( $classes, $button_color );
 			} else {
 				$classes[] = 'button-reset';
 			}
@@ -462,7 +464,7 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 					$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
 				}
 
-				if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+				if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $button_color, array( 'gray', 'default' ), true ) ) ) ) {
 					$classes[] = 'icon_black';
 				} else {
 					$classes[] = 'icon_white';

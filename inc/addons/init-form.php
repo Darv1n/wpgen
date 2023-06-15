@@ -257,10 +257,10 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 				if ( wpgen_options( 'other_whatsapp_phone' ) || wpgen_options( 'other_telegram_chat_link' ) ) {
 					$html .= '<span>' . __( 'or', 'wpgen' ) . '</span>';
 					if ( wpgen_options( 'other_whatsapp_phone' ) ) {
-						$html .= '<a class="button button-whatsapp icon icon_whatsapp" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
+						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-whatsapp icon icon_whatsapp' ) ) ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
 					}
 					if ( wpgen_options( 'other_telegram_chat_link' ) ) {
-						$html .= '<a class="button button-telegram icon icon_telegram" href="' . esc_url( wpgen_options( 'other_telegram_chat_link' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-telegram icon icon_telegram' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_telegram_chat_link' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
 					}
 				}
 			$html .= '</div>';
