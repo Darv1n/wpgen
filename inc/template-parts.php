@@ -11,328 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'get_wpgen_site_branding' ) ) {
-
-	/**
-	 * Get $output for site branding.
-	 *
-	 * @param string $output parameter for filter.
-	 *
-	 * @return string
-	 */
-	function get_wpgen_site_branding( $output = '' ) {
-
-		// Check if the image is set in the customizer settings or display the text.
-		if ( has_custom_logo() ) {
-			$output .= get_custom_logo();
-		} else {
-			// For all pages except the main page, display a link to it.
-			if ( ( is_front_page() || is_home() ) && ! is_paged() ) {
-				$output .= '<div class="logo">';
-					$output .= '<strong class="logo__title">' . get_bloginfo( 'name' ) . '</strong>';
-					$output .= '<p class="logo__description">' . get_bloginfo( 'description' ) . '</p>';
-				$output .= '</div>';
-			} else {
-				$output .= '<a class="logo" href="' . esc_url( home_url( '/' ) ) . '" rel="home">';
-					$output .= '<strong class="logo__title">' . get_bloginfo( 'name' ) . '</strong>';
-					$output .= '<p class="logo__description">' . get_bloginfo( 'description' ) . '</p>';
-				$output .= '</a>';
-			}
-		}
-
-		// Filter html output.
-		return apply_filters( 'get_wpgen_site_branding', $output );
-	}
-}
-
-if ( ! function_exists( 'the_wpgen_site_branding' ) ) {
-
-	/**
-	 * Display $output for site branding.
-	 *
-	 * @param string $before HTML before site branding.
-	 * @param string $after  HTML after site branding.
-	 * @param bool   $echo   echo or return html output.
-	 *
-	 * @return string
-	 */
-	function the_wpgen_site_branding( $before = '', $after = '', $echo = true ) {
-
-		$output = get_wpgen_site_branding();
-
-		$output = apply_filters( 'the_wpgen_site_branding', $output, $before, $after );
-
-		$output = $before . $output . $after;
-
-		if ( $echo ) {
-			echo $output;
-		} else {
-			return $output;
-		}
-	}
-}
-
-if ( ! function_exists( 'get_wpgen_post_meta_list' ) ) {
-
-	/**
-	 * Get $output for post meta information.
-	 *
-	 * @param string $output parameter for filter.
-	 *
-	 * @return string
-	 */
-	function get_wpgen_post_meta_list( $output = '' ) {
-
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_author_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_user">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_date_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_calendar">';
-				$output .= '<time class="post-date post-date-published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j M, Y' ) . '</time>';
-				if ( wpgen_options( 'single_' . get_post_type() . '_meta_date_modified_display' ) && get_the_modified_date( 'j M, Y' ) !== get_the_date( 'j M, Y' ) ) {
-					$output .= '<time class="post-date post-date-modified data-title" datetime="' . get_the_modified_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Modified Date', 'wpgen' ) ) . '">(' . get_the_modified_date( 'j M, Y' ) . ')</time>';
-				}
-			$output .= '</li>';
-		}
-
-		if ( get_post_type() === 'post' ) {
-			if ( wpgen_options( 'single_' . get_post_type() . '_meta_cats_display' ) && has_category() ) {
-				$output .= '<li class="post-meta__item icon icon_before icon_folder">';
-					$categories = get_the_category();
-					foreach ( $categories as $key => $category ) {
-						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $category->term_id, $category->taxonomy ) ) . '">' . esc_html( $category->name ) . '</a>';
-					}
-					$output .= implode( ', ', $list );
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'single_' . get_post_type() . '_meta_tags_display' ) && has_tag() ) {
-				$output .= '<li class="post-meta__item icon icon_before icon_tag">';
-					$tags = get_the_tags();
-					foreach ( $tags as $key => $tag ) {
-						$list[] = '<a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $tag->term_id, $tag->taxonomy ) ) . '">' . esc_html( $tag->name ) . '</a>';
-					}
-					$output .= implode( ', ', $list );
-				$output .= '</li>';
-			}
-		}
-
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_time_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
-				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_comments_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_comment">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
-			$output .= '</li>';
-		}
-
-		// Filter html output.
-		$output = apply_filters( 'get_wpgen_post_meta_list', $output );
-
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_pen">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
-			$output .= '</li>';
-		}
-
-		return $output;
-	}
-}
-
-if ( ! function_exists( 'the_wpgen_post_meta_list' ) ) {
-
-	/**
-	 * Display content post meta information with filters.
-	 *
-	 * @param string $before HTML before site branding.
-	 * @param string $after  HTML after site branding.
-	 * @param bool   $echo   echo or return html output.
-	 *
-	 * @return string
-	 */
-	function the_wpgen_post_meta_list( $before = '', $after = '', $echo = true ) {
-
-		$output = get_wpgen_post_meta_list();
-
-		$output = apply_filters( 'the_wpgen_post_meta_list', $output, $before, $after );
-
-		$output = $before . $output . $after;
-
-		if ( $echo ) {
-			echo $output;
-		} else {
-			return $output;
-		}
-	}
-}
-
-if ( ! function_exists( 'get_wpgen_archive_meta_list' ) ) {
-
-	/**
-	 * Get $output for archive meta information.
-	 *
-	 * @param string $output is parameter for filter.
-	 *
-	 * @return string
-	 */
-	function get_wpgen_archive_meta_list( $output = '' ) {
-
-		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_author_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_user">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . get_escape_title( get_the_author() ) . '</a>';
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_date_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_calendar">';
-				$output .= '<time class="post-date published data-title" datetime="' . get_the_date( 'Y-m-d\TH:i:sP' ) . '" data-title="' . esc_attr( __( 'Published Date', 'wpgen' ) ) . '">' . get_the_date( 'j F, Y' ) . '</time>';
-			$output .= '</li>';
-		}
-
-		if ( get_post_type() === 'post' ) {
-			if ( wpgen_options( 'archive_' . get_post_type() . '_meta_cats_display' ) && has_category() ) {
-				$output .= '<li class="post-meta__item icon icon_before icon_folder">';
-					$output .= get_the_category_list( ', ' );
-				$output .= '</li>';
-			}
-			if ( wpgen_options( 'archive_' . get_post_type() . '_meta_tags_display' ) && has_tag() ) {
-				$output .= '<li class="post-meta__item icon icon_before icon_tag">';
-					$output .= get_the_tag_list( '', ', ' );
-				$output .= '</li>';
-			}
-		}
-
-		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_time_display' ) && get_post_meta( get_the_ID(), 'read_time', true ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_clock data-title" data-title="' . esc_attr( __( 'Reading speed', 'wpgen' ) ) . '">';
-				$output .= read_time_estimate( get_the_content() ) . ' ' . esc_html__( 'min.', 'wpgen' );
-			$output .= '</li>';
-		}
-
-		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_comments_display' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_comment">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'meta__link' ) ) ) . '" href="' . esc_url( get_comments_link() ) . '" rel="bookmark">' . esc_html__( 'Comments', 'wpgen' ) . ': ' . get_comments_number() . '</a>';
-			$output .= '</li>';
-		}
-
-		// Filter html output.
-		$output = apply_filters( 'get_wpgen_archive_meta_list', $output );
-
-		if ( wpgen_options( 'archive_' . get_post_type() . '_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_pen-to-square">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
-			$output .= '</li>';
-		}
-
-		return $output;
-	}
-}
-
-if ( ! function_exists( 'the_wpgen_archive_meta_list' ) ) {
-
-	/**
-	 * Display content archive meta information with filters.
-	 *
-	 * @param string $before HTML before site branding.
-	 * @param string $after  HTML after site branding.
-	 * @param bool   $echo   echo or return html output.
-	 *
-	 * @return string
-	 */
-	function the_wpgen_archive_meta_list( $before = '', $after = '', $echo = true ) {
-
-		$output = get_wpgen_archive_meta_list();
-
-		$output = apply_filters( 'the_wpgen_archive_meta_list', $output, $before, $after );
-
-		$output = $before . $output . $after;
-
-		if ( $echo ) {
-			echo $output;
-		} else {
-			return $output;
-		}
-	}
-}
-
-add_action( 'before_site_content', 'wpgen_section_content_wrapper_start', 50 );
-if ( ! function_exists( 'wpgen_section_content_wrapper_start' ) ) {
-
-	/**
-	 * Display section content wrapper start in header.php.
-	 */
-	function wpgen_section_content_wrapper_start() {
-
-		$output = '<section id="section-content" class="section section_content" aria-label="' . _x( 'Content section', 'aria-label', 'wpgen' ) . '">';
-			$output .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
-				$output .= '<div class="row">';
-
-		// Filter html output.
-		echo apply_filters( 'wpgen_section_content_wrapper_start', $output );
-	}
-}
-
-/*// Usage: change wpgen section content wrapper start.
-add_filter( 'wpgen_section_content_wrapper_start', 'change_wpgen_section_content_wrapper_start' );
-if ( ! function_exists( 'change_wpgen_section_content_wrapper_start' ) ) {
-	function change_wpgen_section_content_wrapper_start( $output ) {
-
-		if ( is_front_page() ) {
-			return '';
-		}
-
-		return $output;
-	}
-}*/
-
-add_action( 'after_site_content', 'wpgen_section_content_wrapper_end', 50 );
-if ( ! function_exists( 'wpgen_section_content_wrapper_end' ) ) {
-
-	/**
-	 * Display section content wrapper end in footer.php.
-	 */
-	function wpgen_section_content_wrapper_end() {
-
-				$output = '</div>';
-			$output .= '</div>';
-		$output .= '</section>';
-
-		// Filter html output.
-		echo apply_filters( 'wpgen_section_content_wrapper_end', $output );
-	}
-}
-
-/*// Usage: change section content wrapper end.
-add_filter( 'wpgen_section_content_wrapper_end', 'change_section_content_wrapper_end' );
-if ( ! function_exists( 'change_section_content_wrapper_end' ) ) {
-	function change_section_content_wrapper_end( $output ) {
-
-		if ( is_front_page() ) {
-			return '';
-		}
-
-		return $output;
-	}
-}*/
-
-/*// Usage: remove front page section content wrapper.
-add_filter( 'wpgen_section_content_wrapper_start', 'remove_front_page_section_content_wrapper' );
-add_filter( 'wpgen_section_content_wrapper_end', 'remove_front_page_section_content_wrapper' );
-if ( ! function_exists( 'remove_front_page_section_content_wrapper' ) ) {
-	function remove_front_page_section_content_wrapper( $output ) {
-
-		if ( is_front_page() ) {
-			return '';
-		}
-
-		return $output;
-	}
-}*/
-
 add_action( 'wpgen_before_main_navigation', 'wpgen_menu_toggle', 10 );
 if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 
@@ -396,36 +74,46 @@ if ( ! function_exists( 'wpgen_menu_toggle' ) ) {
 			if ( in_array( $menu_button_type, array( 'icon', 'button-icon' ), true ) ) {
 				$output .= '<i class="icon"></i>';
 			} else {
-				$output .= esc_html__( 'Menu', 'wpgen' );
+				$output .= __( 'Menu', 'wpgen' );
 			}
 		$output .= '</button>';
 
 		// Filter html output.
-		echo apply_filters( 'wpgen_menu_toggle', $output );
+		$output = apply_filters( 'wpgen_menu_toggle', $output );
+
+		echo $output;
 	}
 }
 
-/*// Usage: change wpgen menu toggle.
-add_filter( 'wpgen_menu_toggle', 'change_wpgen_menu_toggle' );
-if ( ! function_exists( 'change_wpgen_menu_toggle' ) ) {
-	function change_wpgen_menu_toggle( $output ) {
+// Usage: filter wpgen menu toggle.
+// add_filter( 'wpgen_menu_toggle', 'custom_wpgen_menu_toggle', 10 );
+if ( ! function_exists( 'custom_wpgen_menu_toggle' ) ) {
+	function custom_wpgen_menu_toggle( $output ) {
 
 		$output = '';
 
 		$classes[] = 'menu-toggle';
 		$menu_button_type = wpgen_options( 'general_menu_button_type' );
-		if ( $menu_button_type === 'button' ) $classes[] = 'button';
 
-		$output .= '<button id="menu-toggle hello" class="' . implode(' ', $classes) . '">';
+		if ( $menu_button_type === 'button' ) {
+			$classes[] = 'button';
+		}
 
-			if ( $menu_button_type !== 'burger' ) $output .= '<span class="menu-toggle__text">' . __( 'Menu', 'wpgen' ) . '</span>';
-			if ( $menu_button_type === 'burger' || $menu_button_type === 'text-burger' ) $output .= '<span class="menu-toggle__icon"></span>';
+		$output .= '<button id="menu-toggle hello" class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+
+			if ( $menu_button_type !== 'burger' ) {
+				$output .= '<span class="menu-toggle__text">' . __( 'Menu', 'wpgen' ) . '</span>';
+			}
+
+			if ( $menu_button_type === 'burger' || $menu_button_type === 'text-burger' ) {
+				$output .= '<span class="menu-toggle__icon"></span>';
+			}
 
 		$output .= '</button>';
 
 		return $output;
 	}
-}*/
+}
 
 add_action( 'wp_footer_close', 'wpgen_scroll_top', 10 );
 if ( ! function_exists( 'wpgen_scroll_top' ) ) {
@@ -479,13 +167,15 @@ if ( ! function_exists( 'wpgen_scroll_top' ) ) {
 				if ( in_array( $scroll_top_type, array( 'icon', 'button-icon' ), true ) ) {
 					$output .= '<i class="icon"></i>';
 				} else {
-					$output .= esc_html__( 'Scroll up', 'wpgen' );
+					$output .= __( 'Scroll up', 'wpgen' );
 				}
 			$output .= '</button>';
 		}
 
 		// Filter html output.
-		echo apply_filters( 'wpgen_scroll_top', $output );
+		$output = apply_filters( 'wpgen_scroll_top', $output );
+
+		echo $output;
 	}
 }
 
@@ -510,7 +200,9 @@ if ( ! function_exists( 'wpgen_cookie_accepter' ) ) {
 		}
 
 		// Filter html output.
-		echo apply_filters( 'wpgen_cookie_accepter', $output );
+		$output = apply_filters( 'wpgen_cookie_accepter', $output );
+
+		echo $output;
 	}
 }
 
@@ -599,12 +291,14 @@ if ( ! function_exists( 'get_wpgen_post_navigation' ) ) {
 			$output .= '</nav>';
 
 			// Filter html output.
-			return apply_filters( 'get_wpgen_post_navigation', $output );
+			$output = apply_filters( 'get_wpgen_post_navigation', $output );
+
+			return $output;
 		}
 	}
 }
 
-add_action( 'wpgen_after_article_post', 'the_wpgen_post_navigation', 15 );
+add_action( 'wpgen_after_single_content_part', 'the_wpgen_post_navigation', 15 );
 if ( ! function_exists( 'the_wpgen_post_navigation' ) ) {
 
 	/**
@@ -612,9 +306,9 @@ if ( ! function_exists( 'the_wpgen_post_navigation' ) ) {
 	 *
 	 * @param string $before HTML before post navigation.
 	 * @param string $after  HTML after post navigation.
-	 * @param bool   $echo   echo or return html output.
+	 * @param bool   $echo   Echo or return html output.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function the_wpgen_post_navigation( $before = '', $after = '', $echo = true ) {
 
@@ -659,7 +353,7 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 			return;
 		}
 
-		$output .= '<nav class="navigation posts-navigation posts-navigation_' . esc_attr( $post_pagination ) . '" data-max-pages="' . esc_attr( $pages ) . '" role="navigation" aria-label="' . esc_html__( 'Site post navigation', 'wpgen' ) . '">';
+		$output .= '<nav class="navigation posts-navigation posts-navigation_' . esc_attr( $post_pagination ) . '" data-max-pages="' . esc_attr( $pages ) . '" role="navigation" aria-label="' . __( 'Site post navigation', 'wpgen' ) . '">';
 
 		// Choose numeric or older/newer pagination from customizer option.
 		if ( $post_pagination === 'numeric' ) {
@@ -708,7 +402,7 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 			if ( get_next_posts_link() ) {
 				$output .= '<div class="col-12 col-md-6">';
 					$output .= '<div class="posts-navigation__item_prev">';
-						next_posts_link( esc_html__( 'Older Posts', 'wpgen' ) );
+						next_posts_link( __( 'Older Posts', 'wpgen' ) );
 					$output .= '</div>';
 				$output .= '</div>';
 			}
@@ -716,7 +410,7 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 			if ( get_previous_posts_link() ) {
 				$output .= '<div class="col-12 col-md-6">';
 					$output .= '<div class="posts-navigation__item_next">';
-						previous_posts_link( esc_html__( 'Newer Posts', 'wpgen' ) );
+						previous_posts_link( __( 'Newer Posts', 'wpgen' ) );
 					$output .= '</div>';
 				$output .= '</div>';
 			}
@@ -729,7 +423,9 @@ if ( ! function_exists( 'get_wpgen_posts_navigation' ) ) {
 		wp_reset_postdata();
 
 		// Filter html output.
-		return apply_filters( 'get_wpgen_posts_navigation', $output );
+		$output = apply_filters( 'get_wpgen_posts_navigation', $output );
+
+		return $output;
 	}
 }
 
@@ -740,9 +436,9 @@ if ( ! function_exists( 'the_wpgen_posts_navigation' ) ) {
 	 *
 	 * @param string $before HTML before posts navigation.
 	 * @param string $after  HTML after posts navigation.
-	 * @param bool   $echo   echo or return html output.
+	 * @param bool   $echo   Echo or return html output.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function the_wpgen_posts_navigation( $before = '', $after = '', $echo = true ) {
 
@@ -760,89 +456,9 @@ if ( ! function_exists( 'the_wpgen_posts_navigation' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wpgen_entry_footer' ) ) {
 
-	/**
-	 * Get $output for the pages, categories, tags and edit link.
-	 *
-	 * @param string $output is parameter for filter.
-	 *
-	 * @return string
-	 */
-	function get_wpgen_entry_footer( $output = '' ) {
 
-		// Get page navigation links for multi-page posts (<!--nextpage--> is used for separation, one or more times in the content).
-		$output .= wp_link_pages( array(
-			'before' => '<div class="post-footer__item post-footer__pages">' . esc_html__( 'Pages:', 'wpgen' ),
-			'after'  => '</div>',
-			'echo'   => 0,
-		) );
-
-		if ( get_post_type() === 'post' ) {
-			if ( wpgen_options( 'single_' . get_post_type() . '_entry_footer_cats_display' ) && has_category() ) {
-				$output .= '<div class="post-footer__item post-footer__cats">';
-					$output .= '<strong>' . esc_html__( 'Post categories', 'wpgen' ) . ':</strong>';
-					$output .= '<ul class="post-footer__list">';
-						$categories = get_the_category();
-						foreach ( $categories as $key => $category ) {
-							$output .= '<li><a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $category->term_id, $category->taxonomy ) ) . '">' . esc_html( $category->name ) . '</a></li>';
-						}
-					$output .= '</ul>';
-				$output .= '</div>';
-			}
-			if ( wpgen_options( 'single_' . get_post_type() . '_entry_footer_tags_display' ) && has_tag() ) {
-				$output .= '<div class="post-footer__item post-footer__tags">';
-					$output .= '<strong>' . esc_html__( 'Post tags', 'wpgen' ) . ':</strong>';
-					$output .= '<ul class="post-footer__list">';
-						$tags = get_the_tags();
-						foreach ( $tags as $key => $tag ) {
-							$output .= '<li><a class="' . esc_attr( implode( ' ', get_link_classes() ) ) . '" href="' . esc_url( get_term_link( $tag->term_id, $tag->taxonomy ) ) . '">#' . esc_html( $tag->name ) . '</a></li>';
-						}
-					$output .= '</ul>';
-				$output .= '</div>';
-			}
-		}
-
-		// Get edit link, if the checkbox is set in the customizer settings and the user has enough rights.
-		if ( wpgen_options( 'single_' . get_post_type() . '_meta_edit_display' ) && is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-			$output .= '<div class="post-footer__item post-footer__edit">';
-				$output .= '<a class="' . esc_attr( implode( ' ', get_link_classes( 'edit-link' ) ) ) . '" href="' . esc_url( get_edit_post_link() ) . '">' . esc_html__( 'Edit', 'wpgen' ) . '</a>';
-			$output .= '</div>';
-		}
-
-		// Filter html output.
-		return apply_filters( 'get_wpgen_entry_footer', $output );
-	}
-}
-
-if ( ! function_exists( 'the_wpgen_entry_footer' ) ) {
-
-	/**
-	 * Display content entry_footer with filters.
-	 *
-	 * @param string $before HTML before content entry_footer.
-	 * @param string $after  HTML after content entry_footer.
-	 * @param bool   $echo   echo or return html output.
-	 *
-	 * @return string
-	 */
-	function the_wpgen_entry_footer( $before = '', $after = '', $echo = true ) {
-
-		$output = get_wpgen_entry_footer();
-
-		$output = apply_filters( 'the_wpgen_entry_footer', $output, $before, $after );
-
-		$output = $before . $output . $after;
-
-		if ( $echo ) {
-			echo $output;
-		} else {
-			return $output;
-		}
-	}
-}
-
-add_action( 'wpgen_after_article_post', 'the_wpgen_similar_posts', 25 );
+add_action( 'wpgen_after_single_content_part', 'the_wpgen_similar_posts', 25 );
 if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
 	/**
@@ -852,9 +468,9 @@ if ( ! function_exists( 'the_wpgen_similar_posts' ) ) {
 
 		<?php if ( get_post_type() === 'post' && wpgen_options( 'single_post_similar_posts_display' ) ) { ?>
 
-			<section id="similar-posts" class="section section_similar-posts similar-posts" aria-label="<?php echo _x( 'Similar posts', 'aria-label', 'wpgen' ); ?>">
+			<section id="similar-posts" class="section section_similar-posts similar-posts" aria-label="<?php _e( 'Similar posts', 'wpgen' ); ?>">
 
-				<h2 class="section-title"><?php esc_html_e( 'Similar posts', 'wpgen' ); ?></h2>
+				<h2 class="section-title"><?php _e( 'Similar posts', 'wpgen' ); ?></h2>
 
 				<?php
 

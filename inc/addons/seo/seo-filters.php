@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'pre_get_document_title', 'wpgen_pre_get_document_title', 10, 3 );
 if ( ! function_exists( 'wpgen_pre_get_document_title' ) ) {
 	/**
 	 * Function for 'pre_get_document_title' filter-hook.
@@ -27,8 +26,8 @@ if ( ! function_exists( 'wpgen_pre_get_document_title' ) ) {
 		return $title;
 	}
 }
+add_filter( 'pre_get_document_title', 'wpgen_pre_get_document_title', 10, 3 );
 
-add_filter( 'document_title_separator', 'wpgen_document_title_separator', 10, 3 );
 if ( ! function_exists( 'wpgen_document_title_separator' ) ) {
 	/**
 	 * Function for 'document_title_separator' filter-hook.
@@ -46,3 +45,4 @@ if ( ! function_exists( 'wpgen_document_title_separator' ) ) {
 		return $sep;
 	}
 }
+add_filter( 'document_title_separator', 'wpgen_document_title_separator', 10, 3 );

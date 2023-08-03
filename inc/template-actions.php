@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'pre_get_posts', 'wpgen_pre_get_posts', 1 );
 if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 
 	/**
@@ -36,20 +35,25 @@ if ( ! function_exists( 'wpgen_pre_get_posts' ) ) {
 
 		// Sort post by wpgen option.
 		if ( $query->is_archive ) {
-			if ( $query->get( 'post_type' ) ) {
-				$post_type = $query->get( 'post_type' );
-			} else {
-				$post_type = 'post';
+
+			$post_type = $query->get( 'post_type' ) ?? 'post';
+
+			if ( wpgen_options( 'archive_' . $post_type . '_posts_per_page' ) ) {
+				$query->set( 'posts_per_page', wpgen_options( 'archive_' . $post_type . '_posts_per_page' ) );
 			}
 
-			$query->set( 'posts_per_page', wpgen_options( 'archive_' . $post_type . '_posts_per_page' ) );
-			$query->set( 'order', wpgen_options( 'archive_' . $post_type . '_posts_order' ) );
-			$query->set( 'orderby', wpgen_options( 'archive_' . $post_type . '_posts_orderby' ) );
+			if ( wpgen_options( 'archive_' . $post_type . '_posts_order' ) ) {
+				$query->set( 'order', wpgen_options( 'archive_' . $post_type . '_posts_order' ) );
+			}
+
+			if ( wpgen_options( 'archive_' . $post_type . '_posts_orderby' ) ) {
+				$query->set( 'orderby', wpgen_options( 'archive_' . $post_type . '_posts_orderby' ) );
+			}
 		}
 	}
 }
+add_action( 'pre_get_posts', 'wpgen_pre_get_posts', 1 );
 
-add_action( 'wp_head', 'wpgen_page_speed_start', 1 );
 if ( ! function_exists( 'wpgen_page_speed_start' ) ) {
 
 	/**
@@ -61,8 +65,8 @@ if ( ! function_exists( 'wpgen_page_speed_start' ) ) {
 		$GLOBALS['start_times'] = $start_array[1] + $start_array[0]; // Пишем время в глобальную переменную.
 	}
 }
+add_action( 'wp_head', 'wpgen_page_speed_start', 1 );
 
-add_action( 'wp_footer', 'wpgen_page_speed_end', 90 );
 if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
 
 	/**
@@ -79,8 +83,8 @@ if ( ! function_exists( 'wpgen_page_speed_end' ) ) {
 		sprintf( __( 'Page generated in %s seconds', 'wpgen' ), esc_html( $time ) ); // Печатаем комментарий.
 	}
 }
+add_action( 'wp_footer', 'wpgen_page_speed_end', 90 );
 
-add_action( 'wp_head', 'wpgen_seo_verification', 1 );
 if ( ! function_exists( 'wpgen_seo_verification' ) ) {
 
 	/**
@@ -97,11 +101,10 @@ if ( ! function_exists( 'wpgen_seo_verification' ) ) {
 		if ( wpgen_options( 'other_mailru_verification' ) ) {
 			echo '<meta name="pmail-verification" content="' . esc_html( wpgen_options( 'other_mailru_verification' ) ) . '">' . "\n";
 		}
-
 	}
 }
+add_action( 'wp_head', 'wpgen_seo_verification', 1 );
 
-add_action( 'wp_footer', 'wpgen_print_counters', 25 );
 if ( ! function_exists( 'wpgen_print_counters' ) ) {
 
 	/**
@@ -136,7 +139,46 @@ if ( ! function_exists( 'wpgen_print_counters' ) ) {
 					});
 				</script>
 				<!-- /Yandex.Metrika counter -->' . "\n";
-
 		}
 	}
 }
+add_action( 'wp_footer', 'wpgen_print_counters', 25 );
+
+if ( ! function_exists( 'wpgen_section_content_wrapper_start' ) ) {
+
+	/**
+	 * Display section content wrapper start in header.php.
+	 */
+	function wpgen_section_content_wrapper_start() {
+
+		$output = '<section id="section-content" class="section section_content" aria-label="' . _x( 'Content section', 'wpgen' ) . '">';
+			$output .= '<div class="' . esc_attr( implode( ' ', get_wpgen_container_classes() ) ) . '">';
+				$output .= '<div class="row">';
+
+		// Filter html output.
+		$output = apply_filters( 'wpgen_section_content_wrapper_start', $output );
+
+		echo $output;
+	}
+}
+add_action( 'before_site_content', 'wpgen_section_content_wrapper_start', 50 );
+
+if ( ! function_exists( 'wpgen_section_content_wrapper_end' ) ) {
+
+	/**
+	 * Display section content wrapper end in footer.php.
+	 */
+	function wpgen_section_content_wrapper_end() {
+
+				$output = '</div>';
+			$output .= '</div>';
+		$output .= '</section>';
+
+		// Filter html output.
+		$output = apply_filters( 'wpgen_section_content_wrapper_end', $output );
+
+		echo $output;
+	}
+}
+add_action( 'after_site_content', 'wpgen_section_content_wrapper_end', 50 );
+

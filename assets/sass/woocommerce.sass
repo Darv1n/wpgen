@@ -1,0 +1,19 @@
+@import "components/_mixins"
+
+@import "_common-vars"
+
+.woocommerce
+	span.onsale
+		position: absolute
+		top: $gutter*2
+		left: $gutter*2
+		padding: $gutter $gutter*3
+		font-size: $small-font-size
+		color: $white-color
+		background: $secondary-color-500
+
+.post.post_archive
+	.post_product
+		.price del
+			display: inline-block
+			margin-right: 5px

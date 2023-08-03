@@ -1,8 +1,6 @@
 <?php
 /**
- * WooCommerce Wrappers
- *
- * @link https://woocommerce.com/
+ * Register Post Types.
  *
  * @package wpgen
  */

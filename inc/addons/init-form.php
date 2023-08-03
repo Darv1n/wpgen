@@ -173,10 +173,10 @@ if ( ! function_exists( 'get_feedback_form_fields' ) ) {
 	}
 }
 
-/*// Usage: change feedback form fields.
-add_filter( 'get_feedback_form_fields', 'change_get_feedback_form_fields', 10 );
-if ( ! function_exists( 'change_get_feedback_form_fields' ) ) {
-	function change_get_feedback_form_fields( $form_fields ) {
+/*// Usage: filter feedback form fields.
+add_filter( 'get_feedback_form_fields', 'custom_get_feedback_form_fields', 10 );
+if ( ! function_exists( 'custom_get_feedback_form_fields' ) ) {
+	function custom_get_feedback_form_fields( $form_fields ) {
 
 		$form_fields['form-email'] = array(
 			'type'        => 'email',
@@ -257,10 +257,10 @@ if ( ! function_exists( 'get_feedback_form' ) ) {
 				if ( wpgen_options( 'other_whatsapp_phone' ) || wpgen_options( 'other_telegram_chat_link' ) ) {
 					$html .= '<span>' . __( 'or', 'wpgen' ) . '</span>';
 					if ( wpgen_options( 'other_whatsapp_phone' ) ) {
-						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-whatsapp icon icon_whatsapp' ) ) ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
+						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-whatsapp icon icon_whatsapp' ) ) ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', wpgen_options( 'other_whatsapp_phone' ) ) ) . '" role="button">' . __( 'Write to WhatsApp', 'wpgen' ) . '</a>';
 					}
 					if ( wpgen_options( 'other_telegram_chat_link' ) ) {
-						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-telegram icon icon_telegram' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_telegram_chat_link' ) ) . '" role="button">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+						$html .= '<a class="' . esc_attr( implode( ' ', get_button_classes( 'button-telegram icon icon_telegram' ) ) ) . '" href="' . esc_url( wpgen_options( 'other_telegram_chat_link' ) ) . '" role="button">' . __( 'Write to Telegram', 'wpgen' ) . '</a>';
 					}
 				}
 			$html .= '</div>';

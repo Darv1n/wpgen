@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_shortcode( 'wpgen-logo', 'get_wpgen_site_branding' ); // [wpgen-logo].
+// add_shortcode( 'wpgen-logo', 'get_wpgen_site_branding' ); // [wpgen-logo].
 add_shortcode( 'wpgen-copyright', 'wpgen_shortcode_copyright' ); // [wpgen-copyright year="2016" display="rights" text="Zolin Digital" link="https://zolin.digital/" font-size="small"].
 add_shortcode( 'current-year', 'wpgen_current_year' ); // [current-year year="2019"].
 add_shortcode( 'current-date', 'wpgen_current_date' ); // [current-date format="j F Y" date="28.01.2020" add_days="1"].
@@ -86,10 +86,10 @@ if ( ! function_exists( 'wpgen_shortcode_copyright' ) ) {
 		// Собираем HTML.
 		$output .= '<div class="copyright">';
 		if ( empty( $atts['display'] ) || $atts['display'] === 'created' ) {
-			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">' . esc_html__( 'Created by', 'wpgen' ) . ' <strong><a class="' . esc_attr( implode( ' ', get_link_classes( $links_classes ) ) ) . '" href="' . esc_url( $utm ) . '" rel="external">' . mb_convert_case( esc_html( $atts['text'] ), MB_CASE_TITLE, 'UTF-8' ) . '</a></strong></p>';
+			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">' . __( 'Created by', 'wpgen' ) . ' <strong><a class="' . esc_attr( implode( ' ', get_link_classes( $links_classes ) ) ) . '" href="' . esc_url( $utm ) . '" rel="external">' . mb_convert_case( esc_html( $atts['text'] ), MB_CASE_TITLE, 'UTF-8' ) . '</a></strong></p>';
 		}
 		if ( empty( $atts['display'] ) || $atts['display'] === 'rights' ) {
-			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">&#9400; ' . esc_html( $year ) . ' ' . esc_html__( 'All rights reserved', 'wpgen' ) . ' ' . esc_html( $home_url_parts['host'] ) . '</p>';
+			$output .= '<p class="' . esc_attr( implode( ' ', $classes ) ) . '">&#9400; ' . esc_html( $year ) . ' ' . __( 'All rights reserved', 'wpgen' ) . ' ' . esc_html( $home_url_parts['host'] ) . '</p>';
 		}
 		$output .= '</div>';
 
@@ -157,7 +157,7 @@ if ( ! function_exists( 'wpgen_privacy_link' ) ) {
 		// Define a white list of attributes.
 		$atts = shortcode_atts( array(
 			'class'     => '',
-			'text'      => esc_html__( 'Privacy policy', 'wpgen' ),
+			'text'      => __( 'Privacy policy', 'wpgen' ),
 			'font-size'	=> 'normal', // small, large.
 		), $atts );
 
@@ -253,7 +253,7 @@ if ( ! function_exists( 'wpgen_shortcode_telegram' ) ) {
 			'link'  => wpgen_options( 'other_telegram_chat_link' ),
 		), $atts );
 
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://t.me/' . $atts['nick'] ) . '">' . esc_html__( 'Write to Telegram', 'wpgen' ) . '</a>';
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://t.me/' . $atts['nick'] ) . '">' . __( 'Write to Telegram', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_telegram', $output );
 	}
@@ -276,7 +276,7 @@ if ( ! function_exists( 'wpgen_shortcode_whatsapp' ) ) {
 			'number' => wpgen_options( 'other_whatsapp_phone' ),
 		), $atts );
 
-		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', $atts['number'] ) ) . '">' . esc_html__( 'Write to WhatsApp', 'wpgen' ) . '</a>';
+		$output = '<a class="' . esc_attr( $atts['class'] ) . '" href="' . esc_url( 'https://api.whatsapp.com/send?phone=' . preg_replace( '/(\D)/', '', $atts['number'] ) ) . '">' . __( 'Write to WhatsApp', 'wpgen' ) . '</a>';
 
 		return apply_filters( 'wpgen_shortcode_whatsapp', $output );
 	}

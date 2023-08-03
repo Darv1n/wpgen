@@ -12,15 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! function_exists( 'get_root_defaults' ) ) {
 
 	/**
-	 * Return array with the default root styles.
+	 * Return string or array with the default root styles.
 	 *
-	 * @param string $control array key to get one value.
+	 * @param string $control Key to get one value. Default return all array.
+	 *                        Optional. Default null.
 	 *
-	 * @return array
+	 * @return string|string[]|false Return one value from the $converter array if $control exist.
+	 *                               Return false, if the specified $control doesn't exist in in the $converter array.
+	 *                               Default return all $converter array.
 	 */
 	function get_root_defaults( $control = null ) {
 
-		$root_defaults = array(
+		// Sanitize string (just to be safe).
+		if ( ! is_null( $control ) ) {
+			$control = get_title_slug( $control );
+		}
+
+		// Main converter array.
+		$converter = array(
 			'primaryFont'     => 'montserrat',
 			'secondaryFont'   => 'montserrat',
 
@@ -38,110 +47,64 @@ if ( ! function_exists( 'get_root_defaults' ) ) {
 			'elemBdWidth'     => 'border-2',
 			'elemBdRadius'    => 'rounded-md',
 
-			'btnSize'         => 'btn-md',
+			'btnSize'         => 'btn',
 			'btnBdWidth'      => 'border-2',
 			'btnBdRadius'     => 'rounded-md',
 		);
 
-		$root_defaults['gray-color'] = apply_filters( 'get_root_default_gray', $root_defaults['gray-color'] );
+		$converter['gray-color'] = apply_filters( 'get_root_default_gray', $converter['gray-color'] );
 
 		if ( wpgen_options( 'general_color_scheme' ) === 'black' ) {
-			$root_defaults['primary-bg-color']         = $root_defaults['gray-color'] . '-950';
-			$root_defaults['primary-bg-color-hover']   = $root_defaults['gray-color'] . '-900';
-			$root_defaults['primary-bd-color']         = $root_defaults['gray-color'] . '-800';
-			$root_defaults['primary-bd-color-hover']   = $root_defaults['gray-color'] . '-700';
-			$root_defaults['primary-gray-color']       = $root_defaults['gray-color'] . '-300';
-			$root_defaults['primary-gray-color-hover'] = $root_defaults['gray-color'] . '-400';
-			$root_defaults['primary-text-color']       = $root_defaults['gray-color'] . '-50';
-			$root_defaults['white-color']              = $root_defaults['gray-color'] . '-50';
-			$root_defaults['svg-filter']               = 'invert(100%)';
+			$converter['primary-bg-color']         = $converter['gray-color'] . '-950';
+			$converter['primary-bg-color-hover']   = $converter['gray-color'] . '-900';
+			$converter['primary-bd-color']         = $converter['gray-color'] . '-800';
+			$converter['primary-bd-color-hover']   = $converter['gray-color'] . '-700';
+			$converter['primary-gray-color']       = $converter['gray-color'] . '-300';
+			$converter['primary-gray-color-hover'] = $converter['gray-color'] . '-400';
+			$converter['primary-text-color']       = $converter['gray-color'] . '-50';
+			$converter['white-color']              = $converter['gray-color'] . '-50';
+			$converter['svg-filter']               = 'invert(100%)';
 		} elseif ( wpgen_options( 'general_color_scheme' ) === 'dark' ) {
-			$root_defaults['primary-bg-color']         = $root_defaults['gray-color'] . '-800';
-			$root_defaults['primary-bg-color-hover']   = $root_defaults['gray-color'] . '-900';
-			$root_defaults['primary-bd-color']         = $root_defaults['gray-color'] . '-900';
-			$root_defaults['primary-bd-color-hover']   = $root_defaults['gray-color'] . '-950';
-			$root_defaults['primary-gray-color']       = $root_defaults['gray-color'] . '-300';
-			$root_defaults['primary-gray-color-hover'] = $root_defaults['gray-color'] . '-400';
-			$root_defaults['primary-text-color']       = $root_defaults['gray-color'] . '-50';
-			$root_defaults['white-color']              = $root_defaults['gray-color'] . '-50';
-			$root_defaults['svg-filter']               = 'invert(100%)';
+			$converter['primary-bg-color']         = $converter['gray-color'] . '-800';
+			$converter['primary-bg-color-hover']   = $converter['gray-color'] . '-900';
+			$converter['primary-bd-color']         = $converter['gray-color'] . '-900';
+			$converter['primary-bd-color-hover']   = $converter['gray-color'] . '-950';
+			$converter['primary-gray-color']       = $converter['gray-color'] . '-300';
+			$converter['primary-gray-color-hover'] = $converter['gray-color'] . '-400';
+			$converter['primary-text-color']       = $converter['gray-color'] . '-50';
+			$converter['white-color']              = $converter['gray-color'] . '-50';
+			$converter['svg-filter']               = 'invert(100%)';
 		} elseif ( wpgen_options( 'general_color_scheme' ) === 'light' ) {
-			$root_defaults['primary-bg-color']         = $root_defaults['gray-color'] . '-200';
-			$root_defaults['primary-bg-color-hover']   = $root_defaults['gray-color'] . '-300';
-			$root_defaults['primary-bd-color']         = $root_defaults['gray-color'] . '-300';
-			$root_defaults['primary-bd-color-hover']   = $root_defaults['gray-color'] . '-400';
-			$root_defaults['primary-gray-color']       = $root_defaults['gray-color'] . '-500';
-			$root_defaults['primary-gray-color-hover'] = $root_defaults['gray-color'] . '-600';
-			$root_defaults['primary-text-color']       = $root_defaults['gray-color'] . '-950';
-			$root_defaults['white-color']              = $root_defaults['gray-color'] . '-50';
-			$root_defaults['svg-filter']               = 'invert(0%)';
+			$converter['primary-bg-color']         = $converter['gray-color'] . '-200';
+			$converter['primary-bg-color-hover']   = $converter['gray-color'] . '-300';
+			$converter['primary-bd-color']         = $converter['gray-color'] . '-300';
+			$converter['primary-bd-color-hover']   = $converter['gray-color'] . '-400';
+			$converter['primary-gray-color']       = $converter['gray-color'] . '-500';
+			$converter['primary-gray-color-hover'] = $converter['gray-color'] . '-600';
+			$converter['primary-text-color']       = $converter['gray-color'] . '-950';
+			$converter['white-color']              = $converter['gray-color'] . '-50';
+			$converter['svg-filter']               = 'invert(0%)';
 		} else {
-			$root_defaults['primary-bg-color']         = $root_defaults['gray-color'] . '-50';
-			$root_defaults['primary-bg-color-hover']   = $root_defaults['gray-color'] . '-200';
-			$root_defaults['primary-bd-color']         = $root_defaults['gray-color'] . '-300';
-			$root_defaults['primary-bd-color-hover']   = $root_defaults['gray-color'] . '-400';
-			$root_defaults['primary-gray-color']       = $root_defaults['gray-color'] . '-500';
-			$root_defaults['primary-gray-color-hover'] = $root_defaults['gray-color'] . '-600';
-			$root_defaults['primary-text-color']       = $root_defaults['gray-color'] . '-950';
-			$root_defaults['white-color']              = $root_defaults['gray-color'] . '-50';
-			$root_defaults['svg-filter']               = 'invert(0%)';
+			$converter['primary-bg-color']         = $converter['gray-color'] . '-50';
+			$converter['primary-bg-color-hover']   = $converter['gray-color'] . '-200';
+			$converter['primary-bd-color']         = $converter['gray-color'] . '-300';
+			$converter['primary-bd-color-hover']   = $converter['gray-color'] . '-400';
+			$converter['primary-gray-color']       = $converter['gray-color'] . '-500';
+			$converter['primary-gray-color-hover'] = $converter['gray-color'] . '-600';
+			$converter['primary-text-color']       = $converter['gray-color'] . '-950';
+			$converter['white-color']              = $converter['gray-color'] . '-50';
+			$converter['svg-filter']               = 'invert(0%)';
 		}
 
-		$root_defaults = apply_filters( 'get_root_defaults', $root_defaults );
+		$converter = apply_filters( 'get_root_defaults', $converter );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
-			return $root_defaults;
-		} elseif ( ! isset( $root_defaults[ $control ] ) || empty( $root_defaults[ $control ] ) ) {
+			return $converter;
+		} elseif ( ! isset( $converter[ $control ] ) || empty( $converter[ $control ] ) ) {
 			return false;
 		} else {
-			return $root_defaults[ $control ];
+			return $converter[ $control ];
 		}
 	}
 }
-
-/*// Usage: change root default gray.
-add_filter( 'get_root_default_gray', 'change_get_root_default_gray', 15 );
-if ( ! function_exists( 'change_get_root_default_gray' ) ) {
-	function change_get_root_default_gray( $root_gray ) {
-		return 'neutral';
-	}
-}*/
-
-/*// Usage: change root defaults.
-add_filter( 'get_root_defaults', 'change_root_defaults', 15 );
-if ( ! function_exists( 'change_root_defaults' ) ) {
-	function change_root_defaults( $root_styles ) {
-
-		$source_styles = array(
-			'primaryFont'     => 'jost',
-			'secondaryFont'   => 'jost',
-			'primary-color'   => 'sky',
-			'secondary-color' => 'orange',
-		);
-
-		if ( wpgen_options( 'general_color_scheme' ) === 'black' ) {
-			$source_styles['elemBgColor']      = $root_styles['primary-bg-color'];
-			$source_styles['elemBdColor']      = $root_styles['primary-bd-color'];
-			$source_styles['elemBdColorHover'] = $root_styles['primary-bd-color-hover'];
-			$source_styles['elemTextColor']    = $root_styles['primary-text-color'];
-		} elseif ( wpgen_options( 'general_color_scheme' ) === 'dark' ) {
-			$source_styles['elemBgColor']      = $root_styles['primary-bg-color'];
-			$source_styles['elemBdColor']      = $root_styles['primary-bd-color'];
-			$source_styles['elemBdColorHover'] = $root_styles['primary-bd-color-hover'];
-			$source_styles['elemTextColor']    = $root_styles['primary-text-color'];
-		} elseif ( wpgen_options( 'general_color_scheme' ) === 'light' ) {
-			$source_styles['elemBgColor']      = $root_styles['primary-bg-color'];
-			$source_styles['elemBdColor']      = $root_styles['primary-bd-color'];
-			$source_styles['elemBdColorHover'] = $root_styles['primary-bd-color-hover'];
-			$source_styles['elemTextColor']    = $root_styles['primary-text-color'];
-		} else {
-			$source_styles['elemBgColor']      = $root_styles['primary-bg-color'];
-			$source_styles['elemBdColor']      = $root_styles['primary-bd-color'];
-			$source_styles['elemBdColorHover'] = $root_styles['primary-bd-color-hover'];
-			$source_styles['elemTextColor']    = $root_styles['primary-text-color'];
-		}
-
-		return wp_parse_args( $source_styles, $root_styles );
-	}
-}*/

@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'save_post', 'rmp_save_post' );
 if ( ! function_exists( 'rmp_save_post' ) ) {
 
 	/**
@@ -30,9 +29,9 @@ if ( ! function_exists( 'rmp_save_post' ) ) {
 		add_post_meta( $post_id, 'rmp_rating_val_sum', 5, true );
 	}
 }
+add_action( 'save_post', 'rmp_save_post' );
 
 // Add rate my post rating results before articles in meta list.
-add_filter( 'get_wpgen_post_meta_list', 'add_rmp_result_post_meta_list', 80 );
 if ( ! function_exists( 'add_rmp_result_post_meta_list' ) ) {
 	function add_rmp_result_post_meta_list( $content ) {
 
@@ -49,9 +48,9 @@ if ( ! function_exists( 'add_rmp_result_post_meta_list' ) ) {
 		return $content . $output;
 	}
 }
+add_filter( 'get_wpgen_post_meta_list', 'add_rmp_result_post_meta_list', 80 );
 
 // Add rate my post widget after articles.
-add_action( 'wpgen_after_article_post', 'add_rmp_shortcode_after_article_post', 20 );
 if ( ! function_exists( 'add_rmp_shortcode_after_article_post' ) ) {
 	function add_rmp_shortcode_after_article_post() {
 
@@ -63,3 +62,4 @@ if ( ! function_exists( 'add_rmp_shortcode_after_article_post' ) ) {
 
 	}
 }
+add_action( 'wpgen_after_single_content_part', 'add_rmp_shortcode_after_article_post', 20 );

@@ -9,21 +9,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'get_selected_font' ) ) {
+if ( ! function_exists( 'get_root_selected_font' ) ) {
 
 	/**
-	 * Return array with conver fonts.
+	 * Return string or array with fonts.
 	 *
-	 * @param string $control key to get one value.
+	 * @param string $control Key to get one value. Optional. Default null.
 	 *
-	 * @return array
+	 * @return string|string[]|false Return one value from the $converter array if $control exist.
+	 *                               Return false, if the specified $control doesn't exist in in the $converter array.
+	 *                               Default return all $converter array.
 	 */
-	function get_selected_font( $control = null ) {
+	function get_root_selected_font( $control = null ) {
 
+		// Sanitize string (just to be safe).
 		if ( ! is_null( $control ) ) {
-			$control = mb_convert_case( $control, MB_CASE_LOWER, 'UTF-8' );
+			$control = get_title_slug( $control );
 		}
 
+		// Main converter array.
 		$converter = array(
 			'open-sans'        => 'Open Sans',
 			'montserrat'       => 'Montserrat',
@@ -50,7 +54,7 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 			'cormorant'        => 'Cormorant',
 		);
 
-		$converter = apply_filters( 'get_selected_font', $converter );
+		$converter = apply_filters( 'get_root_selected_font', $converter );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
@@ -63,37 +67,28 @@ if ( ! function_exists( 'get_selected_font' ) ) {
 	}
 }
 
-/*// Usage: change selected font.
-add_filter( 'get_selected_font', 'change_selected_font' );
-if ( ! function_exists( 'change_selected_font' ) ) {
-	function change_selected_font( $default_fonts ) {
-
-		$source_fonts = array(
-			'forum' => __( 'Forum', 'wpgen'),
-		);
-
-		$default_fonts = wp_parse_args( $source_fonts, $default_fonts );
-
-		return $default_fonts;
-	}
-}*/
-
-if ( ! function_exists( 'get_selected_value' ) ) {
+if ( ! function_exists( 'get_root_selected_value' ) ) {
 
 	/**
-	 * Return array with conver fonts.
+	 * Return string or array with css values.
 	 *
-	 * @param string $control key to get one value.
-	 * @param string $name    key name returns an array with a substring (like border).
+	 * @param string $control Key to get one value.
+	 *                        Optional. Default null.
+	 * @param string $name    If exists return array with this substring (example border).
+	 *                        Optional. Default null.
 	 *
-	 * @return array
+	 * @return string|string[]|false Return one value from the $converter array if $control exist.
+	 *                               Return false, if the specified $control doesn't exist in in the $converter array.
+	 *                               Default return all $converter array.
 	 */
-	function get_selected_value( $control = null, $name = null ) {
+	function get_root_selected_value( $control = null, $name = null ) {
 
+		// Sanitize string (just to be safe).
 		if ( ! is_null( $control ) ) {
-			$control = mb_convert_case( $control, MB_CASE_LOWER, 'UTF-8' );
+			$control = get_title_slug( $control );
 		}
 
+		// Main converter array.
 		$converter = array(
 			'border-none'  => '0px',
 			'border'       => '1px',
@@ -403,22 +398,19 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 			'rose-950'     => RGBtoHEX( 'rgb(76, 5, 25)' ),
 		);
 
-		$converter = apply_filters( 'get_selected_value', $converter );
+		$converter = apply_filters( 'get_root_selected_value', $converter );
 
 		// Return controls.
 		if ( ! is_null( $name ) ) {
 
-			// Return names array values like rose-100, rose-200, rose-300 etc
 			$array = array();
-
 			foreach ( $converter as $key => $value ) {
 				if ( stripos( $key, $name ) !== false ) {
 					$array[ $key ] = $value;
 				}
 			}
-
-			return $array;
-
+			
+			return $array; // Return names array values like rose-100, rose-200, rose-300 etc.
 		} elseif ( is_null( $control ) ) {
 			return $converter;
 		} elseif ( ! isset( $converter[ $control ] ) || empty( $converter[ $control ] ) ) {
@@ -428,18 +420,3 @@ if ( ! function_exists( 'get_selected_value' ) ) {
 		}
 	}
 }
-
-/*// Usage: change selected value.
-add_filter( 'get_selected_value', 'change_selected_value' );
-if ( ! function_exists( 'change_selected_value' ) ) {
-	function change_selected_value( $default_values ) {
-
-		$source_values = array(
-			'neutral-900'  => '#000',
-		);
-
-		$default_fonts = wp_parse_args( $source_values, $default_values );
-
-		return $default_fonts;
-	}
-}*/

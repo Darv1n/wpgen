@@ -2,17 +2,20 @@
 /**
  * Template footer bottom bar
  *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
  * @package wpgen
  */
+ ?>
 
-if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
-	$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-3' );
-	$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-7' );
-} else {
-	$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-4' );
-	$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-8' );
-}
-
+<?php
+	if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
+		$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-3' );
+		$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-7' );
+	} else {
+		$first_col_classes = array( 'col-12', 'col-sm-6', 'col-md-4' );
+		$last_col_classes  = array( 'col-12', 'col-sm-6', 'col-md-8' );
+	}
 ?>
 
 <div <?php wpgen_archive_page_columns_wrapper_classes( 'align-items-center' ); ?>>
@@ -21,7 +24,7 @@ if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
 			if ( is_active_sidebar( 'sidebar-footer-top-left' ) ) {
 				dynamic_sidebar( 'sidebar-footer-top-left' );
 			} else { 
-				the_wpgen_site_branding();
+				get_template_part( 'templates/logo' );
 			}
 		?>
 	</div>
@@ -31,7 +34,7 @@ if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
 				dynamic_sidebar( 'sidebar-footer-top-right' );
 			} elseif( wpgen_options( 'general_menu_display' ) ) { ?>
 				<div class="main-menu">
-					<nav id="footer-navigation" class="footer-navigation" role="navigation" aria-label="<?php esc_html_e( 'Site main menu', 'wpgen' ); ?>">
+					<nav id="footer-navigation" class="footer-navigation" role="navigation" aria-label="<?php _e( 'Site main menu', 'wpgen' ); ?>">
 						<?php
 							$args = array(
 								'theme_location' => 'primary',

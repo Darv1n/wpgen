@@ -169,11 +169,7 @@ a.logo
 			margin-bottom: $gutter
 			font-size: $small-font-size
 		&_block
-			> *
-				display: block
-				&:not(:last-child)
-					margin-right: 0
-					margin-bottom: $gutter*2
+			@extend .list-block
 	&-date
 		&-modified
 			padding-left: $gutter

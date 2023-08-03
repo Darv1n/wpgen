@@ -16,14 +16,15 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 <main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
 	<?php if ( have_posts() ) : ?>
+		<?php $i = 0; ?>
 
-		<header class="content-area-header" aria-label="<?php echo _x( 'Search page header', 'aria-label', 'wpgen' ); ?>">
+		<header class="content-area-header" aria-label="<?php _e( 'Search page header', 'wpgen' ); ?>">
 			<h1 class="content-area-title">
-				<?php printf( __( 'Search Results for: %s', 'wpgen' ), '<span>' . get_search_query() . '</span>' ); ?>
+				<?php printf( __( 'Search Results for: %s', 'wpgen' ), '<span class="search-query">' . get_search_query() . '</span>' ); ?>
 			</h1>
 		</header>
 
-		<section class="content-area-content" aria-label="<?php echo _x( 'Search page content', 'aria-label', 'wpgen' ); ?>">
+		<section class="content-area-content" aria-label="<?php _e( 'Search page content', 'wpgen' ); ?>">
 
 			<div <?php wpgen_archive_page_columns_wrapper_classes(); ?>>
 
@@ -48,31 +49,34 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 					<?php $post_type_current = get_post_type(); ?>
 
-					<div <?php wpgen_archive_page_columns_classes(); ?>>
+					<div <?php wpgen_archive_page_columns_classes( $i ); ?>>
 
 						<?php
 							// Get a template with a post type, if there is one in the theme.
-							if ( file_exists( get_theme_file_path( 'templates/archive/archive-' . get_post_type() . '.php' ) ) ) {
-								get_template_part( 'templates/archive/archive-' . get_post_type() );
+							if ( file_exists( get_theme_file_path( 'templates/archive/archive-content-type-' . get_post_type() . '.php' ) ) ) {
+								get_template_part( 'templates/archive/archive-content-type', get_post_type(), array( 'counter' => $i ) );
+							} elseif ( wpgen_options( 'archive_' . get_post_type() . '_template_type' ) ) {
+								get_template_part( 'templates/archive/archive-content-type', wpgen_options( 'archive_' . get_post_type() . '_template_type' ), array( 'counter' => $i ) );
 							} else {
-								get_template_part( 'templates/archive/archive', wpgen_options( 'archive_' . $post_type_current . '_template_type' ) );
+								get_template_part( 'templates/archive/archive-content-type', 'tils', array( 'counter' => $i ) );
 							}
 						?>
 
 					</div>
 
+					<?php $i++; ?>
 				<?php endwhile; ?>
 
 			</div>
 		</section>
 
-		<footer class="content-area-footer" aria-label="<?php echo _x( 'Search page footer', 'aria-label', 'wpgen' ); ?>">
-			<?php the_wpgen_posts_navigation(); ?>
+		<footer class="content-area-footer" aria-label="<?php _e( 'Search page footer', 'wpgen' ); ?>">
+			<?php get_template_part( 'templates/archive/archive', 'pagination' ); ?>
 		</footer>
 
 	<?php else : ?>
 
-		<?php get_template_part( 'templates/content', 'none' ); ?>
+		<?php get_template_part( 'templates/archive/archive-content', 'none' ); ?>
 
 	<?php endif; ?>
 

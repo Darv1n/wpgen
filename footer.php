@@ -20,14 +20,14 @@
 	 */
 	do_action( 'after_site_content' ); ?>
 
-	<footer id="footer" <?php wpgen_footer_classes(); ?> aria-label="<?php echo _x( 'Site footer', 'aria-label', 'wpgen' ); ?>">
+	<footer id="footer" <?php wpgen_footer_classes(); ?> aria-label="<?php _e( 'Site footer', 'wpgen' ); ?>">
 
 		<?php do_action( 'wp_footer_open' ); ?>
 
 		<?php if ( wpgen_options( 'general_footer_top_bar_display' ) ) { ?>
 			<div class="footer__top-bar">
 				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
-					<?php get_template_part( 'templates/footer/footer-top-bar' ); ?>
+					<?php get_template_part( 'templates/footer/footer', 'top-bar' ); ?>
 				</div>
 			</div>
 		<?php } ?>
@@ -37,11 +37,11 @@
 
 				<?php
 					if ( wpgen_options( 'general_footer_type' ) === 'footer-three-columns' ) {
-						get_template_part( 'templates/footer/footer-three-columns' );
+						get_template_part( 'templates/footer/footer-content-type', 'three-columns' );
 					} elseif ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
-						get_template_part( 'templates/footer/footer-four-columns' );
+						get_template_part( 'templates/footer/footer-content-type', 'four-columns' );
 					} else {
-						get_template_part( 'templates/footer/footer-simple' );
+						get_template_part( 'templates/footer/footer-content-type', 'simple' );
 					}
 				?>
 
@@ -51,9 +51,17 @@
 		<?php if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) { ?>
 			<div class="footer__bottom-bar">
 				<div <?php wpgen_container_classes( 'container-footer' ); ?>>
-					<?php get_template_part( 'templates/footer/footer-bottom-bar' ); ?>
+					<?php get_template_part( 'templates/footer/footer', 'bottom-bar' ); ?>
 				</div>
 			</div>
+		<?php } ?>
+
+		<?php if ( wpgen_options( 'general_scroll_top_button_display' ) ) { ?>
+			<?php get_template_part( 'templates/button-scroll-top' ); ?>
+		<?php } ?>
+
+		<?php if ( ! is_user_logged_in() && wpgen_options( 'general_cookie_display' ) ) { ?>
+			<?php get_template_part( 'templates/cookie' ); ?>
 		<?php } ?>
 
 		<?php do_action( 'wp_footer_close' ); ?>

@@ -1,13 +1,14 @@
 <?php
 /**
- * Template logo center
+ * Template header logo center
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package wpgen
  */
+ ?>
 
-?>
-
-<div id="header__middle-bar" class="header__middle-bar" <?php echo has_custom_header() ? 'style="background: url( ' . esc_url( get_header_image() ) . ' ) center/cover no-repeat" role="img"' : ''; ?>>
+<div class="header__middle-bar" <?php echo has_custom_header() ? 'style="background: url( ' . esc_url( get_header_image() ) . ' ) center/cover no-repeat" role="img"' : ''; ?>>
 
 	<div <?php wpgen_container_classes( 'container-header' ); ?>>
 		<div class="row align-items-center">
@@ -18,11 +19,11 @@
 			</div>
 			<div class="col-12 col-md-4 header-column">
 
-				<?php do_action( 'wpgen_before_site_branding' ); ?>
+				<?php do_action( 'wpgen_before_logo' ); ?>
 
-					<?php the_wpgen_site_branding(); ?>
+					<?php get_template_part( 'templates/logo' ); ?>
 
-				<?php do_action( 'wpgen_after_site_branding' ); ?>
+				<?php do_action( 'wpgen_after_logo' ); ?>
 
 			</div>
 			<div class="col-12 col-md-4 header-column">
@@ -35,7 +36,7 @@
 
 </div>
 
-<div id="header__bottom-bar" class="header__bottom-bar">
+<div class="header__bottom-bar">
 	<div <?php wpgen_container_classes( 'container-header' ); ?>>
 		<div class="row align-items-center">
 			<div class="col-12">
@@ -47,7 +48,7 @@
 
 						<?php do_action( 'wpgen_before_main_navigation' ); ?>
 
-							<nav id="main-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_html_e( 'Site main menu', 'wpgen' ); ?>">
+							<nav id="main-navigation" class="main-navigation" role="navigation" aria-label="<?php _e( 'Site main menu', 'wpgen' ); ?>">
 
 								<?php
 									$args = array(

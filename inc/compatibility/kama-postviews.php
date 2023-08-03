@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'save_post', 'kama_postviews_save_post' );
 if ( ! function_exists( 'kama_postviews_save_post' ) ) {
 
 	/**
@@ -32,29 +31,28 @@ if ( ! function_exists( 'kama_postviews_save_post' ) ) {
 		add_post_meta( $post_id, 'views_prev_month', $views, true );
 	}
 }
+add_action( 'save_post', 'kama_postviews_save_post' );
 
-// Add kama postviews rating results before articles in meta list.
-add_filter( 'get_wpgen_post_meta_list', 'add_kama_postviews_post_meta_list', 5 );
-add_filter( 'get_wpgen_archive_meta_list', 'add_kama_postviews_post_meta_list', 5 );
-if ( ! function_exists( 'add_kama_postviews_post_meta_list' ) ) {
-	function add_kama_postviews_post_meta_list( $content ) {
+if ( ! function_exists( 'kama_postviews_post_meta_list' ) ) {
+
+	// Add kama postviews rating results before articles in meta list.
+	function kama_postviews_post_meta_list( $content ) {
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		$output = '';
-
-		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) ) {
-			$output .= '<li class="post-meta__item icon icon_before icon_eye data-title" data-title="' . esc_attr( __( 'Views', 'wpgen' ) ) . '">';
-				$output .= get_fresh_kap_views( get_the_ID(), 'post' );
-			$output .= '</li>';
-		}
-
-		return $content . $output;
+		if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) ) { ?>
+			<li class="post-meta__item icon icon_before icon_eye data-title" data-title="<?php _e( 'Views', 'wpgen' ); ?>">
+				<?php echo get_fresh_kap_views( get_the_ID(), 'post' ); ?>
+			</li>
+		<?php }
 	}
 }
+add_action( 'wpgen_after_single_entry_post_meta', 'kama_postviews_post_meta_list', 5 );
+add_action( 'wpgen_after_archive_entry_post_meta', 'kama_postviews_post_meta_list', 5 );
 
-add_action( 'wp_enqueue_scripts', 'wp_enqueue_kama_postviews_styles', 11 );
 if ( ! function_exists( 'wp_enqueue_kama_postviews_styles' ) ) {
+
+	// Enqueue kama postviews styles.
 	function wp_enqueue_kama_postviews_styles() {
 		$css = '
 			.fresh-views__month {
@@ -64,3 +62,4 @@ if ( ! function_exists( 'wp_enqueue_kama_postviews_styles' ) ) {
 		wp_add_inline_style( 'common-styles', minify_css( $css ) );
 	}
 }
+add_action( 'wp_enqueue_scripts', 'wp_enqueue_kama_postviews_styles', 11 );

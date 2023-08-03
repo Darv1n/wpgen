@@ -12,10 +12,11 @@ require_once ABSPATH . '/wp-admin/includes/taxonomy.php';
 
 // Setup.
 require_once get_template_directory() . '/inc/setup.php';
+require_once get_template_directory() . '/inc/register-post-types.php';
 require_once get_template_directory() . '/inc/template-functions.php';
 require_once get_template_directory() . '/inc/template-filters.php';
 require_once get_template_directory() . '/inc/template-actions.php';
-require_once get_template_directory() . '/inc/template-parts.php';
+// require_once get_template_directory() . '/inc/template-parts.php';
 require_once get_template_directory() . '/inc/template-wrappers.php';
 require_once get_template_directory() . '/inc/shortcodes.php';
 
@@ -23,6 +24,7 @@ require_once get_template_directory() . '/inc/shortcodes.php';
 require_once get_template_directory() . '/inc/customizer/customizer.php';
 require_once get_template_directory() . '/inc/customizer/customizer-controls.php';
 require_once get_template_directory() . '/inc/customizer/customizer-defaults.php';
+require_once get_template_directory() . '/inc/customizer/customizer-functions.php';
 
 // Addons.
 require_once get_template_directory() . '/inc/addons/init-gallery.php';
@@ -43,11 +45,10 @@ require_once get_template_directory() . '/inc/addons/wpgen/wpgen-frontend-form.p
 require_once get_template_directory() . '/inc/addons/wpgen/wpgen-ajax-handler.php';
 
 // Root Styles.
+require_once get_template_directory() . '/inc/addons/root-styles/root-styles-setup.php';
 require_once get_template_directory() . '/inc/addons/root-styles/root-styles-functions.php';
 require_once get_template_directory() . '/inc/addons/root-styles/root-styles-converter.php';
 require_once get_template_directory() . '/inc/addons/root-styles/root-styles-defaults.php';
-require_once get_template_directory() . '/inc/addons/root-styles/root-styles-frontend.php';
-require_once get_template_directory() . '/inc/addons/root-styles/root-styles.php';
 
 // SEO.
 require_once get_template_directory() . '/inc/addons/seo/seo-functions.php';
@@ -55,10 +56,10 @@ require_once get_template_directory() . '/inc/addons/seo/seo-filters.php';
 require_once get_template_directory() . '/inc/addons/seo/seo-actions.php';
 
 // Comments.
-require_once get_template_directory() . '/inc/addons/comments/comments-functions.php';
-require_once get_template_directory() . '/inc/addons/comments/comments-ajax-handler.php';
+// require_once get_template_directory() . '/inc/addons/comments/comments-functions.php';
+// require_once get_template_directory() . '/inc/addons/comments/comments-ajax-handler.php';
 
-require_once get_template_directory() . '/inc/libs/minifier.php';
+require_once get_template_directory() . '/inc/libs/minifier.php'; // html/css/js minifier functions.
 require_once get_template_directory() . '/inc/libs/kama-breadcrumb.php';
 
 // Lib for DOM parsing https://simplehtmldom.sourceforge.io/
@@ -74,6 +75,13 @@ if ( ! class_exists( 'SimpleXLSX' ) ) {
 // Lib for Excel export https://github.com/shuchkin/simplexlsxgen/
 if ( ! class_exists( 'SimpleXLSXGen' ) ) {
 	require_once get_template_directory() . '/inc/libs/SimpleXLSXGen.php';
+}
+
+// WooCommerce.
+if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+	require_once get_template_directory() . '/inc/compatibility/woocommerce/woocommerce-setup.php';
+	require_once get_template_directory() . '/inc/compatibility/woocommerce/woocommerce-functions.php';
+	require_once get_template_directory() . '/inc/compatibility/woocommerce/woocommerce-wrappers.php';
 }
 
 // Yoast SEO.
@@ -96,9 +104,3 @@ if ( is_plugin_active( 'kama-postviews/kama-postviews.php' ) ) {
 	require_once get_template_directory() . '/inc/compatibility/kama-postviews.php';
 }
 
-// WooCommerce.
-if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-	// require_once get_template_directory() . '/inc/compatibility/woocommerce/setup.php';
-	// require_once get_template_directory() . '/inc/compatibility/woocommerce/template-functions.php';
-	// require_once get_template_directory() . '/inc/compatibility/woocommerce/template-wrappers.php';
-}

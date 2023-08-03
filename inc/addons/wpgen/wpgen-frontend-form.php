@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'wp_footer_close', 'wpgen_frontend_form', 50 );
 if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 	/**
@@ -62,59 +61,14 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 					'title' => __( 'Primary Font', 'wpgen' ),
 					'type'  => 'typography',
 					'root'  => 'primaryFont',
-					'style' => get_selected_font(),
+					'style' => get_root_selected_font(),
 				),
 				'secondary-font' => array(
 					'title' => __( 'Text Font', 'wpgen' ),
 					'type'  => 'typography',
 					'root'  => 'secondaryFont',
-					'style' => get_selected_font(),
+					'style' => get_root_selected_font(),
 				),
-/*				'customizer-general-container-width' => array(
-					'title' => __( 'Container', 'wpgen' ),
-					'type'  => 'customizer',
-					'root'  => 'customizerContainer',
-					'style' => array(
-						'narrow'  => __( 'Narrow', 'wpgen' ),
-						'general' => __( 'General', 'wpgen' ),
-						'average' => __( 'Average', 'wpgen' ),
-						'wide'    => __( 'Wide', 'wpgen' ),
-						'fluid'   => __( 'Fluid', 'wpgen' ),
-					),
-				),
-				'customizer-archive-page-columns' => array(
-					'title' => __( 'Number of columns', 'wpgen' ),
-					'type'  => 'customizer',
-					'root'  => 'customizerColumns',
-					'style' => array(
-						'three' => __( 'Three', 'wpgen' ),
-						'four'  => __( 'Four', 'wpgen' ),
-						'five'  => __( 'Five', 'wpgen' ),
-						'six'   => __( 'Six', 'wpgen' ),
-					),
-				),
-				'customizer-general-menu-position' => array(
-					'title' => __( 'Menu type', 'wpgen' ),
-					'type'  => 'customizer',
-					'root'  => 'customizerMenuPosition',
-					'style' => array(
-						'absolute' => __( 'Absolute', 'wpgen' ),
-						'fixed'    => __( 'Fixed', 'wpgen' ),
-					),
-				),
-				'customizer-general-menu-button-type' => array(
-					'title' => __( 'Menu button type', 'wpgen' ),
-					'type'  => 'customizer',
-					'root'  => 'customizerMenuButtonType',
-					'style' => array(
-						'button-icon-text' => __( 'Button + Icon + Text', 'wpgen' ),
-						'button-icon'      => __( 'Button + Icon', 'wpgen' ),
-						'button-text'      => __( 'Button + Text', 'wpgen' ),
-						'icon'             => __( 'Icon', 'wpgen' ),
-						'icon-text'        => __( 'Icon + Text', 'wpgen' ),
-						'text'             => __( 'Text', 'wpgen' ),
-					),
-				),*/
 				'customizer-general-color-scheme' => array(
 					'title' => __( 'Color Scheme', 'wpgen' ),
 					'type'  => 'customizer',
@@ -359,47 +313,6 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 
 			$elems = apply_filters( 'wpgen_frontend_form_options', $elems );
 
-			/*// Usage: change wpgen form options.
-			add_filter( 'wpgen_frontend_form_options', 'change_wpgen_frontend_form_options' );
-			if ( ! function_exists( 'change_wpgen_frontend_form_options' ) ) {
-				function change_wpgen_frontend_form_options( $elems ) {
-
-					unset( $elems['customizer-archive-page-columns'] );
-
-					return $elems;
-				}
-			}*/
-
-			/*// Usage: add gray colorized options to wpgen frontend form.
-			add_filter( 'wpgen_frontend_form_options', 'add_wpgen_frontend_form_gray_colorized_options' );
-			if ( ! function_exists( 'add_wpgen_frontend_form_gray_colorized_options' ) ) {
-				function add_wpgen_frontend_form_gray_colorized_options( $elems ) {
-
-					$elems['general-gray-color']['style'] += array(
-						'red'     => 'Red',
-						'orange'  => 'Orange',
-						'amber'   => 'Amber',
-						'yellow'  => 'Yellow',
-						'lime'    => 'Lime',
-						'green'   => 'Green',
-						'emerald' => 'Emerald',
-						'teal'    => 'Teal',
-						'cyan'    => 'Cyan',
-						'sky'     => 'Sky',
-						'blue'    => 'Blue',
-						'indigo'  => 'Indigo',
-						'violet'  => 'Violet',
-						'purple'  => 'Purple',
-						'fuchsia' => 'Fuchsia',
-						'pink'    => 'Pink',
-						'rose'    => 'Rose',
-					);
-
-					return $elems;
-				}
-			}*/
-
-
 		$out = '<button id="wpgen-btn" class="' . esc_attr( implode( ' ', get_button_classes( 'button-wpgen icon icon_pen', 'default' ) ) ) . '" type="button" data-text-on="' . __( 'Close WpGen', 'wpgen' ) . '" data-text-off="' . __( 'Open WpGen', 'wpgen' ) . '" data-opener="off">' . __( 'Open WpGen', 'wpgen' ) . '</button>';
 		$out .= '<div id="wpgen-popup" class="wpgen-popup" data-opener="off">';
 				$out .= '<form id="wpgen-form" class="form wpgen-form" method="post">';
@@ -450,3 +363,4 @@ if ( ! function_exists( 'wpgen_frontend_form' ) ) {
 		}
 	}
 }
+add_action( 'wp_footer_close', 'wpgen_frontend_form', 50 );

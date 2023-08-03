@@ -13,20 +13,27 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 	get_sidebar();
 } ?>
 
-	<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
+<main id="primary" <?php wpgen_content_area_classes(); ?> role="main">
 
-		<header class="content-area-header" aria-label="<?php echo _x( '404 page header', 'aria-label', 'wpgen' ); ?>">
-			<h1 class="content-area-title"><?php _e( 'Oops! That page can&rsquo;t be found', 'wpgen' ); ?></h1>
-		</header>
+	<?php do_action( 'wpgen_before_404_page' ); ?>
 
-		<section class="content-area-content" aria-label="<?php echo _x( '404 page content', 'aria-label', 'wpgen' ); ?>">
-			<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'wpgen' ); ?></p>
+	<header class="content-area-header" aria-label="<?php _e( '404 page header', 'wpgen' ); ?>">
+		<h1 class="content-area-title"><?php _e( 'Oops! That page can&rsquo;t be found', 'wpgen' ); ?></h1>
+	</header>
 
-			<?php get_search_form(); ?>
-			<?php do_action( '404_widgets' ); ?>
-		</section>
+	<section class="content-area-content" aria-label="<?php _e( '404 page content', 'wpgen' ); ?>">
+		<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'wpgen' ); ?></p>
 
-	</main>
+		<?php get_search_form(); ?>
+	</section>
+
+	<footer class="content-area-footer" aria-label="<?php _e( '404 page footer', 'wpgen' ); ?>">
+		<?php do_action( '404_widgets' ); ?>
+	</footer>
+
+	<?php do_action( 'wpgen_after_404_page' ); ?>
+
+</main>
 
 <?php
 

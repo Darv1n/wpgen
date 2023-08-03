@@ -16,14 +16,6 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 	 */
 	function get_wpgen_customizer_controls( $control = null ) {
 
-		$args = array(
-			'public'   => true,
-			'_builtin' => false,
-		);
-
-		$post_types = get_post_types( $args );
-		array_unshift( $post_types, 'post' );
-
 		// Selects.
 		$general_color_scheme_select = array(
 			'white' => __( 'White', 'wpgen' ),
@@ -254,7 +246,14 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			'display_author'  => array( 'checkbox_control', __( 'Author page', 'wpgen' ), '' ),
 		);
 
+		$post_types = get_wpgen_customizer_post_types();
+
 		foreach ( $post_types as $key => $post_type ) {
+
+			if ( ! post_type_exists( $post_type ) ) {
+				continue;
+			}
+
 			$post_type_object  = get_post_type_object( $post_type );
 			$object_taxonomies = get_object_taxonomies( $post_type );
 
@@ -266,9 +265,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			);
 
 			if ( post_type_supports( $post_type, 'page-attributes' ) ) {
-				$archive_page_orderby_select += array(
-					'menu_order' => __( 'By menu order', 'wpgen' ),
-				);
+				$archive_page_orderby_select['menu_order'] = __( 'By menu order', 'wpgen' );
 			}
 
 			// Single $post_type options.
@@ -293,7 +290,7 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 
 			// Archive $post_type options.
 			if ( $post_type_object->has_archive || ! empty( $object_taxonomies ) ) {
-				$wpgen_controls['archive_' . $post_type] += array(
+				$wpgen_controls['archive_' . $post_type] = array(
 					'meta_title'            => array( 'tab_title', __( 'Meta options', 'wpgen' ), '' ),
 					'meta_display'          => array( 'checkbox_control', __( 'Meta display', 'wpgen' ), '' ),
 					'meta_author_display'   => array( 'checkbox_control', __( 'Meta author display', 'wpgen' ), '' ),
@@ -302,14 +299,14 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 			}
 
 			if ( $post_type === 'post' ) {
-				$wpgen_controls['archive_' . $post_type] += array(
+				$wpgen_controls['archive_' . $post_type] = array_merge( $wpgen_controls['archive_' . $post_type], array(
 					'meta_cats_display'     => array( 'checkbox_control', __( 'Meta categoties display', 'wpgen' ), '' ),
 					'meta_tags_display'     => array( 'checkbox_control', __( 'Meta tags display', 'wpgen' ), '' ),
-				);
+				) );
 			}
 
 			if ( $post_type_object->has_archive || ! empty( $object_taxonomies ) ) {
-				$wpgen_controls['archive_' . $post_type] += array(
+				$wpgen_controls['archive_' . $post_type] = array_merge( $wpgen_controls['archive_' . $post_type], array(
 					'meta_comments_display' => array( 'checkbox_control', __( 'Meta comments display', 'wpgen' ), '' ),
 					'meta_time_display'     => array( 'checkbox_control', __( 'Meta read time display', 'wpgen' ), '' ),
 					'meta_edit_display'     => array( 'checkbox_control', __( 'Meta edit display', 'wpgen' ), '' ),
@@ -324,40 +321,20 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 
 					'detail_description'    => array( 'select_control', __( 'Select description', 'wpgen' ), '', $archive_page_detail_description_select ),
 					'detail_button'         => array( 'select_control', __( 'Select button type', 'wpgen' ), '', $archive_page_detail_button_select ),
-				);
+				) );
 			}
 
 			if ( $post_type === 'post' ) {
-				$wpgen_controls['single_' . $post_type] += array(
+				$wpgen_controls['single_' . $post_type] = array_merge( $wpgen_controls['single_' . $post_type], array(
 					'entry_footer_cats_display' => array( 'checkbox_control', __( 'Entry footer cats display', 'wpgen' ), '' ),
 					'entry_footer_tags_display' => array( 'checkbox_control', __( 'Entry footer tags display', 'wpgen' ), '' ),
 					'similar_posts_display'     => array( 'checkbox_control', __( 'Similar posts display', 'wpgen' ), '' ),
 					'similar_posts_order'       => array( 'select_control', __( 'Select posts order', 'wpgen' ), '', $archive_page_order_select ),
 					'similar_posts_orderby'     => array( 'select_control', __( 'Select posts orderby', 'wpgen' ), '', $archive_page_orderby_select ),
 					'similar_posts_count'       => array( 'number_control', __( 'Select posts count', 'wpgen' ), array( 'step' => '1' ) ),
-				);
+				) );
 			}
 		}
-
-/*		// Archive Page options.
-		$wpgen_controls['archive_page'] = array(
-			'columns'               => array( 'select_control', __( 'Select columns of posts', 'wpgen' ), $archive_page_columns_description, $archive_page_columns_select ),
-			'template_type'         => array( 'select_control', __( 'Select template type', 'wpgen' ), $archive_page_template_type_description, $archive_page_template_type_select ),
-			'pagination'            => array( 'select_control', __( 'Post Pagination', 'wpgen' ), '', $archive_page_pagination_select ),
-
-			'meta_display'          => array( 'checkbox_control', __( 'Meta display', 'wpgen' ), '' ),
-			'meta_author_display'   => array( 'checkbox_control', __( 'Meta author display', 'wpgen' ), '' ),
-			'meta_date_display'     => array( 'checkbox_control', __( 'Meta publish date display', 'wpgen' ), '' ),
-			'meta_cats_display'     => array( 'checkbox_control', __( 'Meta categoties display', 'wpgen' ), '' ),
-			'meta_tags_display'     => array( 'checkbox_control', __( 'Meta tags display', 'wpgen' ), '' ),
-			'meta_comments_display' => array( 'checkbox_control', __( 'Meta comments display', 'wpgen' ), '' ),
-			'meta_time_display'     => array( 'checkbox_control', __( 'Meta read time display', 'wpgen' ), '' ),
-			'meta_edit_display'     => array( 'checkbox_control', __( 'Meta edit display', 'wpgen' ), '' ),
-
-			'detail'                => array( 'checkbox_control', __( 'Detail settings', 'wpgen' ), '' ),
-			'detail_description'    => array( 'select_control', __( 'Select description', 'wpgen' ), '', $archive_page_detail_description_select ),
-			'detail_button'         => array( 'select_control', __( 'Select button type', 'wpgen' ), '', $archive_page_detail_button_select ),
-		);*/
 
 		// Other options.
 		$wpgen_controls['other'] = array(
@@ -397,14 +374,3 @@ if ( ! function_exists( 'get_wpgen_customizer_controls' ) ) {
 		}
 	}
 }
-
-/*// Usage: change get wpgen customizer controls.
-add_filter( 'get_wpgen_customizer_controls', 'change_get_wpgen_customizer_controls' );
-if ( ! function_exists( 'change_get_wpgen_customizer_controls' ) ) {
-	function change_get_wpgen_customizer_controls( $wpgen_controls ) {
-
-		$wpgen_controls['other']['new_control'] = array( 'checkbox_control', __( 'New checkbox control', 'wpgen' ), '' );
-
-		return $wpgen_controls;
-	}
-}*/

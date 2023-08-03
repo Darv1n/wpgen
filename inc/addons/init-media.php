@@ -115,15 +115,6 @@ if ( ! function_exists( 'the_media' ) ) {
 		$post_classes[] = 'media';
 		$post_classes   = apply_filters( 'get_media_post_classes', $post_classes );
 
-		/*// Usage: change media post classes.
-		add_filter( 'get_media_post_classes', 'my_media_post_classes' );
-		if ( ! function_exists( 'my_media_post_classes' ) ) {
-			function my_media_post_classes( $classes ) {
-				$classes = get_elem_classes( $classes );
-				return $classes;
-			}
-		}*/
-
 		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes( '', false ) . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
@@ -429,7 +420,7 @@ if ( ! function_exists( 'get_media_favicon' ) ) {
 	}
 }
 
-add_filter( 'query_vars', 'add_media_query_vars' );
+add_filter( 'query_vars', 'add_media_query_vars', 10 );
 if ( ! function_exists( 'add_media_query_vars' ) ) {
 
 	/**
@@ -447,7 +438,7 @@ if ( ! function_exists( 'add_media_query_vars' ) ) {
 	}
 }
 
-add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars' );
+add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars', 10 );
 if ( ! function_exists( 'allowed_pg_canonical_query_vars' ) ) {
 
 	/**

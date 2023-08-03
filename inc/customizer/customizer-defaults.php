@@ -16,16 +16,13 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 	 */
 	function wpgen_options( $control = null ) {
 
-		$args = array(
-			'public'   => true,
-			'_builtin' => false,
-		);
-
-		$post_types = get_post_types( $args );
-		array_unshift( $post_types, 'post' );
+		// Sanitize string (just to be safe).
+		if ( ! is_null( $control ) ) {
+			$control = get_title_slug( $control );
+		}
 
 		$wpgen_defaults = array(
-			'general_color_scheme'                    => 'light',
+			'general_color_scheme'                    => 'white',
 			'general_wpgen_active'                    => true,
 			'general_container_width'                 => 'average',
 			'general_content_width'                   => 'wide',
@@ -77,112 +74,103 @@ if ( ! function_exists( 'wpgen_options' ) ) {
 			'archive_page_columns'                    => 'three',
 		);
 
-		foreach ( $post_types as $key => $post_type ) {
+		foreach ( get_post_types() as $key => $post_type ) {
+			$wpgen_defaults = array_merge( $wpgen_defaults, array(
+				'single_' . $post_type . '_template_type'  => 'one',
+				'archive_' . $post_type . '_columns'       => 'three',
+				'archive_' . $post_type . '_template_type' => 'tils',
+			) );
+		}
+
+		foreach ( get_wpgen_customizer_post_types() as $key => $post_type ) {
+
+			if ( ! post_type_exists( $post_type ) ) {
+				continue;
+			}
 
 			$post_type_object  = get_post_type_object( $post_type );
 			$object_taxonomies = get_object_taxonomies( $post_type );
 
-			$wpgen_defaults += array(
-				'single_' . $post_type . '_meta_display'                => true,
-				'single_' . $post_type . '_meta_author_display'         => false,
-				'single_' . $post_type . '_meta_date_display'           => true,
-				'single_' . $post_type . '_meta_date_modified_display'  => false,
-				'single_' . $post_type . '_meta_cats_display'           => true,
-				'single_' . $post_type . '_meta_tags_display'           => false,
-				'single_' . $post_type . '_meta_comments_display'       => false,
-				'single_' . $post_type . '_meta_time_display'           => true,
-				'single_' . $post_type . '_meta_edit_display'           => true,
+			$wpgen_defaults = array_merge( $wpgen_defaults, array(
+				'single_' . $post_type . '_meta_display'               => true,
+				'single_' . $post_type . '_meta_author_display'        => false,
+				'single_' . $post_type . '_meta_date_display'          => true,
+				'single_' . $post_type . '_meta_date_modified_display' => false,
+				'single_' . $post_type . '_meta_cats_display'          => true,
+				'single_' . $post_type . '_meta_tags_display'          => false,
+				'single_' . $post_type . '_meta_comments_display'      => false,
+				'single_' . $post_type . '_meta_time_display'          => true,
+				'single_' . $post_type . '_meta_edit_display'          => true,
 
-				'single_' . $post_type . '_template_type'               => 'one',
-				'single_' . $post_type . '_thumbnail_display'           => true,
-				'single_' . $post_type . '_post_nav_display'            => false,
-				'single_' . $post_type . '_entry_footer_display'        => true,
-			);
+				'single_' . $post_type . '_thumbnail_display'          => true,
+				'single_' . $post_type . '_post_nav_display'           => false,
+				'single_' . $post_type . '_entry_footer_display'       => true,
+
+				'single_' . $post_type . '_similar_posts_display'     => true,
+				'single_' . $post_type . '_similar_posts_order'       => 'desc',
+				'single_' . $post_type . '_similar_posts_orderby'     => 'date',
+				'single_' . $post_type . '_similar_posts_count'       => 3,
+			) );
 
 			if ( $post_type_object->has_archive || ! empty( $object_taxonomies ) ) {
-				$wpgen_defaults += array(
+				$wpgen_defaults = array_merge( $wpgen_defaults, array(
 					'archive_' . $post_type . '_meta_display'          => true,
 					'archive_' . $post_type . '_meta_author_display'   => false,
 					'archive_' . $post_type . '_meta_date_display'     => true,
 					'archive_' . $post_type . '_meta_comments_display' => false,
 					'archive_' . $post_type . '_meta_time_display'     => true,
 					'archive_' . $post_type . '_meta_edit_display'     => false,
-					'archive_' . $post_type . '_columns'               => 'three',
-					'archive_' . $post_type . '_template_type'         => 'tils',
 					'archive_' . $post_type . '_posts_per_page'        => get_option( 'posts_per_page' ),
 					'archive_' . $post_type . '_posts_order'           => 'desc',
 					'archive_' . $post_type . '_posts_orderby'         => 'date',
 					'archive_' . $post_type . '_pagination'            => 'numeric',
 					'archive_' . $post_type . '_detail_button'         => 'button',
 					'archive_' . $post_type . '_detail_description'    => 'excerpt',
-				);
+				) );
 			}
 
 			if ( $post_type === 'post' ) {
-				$wpgen_defaults += array(
+				$wpgen_defaults = array_merge( $wpgen_defaults, array(
 					'single_post_entry_footer_cats_display' => false,
 					'single_post_entry_footer_tags_display' => true,
-					'single_post_similar_posts_display'     => true,
-					'single_post_similar_posts_order'       => 'desc',
-					'single_post_similar_posts_orderby'     => 'date',
-					'single_post_similar_posts_count'       => 3,
 					'archive_post_meta_cats_display'        => false,
 					'archive_post_meta_tags_display'        => false,
-				);
+				) );
 			}
 		}
 
-		$wpgen_defaults += array(
-			'other_vkontakte'                         => '',
-			'other_facebook'                          => '',
-			'other_instagram'                         => '',
-			'other_youtube'                           => '',
-			'other_twitter'                           => '',
-			'other_telegram'                          => '',
-			'other_linkedin'                          => '',
+		$wpgen_defaults = array_merge( $wpgen_defaults, array(
+			'other_vkontakte'           => '',
+			'other_facebook'            => '',
+			'other_instagram'           => '',
+			'other_youtube'             => '',
+			'other_twitter'             => '',
+			'other_telegram'            => '',
+			'other_linkedin'            => '',
 
-			'other_whatsapp_phone'                    => '',
-			'other_telegram_chat_link'                => '',
-			'other_address'                           => '',
-			'other_phone'                             => '',
-			'other_email'                             => '',
+			'other_whatsapp_phone'      => '',
+			'other_telegram_chat_link'  => '',
+			'other_address'             => '',
+			'other_phone'               => '',
+			'other_email'               => '',
 
-			'other_yandex_verification'               => '',
-			'other_google_verification'               => '',
-			'other_yandex_counter'                    => '',
-			'other_google_counter'                    => '',
-		);
+			'other_yandex_verification' => '',
+			'other_google_verification' => '',
+			'other_yandex_counter'      => '',
+			'other_google_counter'      => '',
+		) );
+
 
 		// Merge child and parent default options.
 		$wpgen_defaults = apply_filters( 'wpgen_options', $wpgen_defaults );
-
-		// Merge defaults and theme options.
-		$wpgen_defaults = wp_parse_args( get_option( 'wpgen_options' ), $wpgen_defaults );
 
 		// Return controls.
 		if ( is_null( $control ) ) {
 			return $wpgen_defaults;
 		} elseif ( ! isset( $wpgen_defaults[ $control ] ) || empty( $wpgen_defaults[ $control ] ) ) {
-			return '';
+			return false;
 		} else {
 			return $wpgen_defaults[ $control ];
 		}
 	}
 }
-
-/*// Usage: change wpgen options.
-add_filter( 'wpgen_options', 'change_wpgen_options' );
-if ( ! function_exists( 'change_wpgen_options' ) ) {
-	function change_wpgen_options( $wpgen_defaults ) {
-
-		$child_theme_defaults = array(
-			'general_menu_position' => 'right',
-			'general_test'          => false,
-		);
-
-		$wpgen_defaults = wp_parse_args( $child_theme_defaults, $wpgen_defaults );
-
-		return $wpgen_defaults;
-
-	}
-}*/

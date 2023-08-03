@@ -77,17 +77,6 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 		// Merge child and parent default options.
 		$allowed_seo_canonical_query_vars = apply_filters( 'allowed_seo_canonical_query_vars', $allowed_seo_canonical_query_vars );
 
-		/*// Usage: change allowed seo canonical query vars.
-		add_filter( 'allowed_seo_canonical_query_vars', 'change_allowed_seo_canonical_query_vars' );
-		if ( ! function_exists( 'change_allowed_seo_canonical_query_vars' ) ) {
-			function change_allowed_seo_canonical_query_vars( $allowed_seo_canonical_query_vars ) {
-
-				$allowed_seo_canonical_query_vars[] = 'pg';
-
-				return $allowed_seo_canonical_query_vars;
-			}
-		}*/
-
 		// Тут проверяем и удаляем левые get-параметры из ссылок.
 		if ( isset( $_SERVER['QUERY_STRING'] ) && ! empty( $_SERVER['QUERY_STRING'] ) ) {
 			$query_strings = explode( '&', $_SERVER['QUERY_STRING'] );
@@ -232,17 +221,6 @@ if ( ! function_exists( 'get_wpgen_seo_meta_data' ) ) {
 
 		// Merge child and parent default options.
 		$seo_defaults = apply_filters( 'wpgen_seo_filter_options', $seo_defaults );
-
-		/*// Usage: change wpgen seo filter options.
-		add_filter( 'wpgen_seo_filter_options', 'change_wpgen_seo_filter_options' );
-		if ( ! function_exists( 'change_wpgen_seo_filter_options' ) ) {
-			function change_wpgen_seo_filter_options( $seo_defaults ) {
-
-				$seo_defaults['meta']['type'] = 'website';
-
-				return $seo_defaults;
-			}
-		}*/
 
 		// Return controls.
 		if ( is_null( $control ) ) {

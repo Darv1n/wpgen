@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter('comment_form_fields', 'wpgen_reorder_comment_fields' );
-function wpgen_reorder_comment_fields( $fields ) {
+add_filter( 'comment_form_fields', 'wpgen_comment_form_fields', 10 );
+function wpgen_comment_form_fields( $fields ) {
 	// die( vardump( $fields ) ); // Посмотрим какие поля есть.
 
 	$new_order    = array(); // Сюда собираем поля в новом порядке.

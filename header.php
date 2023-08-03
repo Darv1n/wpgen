@@ -26,15 +26,15 @@
 		wp_body_open();
 	} ?>
 
-	<header id="header" <?php wpgen_header_classes(); ?> aria-label="<?php echo _x( 'Site header', 'aria-label', 'wpgen' ); ?>">
+	<header id="header" <?php wpgen_header_classes(); ?> aria-label="<?php _e( 'Site header', 'wpgen' ); ?>">
 
 		<?php do_action( 'wp_header_open' ); ?>
 
 		<?php if ( wpgen_options( 'general_header_top_bar_display' ) ) { ?>
-			<div id="header__top-bar" class="header__top-bar">
+			<div class="header__top-bar">
 				<div <?php wpgen_container_classes( 'container-header' ); ?>>
 
-					<?php get_template_part( 'templates/header/header-top-bar' ); ?>
+					<?php get_template_part( 'templates/header/header', 'top-bar' ); ?>
 
 				</div>
 			</div>
@@ -42,17 +42,21 @@
 
 		<?php
 			if ( wpgen_options( 'general_header_type' ) === 'header-content' ) {
-				get_template_part( 'templates/header/header-content' );
+				get_template_part( 'templates/header/header-content-type-', 'content' );
 			} elseif ( wpgen_options( 'general_header_type' ) === 'header-logo-center' ) {
-				get_template_part( 'templates/header/header-logo-center' );
+				get_template_part( 'templates/header/header-content-type-', 'logo-center' );
 			} else {
-				get_template_part( 'templates/header/header-simple' );
+				get_template_part( 'templates/header/header-content-type', 'simple' );
 			}
 		?>
 
 		<?php do_action( 'wp_header_close' ); ?>
 
 	</header>
+
+	<?php if ( ! is_front_page() && ! is_home() && wpgen_options( 'general_breadcrumbs_display' ) ) { ?>
+		<?php get_template_part( 'templates/breadcrumbs' ); ?>
+	<?php } ?>
 
 	<?php 
 		/**

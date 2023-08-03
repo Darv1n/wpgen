@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'bcn_breadcrumb_title', 'bcn_breadcrumb_title_callback', 3, 10 );
 if ( ! function_exists( 'bcn_breadcrumb_title_callback' ) ) {
 	function bcn_breadcrumb_title_callback( $title, $type, $id ) {
 		if ( in_array( 'home', $type, true ) ) {
@@ -21,8 +20,8 @@ if ( ! function_exists( 'bcn_breadcrumb_title_callback' ) ) {
 		return $title;
 	}
 }
+add_filter( 'bcn_breadcrumb_title', 'bcn_breadcrumb_title_callback', 3, 10 );
 
-add_filter( 'bcn_display_attributes', 'bcn_display_attributes_callback', 10, 3 );
 if ( ! function_exists( 'bcn_display_attributes_callback' ) ) {
 	function bcn_display_attributes_callback( $attribs, $types, $id ) {
 		$extra_attribs = array( 'class' => array( 'breadcrumbs-item' ) );
@@ -54,8 +53,8 @@ if ( ! function_exists( 'bcn_display_attributes_callback' ) ) {
 		return $output;
 	}
 }
+add_filter( 'bcn_display_attributes', 'bcn_display_attributes_callback', 10, 3 );
 
-add_action( 'wp_enqueue_scripts', 'wp_enqueue_navxt_breadcrumb_styles' );
 if ( ! function_exists( 'wp_enqueue_navxt_breadcrumb_styles' ) ) {
 	function wp_enqueue_navxt_breadcrumb_styles() {
 		$css = '
@@ -74,3 +73,4 @@ if ( ! function_exists( 'wp_enqueue_navxt_breadcrumb_styles' ) ) {
 		wp_add_inline_style( 'common-styles', $css );
 	}
 }
+add_action( 'wp_enqueue_scripts', 'wp_enqueue_navxt_breadcrumb_styles' );

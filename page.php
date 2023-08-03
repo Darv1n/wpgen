@@ -27,7 +27,7 @@ if ( wpgen_options( 'sidebar_left_display' ) ) {
 
 			<?php do_action( 'wpgen_before_article_page' ); ?>
 
-				<?php get_template_part( 'templates/content', 'page' ); ?>
+				<?php get_template_part( 'templates/single/content-type', 'page' ); ?>
 
 			<?php do_action( 'wpgen_after_article_page' ); ?>
 

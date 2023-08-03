@@ -46,19 +46,6 @@ if ( ! function_exists( 'is_wpgen_active' ) ) {
 	}
 }
 
-/*// Usage: change is wpgen active.
-add_filter( 'is_wpgen_active', 'change_is_wpgen_active' );
-if ( ! function_exists( 'change_is_wpgen_active' ) ) {
-	function change_is_wpgen_active( $control ) {
-
-		if ( preg_replace( '/^(http[s]?):\/\//', '', get_home_url() ) === 'wpgen.zolin.digital' ) {
-			return true;
-		}
-
-		return $control;
-	}
-}*/
-
 if ( ! function_exists( 'array_key_first' ) ) {
 
 	/**
@@ -488,7 +475,7 @@ if ( ! function_exists( 'format_bytes' ) ) {
 		$pow   = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
 		$pow   = min( $pow, count( $units ) - 1 );
 
-		// раскомментируйте одну из следующих строк.
+		// Uncomment one of the following strings.
 		$bytes /= pow( 1024, $pow );
 		// $bytes /= (1 << (10 * $pow));
 
@@ -674,43 +661,5 @@ if ( ! function_exists( 'remove_emoji' ) ) {
 		$clear_string = preg_replace( '/[\x{2700}-\x{27BF}]/u', '', $clear_string );
 
 		return $clear_string;
-	}
-}
-
-if ( ! function_exists( 'translit' ) ) {
-
-	/**
-	 * String transliteration function.
-	 *
-	 * @param string $control array key to get one value.
-	 *
-	 * @return array
-	 */
-	function translit( $control = null ) {
-
-		$converter = array(
-			'а' => 'a',    'б' => 'b',    'в' => 'v',    'г' => 'g',    'д' => 'd',
-			'е' => 'e',    'ё' => 'e',    'ж' => 'zh',   'з' => 'z',    'и' => 'i',
-			'й' => 'y',    'к' => 'k',    'л' => 'l',    'м' => 'm',    'н' => 'n',
-			'о' => 'o',    'п' => 'p',    'р' => 'r',    'с' => 's',    'т' => 't',
-			'у' => 'u',    'ф' => 'f',    'х' => 'h',    'ц' => 'c',    'ч' => 'ch',
-			'ш' => 'sh',   'щ' => 'sch',  'ь' => '',     'ы' => 'y',    'ъ' => '',
-			'э' => 'e',    'ю' => 'yu',   'я' => 'ya',
-
-			'А' => 'A',    'Б' => 'B',    'В' => 'V',    'Г' => 'G',    'Д' => 'D',
-			'Е' => 'E',    'Ё' => 'E',    'Ж' => 'Zh',   'З' => 'Z',    'И' => 'I',
-			'Й' => 'Y',    'К' => 'K',    'Л' => 'L',    'М' => 'M',    'Н' => 'N',
-			'О' => 'O',    'П' => 'P',    'Р' => 'R',    'С' => 'S',    'Т' => 'T',
-			'У' => 'U',    'Ф' => 'F',    'Х' => 'H',    'Ц' => 'C',    'Ч' => 'Ch',
-			'Ш' => 'Sh',   'Щ' => 'Sch',  'Ь' => '',     'Ы' => 'Y',    'Ъ' => '',
-			'Э' => 'E',    'Ю' => 'Yu',   'Я' => 'Ya',
-		);
-
-		// Return controls.
-		if ( is_null( $control ) ) {
-			return $converter;
-		} else {
-			return strtr( $control, $converter );;
-		}
 	}
 }

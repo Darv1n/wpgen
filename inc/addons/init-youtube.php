@@ -127,15 +127,6 @@ if ( ! function_exists( 'the_youtube_videos' ) ) {
 		$post_classes[] = 'video';
 		$post_classes   = apply_filters( 'get_youtube_video_post_classes', $post_classes );
 
-		/*// Usage: change youtube video post classes.
-		add_filter( 'get_youtube_video_post_classes', 'change_youtube_video_post_classes' );
-		if ( ! function_exists( 'change_youtube_video_post_classes' ) ) {
-			function change_youtube_video_post_classes( $classes ) {
-				$classes = get_elem_classes( $classes );
-				return $classes;
-			}
-		}*/
-
 		$html .= '<div ' . wpgen_archive_page_columns_wrapper_classes( '', false ) . '>';
 		foreach ( $excel as $key_d => $excel_row ) {
 			if ( $key_d === 0 ) {
@@ -515,7 +506,7 @@ if ( ! function_exists( 'get_youtube_thumbnail' ) ) {
 	}
 }
 
-add_filter( 'query_vars', 'add_youtube_videos_query_vars' );
+add_filter( 'query_vars', 'add_youtube_videos_query_vars', 10 );
 if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 
 	/**
@@ -533,7 +524,7 @@ if ( ! function_exists( 'add_youtube_videos_query_vars' ) ) {
 	}
 }
 
-add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars' );
+add_filter( 'allowed_seo_canonical_query_vars', 'allowed_pg_canonical_query_vars', 10 );
 if ( ! function_exists( 'allowed_pg_canonical_query_vars' ) ) {
 
 	/**

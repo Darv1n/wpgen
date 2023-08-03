@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'body_class', 'wpgen_body_classes' );
+add_filter( 'body_class', 'wpgen_body_classes', 10 );
 if ( ! function_exists( 'wpgen_body_classes' ) ) {
 
 	/**
@@ -20,11 +20,6 @@ if ( ! function_exists( 'wpgen_body_classes' ) ) {
 	 * @return array
 	 */
 	function wpgen_body_classes( $classes ) {
-
-		// Adds a class of hfeed to non-singular pages.
-		if ( ! is_singular() ) {
-			$classes[] = 'hfeed';
-		}
 
 		// Adds a class of no-sidebar when there is no sidebar present.
 		if ( ! wpgen_options( 'sidebar_left_display' ) && ! wpgen_options( 'sidebar_right_display' ) ) {
@@ -49,12 +44,13 @@ if ( ! function_exists( 'wpgen_body_classes' ) ) {
 		// Adds class with themename.
 		$classes[] = 'theme_' . wpgen_options( 'general_color_scheme' );
 		$classes[] = 'theme_' . wpgen_options( 'general_container_width' );
+		$classes   = array_unique( (array) $classes );
 
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
-add_filter( 'post_class', 'wpgen_post_classes' );
+add_filter( 'post_class', 'wpgen_post_classes', 10 );
 if ( ! function_exists( 'wpgen_post_classes' ) ) {
 
 	/**
@@ -122,8 +118,9 @@ if ( ! function_exists( 'wpgen_post_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'wpgen_post_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -153,17 +150,9 @@ if ( ! function_exists( 'get_wpgen_container_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_container_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen container classes.
-		add_filter( 'get_wpgen_container_classes', 'change_get_wpgen_container_classes' );
-		if ( ! function_exists( 'change_get_wpgen_container_classes' ) ) {
-			function change_get_wpgen_container_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -175,7 +164,7 @@ if ( ! function_exists( 'wpgen_container_classes' ) ) {
 	 * @param string $class Additional container classes.
 	 * @param bool   $echo  Echo or return container classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_container_classes( $class = '', $echo = true ) {
 
@@ -237,17 +226,9 @@ if ( ! function_exists( 'get_wpgen_content_area_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_content_area_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen content area_classes.
-		add_filter( 'get_wpgen_content_area_classes', 'change_get_wpgen_content_area_classes' );
-		if ( ! function_exists( 'change_get_wpgen_content_area_classes' ) ) {
-			function change_get_wpgen_content_area_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -259,7 +240,7 @@ if ( ! function_exists( 'wpgen_content_area_classes' ) ) {
 	 * @param string $class Additional content area classes.
 	 * @param bool   $echo  Echo or return content area classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_content_area_classes( $class = '', $echo = true ) {
 
@@ -309,17 +290,9 @@ if ( ! function_exists( 'get_wpgen_widget_area_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_widget_area_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen widget area classes.
-		add_filter( 'get_wpgen_widget_area_classes', 'change_get_wpgen_widget_area_classes' );
-		if ( ! function_exists( 'change_get_wpgen_widget_area_classes' ) ) {
-			function change_get_wpgen_widget_area_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -331,7 +304,7 @@ if ( ! function_exists( 'wpgen_widget_area_classes' ) ) {
 	 * @param string $class Additional widget area classes.
 	 * @param bool   $echo  Echo or return widget area classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_widget_area_classes( $class = '', $echo = true ) {
 
@@ -392,17 +365,9 @@ if ( ! function_exists( 'get_wpgen_header_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_header_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen header classes.
-		add_filter( 'get_wpgen_header_classes', 'change_get_wpgen_header_classes' );
-		if ( ! function_exists( 'change_get_wpgen_header_classes' ) ) {
-			function change_get_wpgen_header_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -414,7 +379,7 @@ if ( ! function_exists( 'wpgen_header_classes' ) ) {
 	 * @param string $class Additional header classes.
 	 * @param bool   $echo  Echo or return header classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_header_classes( $class = '', $echo = true ) {
 
@@ -465,17 +430,9 @@ if ( ! function_exists( 'get_wpgen_footer_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_footer_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen footer classes.
-		add_filter( 'get_wpgen_footer_classes', 'change_get_wpgen_footer_classes' );
-		if ( ! function_exists( 'change_get_wpgen_footer_classes' ) ) {
-			function change_get_wpgen_footer_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -487,7 +444,7 @@ if ( ! function_exists( 'wpgen_footer_classes' ) ) {
 	 * @param string $class Additional footer classes.
 	 * @param bool   $echo  Echo or return footer classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_footer_classes( $class = '', $echo = true ) {
 
@@ -540,17 +497,9 @@ if ( ! function_exists( 'get_wpgen_main_menu_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_main_menu_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen main menu classes.
-		add_filter( 'get_wpgen_main_menu_classes', 'change_get_wpgen_main_menu_classes' );
-		if ( ! function_exists( 'change_get_wpgen_main_menu_classes' ) ) {
-			function change_get_wpgen_main_menu_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -562,7 +511,7 @@ if ( ! function_exists( 'wpgen_main_menu_classes' ) ) {
 	 * @param string $class Additional main menu classes.
 	 * @param bool   $echo  Echo or return main menu classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_main_menu_classes( $class = '', $echo = true ) {
 
@@ -593,10 +542,10 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 		$classes[] = 'post__meta';
 		$classes[] = 'post-meta';
 
-		if ( wpgen_options( 'single_' . get_post_type() . '_template_type' ) === 'one' ) {
-			$classes[] = 'post-meta_inline';
-		} elseif ( wpgen_options( 'single_' . get_post_type() . '_template_type' ) === 'two' ) {
+		if ( wpgen_options( 'single_' . get_post_type() . '_template_type' ) === 'two' ) {
 			$classes[] = 'post-meta_block';
+		} else {
+			$classes[] = 'post-meta_inline';
 		}
 
 		// Check the function has accepted any classes.
@@ -609,17 +558,9 @@ if ( ! function_exists( 'get_wpgen_meta_display_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_meta_display_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen meta display classes.
-		add_filter( 'get_wpgen_meta_display_classes', 'change_get_wpgen_meta_display_classes' );
-		if ( ! function_exists( 'change_get_wpgen_meta_display_classes' ) ) {
-			function change_get_wpgen_meta_display_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -632,7 +573,7 @@ if ( ! function_exists( 'wpgen_meta_display_classes' ) ) {
 	 *        string $class Additional meta display classes.
 	 *        bool   $echo  Echo or return meta display classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_meta_display_classes( $class = '', $echo = true ) {
 
@@ -671,17 +612,9 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_wrapper_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_archive_page_columns_wrapper_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		// Usage: change get wpgen archive page columns wrapper classes.
-		/*add_filter( 'get_wpgen_archive_page_columns_wrapper_classes', 'change_get_wpgen_archive_page_columns_wrapper_classes' );
-		if ( ! function_exists( 'change_get_wpgen_archive_page_columns_wrapper_classes' ) ) {
-			function change_get_wpgen_archive_page_columns_wrapper_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -693,7 +626,7 @@ if ( ! function_exists( 'wpgen_archive_page_columns_wrapper_classes' ) ) {
 	 * @param string $class Additional archive page columns wrapper classes.
 	 * @param bool   $echo  Echo or return archive page columns wrapper classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_archive_page_columns_wrapper_classes( $class = '', $echo = true ) {
 
@@ -713,7 +646,7 @@ if ( ! function_exists( 'get_wpgen_count_columns' ) ) {
 	 * Get int count archive page columns.
 	 *
 	 * @param string $control Text count columns.
-	 * @param bool   $int     Need return int.
+	 * @param bool   $int     Need return int or not.
 	 *
 	 * @return array
 	 */
@@ -736,7 +669,7 @@ if ( ! function_exists( 'get_wpgen_count_columns' ) ) {
 			'ten'   => 10,
 		);
 
-		if ( array_key_exists( $control, $converter ) || $int ) {
+		if ( $int || ( $control && array_key_exists( $control, $converter ) ) ) {
 			return strtr( $control, $converter );
 		} else {
 			return strtr( intval( $control ), array_flip( $converter ) );
@@ -810,17 +743,9 @@ if ( ! function_exists( 'get_wpgen_archive_page_columns_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_archive_page_columns_classes', $classes, $counter );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen archive page columns classes.
-		add_filter( 'get_wpgen_archive_page_columns_classes', 'change_get_wpgen_archive_page_columns_classes', 10, 2 );
-		if ( ! function_exists( 'change_get_wpgen_archive_page_columns_classes' ) ) {
-			function change_get_wpgen_archive_page_columns_classes( $classes, $counter ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -834,7 +759,7 @@ if ( ! function_exists( 'wpgen_archive_page_columns_classes' ) ) {
 	 * @param string $columns_count Return classes with specified columns.
 	 * @param bool   $echo          Echo or return archive page columns classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_archive_page_columns_classes( $counter = null, $class = '', $columns_count = null, $echo = true ) {
 
@@ -906,17 +831,9 @@ if ( ! function_exists( 'get_button_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_button_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get button classes.
-		add_filter( 'get_button_classes', 'change_get_button_classes' );
-		if ( ! function_exists( 'change_get_button_classes' ) ) {
-			function change_get_button_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -929,7 +846,7 @@ if ( ! function_exists( 'button_classes' ) ) {
 	 * @param string $color Button color (primary, secondary, gray, default). Default 'primary'.
 	 * @param bool   $echo  Echo or return button classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function button_classes( $class = '', $color = 'primary', $echo = true ) {
 
@@ -969,17 +886,9 @@ if ( ! function_exists( 'get_link_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_link_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get link classes.
-		add_filter( 'get_link_classes', 'change_get_link_classes' );
-		if ( ! function_exists( 'change_get_link_classes' ) ) {
-			function change_get_link_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -991,7 +900,7 @@ if ( ! function_exists( 'link_classes' ) ) {
 	 * @param string $class Additional link classes.
 	 * @param bool   $echo  Echo or return link classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function link_classes( $class = '', $echo = true ) {
 
@@ -1044,17 +953,9 @@ if ( ! function_exists( 'get_wpgen_link_more_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_wpgen_link_more_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get wpgen link more classes.
-		add_filter( 'get_wpgen_link_more_classes', 'change_get_wpgen_link_more_classes' );
-		if ( ! function_exists( 'change_get_wpgen_link_more_classes' ) ) {
-			function change_get_wpgen_link_more_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -1067,11 +968,174 @@ if ( ! function_exists( 'wpgen_link_more_classes' ) ) {
 	 * @param string $color Link more color (primary, secondary, gray, default). Default 'primary'.
 	 * @param bool   $echo  Echo or return link more classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function wpgen_link_more_classes( $class = '', $color = 'primary', $echo = true ) {
 
 		$classes = get_wpgen_link_more_classes( $class, $color );
+
+		if ( $echo ) {
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		} else {
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		}
+	}
+}
+
+if ( ! function_exists( 'get_wpgen_menu_toggle_classes' ) ) {
+
+	/**
+	 * Get menu toggle classes.
+	 *
+	 * @param string $class Menu toggle classes.
+	 * @param string $color Menu toggle color (primary, secondary, gray, default). Default 'primary'.
+	 *
+	 * @return array
+	 */
+	function get_wpgen_menu_toggle_classes( $class = '', $color = 'primary' ) {
+
+		$classes          = array();
+		$menu_button_type = wpgen_options( 'general_menu_button_type' );
+		$button_type      = wpgen_options( 'general_button_type' );
+		$color_scheme     = wpgen_options( 'general_color_scheme' );
+
+		// Если есть кнопка.
+		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
+			$classes = get_button_classes( $classes, $color );
+		} else {
+			$classes[] = 'button-reset';
+		}
+
+		// Квадрат, если нет текста
+		if ( in_array( $menu_button_type, array( 'button-icon', 'icon' ), true ) ) {
+			$classes[] = 'button_squared';
+		}
+
+		// Если есть иконка.
+		if ( in_array( $menu_button_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
+			$classes[] = 'toggle-icon';
+			$classes[] = 'icon';
+			$classes[] = 'icon_bars';
+
+			if ( in_array( $menu_button_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
+				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
+			}
+
+			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+				$classes[] = 'icon_black';
+			} else {
+				$classes[] = 'icon_white';
+			}
+		}
+
+		$classes[] = 'menu-toggle';
+
+		if ( wpgen_options( 'general_header_type' ) === 'header-simple' ) {
+			$classes[] = 'menu-toggle_right';
+		} else {
+			$classes[] = 'menu-toggle_' . wpgen_options( 'general_menu_button_alignment' );
+		}
+
+		$classes = apply_filters( 'get_wpgen_menu_toggle_classes', $classes );
+		$classes = array_unique( $classes );
+
+		return $classes;
+	}
+}
+
+if ( ! function_exists( 'the_wpgen_menu_toggle_classes' ) ) {
+
+	/**
+	 * Display menu toggle classes.
+	 *
+	 * @param string $class Additional menu toggle classes.
+	 * @param string $color Menu toggle color (primary, secondary, gray, default). Default 'primary'.
+	 * @param bool   $echo  Echo or return menu toggle classes.
+	 *
+	 * @return string|void
+	 */
+	function the_wpgen_menu_toggle_classes( $class = '', $color = 'primary', $echo = true ) {
+
+		$classes = get_wpgen_menu_toggle_classes( $class, $color );
+
+		if ( $echo ) {
+			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		} else {
+			return 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+		}
+	}
+}
+
+if ( ! function_exists( 'get_wpgen_scroll_top_classes' ) ) {
+
+	/**
+	 * Get scroll top classes.
+	 *
+	 * @param string $class Scroll top classes.
+	 * @param string $color Scroll top color (primary, secondary, gray, default). Default 'primary'.
+	 *
+	 * @return array
+	 */
+	function get_wpgen_scroll_top_classes( $class = '', $color = 'primary' ) {
+
+		$classes         = array();
+		$scroll_top_type = wpgen_options( 'general_scroll_top_button_type' );
+		$button_type     = wpgen_options( 'general_button_type' );
+		$color_scheme    = wpgen_options( 'general_color_scheme' );
+
+		// Если есть кнопка.
+		if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'button-text' ), true ) ) {
+			$classes = get_button_classes( $classes, $color );
+		} else {
+			$classes[] = 'button-reset';
+		}
+
+		// Квадрат, если нет текста
+		if ( in_array( $scroll_top_type, array( 'button-icon', 'icon' ), true ) ) {
+			$classes[] = 'button_squared';
+		}
+
+		// Если есть иконка.
+		if ( in_array( $scroll_top_type, array( 'button-icon-text', 'button-icon', 'icon-text', 'icon' ), true ) ) {
+			$classes[] = 'toggle-icon';
+			$classes[] = 'icon';
+			$classes[] = 'icon_arrow-up';
+
+			if ( in_array( $scroll_top_type, array( 'button-icon-text', 'icon-text' ), true ) ) {
+				$classes[] = 'icon_' . wpgen_options( 'general_menu_button_icon_position' );
+			}
+
+			if ( in_array( $color_scheme, array( 'white', 'light' ), true ) && ( $button_type === 'empty' || ( $button_type === 'common' && in_array( $color, array( 'gray', 'default' ), true ) ) ) ) {
+				$classes[] = 'icon_black';
+			} else {
+				$classes[] = 'icon_white';
+			}
+		}
+
+		$classes[] = 'scroll-top';
+		$classes[] = 'scroll-top_' . wpgen_options( 'general_scroll_top_button_alignment' );
+
+		$classes = apply_filters( 'get_wpgen_scroll_top_classes', $classes );
+		$classes = array_unique( $classes );
+
+		return $classes;
+	}
+}
+
+if ( ! function_exists( 'the_wpgen_scroll_top_classes' ) ) {
+
+	/**
+	 * Display scroll top classes.
+	 *
+	 * @param string $class Additional scroll top classes.
+	 * @param string $color Scroll top color (primary, secondary, gray, default). Default 'primary'.
+	 * @param bool   $echo  Echo or return scroll top classes.
+	 *
+	 * @return string|void
+	 */
+	function the_wpgen_scroll_top_classes( $class = '', $color = 'primary', $echo = true ) {
+
+		$classes = get_wpgen_scroll_top_classes( $class, $color );
 
 		if ( $echo ) {
 			echo 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
@@ -1107,17 +1171,9 @@ if ( ! function_exists( 'get_elem_classes' ) ) {
 		}
 
 		$classes = apply_filters( 'get_elem_classes', $classes );
+		$classes = array_unique( (array) $classes );
 
-		/*// Usage: change get elem classes.
-		add_filter( 'get_elem_classes', 'change_get_elem_classes' );
-		if ( ! function_exists( 'change_get_elem_classes' ) ) {
-			function change_get_elem_classes( $classes ) {
-				$classes[] = 'my-class';
-				return array_unique( (array) $classes );
-			}
-		}*/
-
-		return array_unique( (array) $classes );
+		return $classes;
 	}
 }
 
@@ -1129,7 +1185,7 @@ if ( ! function_exists( 'elem_classes' ) ) {
 	 * @param string $class Additional elem classes.
 	 * @param bool   $echo  Echo or return elem classes.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	function elem_classes( $class = '', $echo = true ) {
 

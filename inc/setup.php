@@ -14,6 +14,8 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 
 	/**
 	 * Default theme setup on after_setup_theme hook.
+	 *
+	 * @return void
 	 */
 	function wpgen_setup() {
 
@@ -22,7 +24,7 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'primary' => esc_html__( 'Primary', 'wpgen' ),
+			'primary' => __( 'Primary', 'wpgen' ),
 		) );
 
 		// Set the content width in pixels, based on the theme's design and stylesheet.
@@ -79,18 +81,7 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		// Убираем пустые теги.
 		remove_filter( 'the_excerpt', 'wpautop' );
 		remove_filter( 'the_content', 'wpautop' );
-		add_filter( 'the_content', 'wpautop', 12 );
-
-		// Добавляем троеточие в excerpt.
-		add_filter( 'excerpt_more', function( $more ) {
-			return '...';
-		});
-
-		// Переписываем email в нижний регистр.
-		add_filter( 'sanitize_email', 'lowercase_sanitize_email' );
-		function lowercase_sanitize_email( $email ) {
-			return strtolower( $email );
-		}
+		// add_filter( 'the_content', 'wpautop', 12 );
 
 		// Убираем meta generator.
 		add_filter( 'the_generator', '__return_empty_string' );
@@ -101,18 +92,18 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 
 		// Удаляем фиды.
-		remove_action( 'wp_head', 'feed_links', 2 ); // ссылки основных фидов (записи, комментарии, лента новостей).
-		remove_action( 'wp_head', 'feed_links_extra', 3 ); // ссылки на доп. фиды (на рубрики, теги, таксономии).
+		remove_action( 'wp_head', 'feed_links', 2 ); // Ссылки основных фидов (записи, комментарии, лента новостей).
+		remove_action( 'wp_head', 'feed_links_extra', 3 ); // Ссылки на доп. фиды (на рубрики, теги, таксономии).
 
 		// Удаляем RSD, WLW ссылки, на главную, предыдущую, первую запись.
-		remove_action( 'wp_head', 'rsd_link' ); // cсылка для блог-клиентов.
-		remove_action( 'wp_head', 'wlwmanifest_link' ); // cсылка используемая Windows Live Writer.
-		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); // ссылка на следующий и предыдущий пост.
+		remove_action( 'wp_head', 'rsd_link' ); // Ссылка для блог-клиентов.
+		remove_action( 'wp_head', 'wlwmanifest_link' ); // Ссылка используемая Windows Live Writer.
+		remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); // Ссылка на следующий и предыдущий пост.
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-		remove_action( 'wp_head', 'index_rel_link' ); // ссылка на главную.
-		remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // ссылка на первый пост.
-		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // ссылка на родительскую страницу.
-		remove_action( 'wp_head', 'wp_resource_hints', 2 ); // удаляем dns-prefetch.
+		remove_action( 'wp_head', 'index_rel_link' ); // Ссылка на главную.
+		remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // Ссылка на первый пост.
+		remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // Ссылка на родительскую страницу.
+		remove_action( 'wp_head', 'wp_resource_hints', 2 ); // Удаляем dns-prefetch.
 
 		// Отключаем emoji.
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -123,6 +114,16 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
+		// Добавляем троеточие в excerpt.
+		add_filter( 'excerpt_more', function( $more ) {
+			return '...';
+		});
+
+		// Переписываем email в нижний регистр.
+		add_filter( 'sanitize_email', function( $email ) {
+			return strtolower( $email );
+		});
+
 		// Удаляем "Рубрика: ", "Метка: " и т.д. из заголовка архива.
 		add_filter( 'get_the_archive_title', function( $title ) {
 			$title = wp_strip_all_tags( $title ); // удаляем лишний span.
@@ -130,8 +131,8 @@ if ( ! function_exists( 'wpgen_setup' ) ) {
 		} );
 
 		// Убираем ссылку на https://ru.wordpress.org/ в авторизации.
-		add_filter( 'login_headerurl', function() {
-			return home_url(); // или любой другой адрес.
+		add_filter( 'login_headerurl', function( $login_header_url ) {
+			return home_url(); // Или любой другой адрес.
 		} );
 	}
 }
@@ -141,12 +142,14 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 
 	/**
 	 * Enqueue scripts and styles.
+	 *
+	 * @return void
 	 */
 	function wpgen_scripts() {
 		// Стандартный файл стилей с инфой о теме. Не используется для css из-за не удобной компиляции.
 		// wp_enqueue_style( 'wpgen-style', get_stylesheet_uri(), array(), filemtime( get_theme_file_path( '/style.css' ) ) );
 
-		// Сетка Бутстрап.
+		// Bootstrap grid.
 		wp_enqueue_style( 'bootstrap-grid', get_theme_file_uri( '/assets/css/bootstrap-grid.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/bootstrap-grid.min.css' ) ) );
 
 		// Icons.
@@ -237,7 +240,7 @@ if ( ! function_exists( 'wpgen_scripts' ) ) {
 				'ajax_wpgen_obj',
 				array(
 					'url'   => admin_url( 'admin-ajax.php' ),
-					'value' => get_selected_value(), // Локализуем массив со значениями.
+					'value' => get_root_selected_value(), // Локализуем массив со значениями.
 					'nonce' => wp_create_nonce( 'nonce-wpgen' ), // Создаем nonce.
 				)
 			);
@@ -250,12 +253,14 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 	/**
 	 * Register widget area.
+	 *
+	 * @return void
 	 */
 	function wpgen_widgets_init() {
 		register_sidebar( array(
-			'name'          => esc_html__( 'Sidebar', 'wpgen' ),
+			'name'          => __( 'Sidebar', 'wpgen' ),
 			'id'            => 'sidebar',
-			'description'   => esc_html__( 'Add widgets in left sidebar', 'wpgen' ),
+			'description'   => __( 'Add widgets in left sidebar', 'wpgen' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -263,9 +268,9 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 		) );
 		if ( wpgen_options( 'sidebar_left_display' ) && wpgen_options( 'sidebar_right_display' ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Sidebar Right', 'wpgen' ),
+				'name'          => __( 'Sidebar Right', 'wpgen' ),
 				'id'            => 'sidebar-right',
-				'description'   => esc_html__( 'Add widgets in right sidebar', 'wpgen' ),
+				'description'   => __( 'Add widgets in right sidebar', 'wpgen' ),
 				'before_widget' => '<section id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</section>',
 				'before_title'  => '<h2 class="widget-title">',
@@ -275,18 +280,18 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( wpgen_options( 'general_header_top_bar_display' ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Header top bar left', 'wpgen' ),
+				'name'          => __( 'Header top bar left', 'wpgen' ),
 				'id'            => 'sidebar-top-left',
-				'description'   => esc_html__( 'Header top sidebar left', 'wpgen' ),
+				'description'   => __( 'Header top sidebar left', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
 				'after_title'   => '</h3>',
 			) );
 			register_sidebar( array(
-				'name'          => esc_html__( 'Header top bar right', 'wpgen' ),
+				'name'          => __( 'Header top bar right', 'wpgen' ),
 				'id'            => 'sidebar-top-right',
-				'description'   => esc_html__( 'Header top sidebar right', 'wpgen' ),
+				'description'   => __( 'Header top sidebar right', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -296,18 +301,18 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( wpgen_options( 'general_footer_top_bar_display' ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Footer top bar left', 'wpgen' ),
+				'name'          => __( 'Footer top bar left', 'wpgen' ),
 				'id'            => 'sidebar-footer-top-left',
-				'description'   => esc_html__( 'Footer top sidebar left', 'wpgen' ),
+				'description'   => __( 'Footer top sidebar left', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
 				'after_title'   => '</h3>',
 			) );
 			register_sidebar( array(
-				'name'          => esc_html__( 'Footer top bar right', 'wpgen' ),
+				'name'          => __( 'Footer top bar right', 'wpgen' ),
 				'id'            => 'sidebar-footer-top-right',
-				'description'   => esc_html__( 'Footer top sidebar right', 'wpgen' ),
+				'description'   => __( 'Footer top sidebar right', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -317,18 +322,18 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( wpgen_options( 'general_footer_bottom_bar_display' ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Footer bottom bar left', 'wpgen' ),
+				'name'          => __( 'Footer bottom bar left', 'wpgen' ),
 				'id'            => 'sidebar-footer-bottom-left',
-				'description'   => esc_html__( 'Footer bottom sidebar left', 'wpgen' ),
+				'description'   => __( 'Footer bottom sidebar left', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
 				'after_title'   => '</h3>',
 			) );
 			register_sidebar( array(
-				'name'          => esc_html__( 'Footer bottom bar right', 'wpgen' ),
+				'name'          => __( 'Footer bottom bar right', 'wpgen' ),
 				'id'            => 'sidebar-footer-bottom-right',
-				'description'   => esc_html__( 'Footer bottom sidebar right', 'wpgen' ),
+				'description'   => __( 'Footer bottom sidebar right', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -338,18 +343,18 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-simple', 'footer-three-columns', 'footer-four-columns' ), true ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'First footer sidebar', 'wpgen' ),
+				'name'          => __( 'First footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-one',
-				'description'   => esc_html__( 'First footer sidebar', 'wpgen' ),
+				'description'   => __( 'First footer sidebar', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
 				'after_title'   => '</h3>',
 			) );
 			register_sidebar( array(
-				'name'          => esc_html__( 'Second footer sidebar', 'wpgen' ),
+				'name'          => __( 'Second footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-two',
-				'description'   => esc_html__( 'Second footer sidebar', 'wpgen' ),
+				'description'   => __( 'Second footer sidebar', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -359,9 +364,9 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( in_array( wpgen_options( 'general_footer_type' ), array( 'footer-three-columns', 'footer-four-columns' ), true ) ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Third footer sidebar', 'wpgen' ),
+				'name'          => __( 'Third footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-three',
-				'description'   => esc_html__( 'Third footer sidebar', 'wpgen' ),
+				'description'   => __( 'Third footer sidebar', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -371,9 +376,9 @@ if ( ! function_exists( 'wpgen_widgets_init' ) ) {
 
 		if ( wpgen_options( 'general_footer_type' ) === 'footer-four-columns' ) {
 			register_sidebar( array(
-				'name'          => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
+				'name'          => __( 'Fourth footer sidebar', 'wpgen' ),
 				'id'            => 'sidebar-footer-four',
-				'description'   => esc_html__( 'Fourth footer sidebar', 'wpgen' ),
+				'description'   => __( 'Fourth footer sidebar', 'wpgen' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
